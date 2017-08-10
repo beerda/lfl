@@ -1,0 +1,12 @@
+# Enable C++11
+CXX_STD = CXX11
+
+# Preprocessor options
+#     -UNDEBUG = force debug mode
+PKG_CPPFLAGS=-I. @OPENMP_CXXFLAGS@
+
+# Compiler options
+#PKG_CXXFLAGS =
+
+# Linker options
+PKG_LIBS=@OPENMP_CXXFLAGS@ @LIBS@
