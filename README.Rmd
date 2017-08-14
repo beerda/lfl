@@ -15,6 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 [![Build Status](https://travis-ci.org/beerda/lfl.svg?branch=master)](https://travis-ci.org/beerda/lfl)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/lfl)](https://cran.r-project.org/package=lfl)
 
 # lfl
 
