@@ -10,9 +10,15 @@ The lfl package provides various algorithms related to linguistic fuzzy logic: m
 Installation
 ------------
 
-You can install the development version of the lfl package from github with:
+To install the stable version from CRAN, simply issue the following command within your R session:
 
 ``` r
-# install.packages("devtools")
+install.packages("lfl")
+```
+
+If you want to install the development version instead, type:
+
+``` r
+install.packages("devtools")
 devtools::install_github("beerda/lfl")
 ```

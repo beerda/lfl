@@ -27,9 +27,15 @@ time-series using fuzzy rule-based ensemble (FRBE).
 
 ## Installation
 
-You can install the development version of the lfl package from github with:
+To install the stable version from CRAN, simply issue the following command within your R session:
+
+```{r cran-installation, eval = FALSE}
+install.packages("lfl")
+```
+
+If you want to install the development version instead, type:
 
 ```{r gh-installation, eval = FALSE}
-# install.packages("devtools")
+install.packages("devtools")
 devtools::install_github("beerda/lfl")
 ```
