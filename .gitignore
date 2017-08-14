@@ -35,3 +35,6 @@ vignettes/*.pdf
 
 config.log
 config.status
+
+*.o
+*.so
