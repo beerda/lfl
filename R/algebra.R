@@ -188,21 +188,21 @@ is.algebra <- function(a) {
 #' @export
 goedel.tnorm <- function(..., na.rm=FALSE) {
     vals <- as.numeric(c(...))
-    .Call('minNorm', vals, as.logical(na.rm), PACKAGE='lfl')
+    .Call('_lfl_goedel_tnorm', vals, as.logical(na.rm), PACKAGE='lfl')
 }
 
 #' @rdname algebra
 #' @export
 lukas.tnorm <- function(..., na.rm=FALSE) {
     vals <- as.numeric(c(...))
-    .Call('lukNorm', vals, as.logical(na.rm), PACKAGE='lfl')
+    .Call('_lfl_lukas_tnorm', vals, as.logical(na.rm), PACKAGE='lfl')
 }
 
 #' @rdname algebra
 #' @export
 goguen.tnorm <- function(..., na.rm=FALSE) {
     vals <- as.numeric(c(...))
-    .Call('prodNorm', vals, as.logical(na.rm), PACKAGE='lfl')
+    .Call('_lfl_goguen_tnorm', vals, as.logical(na.rm), PACKAGE='lfl')
 }
 
 #' @rdname algebra
@@ -225,21 +225,21 @@ pgoguen.tnorm <- .parallelizeAlgebraOperation(goguen.tnorm)
 #' @export
 goedel.tconorm <- function(..., na.rm=FALSE) {
     vals <- as.numeric(c(...))
-    .Call('maxConorm', vals, as.logical(na.rm), PACKAGE='lfl')
+    .Call('_lfl_goedel_tconorm', vals, as.logical(na.rm), PACKAGE='lfl')
 }
 
 #' @rdname algebra
 #' @export
 lukas.tconorm <- function(..., na.rm=FALSE) {
     vals <- as.numeric(c(...))
-    .Call('lukConorm', vals, as.logical(na.rm), PACKAGE='lfl')
+    .Call('_lfl_lukas_tconorm', vals, as.logical(na.rm), PACKAGE='lfl')
 }
 
 #' @rdname algebra
 #' @export
 goguen.tconorm <- function(..., na.rm=FALSE) {
     vals <- as.numeric(c(...))
-    .Call('prodConorm', vals, as.logical(na.rm), PACKAGE='lfl')
+    .Call('_lfl_goguen_tconorm', vals, as.logical(na.rm), PACKAGE='lfl')
 }
 
 #' @rdname algebra
@@ -261,19 +261,19 @@ pgoguen.tconorm <- .parallelizeAlgebraOperation(goguen.tconorm)
 #' @rdname algebra
 #' @export
 goedel.residuum <- function(x, y) {
-    .Call('goedelImpl', as.numeric(x), as.numeric(y), PACKAGE='lfl')
+    .Call('_lfl_goedel_residuum', as.numeric(x), as.numeric(y), PACKAGE='lfl')
 }
 
 #' @rdname algebra
 #' @export
 lukas.residuum <- function(x, y) {
-    .Call('lukasImpl', as.numeric(x), as.numeric(y), PACKAGE='lfl')
+    .Call('_lfl_lukas_residuum', as.numeric(x), as.numeric(y), PACKAGE='lfl')
 }
 
 #' @rdname algebra
 #' @export
 goguen.residuum <- function(x, y) {
-    .Call('goguenImpl', as.numeric(x), as.numeric(y), PACKAGE='lfl')
+    .Call('_lfl_goguen_residuum', as.numeric(x), as.numeric(y), PACKAGE='lfl')
 }
 
 
@@ -306,7 +306,7 @@ goguen.biresiduum <- function(x, y) {
 #' @export
 invol.neg <- function(x) {
     vals <- as.numeric(c(x))
-    res <- .Call('involNeg', vals, PACKAGE='lfl')
+    res <- .Call('_lfl_invol_neg', vals, PACKAGE='lfl')
     mostattributes(res) <- attributes(x)
     return(res)
 }
@@ -315,7 +315,7 @@ invol.neg <- function(x) {
 #' @export
 strict.neg <- function(x) {
     vals <- as.numeric(c(x))
-    res <- .Call('strictNeg', vals, PACKAGE='lfl')
+    res <- .Call('_lfl_strict_neg', vals, PACKAGE='lfl')
     mostattributes(res) <- attributes(x)
     return(res)
 }
