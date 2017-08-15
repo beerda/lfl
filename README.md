@@ -1,6 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![Build Status](https://travis-ci.org/beerda/lfl.svg?branch=master)](https://travis-ci.org/beerda/lfl) [![codecov](https://codecov.io/gh/beerda/lfl/branch/master/graph/badge.svg)](https://codecov.io/gh/beerda/lfl) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/lfl)](https://cran.r-project.org/package=lfl)
+[![Travis Build Status](https://travis-ci.org/beerda/lfl.svg?branch=master)](https://travis-ci.org/beerda/lfl) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/beerda/lfl?branch=master&svg=true)](https://ci.appveyor.com/project/beerda/lfl) [![codecov](https://codecov.io/gh/beerda/lfl/branch/master/graph/badge.svg)](https://codecov.io/gh/beerda/lfl) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/lfl)](https://cran.r-project.org/package=lfl)
 
 lfl
 ===
