@@ -26,6 +26,9 @@
 #' * `vr`: very roughly,
 #' * `ty`: typically.
 #'
+#' This function is quite low-level. Perhaps a more convenient way to create linguistic expressions
+#' is to use the [lingexpr()] function.
+#'
 #' @param type The type of the required linguistic hedge
 #' @return Returns a function with a single argument, which has to be a numeric
 #' vector.
@@ -43,6 +46,7 @@
 #'     # the last plot should be equal to:
 #'     plot(lingexpr(ctx3(), atomic='sm', hedge='ve'))
 #'
+#' @export
 hedge <- function(type=c('ex', 'si', 've', '-', 'ml', 'ro', 'qr', 'vr', 'ty')) {
     type <- match.arg(type)
     params <- .hedgeParams[[type]]

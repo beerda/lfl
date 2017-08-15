@@ -36,13 +36,15 @@
 #' * `ctx5bilat` (bilateral pentachotomy): negative big, negative medium, negative
 #'   small, zero, small, medium, big.
 #'
+#' This function is quite low-level. Perhaps a more convenient way to create linguistic expressions
+#' is to use the [lingexpr()] function.
+#'
 #' @param context A context of linguistic expressions (see [ctx3()], [ctx5()], [ctx3bilat()] or [ctx5bilat()])
 #' @param atomic An atomic expression whose horizon we would like to obtain
 #' @return A function of single argument that must be a numeric vector
 #' @author Michal Burda
 #' @seealso [ctx3()], [ctx5()], [ctx3bilat()], [ctx5bilat()], [hedge()], [fcut()], [lcut()]
 #' @keywords models robust
-#' @export
 #' @examples
 #'     plot(horizon(ctx3(), 'sm'), from=-1, to=2)
 #'     plot(horizon(ctx3(), 'me'), from=-1, to=2)
@@ -54,6 +56,7 @@
 #'     plot(h)
 #'     verySmall <- function(x) h(a(x))
 #'     plot(verySmall)
+#' @export
 horizon <- function(context,
                     atomic=c('sm', 'me', 'bi', 'lm', 'um', 'ze',
                              'neg.sm', 'neg.me', 'neg.bi', 'neg.lm', 'neg.um')) {
