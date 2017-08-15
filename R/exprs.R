@@ -24,6 +24,12 @@
 #' @keywords models robust multivariate
 #' @examples
 #'
+#' tr <- triangle(1, 2, 3)
+#' tr(1:30 / 3)
+#'
+#' rc <- raisedcos(1, 2, 3)
+#' rc(1:30 / 3)
+#'
 #' plot(triangle(-1, 0, 1), from=-2, to=3)
 #' plot(triangle(-1, 0, 2), from=-2, to=3)
 #' plot(triangle(-Inf, 0, 1), from=-2, to=3)
