@@ -3,7 +3,7 @@
 #' These functions create functions with a single argument `x` that compute membership degrees of `x` to a fuzzy set
 #' of either triangular or raised-cosine shape that is defined by `lo`, `center`, and `hi`.
 #'
-#' The arguments must satisfy `lo \le center \le hi`. Functions compute membership degrees of triangular or
+#' The arguments must satisfy `lo <= center <= hi`. Functions compute membership degrees of triangular or
 #' raised-cosine fuzzy sets. `x` values equal to `center obtain membership degree equal to 1, `x` values lower than `lo`
 #' or greater than `hi` obtain memberhsip degree equal to 0. A transition of the triangular (resp. raised cosinal) shape
 #' (with peak at `center` is computed for `x` values between `lo` and `hi`.
