@@ -135,6 +135,30 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// triangle
+NumericVector triangle(NumericVector x, NumericVector ctx);
+RcppExport SEXP _lfl_triangle(SEXP xSEXP, SEXP ctxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type ctx(ctxSEXP);
+    rcpp_result_gen = Rcpp::wrap(triangle(x, ctx));
+    return rcpp_result_gen;
+END_RCPP
+}
+// raisedcos
+NumericVector raisedcos(NumericVector x, NumericVector ctx);
+RcppExport SEXP _lfl_raisedcos(SEXP xSEXP, SEXP ctxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type ctx(ctxSEXP);
+    rcpp_result_gen = Rcpp::wrap(raisedcos(x, ctx));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_lfl_goedel_tnorm", (DL_FUNC) &_lfl_goedel_tnorm, 2},
@@ -148,6 +172,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_lfl_goguen_residuum", (DL_FUNC) &_lfl_goguen_residuum, 2},
     {"_lfl_invol_neg", (DL_FUNC) &_lfl_invol_neg, 1},
     {"_lfl_strict_neg", (DL_FUNC) &_lfl_strict_neg, 1},
+    {"_lfl_triangle", (DL_FUNC) &_lfl_triangle, 2},
+    {"_lfl_raisedcos", (DL_FUNC) &_lfl_raisedcos, 2},
     {NULL, NULL, 0}
 };
 

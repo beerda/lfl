@@ -45,3 +45,11 @@
     .Call(`_lfl_strict_neg`, x)
 }
 
+.triangle <- function(x, ctx) {
+    .Call(`_lfl_triangle`, x, ctx)
+}
+
+.raisedcos <- function(x, ctx) {
+    .Call(`_lfl_raisedcos`, x, ctx)
+}
+
