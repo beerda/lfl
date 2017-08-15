@@ -159,6 +159,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// hedge
+NumericVector hedge(NumericVector x, NumericVector p);
+RcppExport SEXP _lfl_hedge(SEXP xSEXP, SEXP pSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type p(pSEXP);
+    rcpp_result_gen = Rcpp::wrap(hedge(x, p));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_lfl_goedel_tnorm", (DL_FUNC) &_lfl_goedel_tnorm, 2},
@@ -174,6 +186,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_lfl_strict_neg", (DL_FUNC) &_lfl_strict_neg, 1},
     {"_lfl_triangle", (DL_FUNC) &_lfl_triangle, 2},
     {"_lfl_raisedcos", (DL_FUNC) &_lfl_raisedcos, 2},
+    {"_lfl_hedge", (DL_FUNC) &_lfl_hedge, 2},
     {NULL, NULL, 0}
 };
 

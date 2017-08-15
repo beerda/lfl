@@ -53,3 +53,7 @@
     .Call(`_lfl_raisedcos`, x, ctx)
 }
 
+.hedge <- function(x, p) {
+    .Call(`_lfl_hedge`, x, p)
+}
+
