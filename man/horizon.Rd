@@ -40,18 +40,28 @@ The values of the \code{atomic} parameter have the following meaning (in ascendi
 
 Based on the context type, the following atomic expressions are allowed:
 \itemize{
-\item \code{ctx3} (trichotomy): small, medium, big;
-\item \code{ctx5} (pentachotomy): small, lower medium, medium, upper medium, big;
-\item \code{ctx3bilat} (bilateral trichotomy): negative big, negative medium, negative small,
+\item \code{\link[=ctx3]{ctx3()}} (trichotomy): small, medium, big;
+\item \code{\link[=ctx5]{ctx5()}} (pentachotomy): small, lower medium, medium, upper medium, big;
+\item \code{\link[=ctx3bilat]{ctx3bilat()}} (bilateral trichotomy): negative big, negative medium, negative small,
 zero, small, medium, big;
-\item \code{ctx5bilat} (bilateral pentachotomy): negative big, negative medium, negative
+\item \code{\link[=ctx5bilat]{ctx5bilat()}} (bilateral pentachotomy): negative big, negative medium, negative
 small, zero, small, medium, big.
 }
+
+This function is quite low-level. Perhaps a more convenient way to create linguistic expressions
+is to use the \code{\link[=lingexpr]{lingexpr()}} function.
 }
 \examples{
     plot(horizon(ctx3(), 'sm'), from=-1, to=2)
     plot(horizon(ctx3(), 'me'), from=-1, to=2)
     plot(horizon(ctx3(), 'bi'), from=-1, to=2)
+
+    a <- horizon(ctx3(), 'sm')
+    plot(a)
+    h <- hedge('ve')
+    plot(h)
+    verySmall <- function(x) h(a(x))
+    plot(verySmall)
 }
 \seealso{
 \code{\link[=ctx3]{ctx3()}}, \code{\link[=ctx5]{ctx5()}}, \code{\link[=ctx3bilat]{ctx3bilat()}}, \code{\link[=ctx5bilat]{ctx5bilat()}}, \code{\link[=hedge]{hedge()}}, \code{\link[=fcut]{fcut()}}, \code{\link[=lcut]{lcut()}}

@@ -29,11 +29,11 @@
 #' * `bi`: big
 #'
 #' Based on the context type, the following atomic expressions are allowed:
-#' * `ctx3` (trichotomy): small, medium, big;
-#' * `ctx5` (pentachotomy): small, lower medium, medium, upper medium, big;
-#' * `ctx3bilat` (bilateral trichotomy): negative big, negative medium, negative small,
+#' * [ctx3()] (trichotomy): small, medium, big;
+#' * [ctx5()] (pentachotomy): small, lower medium, medium, upper medium, big;
+#' * [ctx3bilat()] (bilateral trichotomy): negative big, negative medium, negative small,
 #'   zero, small, medium, big;
-#' * `ctx5bilat` (bilateral pentachotomy): negative big, negative medium, negative
+#' * [ctx5bilat()] (bilateral pentachotomy): negative big, negative medium, negative
 #'   small, zero, small, medium, big.
 #'
 #' This function is quite low-level. Perhaps a more convenient way to create linguistic expressions

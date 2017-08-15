@@ -19,7 +19,7 @@
 #' * `ex`: extremely,
 #' * `si`: significantly,
 #' * `ve`: very,
-#' * `-`: empty #' hedge,
+#' * `-`: empty hedge (no hedging),
 #' * `ml`: more or less,
 #' * `ro`: roughly,
 #' * `qr`: quite roughly,
