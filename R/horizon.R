@@ -47,6 +47,13 @@
 #'     plot(horizon(ctx3(), 'sm'), from=-1, to=2)
 #'     plot(horizon(ctx3(), 'me'), from=-1, to=2)
 #'     plot(horizon(ctx3(), 'bi'), from=-1, to=2)
+#'
+#'     a <- horizon(ctx3(), 'sm')
+#'     plot(a)
+#'     h <- hedge('ve')
+#'     plot(h)
+#'     verySmall <- function(x) h(a(x))
+#'     plot(verySmall)
 horizon <- function(context,
                     atomic=c('sm', 'me', 'bi', 'lm', 'um', 'ze',
                              'neg.sm', 'neg.me', 'neg.bi', 'neg.lm', 'neg.um')) {
