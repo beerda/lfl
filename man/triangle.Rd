@@ -29,12 +29,18 @@ The arguments must satisfy \code{lo \le center \le hi}. Functions compute member
 raised-cosine fuzzy sets. \code{x} values equal to \code{center obtain membership degree equal to 1,}x\code{values lower than}lo\code{or greater than}hi\code{obtain memberhsip degree equal to 0. A transition of the triangular (resp. raised cosinal) shape (with peak at}center\code{is computed for}x\code{values between}lo\code{and}hi`.
 
 If \code{lo == -Inf} then any value that is lower or equal to center gets memberhsip degree 1.  Similarly, if \code{hi == Inf}
-then any value that is greater or equal to center gets memberhsip degree 1.
+then any value that is greater or equal to center gets memberhsip degree 1. \code{NA} and \code{NaN} values remain unchanged.
 
 \code{triangle} produces fuzzy sets of a triangular shape (with peak at \code{center}), \code{raisedcos} produces
 fuzzy sets defined as a raised cosine hill.
 }
 \examples{
+
+tr <- triangle(1, 2, 3)
+tr(1:30 / 3)
+
+rc <- raisedcos(1, 2, 3)
+rc(1:30 / 3)
 
 plot(triangle(-1, 0, 1), from=-2, to=3)
 plot(triangle(-1, 0, 2), from=-2, to=3)

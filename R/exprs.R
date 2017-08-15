@@ -9,7 +9,7 @@
 #' (with peak at `center` is computed for `x` values between `lo` and `hi`.
 #'
 #' If `lo == -Inf` then any value that is lower or equal to center gets memberhsip degree 1.  Similarly, if `hi == Inf`
-#' then any value that is greater or equal to center gets memberhsip degree 1.
+#' then any value that is greater or equal to center gets memberhsip degree 1. `NA` and `NaN` values remain unchanged.
 #'
 #' \code{triangle} produces fuzzy sets of a triangular shape (with peak at \code{center}), \code{raisedcos} produces
 #' fuzzy sets defined as a raised cosine hill.
