@@ -88,7 +88,7 @@
 #' @return `ctx*` and `as.ctx*` return an instance of the appropriate
 #' class. `is.ctx*` returns `TRUE` or `FALSE`.
 #' @author Michal Burda
-#' @seealso [lingexpr()], [horizon()], [hedge()], [fcut()], [lcut()]
+#' @seealso [minmax()], [lingexpr()], [horizon()], [hedge()], [fcut()], [lcut()]
 #' @keywords models robust
 #' @examples
 #'     ctx3(low=0, high=10)
@@ -107,9 +107,9 @@ ctx3 <- function(low=0,
     .mustBeNumericScalar(center)
     .mustBeNumericScalar(high)
     .mustBeNumericScalar(relCenter)
-    .mustBe(0 < relCenter && relCenter < 1, "'relCenter' mustBe a number between 0 and 1")
-    .mustBe(low < center, "'low' mustBe lower than 'center'")
-    .mustBe(center < high, "'center' mustBe lower than 'high'")
+    .mustBe(0 < relCenter && relCenter < 1, "'relCenter' must be a number between 0 and 1")
+    .mustBe(low < center, "'low' must be lower than 'center'")
+    .mustBe(center < high, "'center' must be lower than 'high'")
 
     structure(c(low, center, high),
               names=c('low', 'center', 'high'),
@@ -131,11 +131,11 @@ ctx3bilat <- function(negMax=-1,
     .mustBeNumericScalar(center)
     .mustBeNumericScalar(max)
     .mustBeNumericScalar(relCenter)
-    .mustBe(0 < relCenter && relCenter < 1, "'relCenter' mustBe a number between 0 and 1")
-    .mustBe(negMax < negCenter, "'negMax' mustBe lower than 'negCenter'")
-    .mustBe(negCenter < origin, "'negCenter' mustBe lower than 'origin'")
-    .mustBe(origin < center, "'origin' mustBe lower than 'center'")
-    .mustBe(center < max, "'center' mustBe lower than 'max'")
+    .mustBe(0 < relCenter && relCenter < 1, "'relCenter' must be a number between 0 and 1")
+    .mustBe(negMax < negCenter, "'negMax' must be lower than 'negCenter'")
+    .mustBe(negCenter < origin, "'negCenter' must be lower than 'origin'")
+    .mustBe(origin < center, "'origin' must be lower than 'center'")
+    .mustBe(center < max, "'center' must be lower than 'max'")
 
     structure(c(negMax, negCenter, origin, center, max),
               names=c('negMax', 'negCenter', 'origin', 'center', 'max'),
@@ -157,11 +157,11 @@ ctx5 <- function(low=0,
     .mustBeNumericScalar(upperCenter)
     .mustBeNumericScalar(high)
     .mustBeNumericScalar(relCenter)
-    .mustBe(0 < relCenter && relCenter < 1, "'relCenter' mustBe a number between 0 and 1")
-    .mustBe(low < lowerCenter, "'low' mustBe lower than 'lowerCenter'")
-    .mustBe(lowerCenter < center, "'lowerCenter' mustBe lower than 'center'")
-    .mustBe(center < upperCenter, "'center' mustBe lower than 'upperCenter'")
-    .mustBe(upperCenter < high, "'upperCenter' mustBe lower than 'high'")
+    .mustBe(0 < relCenter && relCenter < 1, "'relCenter' must be a number between 0 and 1")
+    .mustBe(low < lowerCenter, "'low' must be lower than 'lowerCenter'")
+    .mustBe(lowerCenter < center, "'lowerCenter' must be lower than 'center'")
+    .mustBe(center < upperCenter, "'center' must be lower than 'upperCenter'")
+    .mustBe(upperCenter < high, "'upperCenter' must be lower than 'high'")
 
     structure(c(low, lowerCenter, center, upperCenter, high),
               names=c('low', 'lowerCenter', 'center', 'upperCenter', 'high'),
@@ -191,15 +191,15 @@ ctx5bilat <- function(negMax=-1,
     .mustBeNumericScalar(upperCenter)
     .mustBeNumericScalar(max)
     .mustBeNumericScalar(relCenter)
-    .mustBe(0 < relCenter && relCenter < 1, "'relCenter' mustBe a number between 0 and 1")
-    .mustBe(negMax < negUpperCenter, "'negMax' mustBe lower than 'negUpperCenter'")
-    .mustBe(negUpperCenter < negCenter, "'negUpperCenter' mustBe lower than 'negCenter'")
-    .mustBe(negCenter < negLowerCenter, "'negCenter' mustBe lower than 'negLowerCenter'")
-    .mustBe(negLowerCenter < origin, "'negLowerCenter' mustBe lower than 'origin'")
-    .mustBe(origin < lowerCenter, "'origin' mustBe lower than 'lowerCenter'")
-    .mustBe(lowerCenter < center, "'lowerCenter' mustBe lower than 'center'")
-    .mustBe(center < upperCenter, "'center' mustBe lower than 'upperCenter'")
-    .mustBe(upperCenter < max, "'upperCenter' mustBe lower than 'max'")
+    .mustBe(0 < relCenter && relCenter < 1, "'relCenter' must be a number between 0 and 1")
+    .mustBe(negMax < negUpperCenter, "'negMax' must be lower than 'negUpperCenter'")
+    .mustBe(negUpperCenter < negCenter, "'negUpperCenter' must be lower than 'negCenter'")
+    .mustBe(negCenter < negLowerCenter, "'negCenter' must be lower than 'negLowerCenter'")
+    .mustBe(negLowerCenter < origin, "'negLowerCenter' must be lower than 'origin'")
+    .mustBe(origin < lowerCenter, "'origin' must be lower than 'lowerCenter'")
+    .mustBe(lowerCenter < center, "'lowerCenter' must be lower than 'center'")
+    .mustBe(center < upperCenter, "'center' must be lower than 'upperCenter'")
+    .mustBe(upperCenter < max, "'upperCenter' must be lower than 'max'")
 
     structure(c(negMax, negUpperCenter, negCenter, negLowerCenter, origin, lowerCenter, center, upperCenter, max),
               names=c('negMax', 'negUpperCenter', 'negCenter', 'negLowerCenter', 'origin',
