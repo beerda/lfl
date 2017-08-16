@@ -28,6 +28,7 @@ test_that("mustBeNumericVector", {
   expect_error(.mustBeNumericVector(matrix(1, nrow=1, ncol=1)))
   expect_error(.mustBeNumericVector(NULL))
   expect_error(.mustBeNumericVector(TRUE))
+  expect_error(.mustBeNumericVector(TRUE))
 })
 
 test_that("mustBeCharacterVector", {
@@ -48,6 +49,7 @@ test_that("mustBeList", {
   expect_error(.mustBeList(matrix(1, nrow=1, ncol=1)))
   expect_error(.mustBeList(NULL))
   expect_error(.mustBeList(TRUE))
+  expect_error(.mustBeList(NA))
 })
 
 test_that("mustBeMatrix", {
@@ -151,6 +153,8 @@ test_that("stop", {
 test_that("mustBe", {
   expect_null(.mustBe(TRUE, "message"))
   expect_error(.mustBe(FALSE, "message"))
+  expect_error(.mustBe(NA, "message"))
+  expect_error(.mustBe(c(TRUE, TRUE), "message"))
 })
 
 test_that("mustBeOneOf", {
