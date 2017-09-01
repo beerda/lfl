@@ -15,7 +15,7 @@
 #' It is assumed that the fuzzy sets
 #' are derived from some raw variables, e.g. numeric vectors or factors. `vars`
 #' attribute is a character vector of names of raw variables with size equal
-#' to the number of fuzzy sets in `fsets` object. It is assumed that
+#' to the number of fuzzy sets in `fsets` object. It is then assumed that
 #' two fuzzy sets with the same name in [vars()] attribute are derived from
 #' the same variable.
 #'
@@ -34,7 +34,7 @@
 #'   columns of `x`. It is a vector of names of original variables that the
 #'   fuzzy sets were created from. In other words, the `vars` vector should
 #'   contain the same value for each `x`'s column that corresponds to the same
-#'   variable. Moreover, the names of the `vars` vector must be the same as `colnames(x)`.
+#'   variable. Names of the `vars` vector are ignored.
 #'   For instance, an [fcut()] function can transform a single numeric
 #'   vector into several different fuzzy sets. To indicate that all of them in
 #'   fact describe the same original variable, the same name is stored on
@@ -42,7 +42,7 @@
 #' @param specs A square numeric matrix containing values from `{0, 1}`.
 #'   It is a specificity matrix, for which both rows and columns correspond to
 #'   `x`'s columns and where `specs[i][j] == 1` if and only if `i`-th fuzzy
-#'   set (i.e. `x[, i]`) is more specific (is a subset of) than `j`-th fuzzy
+#'   set (i.e. `x[, i]`) is more specific (is a subset or equal to) than `j`-th fuzzy
 #'   set (i.e. `x[, j]`).
 #' @param f An instance of S3 class `fsets`.
 #' @param value Attribute values to be set to the object.
@@ -79,30 +79,28 @@
 #' @export
 fsets <- function(x, vars, specs) {
     .mustBeNumericMatrix(x)
-    .mustBe(is.vector(vars) && ncol(x) == length(vars), "'vars' must be a vector of size equal to 'ncol(x)'")
 
-    if (is.null(colnames(x)) != is.null(names(vars)) || any(colnames(x) != names(vars))) {
-        stop("'vars' must be a vector with names equal to 'colnames(x)'")
-    }
-    if (!is.matrix(specs) || !is.numeric(specs) || ncol(x) != ncol(specs) || ncol(x) != nrow(specs)) {
-        stop("'specs' must be a square numeric matrix of size equal to 'ncol(x)'")
-    }
-    if (is.null(colnames(x)) != is.null(colnames(specs)) ||
-            is.null(colnames(x)) != is.null(rownames(specs)) ||
-            any(colnames(x) != colnames(specs)) ||
-            any(colnames(x) != rownames(specs))) {
-        stop("'specs' must be a numeric matrix with colnames and rownames equal to 'colnames(x)'")
-    }
+    .mustBeCharacterVector(vars)
+    .mustNotHaveNA(vars)
+    .mustBe(ncol(x) == length(vars), "'vars' must be a vector of size equal to 'ncol(x)'")
+
+    .mustBeNumericMatrix(specs)
+    .mustNotHaveNA(specs)
+    .mustBe(all(specs == 0 | specs == 1), "'specs' must be a binary matrix (only 0 and 1 are allowed)")
+    .mustBe(identical(ncol(x), ncol(specs)) && identical(ncol(specs), nrow(specs)),
+            "'specs' must be a square numeric matrix of size equal to 'ncol(x)'")
+
     return(structure(x,
                      class=c('fsets', 'matrix'),
-                     vars=vars,
-                     specs=specs))
+                     vars=as.vector(vars),   # remove all attributes
+                     specs=matrix(specs, nrow=nrow(specs))))   # remove all attributes
 }
 
 
 #' @rdname fsets
 #' @export
 vars <- function(f) {
+    .mustBe(is.fsets(f), "'f' must be an instance of S3 'fsets' class")
     attr(f, 'vars')
 }
 
@@ -111,17 +109,18 @@ vars <- function(f) {
 #' @export
 `vars<-` <- function(f, value) {
     .mustBe(is.fsets(f), "'f' must be an instance of S3 'fsets' class")
-    .mustBe(is.vector(value) && ncol(f) == length(value), "'value' must be a vector of size equal to 'ncol(f)'")
-    if (is.null(colnames(f)) != is.null(names(value)) || any(colnames(f) != names(value))) {
-        stop("'value' must be a vector with names equal to 'colnames(f)'")
-    }
-    attr(f, 'vars') <- value
+    .mustBeCharacterVector(value)
+    .mustNotHaveNA(value)
+    .mustBe(ncol(f) == length(value), "'value' must be a vector of size equal to fsets' ncol")
+    attr(f, 'vars') <- as.vector(value)
+    return(f)
 }
 
 
 #' @rdname fsets
 #' @export
 specs <- function(f) {
+    .mustBe(is.fsets(f), "'f' must be an instance of S3 'fsets' class")
     attr(f, 'specs')
 }
 
@@ -130,16 +129,13 @@ specs <- function(f) {
 #' @export
 `specs<-` <- function(f, value) {
     .mustBe(is.fsets(f), "'f' must be an instance of S3 'fsets' class")
-    if (!is.matrix(value) || !is.numeric(value) || ncol(f) != ncol(value) || ncol(f) != nrow(value)) {
-        stop("'value' must be a square numeric matrix of size equal to 'ncol(f)'")
-    }
-    if (is.null(colnames(f)) != is.null(colnames(value)) ||
-            is.null(colnames(f)) != is.null(rownames(value)) ||
-            any(colnames(f) != colnames(value)) ||
-            any(colnames(f) != rownames(value))) {
-        stop("'value' must be a numeric matrix with colnames and rownames equal to 'colnames(f)'")
-    }
-    attr(f, 'specs') <- value
+    .mustBeNumericMatrix(value)
+    .mustNotHaveNA(value)
+    .mustBe(all(value == 0 | value == 1), "'value' must be a binary matrix (only 0 and 1 are allowed)")
+    .mustBe(identical(ncol(f), ncol(value)) && identical(ncol(value), nrow(value)),
+            "'value' must be a square numeric matrix of size equal to fsets' ncol")
+    attr(f, 'specs') <- matrix(value, nrow=nrow(value))
+    return(f)
 }
 
 
@@ -156,17 +152,8 @@ specs <- function(f) {
 #' @keywords models robust
 #' @export
 is.fsets <- function(x) {
-    cn <- dimnames(x)[[2]]
-    return(inherits(x, 'fsets') &&
-           is.matrix(x) &&
-           is.vector(vars(x)) &&
-           ncol(x) == length(vars(x)) &&
-           all(cn == names(vars(x))) &&
-           is.matrix(specs(x)) &&
-           ncol(x) == ncol(specs(x)) &&
-           ncol(x) == nrow(specs(x)) &&
-           all(cn == colnames(specs(x))) &&
-           all(cn == rownames(specs(x))))
+    (return(inherits(x, 'fsets') &&
+            is.matrix(x)))
 }
 
 
@@ -193,8 +180,5 @@ as.data.frame.fsets <- function(x, ...) {
 #' @export
 as.matrix.fsets <- function(x, ...) {
     .mustBe(is.fsets(x), "'x' must be an instance of S3 class 'fsets'")
-    class(x) <- 'matrix'
-    attr(x, 'vars') <- NULL
-    attr(x, 'specs') <- NULL
-    return(x)
+    return(matrix(x, nrow=nrow(x), dimnames=dimnames(x)))
 }

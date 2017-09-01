@@ -27,7 +27,7 @@ of the matrix represent elements of the universe.}
 columns of \code{x}. It is a vector of names of original variables that the
 fuzzy sets were created from. In other words, the \code{vars} vector should
 contain the same value for each \code{x}'s column that corresponds to the same
-variable. Moreover, the names of the \code{vars} vector must be the same as \code{colnames(x)}.
+variable. Names of the \code{vars} vector are ignored.
 For instance, an \code{\link[=fcut]{fcut()}} function can transform a single numeric
 vector into several different fuzzy sets. To indicate that all of them in
 fact describe the same original variable, the same name is stored on
@@ -36,7 +36,7 @@ appropriate positions of the \code{vars} vector.}
 \item{specs}{A square numeric matrix containing values from \code{{0, 1}}.
 It is a specificity matrix, for which both rows and columns correspond to
 \code{x}'s columns and where \code{specs[i][j] == 1} if and only if \code{i}-th fuzzy
-set (i.e. \code{x[, i]}) is more specific (is a subset of) than \code{j}-th fuzzy
+set (i.e. \code{x[, i]}) is more specific (is a subset or equal to) than \code{j}-th fuzzy
 set (i.e. \code{x[, j]}).}
 
 \item{f}{An instance of S3 class \code{fsets}.}
@@ -67,7 +67,7 @@ and \code{\link[=specs]{specs()}}). can be used to access these attributes.
 It is assumed that the fuzzy sets
 are derived from some raw variables, e.g. numeric vectors or factors. \code{vars}
 attribute is a character vector of names of raw variables with size equal
-to the number of fuzzy sets in \code{fsets} object. It is assumed that
+to the number of fuzzy sets in \code{fsets} object. It is then assumed that
 two fuzzy sets with the same name in \code{\link[=vars]{vars()}} attribute are derived from
 the same variable.
 
