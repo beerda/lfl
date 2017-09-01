@@ -1,8 +1,6 @@
-test_that('fcut of factor', {
-    x <- as.factor(c('a', 'b', 'a', 'c', 'c', 'b', 'c'))
-
+test_that('fcut for factor', {
+    x <- factor(c('a', 'b', 'a', 'c', 'c', 'b', 'c'))
     res <- fcut(x)
-
 
     expect_true(is.matrix(res))
     expect_equal(ncol(res), 3)
@@ -44,6 +42,35 @@ test_that('fcut of factor', {
     expect_equivalent(res[7, 2], 0)
     expect_equivalent(res[7, 3], 1)
 })
+
+
+test_that('fcut for logical', {
+    x <- c(TRUE, FALSE, FALSE, TRUE)
+    res <- fcut(x)
+
+    expect_true(is.matrix(res))
+    expect_equal(ncol(res), 2)
+    expect_equal(nrow(res), 4)
+    expect_equal(colnames(res), c('x.FALSE', 'x.TRUE'))
+    expect_true(inherits(res, 'fsets'))
+    expect_equivalent(vars(res), rep('x', 2))
+    expect_equal(names(vars(res)), NULL)
+    expect_equal(specs(res), matrix(0, nrow=2, ncol=2))
+    expect_true(is.fsets(res))
+
+    expect_equivalent(res[1, 1], 0)
+    expect_equivalent(res[1, 2], 1)
+
+    expect_equivalent(res[2, 1], 1)
+    expect_equivalent(res[2, 2], 0)
+
+    expect_equivalent(res[3, 1], 1)
+    expect_equivalent(res[3, 2], 0)
+
+    expect_equivalent(res[4, 1], 0)
+    expect_equivalent(res[4, 2], 1)
+})
+
 
 test_that('fcut of numeric by single triangle', {
     x <- 0:100

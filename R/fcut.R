@@ -145,34 +145,42 @@ fcut <- function(x, ...) {
 
 #' @rdname fcut
 #' @export
+fcut.default <- function(x, ...) {
+    .stop(paste0("'fcut' not implemented for variable of class '", class(x), "'"))
+}
+
+
+#' @rdname fcut
+#' @export
 #' @importFrom stats model.matrix
-fcut.default <- function(x,
-                         name=deparse(substitute(x)),
-                         ...) {
-    if (is.null(x)) {
-        return(NULL)
-    }
+fcut.factor <- function(x,
+                        name=deparse(substitute(x)),
+                        ...) {
+    .mustBeFactor(x)
     .mustNotBeNull(name)
+    .mustBeCharacterScalar(name)
 
     d <- data.frame(x=x)
-    colnames(d) <- paste(name, '.', sep='')
+    colnames(d) <- paste0(name, '.')
     res <- model.matrix(~ . + 0, data=d)
-
-    # remove unnecessary attributes from the result
-    attributes(res)$assign <- NULL
-    attributes(res)$contrasts <- NULL
-    res <- as.matrix(res)
-
+    res <- matrix(res, nrow=nrow(res), dimnames=dimnames(res))
     theVars <- rep(name, ncol(res))
-    names(theVars) <- colnames(res)
-
+    theSpecs <- matrix(0, nrow=ncol(res), ncol=ncol(res))
     return(fsets(res,
                  vars=theVars,
-                 specs=matrix(0,
-                              nrow=ncol(res),
-                              ncol=ncol(res),
-                              dimnames=list(colnames(res), colnames(res)))))
+                 specs=theSpecs))
 }
+
+
+fcut.logical <- function(x,
+                        name=deparse(substitute(x)),
+                        ...) {
+    .mustBeLogicalVector(x)
+    .mustNotBeNull(name)
+    .mustBeCharacterScalar(name)
+    return(fcut(as.factor(x), name=name, ...))
+}
+
 
 # Lukasiewicz conorm
 .cluk <- function(m) {
@@ -241,6 +249,8 @@ fcut.numeric <- function(x,
     .mustBeNumericVector(x)
     .mustBeNumericVector(breaks)
     .mustBe(length(breaks) >= 3, "'breaks' must be a numeric vector with at least 3 elements")
+    .mustNotBeNull(name)
+    .mustBeCharacterScalar(name)
     .mustBeNumericVector(merge)
     .mustBe(min(merge) >= 1 && max(merge) <= n, "'merge' must contain integers from 1 to length(breaks)-2")
 

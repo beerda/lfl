@@ -7,6 +7,7 @@
 \alias{fcut.matrix}
 \alias{fcut.data.frame}
 \alias{fcut.default}
+\alias{fcut.factor}
 \alias{fcut.numeric}
 \alias{fcut.data.frame}
 \alias{fcut.matrix}
@@ -15,7 +16,9 @@ triangles or raised cosines}
 \usage{
 fcut(x, ...)
 
-\method{fcut}{default}(x, name = deparse(substitute(x)), ...)
+\method{fcut}{default}(x, ...)
+
+\method{fcut}{factor}(x, name = deparse(substitute(x)), ...)
 
 \method{fcut}{numeric}(x, breaks, name = deparse(substitute(x)),
   type = c("triangle", "raisedcos"), merge = 1, parallel = FALSE, ...)
