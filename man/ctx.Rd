@@ -223,7 +223,7 @@ type, i.e. 3 (\code{ctx3}), 5 (\code{ctx3bilat}, \code{ctx5}), or 9 (\code{ctx5b
     as.ctx3bilat(ctx3(low=0, high=10))
 }
 \seealso{
-\code{\link[=lingexpr]{lingexpr()}}, \code{\link[=horizon]{horizon()}}, \code{\link[=hedge]{hedge()}}, \code{\link[=fcut]{fcut()}}, \code{\link[=lcut]{lcut()}}
+\code{\link[=minmax]{minmax()}}, \code{\link[=lingexpr]{lingexpr()}}, \code{\link[=horizon]{horizon()}}, \code{\link[=hedge]{hedge()}}, \code{\link[=fcut]{fcut()}}, \code{\link[=lcut]{lcut()}}
 }
 \author{
 Michal Burda
