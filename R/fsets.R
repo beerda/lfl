@@ -182,3 +182,80 @@ as.matrix.fsets <- function(x, ...) {
     .mustBe(is.fsets(x), "'x' must be an instance of S3 class 'fsets'")
     return(matrix(x, nrow=nrow(x), dimnames=dimnames(x)))
 }
+
+
+#' Combine several 'fsets' objects into a single one
+#'
+#' Take a sequence of objects of class 'fsets' and combine them by columns.
+#' This version of cbind takes care of the [vars()] and [specs()]
+#' attributes of the arguments and merges them to the result. If some argument
+#' does not inherit from the 'fsets' class, an error is thrown.
+#'
+#' The [vars()] attribute is merged by concatenating the [vars()] attributes
+#' of each argument. Also the [specs()] attributes of the arguments are merged together.
+#'
+#' @param ...  A sequence of objects of class 'fsets' to be merged by columns.
+#' @param deparse.level This argument has currently no function and is added
+#' here only for compatibility with generic [cbind()] function.
+#' @return An object of class 'fsets' that is created by merging the arguments
+#' by columns.  Also the arguments' attributes [vars()] and [specs()] are merged together.
+#' @author Michal Burda
+#' @seealso [vars()], [specs()], [fcut()], [lcut()]
+#' @keywords models robust
+#
+# @examples
+#  TODO FIXNOUT TY PRIKLADY TADY
+#     d1 <- lcut3(CO2[, 1:2])
+#     d2 <- lcut3(CO2[, 3:4])
+#     r <- cbind(d1, d2)
+#
+#     print(colnames(d1))
+#     print(colnames(d2))
+#     print(colnames(r))
+#
+#     print(vars(d1))
+#     print(vars(d2))
+#     print(vars(r))
+#
+#     print(specs(d1))
+#     print(specs(d2))
+#     print(specs(r))
+#
+#' @export
+cbind.fsets <- function(..., deparse.level = 1) {
+    dots <- list(...)
+
+    m <- NULL
+    v <- NULL
+    s <- NULL
+    warn <- TRUE
+
+    for (i in seq_along(dots)) {
+        arg <- dots[[i]]
+        argName <- names(dots)[i]
+
+        if (!is.null(arg)) {
+            .mustBe(is.fsets(arg),
+                    "Cannot bind arguments that are not valid 'fsets' objects")
+            if (is.null(m)) {
+                v <- vars(arg)
+                s <- specs(arg)
+                class(arg) <- 'matrix'
+                m <- arg
+            } else {
+                if (warn && length(intersect(v, vars(arg))) > 0) {
+                    warning("Binding fsets with the same 'vars' - resulting 'specs' may be incorrect")
+                    warn <- FALSE
+                }
+                v <- c(v, vars(arg))
+                o1 <- matrix(0, nrow=nrow(s), ncol=ncol(specs(arg)))
+                o2 <- matrix(0, nrow=nrow(specs(arg)), ncol=ncol(s))
+                s <- rbind(cbind(s, o1), cbind(o2, specs(arg)))
+                class(arg) <- 'matrix'
+                m <- cbind(m, arg)
+            }
+        }
+    }
+
+    return(fsets(m, v, s))
+}
