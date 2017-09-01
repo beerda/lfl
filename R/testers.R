@@ -30,6 +30,22 @@
     }
  }
 
+.mustBeFactor <- function(x) {
+    if (!isTRUE(is.factor(x))) {
+        stop(paste0(as.list(sys.call(-1))[[1]],
+                    ": '", deparse(substitute(x)), "' must be a factor"),
+             call.=FALSE)
+    }
+ }
+
+.mustBeLogicalVector <- function(x) {
+    if (!isTRUE(is.vector(x) && is.logical(x))) {
+        stop(paste0(as.list(sys.call(-1))[[1]],
+                    ": '", deparse(substitute(x)), "' must be a logical vector"),
+             call.=FALSE)
+    }
+ }
+
 .mustBeList <- function(x) {
     if (!isTRUE(is.list(x))) {
         stop(paste0(as.list(sys.call(-1))[[1]],
