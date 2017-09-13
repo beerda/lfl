@@ -6,6 +6,14 @@
     }
  }
 
+.mustBeIntegerScalar <- function(x) {
+    if (!isTRUE(is.vector(x) && is.integer(x) && identical(length(x), 1L))) {
+        stop(paste0(as.list(sys.call(-1))[[1]],
+                    ": '", deparse(substitute(x)), "' must be an integer vector of size 1"),
+             call.=FALSE)
+    }
+ }
+
 .mustBeCharacterScalar <- function(x) {
     if (!isTRUE(is.vector(x) && is.character(x) && identical(length(x), 1L))) {
         stop(paste0(as.list(sys.call(-1))[[1]],

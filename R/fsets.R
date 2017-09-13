@@ -258,3 +258,15 @@ cbind.fsets <- function(..., deparse.level = 1) {
 
     return(fsets(m, v, s))
 }
+
+
+#' @export
+`[.fsets` <- function(x, i, j, drop=FALSE) {
+    if (drop) warning('drop ignored')
+    v <- vars(x)
+    s <- specs(x)
+    m <- as.matrix(x)
+    return(fsets(m[i, j, drop=FALSE],
+                 vars=v[j],
+                 specs=s[j, j, drop=FALSE]))
+}
