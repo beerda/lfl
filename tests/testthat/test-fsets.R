@@ -198,6 +198,46 @@ test_that('fsets with colnames', {
     expect_null(rownames(specs(f2)))
 })
 
+
 test_that('non fsets', {
     expect_false(is.fsets(matrix(3, ncol=3, nrow=3)))
 })
+
+
+test_that('fsets [ ]', {
+    orig <- matrix(runif(100), ncol=10)
+    x <- fsets(orig,
+               vars=as.character(1:10),
+               specs=matrix(0, nrow=10, ncol=10))
+
+    res <- x[1:5, ]
+    expect_equal(as.matrix(res), orig[1:5, ])
+    expect_equal(vars(res), vars(x))
+    expect_equal(specs(res), specs(x))
+
+    res <- x[-3, ]
+    expect_equal(as.matrix(res), orig[-3, ])
+    expect_equal(vars(res), vars(x))
+    expect_equal(specs(res), specs(x))
+
+    res <- x[3, ]
+    expect_equal(as.matrix(res), orig[3, , drop=FALSE])
+    expect_equal(vars(res), vars(x))
+    expect_equal(specs(res), specs(x))
+
+    res <- x[, 2:4]
+    expect_equal(as.matrix(res), orig[, 2:4])
+    expect_equal(vars(res), vars(x)[2:4])
+    expect_equal(specs(res), specs(x)[2:4, 2:4])
+
+    res <- x[1:5, 2:4]
+    expect_equal(as.matrix(res), orig[1:5, 2:4])
+    expect_equal(vars(res), vars(x)[2:4])
+    expect_equal(specs(res), specs(x)[2:4, 2:4])
+
+    res <- x[5, 4]
+    expect_equal(as.matrix(res), orig[5, 4, drop=FALSE])
+    expect_equal(vars(res), vars(x)[4])
+    expect_equal(specs(res), specs(x)[4, 4, drop=FALSE])
+})
+
