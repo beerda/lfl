@@ -297,7 +297,7 @@ fcut.numeric <- function(x,
 #' @importFrom foreach %do%
 #' @importFrom foreach %dopar%
 fcut.data.frame <- function(x,
-                            breaks,
+                            breaks=NULL,
                             name=NULL,
                             type=c('triangle', 'raisedcos'),
                             merge=1,
