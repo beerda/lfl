@@ -202,25 +202,24 @@ as.matrix.fsets <- function(x, ...) {
 #' @author Michal Burda
 #' @seealso [vars()], [specs()], [fcut()], [lcut()]
 #' @keywords models robust
-#
-# @examples
-#  TODO FIXNOUT TY PRIKLADY TADY
-#     d1 <- lcut3(CO2[, 1:2])
-#     d2 <- lcut3(CO2[, 3:4])
-#     r <- cbind(d1, d2)
-#
-#     print(colnames(d1))
-#     print(colnames(d2))
-#     print(colnames(r))
-#
-#     print(vars(d1))
-#     print(vars(d2))
-#     print(vars(r))
-#
-#     print(specs(d1))
-#     print(specs(d2))
-#     print(specs(r))
-#
+#'
+#' @examples
+#'     d1 <- fcut(CO2[, 1:2])
+#'     d2 <- fcut(CO2[, 3:4], breaks=list(conc=1:4*1000/4))
+#'     r <- cbind(d1, d2)
+#'
+#'     print(colnames(d1))
+#'     print(colnames(d2))
+#'     print(colnames(r))
+#'
+#'     print(vars(d1))
+#'     print(vars(d2))
+#'     print(vars(r))
+#'
+#'     print(specs(d1))
+#'     print(specs(d2))
+#'     print(specs(r))
+#'
 #' @export
 cbind.fsets <- function(..., deparse.level = 1) {
     dots <- list(...)

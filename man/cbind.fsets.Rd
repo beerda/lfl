@@ -26,6 +26,24 @@ does not inherit from the 'fsets' class, an error is thrown.
 The \code{\link[=vars]{vars()}} attribute is merged by concatenating the \code{\link[=vars]{vars()}} attributes
 of each argument. Also the \code{\link[=specs]{specs()}} attributes of the arguments are merged together.
 }
+\examples{
+    d1 <- fcut(CO2[, 1:2])
+    d2 <- fcut(CO2[, 3:4], breaks=list(conc=1:4*1000/4))
+    r <- cbind(d1, d2)
+
+    print(colnames(d1))
+    print(colnames(d2))
+    print(colnames(r))
+
+    print(vars(d1))
+    print(vars(d2))
+    print(vars(r))
+
+    print(specs(d1))
+    print(specs(d2))
+    print(specs(r))
+
+}
 \seealso{
 \code{\link[=vars]{vars()}}, \code{\link[=specs]{specs()}}, \code{\link[=fcut]{fcut()}}, \code{\link[=lcut]{lcut()}}
 }
