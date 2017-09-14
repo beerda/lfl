@@ -1,12 +1,18 @@
 language: r
 warnings_are_errors: false
+sudo: false
 cache: packages
+
 r:
+  - oldrel
   - release
   - devel
+
 notifications:
   email: false
+
 r_packages:
   - covr
+
 after_success:
   - Rscript -e 'library(covr); codecov()'
