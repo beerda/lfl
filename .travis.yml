@@ -3,7 +3,6 @@ warnings_are_errors: false
 sudo: false
 
 r:
-  - oldrel
   - release
   - devel
 
