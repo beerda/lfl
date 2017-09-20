@@ -270,3 +270,31 @@ cbind.fsets <- function(..., deparse.level = 1) {
                  vars=v[j],
                  specs=s[j, j, drop=FALSE]))
 }
+
+
+#' Print an instance of the [fsets()] class
+#'
+#' Format an object of the [fsets()] class into human readable form
+#' and print it to the output.
+#'
+#' @param x An instance of the [fsets()] class
+#' @param ...  Unused.
+#' @return Nothing
+#' @author Michal Burda
+#' @seealso [fsets()], [fcut()], [lcut()]
+#' @keywords models robust
+#' @examples
+#'     d <- fcut(CO2[, 1:2])
+#'     print(d)
+#'
+#' @export
+print.fsets <- function(x, ...) {
+    .mustBe(is.fsets(x), "'x' is not a valid 'fsets' object")
+    v <- vars(x)
+    s <- specs(x)
+    print(as.matrix(x))
+    cat("\nvars:\n")
+    print(v)
+    cat("\nspecs:\n")
+    print(s)
+}
