@@ -1,12 +1,12 @@
 .hedgeParams <- list('ex'=c(0.77, 0.90, 0.99),
                      'si'=c(0.71, 0.85, 0.962),
                      've'=c(0.66, 0.79, 0.915),
+                     'ty'=c(0.88, 0.95, 1),
                      '-' =c(0.45, 0.68, 0.851),
                      'ml'=c(0.43, 0.6, 0.727),
                      'ro'=c(0.4, 0.52, 0.619),
                      'qr'=c(0.3, 0.42, 0.528),
-                     'vr'=c(0.1, 0.2, 0.421),
-                     'ty'=c(0.88, 0.95, 1))
+                     'vr'=c(0.1, 0.2, 0.421))
 
 
 
@@ -19,12 +19,12 @@
 #' * `ex`: extremely,
 #' * `si`: significantly,
 #' * `ve`: very,
+#' * `ty`: typically,
 #' * `-`: empty hedge (no hedging),
 #' * `ml`: more or less,
 #' * `ro`: roughly,
 #' * `qr`: quite roughly,
-#' * `vr`: very roughly,
-#' * `ty`: typically.
+#' * `vr`: very roughly.
 #'
 #' This function is quite low-level. Perhaps a more convenient way to create linguistic expressions
 #' is to use the [lingexpr()] function.
@@ -47,7 +47,7 @@
 #'     plot(lingexpr(ctx3(), atomic='sm', hedge='ve'))
 #'
 #' @export
-hedge <- function(type=c('ex', 'si', 've', '-', 'ml', 'ro', 'qr', 'vr', 'ty')) {
+hedge <- function(type=c('ex', 'si', 've', 'ty', '-', 'ml', 'ro', 'qr', 'vr')) {
     type <- match.arg(type)
     params <- .hedgeParams[[type]]
     return(function(x) {

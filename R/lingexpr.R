@@ -31,12 +31,12 @@
 #' * `ex`: extremely,
 #' * `si`: significantly,
 #' * `ve`: very,
+#' * `ty`: typically,
 #' * `-`: empty hedge,
 #' * `ml`: more or less,
 #' * `ro`: roughly,
 #' * `qr`: quite roughly,
-#' * `vr`: very roughly,
-#' * `ty`: typically.
+#' * `vr`: very roughly.
 #'
 #' Accordingly to the theory of linguistic expressions by Novak, not every hedge is applicable to each atomic
 #' expression. The combinations of allowed pairs can be found in [allowed.lingexpr]. Trying to create forbidden
@@ -61,7 +61,7 @@
 lingexpr <- function(context,
                      atomic=c('sm', 'me', 'bi', 'lm', 'um', 'ze',
                               'neg.sm', 'neg.me', 'neg.bi', 'neg.lm', 'neg.um'),
-                     hedge=c('ex', 'si', 've', '-', 'ml', 'ro', 'qr', 'vr', 'ty')) {
+                     hedge=c('ex', 'si', 've', 'ty', '-', 'ml', 'ro', 'qr', 'vr')) {
     atomic <- match.arg(atomic)
     h <- match.arg(hedge)
     if (!allowed.lingexpr[h, atomic]) {
@@ -80,19 +80,19 @@ lingexpr <- function(context,
 #' @rdname lingexpr
 #' @export
 allowed.lingexpr <- array(
-    # ex si ve -  ml ro qr vr ty
-    c(T, T, T, T, T, T, T, T, F,  # neg.bi
-      F, F, F, T, F, F, F, F, F,  # neg.um
+    # ex si ve ty -  ml ro qr vr
+    c(T, T, T, F, T, T, T, T, T,  # neg.bi
+      F, F, F, F, T, F, F, F, F,  # neg.um
       F, F, F, T, T, T, T, T, T,  # neg.me
-      F, F, F, T, F, F, F, F, F,  # neg.lm
-      T, T, T, T, T, T, T, T, F,  # neg.sm
-      F, F, F, T, T, T, F, F, F,  # ze
-      T, T, T, T, T, T, T, T, F,  # sm
-      F, F, F, T, F, F, F, F, F,  # lm
+      F, F, F, F, T, F, F, F, F,  # neg.lm
+      T, T, T, F, T, T, T, T, T,  # neg.sm
+      F, F, F, F, T, T, T, F, F,  # ze
+      T, T, T, F, T, T, T, T, T,  # sm
+      F, F, F, F, T, F, F, F, F,  # lm
       F, F, F, T, T, T, T, T, T,  # me
-      F, F, F, T, F, F, F, F, F,  # um
-      T, T, T, T, T, T, T, T, F), # bi
+      F, F, F, F, T, F, F, F, F,  # um
+      T, T, T, F, T, T, T, T, T), # bi
     dim=c(9, 11),
-    dimnames=list(c('ex', 'si', 've', '-', 'ml', 'ro', 'qr', 'vr', 'ty'),
+    dimnames=list(c('ex', 'si', 've', 'ty', '-', 'ml', 'ro', 'qr', 'vr'),
                   c('neg.bi', 'neg.um', 'neg.me', 'neg.lm', 'neg.sm', 'ze', 'sm', 'lm', 'me', 'um', 'bi')))
 

@@ -4,7 +4,7 @@
 \alias{hedge}
 \title{Linguistic hedges}
 \usage{
-hedge(type = c("ex", "si", "ve", "-", "ml", "ro", "qr", "vr", "ty"))
+hedge(type = c("ex", "si", "ve", "ty", "-", "ml", "ro", "qr", "vr"))
 }
 \arguments{
 \item{type}{The type of the required linguistic hedge}
@@ -23,12 +23,12 @@ horizon (see \code{\link[=horizon]{horizon()}}) into a linguistic expression.
 \item \code{ex}: extremely,
 \item \code{si}: significantly,
 \item \code{ve}: very,
+\item \code{ty}: typically,
 \item \code{-}: empty hedge (no hedging),
 \item \code{ml}: more or less,
 \item \code{ro}: roughly,
 \item \code{qr}: quite roughly,
-\item \code{vr}: very roughly,
-\item \code{ty}: typically.
+\item \code{vr}: very roughly.
 }
 
 This function is quite low-level. Perhaps a more convenient way to create linguistic expressions

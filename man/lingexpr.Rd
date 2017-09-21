@@ -8,8 +8,8 @@
 \format{An object of class \code{matrix} with 9 rows and 11 columns.}
 \usage{
 lingexpr(context, atomic = c("sm", "me", "bi", "lm", "um", "ze", "neg.sm",
-  "neg.me", "neg.bi", "neg.lm", "neg.um"), hedge = c("ex", "si", "ve", "-",
-  "ml", "ro", "qr", "vr", "ty"))
+  "neg.me", "neg.bi", "neg.lm", "neg.um"), hedge = c("ex", "si", "ve", "ty",
+  "-", "ml", "ro", "qr", "vr"))
 
 allowed.lingexpr
 }
@@ -61,12 +61,12 @@ The values of the \code{atomic} parameter have the following meaning (in ascendi
 \item \code{ex}: extremely,
 \item \code{si}: significantly,
 \item \code{ve}: very,
+\item \code{ty}: typically,
 \item \code{-}: empty hedge,
 \item \code{ml}: more or less,
 \item \code{ro}: roughly,
 \item \code{qr}: quite roughly,
-\item \code{vr}: very roughly,
-\item \code{ty}: typically.
+\item \code{vr}: very roughly.
 }
 
 Accordingly to the theory of linguistic expressions by Novak, not every hedge is applicable to each atomic
