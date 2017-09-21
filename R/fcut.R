@@ -172,6 +172,8 @@ fcut.factor <- function(x,
 }
 
 
+#' @rdname fcut
+#' @export
 fcut.logical <- function(x,
                         name=deparse(substitute(x)),
                         ...) {
