@@ -221,14 +221,11 @@ as.matrix.fsets <- function(x, ...) {
 #'     print(specs(r))
 #'
 #' @export
-cbind.fsets <- function(..., deparse.level = 1) {
+cbind.fsets <- function(..., deparse.level = 1, warn = TRUE) {
     dots <- list(...)
-
     m <- NULL
     v <- NULL
     s <- NULL
-    warn <- TRUE
-
     for (i in seq_along(dots)) {
         arg <- dots[[i]]
         argName <- names(dots)[i]
@@ -255,7 +252,6 @@ cbind.fsets <- function(..., deparse.level = 1) {
             }
         }
     }
-
     return(fsets(m, v, s))
 }
 

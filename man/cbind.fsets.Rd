@@ -4,7 +4,7 @@
 \alias{cbind.fsets}
 \title{Combine several 'fsets' objects into a single one}
 \usage{
-\method{cbind}{fsets}(..., deparse.level = 1)
+\method{cbind}{fsets}(..., deparse.level = 1, warn = TRUE)
 }
 \arguments{
 \item{...}{A sequence of objects of class 'fsets' to be merged by columns.}
