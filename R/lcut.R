@@ -10,7 +10,7 @@ lcut5 <- function(x, ...) {
 }
 
 
-#' Transform data into a set of linguistic fuzzy attributes
+#' Transform data into a `fsets` S3 class of linguistic fuzzy attributes
 #'
 #' This function creates a set of linguistic fuzzy attributes from crisp data.
 #' Numeric vectors, matrix or data frame columns are transformed into a set of
@@ -29,19 +29,32 @@ lcut5 <- function(x, ...) {
 #'
 #' \eqn{<hedge> <atomic expression>}
 #'
-#' where \eqn{<atomic expression>} is a linguistic expression "small" ("sm"),
-#' "lower medium" ("lm"), "medium" ("me"), "upper medium" ("um") or "big"
-#' ("bi") -- see the `atomic` argument. A \eqn{<hedge>} is a modifier that
-#' further concretizes the atomic expression. It can be empty ("") or some
-#' value of:
-#' * `ty` - typically;
-#' * `ex` - extremely;
-#' * `si` - significantly;
-#' * `ve` - very;
-#' * `ml` - more or less;
-#' * `ro` - roughly;
-#' * `qr` - quite roughly;
-#' * `vr` - very roughly.
+#' where \eqn{<atomic expression>} is an atomic linguistic expression, a value
+#' from the following possibilities (note that the allowance of atomic expressions
+#' is influenced with `context` being used - see [ctx] for details):
+#' * `neg.bi`: big negative (far from zero)
+#' * `neg.um`: upper medium negative (between medium negative and big negative)
+#' * `neg.me`: medium negative
+#' * `neg.lm`: lower medium negative (between medium negative and small negative)
+#' * `neg.sm`: small negative (close to zero)
+#' * `ze`: zero
+#' * `sm`: small
+#' * `lm`: lower medium
+#' * `me`: medium
+#' * `um`: upper medium
+#' * `bi`: big
+#'  A \eqn{<hedge>} is a modifier that further concretizes the atomic expression
+#'  (note that not each combination of hedge and atomic expression is allowed -
+#'  see [allowed.lingexpr] for more details):
+#' * `ex`: extremely,
+#' * `si`: significantly,
+#' * `ve`: very,
+#' * `ty`: typically,
+#' * `-`: empty hedge (no hedging),
+#' * `ml`: more or less,
+#' * `ro`: roughly,
+#' * `qr`: quite roughly,
+#' * `vr`: very roughly.
 #'
 #' Accordingly to the theory developed by Novak (2008), not every hedge is
 #' suitable with each atomic #' expression (see the description of the `hedges`
@@ -50,86 +63,39 @@ lcut5 <- function(x, ...) {
 #' expression by itself.
 #'
 #' Obviously, distinct data have different meaning of what is "small",
-#' "medium", or "big".  Therefore, a `context` has to be set that
+#' "medium", or "big" etc.  Therefore, a `context` has to be set that
 #' specifies sensible values for these linguistic expressions.
 #'
 #' If a matrix (resp. data frame) is provided to this function instead of
-#' single vector, all columns are processed the same way.
+#' a single vector, all columns are processed the same way.
 #'
 #' The function also sets up properly the [vars()] and
 #' [specs()] properties of the result.
 #'
 #' @param x Data to be transformed: if it is a numeric vector, matrix, or data
 #' frame, then the creation of linguistic fuzzy attributes takes place. For
-#' other data types the [fcut()] function is called.
-#' @param context A definition of context of a numeric attribute. Context
-#' determines how people understand the notions "small", "medium", or "big"
-#' with respect to that attribute.  If `x` is a numeric vector then
-#' context should be a vector of 3 numbers: typical small, medium, and big
-#' value. If the context is set to NULL, these values are taken directly from
-#' `x` as follows:
-#' * small \eqn{= min(x)};
-#' * medium\eqn{=(max(x) - min(x)) * defaultCenter + min(x)};
-#' * big\eqn{= max(x)}.
+#' other data types the [fcut()] function is called implicitly.
+#' @param context A definition of context of a numeric attribute. It must be
+#' an instance of an S3 class [ctx3()], [ctx5()], [ctx3bilat()] or [ctx5bilat()].
 #'
 #' If `x` is a matrix or data frame then `context` should be a named
-#' list of contexts for each `x`'s column. If some context is omitted, it
-#' will be determined directly from data as explained above.
-#'
-#' Regardless of the value of the `atomic` argument, all 3 numbers of the
-#' context must be provided everytime.
-#' @param defaultCenter A value used to determine a typical "medium" value from
-#' data (see `context` above). If `context` is not specified then
-#' typical "medium" is determined as \deqn{(max(x) - min(x)) * defaultCenter +
-#' min(x).} Default value of `defaultCenter` is 0.5, however, some
-#' literature specifies 0.42 as another sensible value with proper linguistic
-#' interpretation.
+#' list of contexts for each `x`'s column.
 #' @param atomic A vector of atomic linguistic expressions to be used for
-#' creation of fuzzy attributes. The possible values for `lcut3` are:
-#' * `sm` - small;
-#' * `me` - medium;
-#' * `bi` - big.
-#' For `lcut5`, the following values are possible:
-#' * `sm` - small;
-#' * `lm` - lower medium;
-#' * `me` - medium;
-#' * `um` - upper medium;
-#' * `bi` - big.
-#' Several values are allowed in this argument.
+#' creation of fuzzy attributes.
 #' @param hedges A vector of linguistic hedges to be used for creation of fuzzy
 #' attributes.
-#'
-#' For `lcut3` variant, the following hedges are allowed:
-#' * `ex` - extremely (sm, bi);
-#' * `si` - significantly (sm, bi);
-#' * `ve` - very (sm, bi);
-#' * `ml` - more or less (sm, me, bi);
-#' * `ro` - roughly (sm, me, bi);
-#' * `qr` - quite roughly (sm, me, bi);
-#' * `vr` - very roughly (sm, me, bi).
-#'
-#' For `lcut5` variant, the following hedges are allowed:
-#' * exextremely (sm, bi);
-#' * vevery (sm, bi);
-#' * mlmore or less (sm, #' me, bi);
-#' * roroughly (sm, me, bi);
-#' * tytypically (me).
-#'
-#' By default, a fuzzy attribute is created for each atomic expression (i.e.
-#' "small", "medium", "big") with empty hedge. Additionally, another fuzzy
-#' attributes are created based on the set of hedges selected with this
-#' argument. Not all hedges are usable to any atomic expression. In the list
-#' above, one can find the allowed atomic expressions in parentheses.
 #' @param name A name to be added as a suffix to the created fuzzy attribute
 #' names. This parameter can be used only if `x` is a numeric vector. If
 #' `x` is a matrix or data frame, `name` should be NULL because the
 #' fuzzy attribute names are taken from column names of parameter `x`.
+#' The `name` is also used as a value for the `vars` attribute of the resulting
+#' [fsets()] instance.
 #' @param parallel Whether the processing should be run in parallel or not.
 #' Parallelization is implemented using the [foreach::foreach()]
 #' package. The parallel environment must be set properly in advance, e.g. with
 #' the [doMC::registerDoMC()] function.
 #' @param ...  Other parameters to some methods.
-#' @return An object of class "fsets" is returned, which is a numeric matrix
+#' @return An object of S3 class `fsets` is returned, which is a numeric matrix
 #' with columns representing the fuzzy attributes. Each source columm of the
 #' `x` argument corresponds to multiple columns in the resulting matrix.
 #' Columns will have names derived from used \eqn{hedges}, atomic expression,
@@ -140,12 +106,12 @@ lcut5 <- function(x, ...) {
 #' column names (if `x` is a matrix or data frame) or the `name`
 #' argument (if `x` is a numeric vector). The [specs()]
 #' incidency matrix would be created to reflect the following order of the
-#' hedges: \eqn{"ex" < "si" < "ve" < "" < "ml" < "ro" < "qr" < "vr"} and
-#' \eqn{"ty" < ""}.  Fuzzy attributes created from the same source numeric
-#' vector (or column) would be ordered that way, with other fuzzy attributes
+#' hedges: \eqn{"ex" < "si" < "ve" < "-" < "ml" < "ro" < "qr" < "vr"} and
+#' \eqn{"ty" < "" < "ml" < "ro" < "qr" < "vr"}.  Fuzzy attributes created from
+#' the same source numeric vector (or column) would be ordered that way, with other fuzzy attributes
 #' (from the other source) being incomparable.
 #' @author Michal Burda
-#' @seealso [fcut()], [farules()], [pbld()], [vars()], [specs()], [cbind.fsets()]
+#' @seealso [fcut()], [fsets()], [vars()], [specs()]
 #' @references V. Novak, A comprehensive theory of trichotomous evaluative
 #' linguistic expressions, Fuzzy Sets and Systems 159 (22) (2008) 2939--2969.
 #' @keywords models robust multivariate
@@ -153,14 +119,10 @@ lcut5 <- function(x, ...) {
 #'
 #' # transform a single vector
 #' x <- runif(10)
-#' lcut3(x, name='age')
-#' lcut5(x, name='age')
-#'
+#' lcut(x, name='age')
 #'
 #' # transform single vector with custom context
-#' lcut3(x, context=c(0, 0.2, 0.5), name='age')
-#' lcut5(x, context=c(0, 0.2, 0.5), name='age')
-#'
+#' lcut(x, context=ctx5(0, 0.2, 0.5, 0.7, 1), name='age')
 #'
 #' # transform all columns of a data frame
 #' # and do not use any hedges
@@ -213,13 +175,22 @@ lcut.logical <- function(x,
 }
 
 
+.allHedges=c('ex', 'si', 've', 'ty', '-', 'ml', 'ro', 'qr', 'vr')
+.sharpness <- matrix(0,
+                     nrow=length(.allHedges),
+                     ncol=length(.allHedges),
+                     dimnames=list(.allHedges, .allHedges))
+.sharpness[row(.sharpness) < col(.sharpness)] <- 1
+.sharpness[, 'ty'] <- 0
+
+
 #' @rdname lcut
 #' @export
 lcut.numeric <- function(x,
                          context=minmax(x),
                          atomic=c('sm', 'me', 'bi', 'lm', 'um', 'ze',
                                   'neg.sm', 'neg.me', 'neg.bi', 'neg.lm', 'neg.um'),
-                         hedges=c('ex', 'si', 've', '-', 'ml', 'ro', 'qr', 'vr', 'ty'),
+                         hedges=c('ex', 'si', 've', 'ty', '-', 'ml', 'ro', 'qr', 'vr'),
                          name=NULL,
                          ...) {
     atomic <- match.arg(atomic, several.ok=TRUE)
@@ -251,26 +222,27 @@ lcut.numeric <- function(x,
     }
     atomic <- intersect(atomic, allowedAtomic)
 
-    grid <- expand.grid(hedges, atomic)
-    m <- apply(grid, 1, function(row) {
-        h <- row[1]
-        a <- row[2]
-        if (allowed.lingexpr[h, a]) {
+    res <- NULL
+    for (a in atomic) {
+        allowedHedges <- names(which(allowed.lingexpr[, a]))
+        allowedHedges <- intersect(allowedHedges, hedges)
+        m <- lapply(allowedHedges, function(h) {
             lingexpr(context, atomic=a, hedge=h)(x)
+        })
+        m <- matrix(unlist(m, use.names=FALSE), ncol=length(m), byrow=FALSE)
+
+        n <- paste(allowedHedges, a, name, sep='.')
+        n <- sub('-.', '', n, fixed=TRUE)
+        colnames(m) <- n
+
+        v <- rep(name, ncol(m))
+        s <- .sharpness[allowedHedges, allowedHedges]
+        f <- fsets(m, v, s)
+        if (is.null(res)) {
+            res <- f
+        } else {
+            res <- cbind.fsets(res, f, warn=FALSE)
         }
-    })
-    nulls <- sapply(m, is.null)
-    m <- m[!nulls]
-    m <- matrix(unlist(m, use.names=FALSE), ncol=length(m), byrow=FALSE)
-
-    n <- apply(grid, 1, function(row) { paste(row, collapse='.')})
-    n <- n[!nulls]
-    n <- sub('-.', '', n, fixed=TRUE)
-    n <- paste(n, name, sep='.')
-    colnames(m) <- n
-
-    v <- rep(name, ncol(m))
-
-    s <- matrix(0, nrow=ncol(m), ncol=ncol(m))
-    m
+    }
+    res
 }

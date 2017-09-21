@@ -8,6 +8,7 @@
 \alias{fcut.data.frame}
 \alias{fcut.default}
 \alias{fcut.factor}
+\alias{fcut.logical}
 \alias{fcut.numeric}
 \alias{fcut.data.frame}
 \alias{fcut.matrix}
@@ -19,6 +20,8 @@ fcut(x, ...)
 \method{fcut}{default}(x, ...)
 
 \method{fcut}{factor}(x, name = deparse(substitute(x)), ...)
+
+\method{fcut}{logical}(x, name = deparse(substitute(x)), ...)
 
 \method{fcut}{numeric}(x, breaks, name = deparse(substitute(x)),
   type = c("triangle", "raisedcos"), merge = 1, parallel = FALSE, ...)
