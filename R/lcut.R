@@ -78,10 +78,6 @@
 #' fuzzy attribute names are taken from column names of parameter `x`.
 #' The `name` is also used as a value for the `vars` attribute of the resulting
 #' [fsets()] instance.
-#' @param parallel Whether the processing should be run in parallel or not.
-#' Parallelization is implemented using the [foreach::foreach()]
-#' package. The parallel environment must be set properly in advance, e.g. with
-#' the [doMC::registerDoMC()] function.
 #' @param ...  Other parameters to some methods.
 #' @return An object of S3 class `fsets` is returned, which is a numeric matrix
 #' with columns representing the fuzzy attributes. Each source columm of the
@@ -115,15 +111,14 @@
 #' # transform all columns of a data frame
 #' # and do not use any hedges
 #' data <- CO2[, c('conc', 'uptake')]
-#' lcut3(data, hedges=NULL)
-#' lcut5(data, hedges=NULL)
+#' lcut(data)
 #'
 #'
 #' # definition of custom contexts for different columns
 #' # of a data frame while selecting only "ve" and "ro" hedges.
-#' lcut3(data,
-#'      context=list(conc=c(0, 500, 1000),
-#'                   uptake=c(0, 25, 50)),
+#' lcut(data,
+#'      context=list(conc=minmax,
+#'                   uptake=ctx3(0, 25, 50)),
 #'      hedges=c('ve', 'ro'))
 #'
 #'

@@ -11,6 +11,9 @@
 
 \item{deparse.level}{This argument has currently no function and is added
 here only for compatibility with generic \code{\link[=cbind]{cbind()}} function.}
+
+\item{warn}{Whether to issue warning when combining two fsets having the same vars
+about the fact that specs may not be accurate}
 }
 \value{
 An object of class 'fsets' that is created by merging the arguments

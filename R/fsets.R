@@ -199,6 +199,8 @@ as.matrix.fsets <- function(x, ...) {
 #' @param ...  A sequence of objects of class 'fsets' to be merged by columns.
 #' @param deparse.level This argument has currently no function and is added
 #' here only for compatibility with generic [cbind()] function.
+#' @param warn Whether to issue warning when combining two fsets having the same vars
+#' about the fact that specs may not be accurate
 #' @return An object of class 'fsets' that is created by merging the arguments
 #' by columns.  Also the arguments' attributes [vars()] and [specs()] are merged together.
 #' @author Michal Burda

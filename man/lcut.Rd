@@ -54,11 +54,6 @@ creation of fuzzy attributes.}
 
 \item{hedges}{A vector of linguistic hedges to be used for creation of fuzzy
 attributes.}
-
-\item{parallel}{Whether the processing should be run in parallel or not.
-Parallelization is implemented using the \code{\link[foreach:foreach]{foreach::foreach()}}
-package. The parallel environment must be set properly in advance, e.g. with
-the \code{\link[doMC:registerDoMC]{doMC::registerDoMC()}} function.}
 }
 \value{
 An object of S3 class \code{fsets} is returned, which is a numeric matrix
@@ -153,15 +148,14 @@ lcut(x, context=ctx5(0, 0.2, 0.5, 0.7, 1), name='age')
 # transform all columns of a data frame
 # and do not use any hedges
 data <- CO2[, c('conc', 'uptake')]
-lcut3(data, hedges=NULL)
-lcut5(data, hedges=NULL)
+lcut(data)
 
 
 # definition of custom contexts for different columns
 # of a data frame while selecting only "ve" and "ro" hedges.
-lcut3(data,
-     context=list(conc=c(0, 500, 1000),
-                  uptake=c(0, 25, 50)),
+lcut(data,
+     context=list(conc=minmax,
+                  uptake=ctx3(0, 25, 50)),
      hedges=c('ve', 'ro'))
 
 
