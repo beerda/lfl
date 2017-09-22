@@ -139,7 +139,7 @@ The function also sets up properly the \code{\link[=vars]{vars()}} and
 x <- runif(10)
 lcut(x, name='age')
 
-# transform single vector with custom context
+# transform single vector with a custom context
 lcut(x, context=ctx5(0, 0.2, 0.5, 0.7, 1), name='age')
 
 # transform all columns of a data frame
@@ -159,8 +159,7 @@ lcut3(data,
 
 # lcut on non-numeric data is the same as fcut()
 ff <- factor(substring("statistics", 1:10, 1:10), levels = letters)
-lcut3(ff)
-lcut5(ff)
+lcut(ff)
 
 }
 \references{

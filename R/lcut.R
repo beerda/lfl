@@ -1,15 +1,3 @@
-lcut3 <- function(x, ...) {
-    .Deprecated('lcut', 'lfl')
-    UseMethod('lcut3')
-}
-
-
-lcut5 <- function(x, ...) {
-    .Deprecated('lcut', 'lfl')
-    UseMethod('lcut5')
-}
-
-
 #' Transform data into a `fsets` S3 class of linguistic fuzzy attributes
 #'
 #' This function creates a set of linguistic fuzzy attributes from crisp data.
@@ -121,7 +109,7 @@ lcut5 <- function(x, ...) {
 #' x <- runif(10)
 #' lcut(x, name='age')
 #'
-#' # transform single vector with custom context
+#' # transform single vector with a custom context
 #' lcut(x, context=ctx5(0, 0.2, 0.5, 0.7, 1), name='age')
 #'
 #' # transform all columns of a data frame
@@ -141,10 +129,12 @@ lcut5 <- function(x, ...) {
 #'
 #' # lcut on non-numeric data is the same as fcut()
 #' ff <- factor(substring("statistics", 1:10, 1:10), levels = letters)
-#' lcut3(ff)
-#' lcut5(ff)
+#' lcut(ff)
 #'
 #' @export
+#' @name lcut
+#' @name lcut3
+#' @name lcut5
 lcut <- function(x, ...) {
     UseMethod('lcut')
 }
@@ -236,7 +226,7 @@ lcut.numeric <- function(x,
         colnames(m) <- n
 
         v <- rep(name, ncol(m))
-        s <- .sharpness[allowedHedges, allowedHedges]
+        s <- .sharpness[allowedHedges, allowedHedges, drop=FALSE]
         f <- fsets(m, v, s)
         if (is.null(res)) {
             res <- f
