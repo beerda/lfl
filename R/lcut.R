@@ -177,7 +177,7 @@ lcut.logical <- function(x,
 #' @rdname lcut
 #' @export
 lcut.numeric <- function(x,
-                         context=minmax(x),
+                         context=minmax,
                          atomic=c('sm', 'me', 'bi', 'lm', 'um', 'ze',
                                   'neg.sm', 'neg.me', 'neg.bi', 'neg.lm', 'neg.um'),
                          hedges=c('ex', 'si', 've', 'ty', '-', 'ml', 'ro', 'qr', 'vr'),
@@ -191,6 +191,10 @@ lcut.numeric <- function(x,
     .mustNotBeZeroLength(hedges)
     .mustNotBeNull(name)
 
+    if (is.function(context)) {
+        context <- context(x)
+    }
+
     type <- NULL
     for (clazz in names(.horizonAllowedTable)) {
         if (inherits(context, clazz)) {
@@ -199,7 +203,7 @@ lcut.numeric <- function(x,
     }
     .mustBe(!is.null(type),
             paste0("'context' must be an object of one of the following classes: '",
-                   paste(names(.horizonAllowedTable), collapse="', '"), "'"))
+                   paste(names(.horizonAllowedTable), collapse="', '"), "' or a function returning such object"))
 
     allowedAtomic <- names(.horizonAllowedTable[[type]])
     if (!identical(atomic, eval(formals(lcut.numeric)$atomic))) {
@@ -228,11 +232,53 @@ lcut.numeric <- function(x,
         v <- rep(name, ncol(m))
         s <- .sharpness[allowedHedges, allowedHedges, drop=FALSE]
         f <- fsets(m, v, s)
-        if (is.null(res)) {
-            res <- f
-        } else {
-            res <- cbind.fsets(res, f, warn=FALSE)
-        }
+        res <- cbind.fsets(res, f, warn=FALSE)
     }
-    res
+    return(res)
+}
+
+
+#' @rdname lcut
+#' @export
+lcut.data.frame <- function(x,
+                            context=minmax,
+                            atomic=c('sm', 'me', 'bi', 'lm', 'um', 'ze',
+                                     'neg.sm', 'neg.me', 'neg.bi', 'neg.lm', 'neg.um'),
+                            hedges=c('ex', 'si', 've', 'ty', '-', 'ml', 'ro', 'qr', 'vr'),
+                            ...) {
+    .mustBeDataFrame(x)
+    if (is.null(colnames(x))) {
+        stop("Columns of 'x' must have names")
+    }
+    if (!is.list(context)) {
+        context <- rep(list(context), ncol(x))
+    }
+    if (!is.list(atomic)) {
+        atomic <- rep(list(atomic), ncol(x))
+    }
+    if (!is.list(hedges)) {
+        hedges <- rep(list(hedges), ncol(x))
+    }
+    if (!identical(length(context), ncol(x))) {
+        stop(paste("if 'context' is a list, it must have length equal to ncol(x)"))
+    }
+
+    res <- NULL
+    for (i in seq_len(ncol(x))) {
+        f <- lcut(x[, i],
+                  context=context[[i]],
+                  atomic=atomic[[i]],
+                  hedges=hedges[[i]],
+                  name=colnames(x)[i],
+                  ...)
+        res <- cbind.fsets(res, f)
+    }
+    return(res)
+}
+
+
+#' @rdname lcut
+#' @export
+lcut.matrix <- function(x, ...) {
+    lcut(as.data.frame(x), ...)
 }

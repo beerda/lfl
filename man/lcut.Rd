@@ -6,6 +6,8 @@
 \alias{lcut.factor}
 \alias{lcut.logical}
 \alias{lcut.numeric}
+\alias{lcut.data.frame}
+\alias{lcut.matrix}
 \title{Transform data into a \code{fsets} S3 class of linguistic fuzzy attributes}
 \usage{
 lcut(x, ...)
@@ -16,10 +18,16 @@ lcut(x, ...)
 
 \method{lcut}{logical}(x, name = deparse(substitute(x)), ...)
 
-\method{lcut}{numeric}(x, context = minmax(x), atomic = c("sm", "me", "bi",
+\method{lcut}{numeric}(x, context = minmax, atomic = c("sm", "me", "bi",
   "lm", "um", "ze", "neg.sm", "neg.me", "neg.bi", "neg.lm", "neg.um"),
   hedges = c("ex", "si", "ve", "ty", "-", "ml", "ro", "qr", "vr"),
   name = NULL, ...)
+
+\method{lcut}{data.frame}(x, context = minmax, atomic = c("sm", "me", "bi",
+  "lm", "um", "ze", "neg.sm", "neg.me", "neg.bi", "neg.lm", "neg.um"),
+  hedges = c("ex", "si", "ve", "ty", "-", "ml", "ro", "qr", "vr"), ...)
+
+\method{lcut}{matrix}(x, ...)
 }
 \arguments{
 \item{x}{Data to be transformed: if it is a numeric vector, matrix, or data
