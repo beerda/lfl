@@ -77,7 +77,9 @@
 #'     o <- fsets(m, v, s)
 #'
 #' @export
-fsets <- function(x, vars, specs) {
+fsets <- function(x,
+                  vars=rep(deparse(substitute(x)), ncol(x)),
+                  specs=matrix(0, nrow=ncol(x), ncol=ncol(x))) {
     .mustBeNumericMatrix(x)
 
     .mustBeCharacterVector(vars)

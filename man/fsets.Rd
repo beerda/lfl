@@ -8,7 +8,8 @@
 \alias{specs<-}
 \title{S3 class representing a set of fuzzy sets on the fixed universe}
 \usage{
-fsets(x, vars, specs)
+fsets(x, vars = rep(deparse(substitute(x)), ncol(x)), specs = matrix(0, nrow
+  = ncol(x), ncol = ncol(x)))
 
 vars(f)
 
