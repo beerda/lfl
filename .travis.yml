@@ -2,9 +2,18 @@ language: r
 warnings_are_errors: false
 sudo: false
 
-r:
-  - release
-  - devel
+matrix:
+  include:
+    - os: linux
+      r: release
+    - os: linux
+      r: devel
+      env: R_CODECOV=true
+    - os: osx
+      osx_image: xcode8.3
+    - os: osx
+      osx_image: xcode7.3
+      disable_homebrew: true
 
 notifications:
   email: false
@@ -13,4 +22,4 @@ r_packages:
   - covr
 
 after_success:
-  - Rscript -e 'library(covr); codecov()'
+  - if [[ "${R_CODECOV}" ]]; then R -e 'covr::codecov()'; fi
