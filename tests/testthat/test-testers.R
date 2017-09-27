@@ -1,12 +1,37 @@
 test_that("mustBeNumericScalar", {
   expect_null(.mustBeNumericScalar(3))
   expect_null(.mustBeNumericScalar(0))
+  expect_null(.mustBeNumericScalar(1L))
   expect_null(.mustBeNumericScalar(0.8))
   expect_error(.mustBeNumericScalar('c'))
   expect_error(.mustBeNumericScalar(1:4))
   expect_error(.mustBeNumericScalar(matrix(1, nrow=1, ncol=1)))
   expect_error(.mustBeNumericScalar(NULL))
   expect_error(.mustBeNumericScalar(TRUE))
+})
+
+test_that("mustBeFactor", {
+  expect_null(.mustBeFactor(factor(letters)))
+  expect_error(.mustBeFactor(3))
+  expect_error(.mustBeFactor(0))
+  expect_error(.mustBeFactor(0.8))
+  expect_error(.mustBeFactor('c'))
+  expect_error(.mustBeFactor(1:4))
+  expect_error(.mustBeFactor(matrix(1, nrow=1, ncol=1)))
+  expect_error(.mustBeFactor(NULL))
+  expect_error(.mustBeFactor(TRUE))
+})
+
+test_that("mustBeIntegerScalar", {
+  expect_null(.mustBeIntegerScalar(3L))
+  expect_null(.mustBeIntegerScalar(0L))
+  expect_error(.mustBeIntegerScalar(0.8))
+  expect_error(.mustBeIntegerScalar('c'))
+  expect_error(.mustBeIntegerScalar(1:4))
+  expect_error(.mustBeIntegerScalar(c(1L, 2L)))
+  expect_error(.mustBeIntegerScalar(matrix(1, nrow=1, ncol=1)))
+  expect_error(.mustBeIntegerScalar(NULL))
+  expect_error(.mustBeIntegerScalar(TRUE))
 })
 
 test_that("mustBeCharacterScalar", {
@@ -28,7 +53,20 @@ test_that("mustBeNumericVector", {
   expect_error(.mustBeNumericVector(matrix(1, nrow=1, ncol=1)))
   expect_error(.mustBeNumericVector(NULL))
   expect_error(.mustBeNumericVector(TRUE))
-  expect_error(.mustBeNumericVector(TRUE))
+  expect_error(.mustBeNumericVector(FALSE))
+})
+
+test_that("mustBeLogicalVector", {
+  expect_error(.mustBeLogicalVector(3))
+  expect_error(.mustBeLogicalVector(0))
+  expect_error(.mustBeLogicalVector(0.8))
+  expect_error(.mustBeLogicalVector(1:4))
+  expect_error(.mustBeLogicalVector('c'))
+  expect_error(.mustBeLogicalVector(matrix(1, nrow=1, ncol=1)))
+  expect_error(.mustBeLogicalVector(NULL))
+  expect_null(.mustBeLogicalVector(TRUE))
+  expect_null(.mustBeLogicalVector(FALSE))
+  expect_null(.mustBeLogicalVector(c(T,F,F)))
 })
 
 test_that("mustBeCharacterVector", {
