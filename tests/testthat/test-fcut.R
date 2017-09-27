@@ -222,3 +222,84 @@ test_that('fcut of numeric with merge 1,3', {
                                     nrow=4))
     expect_true(is.fsets(res))
 })
+
+
+test_that('fcut of matrix', {
+    x <- matrix(1:100, byrow=TRUE, ncol=4)
+    colnames(x) <- letters[1:4]
+
+    res <- fcut(x,
+                breaks=c(1, 30, 60, 100),
+                type='triangle')
+
+    expect_true(is.fsets(res))
+    expect_equal(ncol(res), 8)
+    expect_equal(nrow(res), 25)
+    expect_equal(colnames(res), c('a.1', 'a.2', 'b.1', 'b.2', 'c.1', 'c.2', 'd.1', 'd.2'))
+    expect_equal(vars(res), c(rep('a', 2), rep('b', 2), rep('c', 2), rep('d', 2)))
+    expect_equal(names(vars(res)), NULL)
+    expect_equal(specs(res), matrix(0,
+                                    nrow=8,
+                                    ncol=8))
+
+    expect_equivalent(as.matrix(res)[1, 1], 0)
+    expect_equivalent(as.matrix(res)[8, 3], 1)
+    expect_equivalent(as.matrix(res)[15, 7], 0)
+})
+
+
+
+test_that('fcut of data frame', {
+    x <- matrix(1:100, byrow=TRUE, ncol=4)
+    colnames(x) <- letters[1:4]
+
+    res <- fcut(as.data.frame(x),
+                breaks=c(1, 30, 60, 100),
+                type='triangle')
+
+    expect_true(is.fsets(res))
+    expect_equal(ncol(res), 8)
+    expect_equal(nrow(res), 25)
+    expect_equal(colnames(res), c('a.1', 'a.2', 'b.1', 'b.2', 'c.1', 'c.2', 'd.1', 'd.2'))
+    expect_equal(vars(res), c(rep('a', 2), rep('b', 2), rep('c', 2), rep('d', 2)))
+    expect_equal(names(vars(res)), NULL)
+    expect_equal(specs(res), matrix(0,
+                                    nrow=8,
+                                    ncol=8))
+
+    expect_equivalent(as.matrix(res)[1, 1], 0)
+    expect_equivalent(as.matrix(res)[8, 3], 1)
+    expect_equivalent(as.matrix(res)[15, 7], 0)
+})
+
+
+test_that('fcut for custom function', {
+    func <- function(a, b, c) {
+        f <- triangle(a, b, c)
+        return(function(x) f(x)^2)
+    }
+
+    x <- 0:100
+    res <- fcut(x,
+                breaks=c(0, 50, 100),
+                type=func)
+
+    expect_true(is.fsets(res))
+    expect_equal(ncol(res), 1)
+    expect_equal(nrow(res), 101)
+    expect_equal(colnames(res), 'x.1')
+    expect_true(inherits(res, 'fsets'))
+    expect_equivalent(vars(res), 'x')
+    expect_equal(names(vars(res)), NULL)
+    expect_equal(specs(res), matrix(0,
+                                    nrow=1,
+                                    ncol=1))
+
+    expect_equivalent(as.matrix(res)[1, 1], 0)
+    expect_equivalent(as.matrix(res)[26, 1], 0.25)
+    expect_equivalent(as.matrix(res)[51, 1], 1)
+    expect_equivalent(as.matrix(res)[76, 1], 0.25)
+    expect_equivalent(as.matrix(res)[101, 1], 0)
+    expect_true(is.fsets(res))
+})
+
