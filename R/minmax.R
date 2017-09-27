@@ -8,11 +8,22 @@ minmax <- function(x,
     mini <- min(x, na.rm=TRUE)
     maxi <- max(x, na.rm=TRUE)
     if (type %in% c('ctx3', 'ctx5')) {
-        dots[['low']] <- mini
-        dots[['high']] <- maxi
+        if (is.null(dots[['low']])) {
+            dots[['low']] <- mini
+        }
+        if (is.null(dots[['high']])) {
+            dots[['high']] <- maxi
+        }
     } else {
-        dots[['negMax']] <- mini
-        dots[['max']] <- maxi
+        if (is.null(dots[['negMax']])) {
+            dots[['negMax']] <- mini
+        }
+        if (is.null(dots[['max']])) {
+            dots[['max']] <- maxi
+        }
+        if (is.null(dots[['origin']])) {
+            dots[['origin']] <- mean(c(mini, maxi))
+        }
     }
     do.call(type, dots)
 }
