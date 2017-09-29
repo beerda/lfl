@@ -298,3 +298,49 @@ print.fsets <- function(x, ...) {
     cat("\nspecs:\n")
     print(s)
 }
+
+
+#' Plot membership degrees stored in the instance of the S3 class
+#' [fsets()] as a line diagram.
+#'
+#' This function plots the membership degrees stored in the instance of the
+#' [fsets()] class. Internally, the membership degrees are
+#' transformed into a time-series object and viewed in a plot using the
+#' [ts.plot()] function. This function is useful mainly to see the
+#' shape of fuzzy sets on regularly sampled inputs.
+#'
+#' @param x An instance of class [fsets()]
+#' @param ...  Other arguments that are passed to the underlying [ts.plot()]
+#' function.
+#' @return Result of the [ts.plot()] method.
+#' @author Michal Burda
+#' @seealso [fsets()], [fcut()], [lcut()], [ts.plot()]
+#' @keywords models robust multivariate
+#' @examples
+#' d <- lcut(0:1000/1000, name='x')
+#' plot(d)
+#'
+#' # Additional arguments are passed to the ts.plot method
+#' # Here thick lines represent atomic linguistic expressions,
+#' # i.e. ``small'', ``medium'', and ``big''.
+#' plot(d,
+#'      ylab='membership degree',
+#'      xlab='values',
+#'      gpars=list(lwd=c(rep(1, 3), 5, rep(1, 5), 5, rep(1, 7), 5, rep(1,4))))
+#' @export
+#' @importFrom stats ts
+#' @importFrom stats ts.plot
+plot.fsets <- function(x, ...) {
+    n <- nrow(x)
+    args <- list(...)
+    x <- as.list(as.data.frame(x))
+    x <- plyr::llply(x, ts, start=0, frequency=n)
+    x <- c(x, args)
+    if (is.null(args[['xlab']])) {
+        x[['xlab']] <- ''
+    }
+    if (is.null(args[['ylab']])) {
+        x[['ylab']] <- ''
+    }
+    do.call('ts.plot', x)
+}
