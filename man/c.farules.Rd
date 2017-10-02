@@ -33,7 +33,6 @@ class.
                     statistics=matrix(runif(16), nrow=2))
     res <- c(ori1, ori2)
     print(res)
-
 }
 \seealso{
 \code{\link[=farules]{farules()}}, \code{\link[=searchrules]{searchrules()}}

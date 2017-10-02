@@ -35,7 +35,7 @@ farules <- function(rules, statistics) {
 #' @author Michal Burda
 #' @seealso \code{\link{farules}}
 #' @keywords models robust
-#' @export is.farules
+#' @export
 is.farules <- function(x) {
     return(inherits(x, 'farules') &&
                is.list(x) &&
@@ -113,7 +113,7 @@ print.farules <- function(x, ...) {
 #'                     statistics=matrix(runif(16), nrow=2))
 #'     res <- c(ori1, ori2)
 #'     print(res)
-#'
+#' @export
 c.farules <- function(..., recursive=FALSE) {
     dots <- list(...)
 
