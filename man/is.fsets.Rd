@@ -13,9 +13,7 @@ is.fsets(x)
 TRUE if \code{x} is a valid \code{fsets} object and FALSE otherwise.
 }
 \description{
-This function tests wheter \code{x} inherits from S3 \code{fsets} class and whether
-it is a numeric matrix with \code{\link[=vars]{vars()}} and \code{\link[=specs]{specs()}}
-attributes of correct size and column/row names.
+This function tests wheter \code{x} inherits from S3 \code{fsets} class.
 }
 \seealso{
 \code{\link[=fsets]{fsets()}}
