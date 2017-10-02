@@ -236,7 +236,7 @@ cbind.fsets <- function(..., deparse.level = 1, warn = TRUE) {
 
         if (!is.null(arg)) {
             .mustBe(is.fsets(arg),
-                    "Cannot bind arguments that are not valid 'fsets' objects")
+                    "Cannot cbind arguments that are not valid 'fsets' objects")
             if (is.null(m)) {
                 v <- vars(arg)
                 s <- specs(arg)
@@ -256,6 +256,40 @@ cbind.fsets <- function(..., deparse.level = 1, warn = TRUE) {
             }
         }
     }
+    return(fsets(m, v, s))
+}
+
+
+#' @export
+rbind.fsets <- function(..., deparse.level = 1) {
+    dots <- list(...)
+    m <- NULL
+    v <- NULL
+    s <- NULL
+    for (i in seq_along(dots)) {
+        arg <- dots[[i]]
+
+        if (!is.null(arg)) {
+            .mustBe(is.fsets(arg),
+                    "Cannot rbind arguments that are not valid 'fsets' objects")
+            if (is.null(m)) {
+                v <- vars(arg)
+                s <- specs(arg)
+                class(arg) <- 'matrix'
+                m <- arg
+            } else {
+                .mustBe(identical(colnames(m), colnames(arg)),
+                        "Cannot rbind fsets having not equal column names")
+                .mustBe(identical(v, vars(arg)),
+                        "Cannot rbind fsets with unequal 'vars'");
+                .mustBe(identical(s, specs(arg)),
+                        "Cannot rbind fsets with unequal 'specs'");
+                class(arg) <- 'matrix'
+                m <- rbind(m, arg)
+            }
+        }
+    }
+
     return(fsets(m, v, s))
 }
 

@@ -241,3 +241,19 @@ test_that('fsets [ ]', {
     expect_equal(specs(res), specs(x)[4, 4, drop=FALSE])
 })
 
+
+test_that('rbind of two fsets', {
+    set.seed(3335)
+
+    m1 <- matrix(runif(12), ncol=3)
+    m2 <- matrix(runif(24), ncol=3)
+    s <- matrix(0, nrow=3, ncol=3)
+    diag(s) <- 1
+    f1 <- fsets(m1, vars=letters[1:3], specs=s)
+    f2 <- fsets(m2, vars=letters[1:3], specs=s)
+
+    r <- rbind(f1, f2)
+    expect_equal(as.matrix(r), rbind(m1, m2))
+    expect_equal(vars(r), letters[1:3])
+    expect_equal(specs(r), s)
+})
