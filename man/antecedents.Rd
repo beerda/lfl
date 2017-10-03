@@ -24,6 +24,10 @@ the first element of each vector is a consequent part and the
 rest is an antecedent part of rules. Function returns a list of
 antecedents.
 }
+\examples{
+    rules <- list(c('a', 'b', 'c'), c('d'), c('a', 'e'))
+    antecedents(rules)
+}
 \seealso{
 \code{\link[=consequents]{consequents()}}, \code{\link[=farules]{farules()}}, \code{\link[=searchrules]{searchrules()}}
 }

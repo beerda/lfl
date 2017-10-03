@@ -16,6 +16,10 @@
 #' @seealso [antecedents()], [farules()], [searchrules()]
 #' @keywords models robust
 #' @export
+#' @examples
+#'     rules <- list(c('a', 'b', 'c'), c('d'), c('a', 'e'))
+#'     consequents(rules)
+#'     unlist(consequents(rules))   # as vector
 consequents <- function(rules) {
     .mustBe(is.farules(rules) ||
                 (is.list(rules) && all(sapply(rules, function(r) { is.character(r) && length(r) > 0 }))),

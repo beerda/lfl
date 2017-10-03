@@ -15,7 +15,10 @@
 #' @author Michal Burda
 #' @seealso [consequents()], [farules()], [searchrules()]
 #' @keywords models robust
-#' @export antecedents
+#' @export
+#' @examples
+#'     rules <- list(c('a', 'b', 'c'), c('d'), c('a', 'e'))
+#'     antecedents(rules)
 antecedents <- function(rules) {
     .mustBe(is.farules(rules) ||
                 (is.list(rules) && all(sapply(rules, function(r) { is.character(r) && length(r) > 0 }))),
