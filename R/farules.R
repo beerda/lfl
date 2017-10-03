@@ -17,7 +17,9 @@
 #' @keywords models robust
 #' @export
 farules <- function(rules, statistics) {
-    .mustBe(is.list(rules) && all(sapply(rules, is.character)), "'rules' must be a list of character vectors")
+    .mustBe(is.list(rules) &&
+                all(sapply(rules, function(r) { is.character(r) && length(r) > 0 })),
+            "'rules' must be a list of non-empty character vectors")
     .mustBeNumericMatrix(statistics)
     .mustBe(nrow(statistics) == length(rules), "The length of 'rules' must be the same as 'nrow(statistics)'")
 
