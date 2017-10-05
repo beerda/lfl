@@ -171,6 +171,20 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// specificity
+bool specificity(NumericVector x, NumericVector y, NumericVector vars, NumericMatrix specs);
+RcppExport SEXP _lfl_specificity(SEXP xSEXP, SEXP ySEXP, SEXP varsSEXP, SEXP specsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type vars(varsSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type specs(specsSEXP);
+    rcpp_result_gen = Rcpp::wrap(specificity(x, y, vars, specs));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_lfl_goedel_tnorm", (DL_FUNC) &_lfl_goedel_tnorm, 2},
@@ -187,6 +201,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_lfl_triangle", (DL_FUNC) &_lfl_triangle, 2},
     {"_lfl_raisedcos", (DL_FUNC) &_lfl_raisedcos, 2},
     {"_lfl_hedge", (DL_FUNC) &_lfl_hedge, 2},
+    {"_lfl_specificity", (DL_FUNC) &_lfl_specificity, 4},
     {NULL, NULL, 0}
 };
 

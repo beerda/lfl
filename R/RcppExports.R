@@ -57,3 +57,7 @@
     .Call(`_lfl_hedge`, x, p)
 }
 
+.specificity <- function(x, y, vars, specs) {
+    .Call(`_lfl_specificity`, x, y, vars, specs)
+}
+
