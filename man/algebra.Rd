@@ -83,7 +83,7 @@ of values to compute t-norms or t-conorms from.  Values outside the
 \eqn{[0,1]} interval cause an error. NA values are also permitted.
 
 For the \code{algebra()} function, these arguments are passed to the factory
-functions that create the algebra. (Reserved for future use).}
+functions that create the algebra. (Currently unused.)}
 
 \item{a}{An object to be checked if it is a valid algebra (i.e. a list
 returned by the \code{algebra} function).}
@@ -147,7 +147,9 @@ element-wise) alternatives.
 
 \code{goedel.residuum}, \code{lukas.residuum}, and \code{goguen.residuum}
 compute residua (i.e. implications) and \code{goedel.biresiduum},
-\code{lukas.biresiduum}, and \code{goguen.biresiduum} compute bi-residua.
+\code{lukas.biresiduum}, and \code{goguen.biresiduum} compute bi-residua. Residua and
+bi-residua are computed in an element-wise manner, for each corresponding
+pair of values in \code{x} and \code{y} arguments.
 
 \code{invol.neg} and \code{strict.neg} compute the involutive and strict
 negation, respectively.

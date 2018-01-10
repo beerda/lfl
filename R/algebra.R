@@ -22,7 +22,9 @@
 #'
 #' `goedel.residuum`, `lukas.residuum`, and `goguen.residuum`
 #' compute residua (i.e. implications) and `goedel.biresiduum`,
-#' `lukas.biresiduum`, and `goguen.biresiduum` compute bi-residua.
+#' `lukas.biresiduum`, and `goguen.biresiduum` compute bi-residua. Residua and
+#' bi-residua are computed in an element-wise manner, for each corresponding
+#' pair of values in `x` and `y` arguments.
 #'
 #' `invol.neg` and `strict.neg` compute the involutive and strict
 #' negation, respectively.
@@ -68,7 +70,7 @@
 #' \eqn{[0,1]} interval cause an error. NA values are also permitted.
 #'
 #' For the `algebra()` function, these arguments are passed to the factory
-#' functions that create the algebra. (Reserved for future use).
+#' functions that create the algebra. (Currently unused.)
 #' @param na.rm whether to ignore NA values: `TRUE` means that NA's are
 #' ignored, i.e.  the computation is performed as if such values were not
 #' present in the arguments; `FALSE` means that the NA's in arguments are
