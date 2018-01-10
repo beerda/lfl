@@ -4,7 +4,7 @@
 #' This function creates a set of fuzzy attributes from crisp data. Factors,
 #' numeric vectors, matrix or data frame columns are transformed into a set of
 #' fuzzy attributes, i.e. columns with membership degrees. Unlike
-#' \code{\link{lcut}}, for transformation is not used the linguistic linguistic
+#' `lcut()`, for transformation is not used the linguistic linguistic
 #' approach, but partitioning using regular shapes of the fuzzy sets (such as
 #' triangle, raised cosine).
 #'
@@ -13,30 +13,30 @@
 #' a numeric matrix whose columns represent fuzzy sets (fuzzy attributes) with
 #' values being the membership degrees.
 #'
-#' The function behaves diffently to the type of input \code{x}.
+#' The function behaves diffently to the type of input `x`.
 #'
-#' If \code{x} is a factor or a logical vector (or other non-numeric data) then
+#' If `x` is a factor or a logical vector (or other non-numeric data) then
 #' for each distinct value of an input, a fuzzy set is created, and data would
 #' be transformed into crisp membership degrees 0 or 1 only.
 #'
-#' If \code{x} is a numeric vector then fuzzy sets are created accordingly to
-#' break-points specified in the \code{breaks} argument with 1st, 2nd and 3rd
+#' If `x` is a numeric vector then fuzzy sets are created accordingly to
+#' break-points specified in the `breaks` argument with 1st, 2nd and 3rd
 #' break-point specifying the first fuzzy set, 2nd, 3rd and 4th break-point
 #' specifying th second fuzzy set etc. The shape of the fuzzy set is determined
-#' by the \code{type} argument that may be equal either to a string
-#' \code{'triangle'} or \code{'raisedcos'} or it could be a function that
-#' computes the membership degrees for itself (see \code{\link{triangle}} or
-#' \code{\link{raisedcos}} functions for details). Additionally, super-sets of
-#' these elementary sets may be created by specifying the \code{merge}
+#' by the `type` argument that may be equal either to a string
+#' `'triangle'` or `'raisedcos'` or it could be a function that
+#' computes the membership degrees for itself (see `triangular()` or
+#' `raisedcosinal()` functions for details). Additionally, super-sets of
+#' these elementary sets may be created by specifying the `merge`
 #' argument. Values of this argument specify how many consecutive fuzzy sets
 #' should be combined (by using the Lukasiewic's t-conorm) to produce
-#' super-sets - see the description of \code{merge} above.
+#' super-sets - see the description of `merge` above.
 #'
 #' If a matrix (resp. data frame) is provided to this function instead of
 #' single vector, all columns are processed separately as described above and
-#' the result is combined with the \code{\link{cbind.fsets}} function.
+#' the result is combined with the `cbind.fsets()` function.
 #'
-#' The function sets up properly the \code{\link{vars}} and \code{\link{specs}}
+#' The function sets up properly the `vars()` and `specs()`
 #' properties of the result.
 #'
 #' @aliases fcut fcut.default fcut.numeric fcut.matrix fcut.data.frame
@@ -50,7 +50,7 @@
 #' I.e. the minimum number of breaks-points is 3; \eqn{n-2} elementary fuzzy
 #' sets would be created for \eqn{n} break-points.
 #'
-#' If considering an i-th fuzzy set (of \code{type='triangle'}), \code{x}
+#' If considering an i-th fuzzy set (of `type='triangle'`), `x`
 #' values lower than \eqn{i}-th break (and greater than \eqn{(i+2)}-th break)
 #' would result in zero memberhsip degree, values equal to \eqn{(i+1)}-th break
 #' would have membership degree equal 1 and values between them the appropriate
@@ -59,60 +59,62 @@
 #' The resulting fuzzy sets would be named after the original data by adding
 #' dot (".") and a number \eqn{i} of fuzzy set.
 #'
-#' Unlike \code{\link{cut}}, \code{x} values, that are lower or greater than
+#' Unlike `cut()`, `x` values, that are lower or greater than
 #' the given break-points, will have all memberhsip degrees equal to zero.
 #'
-#' For non-numeric data, this argument is ignored. For \code{x} being a numeric
-#' vector, it must be a vector of numeric values. For \code{x} being a numeric
+#' For non-numeric data, this argument is ignored. For `x` being a numeric
+#' vector, it must be a vector of numeric values. For `x` being a numeric
 #' matrix or data frame, it must be a named list containing a numeric vector
 #' for each column - if not, the values are repeated for each column.
 #' @param name A name to be added as a suffix to the created fuzzy attribute
-#' names. This parameter can be used only if \code{x} is a vector. If \code{x}
-#' is a matrix or data frame, \code{name} should be NULL because the fuzzy
-#' attribute names are taken from column names of the argument \code{x}.
-#' @param type The type of fuzzy sets to create Currently, \code{'triangle'} or
-#' \code{'raisedcos'} may be used. The \code{type} argument may be also a
-#' function of 4 arguments that from the value of the first argument, and
-#' considering the boundaries given by the next 3 arguments, computes a
-#' membership degree. See e.g. \code{\link{triangle}} or
-#' \code{\link{raisedcos}} for details on how such function should look like.
+#' names. This parameter can be used only if `x` is a vector. If `x`
+#' is a matrix or data frame, `name` should be NULL because the fuzzy
+#' attribute names are taken from column names of the argument `x`.
+#' @param type The type of fuzzy sets to create. Currently, `'triangle'` or
+#' `'raisedcos'` may be used. The `type` argument may be also a
+#' function with 3 or 4 arguments:
+#' * if `type` is a 4-argument function, it is assumed that that it computes
+#' membership degrees from values of the first argument while considering
+#' the boundaries given by the next 3 arguments;
+#' * if `type` is a 3-argument function, it is assumed that it is a factory
+#' function similar to `triangular()` or `raisedcosinal()`, which, from given
+#' three boundaries, creates a function that computes membership degrees.
 #' @param merge This argument determines whether to derive additional fuzzy
 #' sets by merging the elementary fuzzy sets (whose position is determined with
-#' the \code{breaks} argument) into super-sets.  The argument is ignored for
-#' non-numeric data in \code{x}.
+#' the `breaks` argument) into super-sets.  The argument is ignored for
+#' non-numeric data in `x`.
 #'
-#' \code{merge} may contain any integer number from \code{1} to
-#' \code{length(breaks) - 2}.  Value \code{1} means that the elementary fuzzy
-#' sets should be present in the output.  Value \code{2} means that the two
+#' `merge` may contain any integer number from `1` to
+#' `length(breaks) - 2`.  Value `1` means that the elementary fuzzy
+#' sets should be present in the output.  Value `2` means that the two
 #' consecutive elementary fuzzy sets should be combined by using the Lukasiewic
-#' t-conorm, value \code{3} causes combining three consecutive elementary fuzzy
+#' t-conorm, value `3` causes combining three consecutive elementary fuzzy
 #' sets etc.
 #'
 #' The names of the derived (merged) fuzzy sets is derived from the names of
 #' the original elementary fuzzy sets by concatenating them with the "|" (pipe)
 #' separator.
 #' @param parallel Whether the processing should be run in parallel or not.
-#' Parallelization is implemented using the \code{\link[foreach]{foreach}}
-#' package. The parallel environment must be set properly in advance, e.g. with
-#' the \code{\link[doMC]{registerDoMC}} function.  Currently this argument is
-#' applied only if \code{x} is a matrix or data frame.
+#' Parallelization is implemented using the `foreach::foreach()` function.
+#'  The parallel environment must be set properly in advance, e.g. with
+#' the `doMC::registerDoMC()` function.  Currently this argument is
+#' applied only if `x` is a matrix or data frame.
 #' @param ...  Other parameters to some methods.
 #' @return An object of class "fsets" is returned, which is a numeric matrix
 #' with columns representing the fuzzy attributes. Each source columm of the
-#' \code{x} argument corresponds to multiple columns in the resulting matrix.
+#' `x` argument corresponds to multiple columns in the resulting matrix.
 #' Columns have names that indicate the name of the source as well as a index
-#' \eqn{i} of fuzzy set(s) -- see the description of arguments \code{breaks}
-#' and \code{merge} above.
+#' \eqn{i} of fuzzy set(s) -- see the description of arguments `breaks`
+#' and `merge` above.
 #'
-#' The resulting object would also have set the \code{\link{vars}} and
-#' \code{\link{specs}} properties with the former being created from original
-#' column names (if \code{x} is a matrix or data frame) or the \code{name}
-#' argument (if \code{x} is a numeric vector). The \code{\link{specs}}
+#' The resulting object would also have set the `vars()` and
+#' `specs()` properties with the former being created from original
+#' column names (if `x` is a matrix or data frame) or the `name`
+#' argument (if `x` is a numeric vector). The `specs()`
 #' incidency matrix would be created to reflect the superset-hood of the merged
 #' fuzzy sets.
 #' @author Michal Burda
-#' @seealso \code{\link{lcut}}, \code{\link{farules}}, \code{\link{pbld}}
-#' \code{\link{vars}}, \code{\link{specs}}, \code{\link{cbind.fsets}}
+#' @seealso `lcut()`, `farules()`, `pbld()`, `vars()`, `specs()`, `cbind.fsets()`
 #' @keywords models robust multivariate
 #' @examples
 #'
@@ -136,6 +138,18 @@
 #' data <- CO2[, c('conc', 'uptake')]
 #' fcut(data, breaks=list(conc=c(95, 95, 350, 1000, 1000),
 #'                        uptake=c(7, 7, 28.3, 46, 46)))
+#'
+#' # using a custom 3-argument function (a function factory):
+#' f <- function(a, b, c) {
+#'   return(function(x) ifelse(a <= x & x <= b, 1, 0))
+#' }
+#' fcut(x, breaks=c(0, 0.5, 1), name='age', type=f)
+#'
+#' # using a custom 4-argument function:
+#' f <- function(x, a, b, c) {
+#'   return(ifelse(a <= x & x <= b, 1, 0))
+#' }
+#' fcut(x, breaks=c(0, 0.5, 1), name='age', type=f)
 #'
 #' @export
 fcut <- function(x, ...) {
@@ -215,10 +229,16 @@ fcut.numeric <- function(x,
             func <- raisedcosinal
         }
     }
+    if (length(names(formals(func))) == 3L) {
+        old <- func
+        func <- function(x, a, b, c) {
+            old(a, b, c)(x)
+        }
+    }
 
     # split 'x' accordingly to 'breaks'
     singles <- rollapply(breaks, 3, function(b) {
-        func(b[1], b[2], b[3])(x)
+        func(x, b[1], b[2], b[3])
     })
     singles <- t(as.matrix(singles))
     colnames(singles) <- paste(name, 1:ncol(singles), sep='.')

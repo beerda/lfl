@@ -59,7 +59,7 @@ membership degree between 0 and 1.
 The resulting fuzzy sets would be named after the original data by adding
 dot (".") and a number \eqn{i} of fuzzy set.
 
-Unlike \code{\link{cut}}, \code{x} values, that are lower or greater than
+Unlike \code{cut()}, \code{x} values, that are lower or greater than
 the given break-points, will have all memberhsip degrees equal to zero.
 
 For non-numeric data, this argument is ignored. For \code{x} being a numeric
@@ -67,12 +67,17 @@ vector, it must be a vector of numeric values. For \code{x} being a numeric
 matrix or data frame, it must be a named list containing a numeric vector
 for each column - if not, the values are repeated for each column.}
 
-\item{type}{The type of fuzzy sets to create Currently, \code{'triangle'} or
+\item{type}{The type of fuzzy sets to create. Currently, \code{'triangle'} or
 \code{'raisedcos'} may be used. The \code{type} argument may be also a
-function of 4 arguments that from the value of the first argument, and
-considering the boundaries given by the next 3 arguments, computes a
-membership degree. See e.g. \code{\link{triangle}} or
-\code{\link{raisedcos}} for details on how such function should look like.}
+function with 3 or 4 arguments:
+\itemize{
+\item if \code{type} is a 4-argument function, it is assumed that that it computes
+membership degrees from values of the first argument while considering
+the boundaries given by the next 3 arguments;
+\item if \code{type} is a 3-argument function, it is assumed that it is a factory
+function similar to \code{triangular()} or \code{raisedcosinal()}, which, from given
+three boundaries, creates a function that computes membership degrees.
+}}
 
 \item{merge}{This argument determines whether to derive additional fuzzy
 sets by merging the elementary fuzzy sets (whose position is determined with
@@ -91,9 +96,9 @@ the original elementary fuzzy sets by concatenating them with the "|" (pipe)
 separator.}
 
 \item{parallel}{Whether the processing should be run in parallel or not.
-Parallelization is implemented using the \code{\link[foreach]{foreach}}
-package. The parallel environment must be set properly in advance, e.g. with
-the \code{\link[doMC]{registerDoMC}} function.  Currently this argument is
+Parallelization is implemented using the \code{foreach::foreach()} function.
+The parallel environment must be set properly in advance, e.g. with
+the \code{doMC::registerDoMC()} function.  Currently this argument is
 applied only if \code{x} is a matrix or data frame.}
 }
 \value{
@@ -104,10 +109,10 @@ Columns have names that indicate the name of the source as well as a index
 \eqn{i} of fuzzy set(s) -- see the description of arguments \code{breaks}
 and \code{merge} above.
 
-The resulting object would also have set the \code{\link{vars}} and
-\code{\link{specs}} properties with the former being created from original
+The resulting object would also have set the \code{vars()} and
+\code{specs()} properties with the former being created from original
 column names (if \code{x} is a matrix or data frame) or the \code{name}
-argument (if \code{x} is a numeric vector). The \code{\link{specs}}
+argument (if \code{x} is a numeric vector). The \code{specs()}
 incidency matrix would be created to reflect the superset-hood of the merged
 fuzzy sets.
 }
@@ -115,7 +120,7 @@ fuzzy sets.
 This function creates a set of fuzzy attributes from crisp data. Factors,
 numeric vectors, matrix or data frame columns are transformed into a set of
 fuzzy attributes, i.e. columns with membership degrees. Unlike
-\code{\link{lcut}}, for transformation is not used the linguistic linguistic
+\code{lcut()}, for transformation is not used the linguistic linguistic
 approach, but partitioning using regular shapes of the fuzzy sets (such as
 triangle, raised cosine).
 }
@@ -137,8 +142,8 @@ break-point specifying the first fuzzy set, 2nd, 3rd and 4th break-point
 specifying th second fuzzy set etc. The shape of the fuzzy set is determined
 by the \code{type} argument that may be equal either to a string
 \code{'triangle'} or \code{'raisedcos'} or it could be a function that
-computes the membership degrees for itself (see \code{\link{triangle}} or
-\code{\link{raisedcos}} functions for details). Additionally, super-sets of
+computes the membership degrees for itself (see \code{triangular()} or
+\code{raisedcosinal()} functions for details). Additionally, super-sets of
 these elementary sets may be created by specifying the \code{merge}
 argument. Values of this argument specify how many consecutive fuzzy sets
 should be combined (by using the Lukasiewic's t-conorm) to produce
@@ -146,9 +151,9 @@ super-sets - see the description of \code{merge} above.
 
 If a matrix (resp. data frame) is provided to this function instead of
 single vector, all columns are processed separately as described above and
-the result is combined with the \code{\link{cbind.fsets}} function.
+the result is combined with the \code{cbind.fsets()} function.
 
-The function sets up properly the \code{\link{vars}} and \code{\link{specs}}
+The function sets up properly the \code{vars()} and \code{specs()}
 properties of the result.
 }
 \examples{
@@ -174,10 +179,21 @@ data <- CO2[, c('conc', 'uptake')]
 fcut(data, breaks=list(conc=c(95, 95, 350, 1000, 1000),
                        uptake=c(7, 7, 28.3, 46, 46)))
 
+# using a custom 3-argument function (a function factory):
+f <- function(a, b, c) {
+  return(function(x) ifelse(a <= x & x <= b, 1, 0))
+}
+fcut(x, breaks=c(0, 0.5, 1), name='age', type=f)
+
+# using a custom 4-argument function:
+f <- function(x, a, b, c) {
+  return(ifelse(a <= x & x <= b, 1, 0))
+}
+fcut(x, breaks=c(0, 0.5, 1), name='age', type=f)
+
 }
 \seealso{
-\code{\link{lcut}}, \code{\link{farules}}, \code{\link{pbld}}
-\code{\link{vars}}, \code{\link{specs}}, \code{\link{cbind.fsets}}
+\code{lcut()}, \code{farules()}, \code{pbld()}, \code{vars()}, \code{specs()}, \code{cbind.fsets()}
 }
 \author{
 Michal Burda

@@ -273,10 +273,41 @@ test_that('fcut of data frame', {
 })
 
 
-test_that('fcut for custom function', {
+test_that('fcut for custom function factory', {
     func <- function(a, b, c) {
         f <- triangular(a, b, c)
         return(function(x) f(x)^2)
+    }
+
+    x <- 0:100
+    res <- fcut(x,
+                breaks=c(0, 50, 100),
+                type=func)
+
+    expect_true(is.fsets(res))
+    expect_equal(ncol(res), 1)
+    expect_equal(nrow(res), 101)
+    expect_equal(colnames(res), 'x.1')
+    expect_true(inherits(res, 'fsets'))
+    expect_equivalent(vars(res), 'x')
+    expect_equal(names(vars(res)), NULL)
+    expect_equal(specs(res), matrix(0,
+                                    nrow=1,
+                                    ncol=1))
+
+    expect_equivalent(as.matrix(res)[1, 1], 0)
+    expect_equivalent(as.matrix(res)[26, 1], 0.25)
+    expect_equivalent(as.matrix(res)[51, 1], 1)
+    expect_equivalent(as.matrix(res)[76, 1], 0.25)
+    expect_equivalent(as.matrix(res)[101, 1], 0)
+    expect_true(is.fsets(res))
+})
+
+
+test_that('fcut for custom function', {
+    func <- function(x, a, b, c) {
+        f <- triangular(a, b, c)
+        return(f(x)^2)
     }
 
     x <- 0:100
