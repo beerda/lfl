@@ -11,37 +11,37 @@
 #' If `lo == -Inf` then any value that is lower or equal to center gets memberhsip degree 1.  Similarly, if `hi == Inf`
 #' then any value that is greater or equal to center gets memberhsip degree 1. `NA` and `NaN` values remain unchanged.
 #'
-#' \code{triangle} produces fuzzy sets of a triangular shape (with peak at \code{center}), \code{raisedcos} produces
+#' `triangular()` produces fuzzy sets of a triangular shape (with peak at `center`), `raisedcosinal()` produces
 #' fuzzy sets defined as a raised cosine hill.
 #'
-#' @aliases triangle raisedcos
+#' @aliases triangular raisedcosinal
 #' @param lo A lower bound (can be -Inf).
 #' @param center A peak value.
 #' @param hi An upper bound (can be Inf).
 #' @return A function with single argument `x` that should be a numeric vector to be converted.
 #' @author Michal Burda
-#' @seealso \code{\link{fcut}}
+#' @seealso `fcut()`
 #' @keywords models robust multivariate
 #' @examples
 #'
-#' tr <- triangle(1, 2, 3)
+#' tr <- triangular(1, 2, 3)
 #' tr(1:30 / 3)
 #'
-#' rc <- raisedcos(1, 2, 3)
+#' rc <- raisedcosinal(1, 2, 3)
 #' rc(1:30 / 3)
 #'
-#' plot(triangle(-1, 0, 1), from=-2, to=3)
-#' plot(triangle(-1, 0, 2), from=-2, to=3)
-#' plot(triangle(-Inf, 0, 1), from=-2, to=3)
-#' plot(triangle(-1, 0, Inf), from=-2, to=3)
+#' plot(triangular(-1, 0, 1), from=-2, to=3)
+#' plot(triangular(-1, 0, 2), from=-2, to=3)
+#' plot(triangular(-Inf, 0, 1), from=-2, to=3)
+#' plot(triangular(-1, 0, Inf), from=-2, to=3)
 #'
-#' plot(raisedcos(-1, 0, 1), from=-2, to=3)
-#' plot(raisedcos(-1, 0, 2), from=-2, to=3)
-#' plot(raisedcos(-Inf, 0, 1), from=-2, to=3)
-#' plot(raisedcos(-1, 0, Inf), from=-2, to=3)
+#' plot(raisedcosinal(-1, 0, 1), from=-2, to=3)
+#' plot(raisedcosinal(-1, 0, 2), from=-2, to=3)
+#' plot(raisedcosinal(-Inf, 0, 1), from=-2, to=3)
+#' plot(raisedcosinal(-1, 0, Inf), from=-2, to=3)
 #'
 #' @export
-triangle <- function(lo, center, hi) {
+triangular <- function(lo, center, hi) {
     .mustBeNumericScalar(lo)
     .mustBeNumericScalar(center)
     .mustBeNumericScalar(hi)
@@ -62,9 +62,9 @@ triangle <- function(lo, center, hi) {
     })
 }
 
-#' @rdname triangle
+#' @rdname triangular
 #' @export
-raisedcos <- function(lo, center, hi) {
+raisedcosinal <- function(lo, center, hi) {
     .mustBeNumericScalar(lo)
     .mustBeNumericScalar(center)
     .mustBeNumericScalar(hi)

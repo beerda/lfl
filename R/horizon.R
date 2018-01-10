@@ -76,5 +76,5 @@ horizon <- function(context,
 
     space <- c(-Inf, context, Inf)
     arg <- space[allowed[[atomic]]]
-    return(triangle(arg[1], arg[2], arg[3]))
+    return(triangular(arg[1], arg[2], arg[3]))
 }

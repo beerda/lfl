@@ -210,9 +210,9 @@ fcut.numeric <- function(x,
     } else {
         type <- match.arg(type)
         if (type == 'triangle') {
-            func <- triangle
+            func <- triangular
         } else {
-            func <- raisedcos
+            func <- raisedcosinal
         }
     }
 

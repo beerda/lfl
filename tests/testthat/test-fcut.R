@@ -275,7 +275,7 @@ test_that('fcut of data frame', {
 
 test_that('fcut for custom function', {
     func <- function(a, b, c) {
-        f <- triangle(a, b, c)
+        f <- triangular(a, b, c)
         return(function(x) f(x)^2)
     }
 
