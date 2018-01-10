@@ -5,4 +5,4 @@
 ^\.travis\.yml$
 ^appveyor\.yml$
 ^TODO.ods$
-^~.*$
+^\.~.*$
