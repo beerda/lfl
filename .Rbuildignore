@@ -2,5 +2,7 @@
 ^\.Rproj\.user$
 ^README\.Rmd$
 ^README-.*\.png$
-.travis.yml
+^\.travis\.yml$
 ^appveyor\.yml$
+^TODO.ods$
+^~.*$
