@@ -6,6 +6,7 @@
 #' @param validation A numeric vector of actual (real) values
 #' @return A Root Mean Squared Error (RMSE)
 #' @author Michal Burda
+#' @seealso [smape()], [mase()], [frbe()]
 #' @export
 rmse <- function(forecast, validation) {
   .mustBeNumericVector(forecast)

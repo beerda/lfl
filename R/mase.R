@@ -5,6 +5,7 @@
 #' @param validation A numeric vector of actual (real) values
 #' @return A Mean Absolute Scaled Error (MASE)
 #' @author Michal Burda
+#' @seealso [rmse()], [smape()], [frbe()]
 #' @export
 mase <- function(forecast, validation) {
   .mustBeNumericVector(forecast)

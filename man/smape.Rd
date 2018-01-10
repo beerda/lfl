@@ -17,6 +17,9 @@ A Symmetric Mean Absolute Percentage Error (SMAPE)
 \description{
 SMAPE is computed as \eqn{mean(abs(forecast - validation) / ((abs(forecast) + abs(validation)) / 2))}.
 }
+\seealso{
+\code{\link[=rmse]{rmse()}}, \code{\link[=mase]{mase()}}, \code{\link[=frbe]{frbe()}}
+}
 \author{
 Michal Burda
 }

@@ -17,6 +17,9 @@ A Root Mean Squared Error (RMSE)
 \description{
 RMSE is computed as \eqn{sqrt(mean((forecast - validation)^2))}.
 }
+\seealso{
+\code{\link[=smape]{smape()}}, \code{\link[=mase]{mase()}}, \code{\link[=frbe]{frbe()}}
+}
 \author{
 Michal Burda
 }

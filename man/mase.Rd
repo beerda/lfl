@@ -17,6 +17,9 @@ A Mean Absolute Scaled Error (MASE)
 \description{
 MASE is computed as \eqn{sum(abs(validation - forecast)) / sum(abs(validation[-1] - validation[-n])) / (n/(n-1))}.
 }
+\seealso{
+\code{\link[=rmse]{rmse()}}, \code{\link[=smape]{smape()}}, \code{\link[=frbe]{frbe()}}
+}
 \author{
 Michal Burda
 }

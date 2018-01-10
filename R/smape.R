@@ -6,6 +6,7 @@
 #' @param validation A numeric vector of actual (real) values
 #' @return A Symmetric Mean Absolute Percentage Error (SMAPE)
 #' @author Michal Burda
+#' @seealso [rmse()], [mase()], [frbe()]
 #' @export
 smape <- function(forecast, validation) {
   .mustBeNumericVector(forecast)
