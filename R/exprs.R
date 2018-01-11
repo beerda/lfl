@@ -20,7 +20,7 @@
 #' @param hi An upper bound (can be Inf).
 #' @return A function with single argument `x` that should be a numeric vector to be converted.
 #' @author Michal Burda
-#' @seealso `fcut()`
+#' @seealso [fcut()]
 #' @keywords models robust multivariate
 #' @examples
 #'

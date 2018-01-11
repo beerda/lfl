@@ -47,7 +47,7 @@
 #' @param f An instance of S3 class `fsets`.
 #' @param value Attribute values to be set to the object.
 #' @param ... further arguments to be passed to the underlying functions.
-#' @return `fsets()` returns an object of S3 class `fsets`. `vars()` returns
+#' @return [fsets()] returns an object of S3 class `fsets`. [vars()] returns
 #'   a vector of original variable names of the `fsets` object. `specs`
 #'   returns the specificity matrix.
 #' @author Michal Burda

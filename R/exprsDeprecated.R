@@ -2,7 +2,7 @@
 #'
 #' These functions compute membership degrees of numeric fuzzy sets with
 #' triangular or raised-cosinal shape. These functions are *deprecated*.
-#' Please use `triangular()` or `raisedcosinal()` functions instead.
+#' Please use [triangular()] or [raisedcosinal()] functions instead.
 #'
 #' @param x A numeric vector to be transformed.
 #' @param lo A lower bound (can be -Inf).
@@ -10,6 +10,7 @@
 #' @param hi An upper bound (can be Inf).
 #' @return A numeric vector of membership degrees of `x` to a fuzzy set with the shape
 #' determined with `lo`, `center`, `hi`.
+#' @seealso [triangular()], [raisedcosinal()]
 #' @author Michal Burda
 #' @export
 triangle <- function(x, lo, center, hi) {

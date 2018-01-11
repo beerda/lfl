@@ -4,7 +4,7 @@
 #' This function creates a set of fuzzy attributes from crisp data. Factors,
 #' numeric vectors, matrix or data frame columns are transformed into a set of
 #' fuzzy attributes, i.e. columns with membership degrees. Unlike
-#' `lcut()`, for transformation is not used the linguistic linguistic
+#' [lcut()], for transformation is not used the linguistic linguistic
 #' approach, but partitioning using regular shapes of the fuzzy sets (such as
 #' triangle, raised cosine).
 #'
@@ -25,8 +25,8 @@
 #' specifying th second fuzzy set etc. The shape of the fuzzy set is determined
 #' by the `type` argument that may be equal either to a string
 #' `'triangle'` or `'raisedcos'` or it could be a function that
-#' computes the membership degrees for itself (see `triangular()` or
-#' `raisedcosinal()` functions for details). Additionally, super-sets of
+#' computes the membership degrees for itself (see [triangular()] or
+#' [raisedcosinal()] functions for details). Additionally, super-sets of
 #' these elementary sets may be created by specifying the `merge`
 #' argument. Values of this argument specify how many consecutive fuzzy sets
 #' should be combined (by using the Lukasiewic's t-conorm) to produce
@@ -34,9 +34,9 @@
 #'
 #' If a matrix (resp. data frame) is provided to this function instead of
 #' single vector, all columns are processed separately as described above and
-#' the result is combined with the `cbind.fsets()` function.
+#' the result is combined with the [cbind.fsets()] function.
 #'
-#' The function sets up properly the `vars()` and `specs()`
+#' The function sets up properly the [vars()] and [specs()]
 #' properties of the result.
 #'
 #' @aliases fcut fcut.default fcut.numeric fcut.matrix fcut.data.frame
@@ -59,7 +59,7 @@
 #' The resulting fuzzy sets would be named after the original data by adding
 #' dot (".") and a number \eqn{i} of fuzzy set.
 #'
-#' Unlike `cut()`, `x` values, that are lower or greater than
+#' Unlike [base::cut()], `x` values, that are lower or greater than
 #' the given break-points, will have all memberhsip degrees equal to zero.
 #'
 #' For non-numeric data, this argument is ignored. For `x` being a numeric
@@ -77,7 +77,7 @@
 #' membership degrees from values of the first argument while considering
 #' the boundaries given by the next 3 arguments;
 #' * if `type` is a 3-argument function, it is assumed that it is a factory
-#' function similar to `triangular()` or `raisedcosinal()`, which, from given
+#' function similar to [triangular()] or [raisedcosinal()], which, from given
 #' three boundaries, creates a function that computes membership degrees.
 #' @param merge This argument determines whether to derive additional fuzzy
 #' sets by merging the elementary fuzzy sets (whose position is determined with
@@ -95,9 +95,9 @@
 #' the original elementary fuzzy sets by concatenating them with the "|" (pipe)
 #' separator.
 #' @param parallel Whether the processing should be run in parallel or not.
-#' Parallelization is implemented using the `foreach::foreach()` function.
+#' Parallelization is implemented using the [foreach::foreach()] function.
 #'  The parallel environment must be set properly in advance, e.g. with
-#' the `doMC::registerDoMC()` function.  Currently this argument is
+#' the [doMC::registerDoMC()] function.  Currently this argument is
 #' applied only if `x` is a matrix or data frame.
 #' @param ...  Other parameters to some methods.
 #' @return An object of class "fsets" is returned, which is a numeric matrix
@@ -107,14 +107,14 @@
 #' \eqn{i} of fuzzy set(s) -- see the description of arguments `breaks`
 #' and `merge` above.
 #'
-#' The resulting object would also have set the `vars()` and
-#' `specs()` properties with the former being created from original
+#' The resulting object would also have set the [vars()] and
+#' [specs()] properties with the former being created from original
 #' column names (if `x` is a matrix or data frame) or the `name`
-#' argument (if `x` is a numeric vector). The `specs()`
+#' argument (if `x` is a numeric vector). The [specs()]
 #' incidency matrix would be created to reflect the superset-hood of the merged
 #' fuzzy sets.
 #' @author Michal Burda
-#' @seealso `lcut()`, `farules()`, `pbld()`, `vars()`, `specs()`, `cbind.fsets()`
+#' @seealso [lcut()], [farules()], [pbld()], [vars()], [specs()], [cbind.fsets()]
 #' @keywords models robust multivariate
 #' @examples
 #'

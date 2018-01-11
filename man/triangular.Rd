@@ -54,7 +54,7 @@ plot(raisedcosinal(-1, 0, Inf), from=-2, to=3)
 
 }
 \seealso{
-\code{fcut()}
+\code{\link[=fcut]{fcut()}}
 }
 \author{
 Michal Burda

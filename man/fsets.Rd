@@ -47,7 +47,7 @@ set (i.e. \code{x[, j]}).}
 \item{...}{further arguments to be passed to the underlying functions.}
 }
 \value{
-\code{fsets()} returns an object of S3 class \code{fsets}. \code{vars()} returns
+\code{\link[=fsets]{fsets()}} returns an object of S3 class \code{fsets}. \code{\link[=vars]{vars()}} returns
 a vector of original variable names of the \code{fsets} object. \code{specs}
 returns the specificity matrix.
 }

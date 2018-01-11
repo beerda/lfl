@@ -5,7 +5,7 @@
 \title{Determine whether the first set \code{x} of predicates is more specific (or equal)
 than \code{y} with respect to \code{vars} and \code{specs}.}
 \usage{
-is.specific(x, y, fsets)
+is.specific(x, y, fsets, vars = NULL, specs = NULL)
 }
 \arguments{
 \item{x}{The first character vector of predicates.}
@@ -14,9 +14,13 @@ is.specific(x, y, fsets)
 
 \item{fsets}{A valid instance of the \code{\link[=fsets]{fsets()}} class such that all values in \code{x} and \code{y}
 can be found in \code{colnames(fsets)}}
+
+\item{vars}{Deprecated parameter must be \code{NULL}.}
+
+\item{specs}{Deprecated parameter must be \code{NULL}.}
 }
 \value{
-TRUE or FALSE (see above).
+TRUE or FALSE (see description).
 }
 \description{
 The function takes two character vectors of predicates and determines whether
