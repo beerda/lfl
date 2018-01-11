@@ -19,7 +19,9 @@
 #' @param y The second character vector of predicates.
 #' @param fsets A valid instance of the [fsets()] class such that all values in `x` and `y`
 #' can be found in `colnames(fsets)`
-#' @return TRUE or FALSE (see above).
+#' @param vars Deprecated parameter must be `NULL`.
+#' @param specs Deprecated parameter must be `NULL`.
+#' @return TRUE or FALSE (see description).
 #' @author Michal Burda
 #' @seealso [perceive()], [pbld()], [fsets()], [vars()], [specs()]
 #' @keywords models robust
@@ -78,7 +80,10 @@
 #'                 c('Sm.a', 'Bi.c'),
 #'                 f)
 #' @export
-is.specific <- function(x, y, fsets) {
+is.specific <- function(x, y, fsets, vars=NULL, specs=NULL) {
+    if (!(is.null(vars) && is.null(specs))) {
+        .stop('"vars" and "specs" parameters are defunct. Specify "fsets" parameter instead.')
+    }
     .mustBeCharacterVector(x)
     .mustBeCharacterVector(y)
     .mustBe(is.fsets(fsets), '"fsets" must be a valid instance of the "fsets" S3 class')
