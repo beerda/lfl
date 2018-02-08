@@ -171,6 +171,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// mult
+RcppExport SEXP mult(NumericMatrix x, NumericMatrix y, Function f);
+RcppExport SEXP _lfl_mult(SEXP xSEXP, SEXP ySEXP, SEXP fSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type y(ySEXP);
+    Rcpp::traits::input_parameter< Function >::type f(fSEXP);
+    rcpp_result_gen = Rcpp::wrap(mult(x, y, f));
+    return rcpp_result_gen;
+END_RCPP
+}
 // specificity
 bool specificity(NumericVector x, NumericVector y, NumericVector vars, NumericMatrix specs);
 RcppExport SEXP _lfl_specificity(SEXP xSEXP, SEXP ySEXP, SEXP varsSEXP, SEXP specsSEXP) {
@@ -201,6 +214,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_lfl_triangle", (DL_FUNC) &_lfl_triangle, 2},
     {"_lfl_raisedcos", (DL_FUNC) &_lfl_raisedcos, 2},
     {"_lfl_hedge", (DL_FUNC) &_lfl_hedge, 2},
+    {"_lfl_mult", (DL_FUNC) &_lfl_mult, 3},
     {"_lfl_specificity", (DL_FUNC) &_lfl_specificity, 4},
     {NULL, NULL, 0}
 };
