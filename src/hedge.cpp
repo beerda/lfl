@@ -1,5 +1,5 @@
 /*
- * File name: quantifier.cpp
+ * File name: hedge.cpp
  * Date:      2016/06/13 10:49
  * Author:    Michal Burda
  */
