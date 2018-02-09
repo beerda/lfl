@@ -100,8 +100,12 @@ is.specific <- function(x, y, fsets, vars=NULL, specs=NULL) {
     }
 
     v <- as.integer(factor(vars(fsets)))
+    .is.specific(xi, yi, v, specs(fsets))
+}
 
+
+.is.specific <- function(xi, yi, v, specs) {
     return(.Call('_lfl_specificity',
                  xi-1, yi-1,  # C++ array indexing is from 0
-                 v, specs(fsets), PACKAGE='lfl'))
+                 v, specs, PACKAGE='lfl'))
 }
