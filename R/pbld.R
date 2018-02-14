@@ -66,7 +66,7 @@
 #' d <- lcut(training, context=list(uptake=uptakeContext))
 #'
 #' # search for rules
-#' r <- searchrules(d, lhs=1:38, rhs=39:58)
+#' r <- searchrules(d, lhs=1:38, rhs=39:58, minConfidence=0.5)
 #'
 #' # --- TESTING PART ---
 #' # convert testing data info fuzzy sets
