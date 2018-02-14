@@ -233,6 +233,15 @@ lcut.numeric <- function(x,
 }
 
 
+.byNameOrDefault <- function(x, name, default) {
+    res <- x[[name]]
+    if (is.null(res)) {
+        res <- default
+    }
+    return(res)
+}
+
+
 #' @rdname lcut
 #' @export
 lcut.data.frame <- function(x,
@@ -247,24 +256,23 @@ lcut.data.frame <- function(x,
     }
     if (!is.list(context)) {
         context <- rep(list(context), ncol(x))
+        names(context) <- colnames(x)
     }
     if (!is.list(atomic)) {
         atomic <- rep(list(atomic), ncol(x))
+        names(atomic) <- colnames(x)
     }
     if (!is.list(hedges)) {
         hedges <- rep(list(hedges), ncol(x))
+        names(hedges) <- colnames(x)
     }
-    if (!identical(length(context), ncol(x))) {
-        stop(paste("if 'context' is a list, it must have length equal to ncol(x)"))
-    }
-
     res <- NULL
-    for (i in seq_len(ncol(x))) {
+    for (i in colnames(x)) {
         f <- lcut(x[, i],
-                  context=context[[i]],
-                  atomic=atomic[[i]],
-                  hedges=hedges[[i]],
-                  name=colnames(x)[i],
+                  context=.byNameOrDefault(context, i, minmax),
+                  atomic=.byNameOrDefault(atomic, i, c('sm', 'me', 'bi', 'lm', 'um', 'ze', 'neg.sm', 'neg.me', 'neg.bi', 'neg.lm', 'neg.um')),
+                  hedges=.byNameOrDefault(hedges, i, c('ex', 'si', 've', 'ty', '-', 'ml', 'ro', 'qr', 'vr')),
+                  name=i,
                   ...)
         res <- cbind.fsets(res, f)
     }
