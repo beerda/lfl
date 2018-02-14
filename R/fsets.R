@@ -298,6 +298,11 @@ rbind.fsets <- function(..., deparse.level = 1) {
     v <- vars(x)
     s <- specs(x)
     m <- as.matrix(x)
+
+    names(v) <- colnames(x)
+    colnames(s) <- colnames(x)
+    rownames(s) <- colnames(x)
+
     return(fsets(m[i, j, drop=FALSE],
                  vars=v[j],
                  specs=s[j, j, drop=FALSE]))
