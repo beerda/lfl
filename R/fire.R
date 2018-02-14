@@ -108,12 +108,6 @@ fire <- function(x,
         tnorm <- alg$pt
     }
 
-    unknown <- unique(unlist(rules))
-    unknown <- setdiff(unknown, colnames(x))
-    if (length(unknown) > 0) {
-        .stop(paste0("Unknown predicates in rules: ", paste(unknown, collapse=', ')))
-    }
-
     if (onlyAnte) {
         if (any(lengths(rules) <= 0)) {
             .stop("Cannot extract antecedent from an empty rule (onlyAnte is set to TRUE)")
@@ -121,7 +115,14 @@ fire <- function(x,
         rules <- antecedents(rules)
     }
 
-    xx <- split(x, c(col(x)))  # convert matrix to a list of columns
+    unknown <- unique(unlist(rules))
+    unknown <- setdiff(unknown, colnames(x))
+    if (length(unknown) > 0) {
+        .stop(paste0("Unknown predicates in rules: ", paste(unknown, collapse=', ')))
+    }
+
+    xx <- as.matrix(x)
+    xx <- split(xx, c(col(xx)))  # convert matrix to a list of columns
     names(xx) <- colnames(x)
     res <- lapply(rules, function(rule) {
         if (length(rule) <= 0) {
