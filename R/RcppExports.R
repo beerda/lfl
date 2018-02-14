@@ -61,6 +61,10 @@
     .Call(`_lfl_mult`, x, y, f)
 }
 
+.search <- function(rcppData, config) {
+    .Call(`_lfl_search`, rcppData, config)
+}
+
 .specificity <- function(x, y, vars, specs) {
     .Call(`_lfl_specificity`, x, y, vars, specs)
 }

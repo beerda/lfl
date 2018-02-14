@@ -20,7 +20,15 @@
                     ": '", deparse(substitute(x)), "' must be a character vector of size 1"),
              call.=FALSE)
     }
- }
+}
+
+.mustBeInInterval <- function(x, a, b) {
+    if (!isTRUE(all(x >= a & x <= b))) {
+        stop(paste0(as.list(sys.call(-1))[[1]],
+                    ": '", deparse(substitute(x)), "' must contain values within interval ", a, " and ", b),
+             call.=FALSE)
+    }
+}
 
 .mustBeNumericVector <- function(x) {
     if (!isTRUE(is.vector(x) && is.numeric(x))) {
