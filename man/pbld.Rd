@@ -57,8 +57,10 @@ row of membership degrees in \code{partition}.
 
 # --- TRAINING PART ---
 # split data into training and testing set
-testing <- CO2[1:5, ]
-training <- CO2[-1 * 1:5, ]
+set.seed(1)
+testset <- sample(NROW(CO2), 10)
+testing <- CO2[testset, ]
+training <- CO2[-testset, ]
 
 # custom context of the RHS variable
 uptakeContext <- ctx3(7, 28.3, 46)
