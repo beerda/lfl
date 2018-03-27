@@ -167,6 +167,7 @@ fcut.default <- function(x, ...) {
 #' @rdname fcut
 #' @export
 #' @importFrom stats model.matrix
+#' @importFrom plyr laply
 fcut.factor <- function(x,
                         name=deparse(substitute(x)),
                         ...) {
@@ -174,10 +175,10 @@ fcut.factor <- function(x,
     .mustNotBeNull(name)
     .mustBeCharacterScalar(name)
 
-    d <- data.frame(x=x)
-    colnames(d) <- paste0(name, '.')
-    res <- model.matrix(~ . + 0, data=d)
-    res <- matrix(res, nrow=nrow(res), dimnames=dimnames(res))
+    res <- laply(x, function(a) { a == levels(x) }) + 0
+    res <- as.matrix(res)
+    colnames(res) <- paste(name, levels(x), sep='.')
+
     theVars <- rep(name, ncol(res))
     theSpecs <- matrix(0, nrow=ncol(res), ncol=ncol(res))
     return(fsets(res,
