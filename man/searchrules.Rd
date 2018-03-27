@@ -35,11 +35,11 @@ from best to worst. This argument is used mainly in combination with the
 
 \item{minSupport}{The minimum support degree of a rule. Rules with support
 below that number are filtered out. It must be a numeric value from interval
-\link{0, 1}. See below for details on how the support degree is computed.}
+\eqn{[0, 1]}. See below for details on how the support degree is computed.}
 
 \item{minConfidence}{The minimum confidence degree of a rule. Rules with
 confidence below that number are filtered out.  It must be a numeric value
-from interval \link{0, 1}. See below for details on how the confidence degree is
+from interval \eqn{[0, 1]}. See below for details on how the confidence degree is
 computed.}
 
 \item{maxConfidence}{Maximum confidence threshold. After finding a rule that
