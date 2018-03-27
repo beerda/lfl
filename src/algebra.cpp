@@ -34,7 +34,7 @@ double goedel_tnorm(NumericVector vals, LogicalVector naRm)
             res = vals[i];
         }
     }
-    if (!naRm[0] & na & res > 0) {
+    if (!naRm[0] && na && res > 0) {
         return NA_REAL;
     }
     return res;
@@ -58,7 +58,7 @@ double lukas_tnorm(NumericVector vals, LogicalVector naRm)
     res -= vals.size();
     if (res <= 0) {
         return 0.0;
-    } else if (!naRm[0] & na) {
+    } else if (!naRm[0] && na) {
         return NA_REAL;
     }
     return res;
@@ -78,7 +78,7 @@ double goguen_tnorm(NumericVector vals, LogicalVector naRm)
             res = res * vals[i];
         }
     }
-    if (!naRm[0] & na & res > 0) {
+    if (!naRm[0] && na && res > 0) {
         return NA_REAL;
     }
     return res;
@@ -98,7 +98,7 @@ double goedel_tconorm(NumericVector vals, LogicalVector naRm)
             res = vals[i];
         }
     }
-    if (!naRm[0] & na & res < 1) {
+    if (!naRm[0] && na && res < 1) {
         return NA_REAL;
     }
     return res;
@@ -120,7 +120,7 @@ double lukas_tconorm(NumericVector vals, LogicalVector naRm)
     }
     if (res >= 1) {
         return 1.0;
-    } else if (!naRm[0] & na) {
+    } else if (!naRm[0] && na) {
         return NA_REAL;
     }
     return res;
@@ -140,7 +140,7 @@ double goguen_tconorm(NumericVector vals, LogicalVector naRm)
             res = res + vals[i] - res * vals[i];
         }
     }
-    if (!naRm[0] & na & res < 1) {
+    if (!naRm[0] && na && res < 1) {
         return NA_REAL;
     }
     return res;
