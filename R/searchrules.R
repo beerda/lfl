@@ -129,7 +129,7 @@ searchrules <- function(d,
 
     best = match.arg(best)
 
-    config <- list(vars=as.numeric(as.factor(vars(d)[colnames(d)])),
+    config <- list(vars=as.numeric(as.factor(vars(d))),
                    minSupport=minSupport,
                    minConfidence=minConfidence,
                    maxConfidence=maxConfidence,
