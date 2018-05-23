@@ -21,7 +21,7 @@
 #' row of membership degrees in `partition`.
 #'
 #' @param x Input to the inference. It should be an object of class
-#' [fsets()] (e.g. created by using the [fcut()] or [lcut() functions).
+#' [fsets()] (e.g. created by using the [fcut()] or [lcut()] functions).
 #' It is basically a matrix with columns representing fuzzy sets.
 #'
 #' Each row represents a single case of inference. Columns should be named
