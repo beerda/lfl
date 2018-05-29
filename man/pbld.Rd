@@ -10,7 +10,7 @@ pbld(x, rules, partition, values, type = c("global", "local"),
 }
 \arguments{
 \item{x}{Input to the inference. It should be an object of class
-\code{\link[=fsets]{fsets()}} (e.g. created by using the \code{\link[=fcut]{fcut()}} or [lcut() functions).
+\code{\link[=fsets]{fsets()}} (e.g. created by using the \code{\link[=fcut]{fcut()}} or \code{\link[=lcut]{lcut()}} functions).
 It is basically a matrix with columns representing fuzzy sets.
 
 Each row represents a single case of inference. Columns should be named
