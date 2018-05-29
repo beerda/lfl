@@ -9,6 +9,8 @@
 #define __LFL__SEARCH__SEARCH_H__
 
 
+// #include <iostream>
+
 #include <common.h>
 #include "SearchConfig.h"
 #include "Data.h"
@@ -175,6 +177,7 @@ protected:
             postponeTask(task);
         }
         else {
+            //std::cout << "Processing task: " << task << std::endl;
             if (!m_extension->isRedundantLhs(task)) {
                 updateLhsChain(task);
                 m_extension->computeLhsStatistics(task);

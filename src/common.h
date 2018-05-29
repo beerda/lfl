@@ -25,6 +25,7 @@
     } \
 }
 
+namespace lfl { namespace search {
 
 enum { nullId = -1 };
 
@@ -66,4 +67,5 @@ inline std::ostream& operator<< (std::ostream& stream, const IdSet& obj) {
     return stream;
 }
 
+}}
 #endif

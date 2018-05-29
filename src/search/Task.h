@@ -306,20 +306,33 @@ public:
 
 
     friend std::ostream& operator<< (std::ostream& stream, const Task& obj) {
-        //stream << "lhs: " << obj.getCurrentLhs() << " & " << obj.m_lhsPrefix;
-        //stream << "prefix: " << obj.m_lhsPrefix;
+        stream << "lhs: ";
+        if (obj.hasLhs()) {
+            stream << obj.getCurrentLhs() << " & " << obj.m_lhsPrefix;
+        } else {
+            stream << "--";
+        }
+        stream << "prefix: " << obj.m_lhsPrefix;
         //stream << ", availLhs size: " << obj.m_availableLhs.size() << " (curr index: " << obj.m_currentLhsIndex << ") ";
         //stream << ", soFarLhs size: " << obj.m_soFarLhs.size();
         //stream << ", availRhs size: " << obj.m_availableRhs.size() << " (curr index: " << obj.m_currentRhsIndex << ") ";
         //stream << ", soFarRhs size: " << obj.m_soFarRhs.size();
-        //stream << " (" << obj.m_stats << ")";
+        stream << ", availLhs: " << obj.m_availableLhs << " (curr index: " << obj.m_currentLhsIndex << ") ";
+        stream << ", soFarLhs: " << obj.m_soFarLhs;
+        stream << ", availRhs: " << obj.m_availableRhs << " (curr index: " << obj.m_currentRhsIndex << ") ";
+        stream << ", soFarRhs: " << obj.m_soFarRhs;
+        stream << " (" << obj.m_stats << ")";
 
         return stream;
     }
 
 
     friend std::ostream& operator<< (std::ostream& stream, const Task* obj) {
-        stream << *obj;
+        if (obj) {
+            stream << *obj;
+        } else {
+            stream << "task=NULL";
+        }
         return stream;
     }
 };
