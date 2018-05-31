@@ -119,9 +119,11 @@ longest argument (shorter argument is recycled).
 numeric vector of the same size as the argument \code{x}.
 
 \code{algebra} returns a list of functions of the requested algebra:
-\code{"n"} (negation), \code{"t"} (t-norm), \code{"pt"} (parallel, i.e.
+\code{"n"} (negation), \code{"t"} (t-norm), \code{"pt"} (parallel, i.e.,
 element-wise, t-norm), \code{"c"} (t-conorm), \code{"pc"} (parallel
-t-conorm), \code{"r"} (residuum), and \code{"b"} (bi-residuum).
+t-conorm), \code{"r"} (residuum), \code{"b"} (bi-residuum), \code{"s"} (supremum),
+\code{"ps"} (parallel, i.e., element-wise supremum), \code{"i"} (infimum), and
+\code{"pi"} (parallel, i.e., element-wise infimum).
 }
 \description{
 Compute triangular norms (t-norms), triangular conorms (t-conorms), residua,
@@ -189,6 +191,8 @@ Goguen, or Lukasiewicz algebra:
 \item \code{"goedel"}: strict negation and Goedel t-norm, t-conorm, residuum, and bi-residuum;
 \item \code{"goguen"}: strict negation and Goguen t-norm, t-conorm, residuum, and bi-residuum;
 \item \code{"lukasiewicz"}: involutive negation and Lukasiewicz t-norm, t-conorm, residuum, and bi-residuum.
+Moreover, \code{algebra} returns supremum and infimum functions computed as maximum and minimum,
+respectively.
 }
 
 \code{is.algebra} tests whether the given \code{a} argument is a valid
@@ -223,6 +227,10 @@ algebra, i.e. a list returned by the \code{algebra} function.
     a$pc(x, y) # parallel t-conorm
     a$r(x, y)  # residuum
     a$b(x, y)  # bi-residuum
+    a$s(x, y)  # supremum
+    a$ps(x, y) # parallel supremum
+    a$i(x, y)  # infimum
+    a$pi(x, y) # parallel infimum
 
     is.algebra(a) # TRUE
 }

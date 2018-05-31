@@ -83,16 +83,16 @@ compose <- function(x,
         type <- match.arg(type)
         if (type == 'basic') {
             type <- alg$pt
-            merge <- goedel.tconorm
+            merge <- alg$s
         } else if (type == 'sub') {
             type <- alg$r
-            merge <- goedel.tnorm
+            merge <- alg$i
         } else if (type == 'super') {
             type <- function(x, y) { alg$r(y, x) }
-            merge <- goedel.tnorm
+            merge <- alg$i
         } else if (type == 'square') {
             type <- alg$b
-            merge <- goedel.tnorm
+            merge <- alg$i
         } else {
             stop('Unrecognized composition type')
         }
@@ -106,7 +106,7 @@ compose <- function(x,
         merge <- function(x) {
             res <- sort(x, decreasing=TRUE)
             relcard <- seq_along(res) / length(res)
-            goedel.tconorm(alg$pt(res, quantifier(relcard)))
+            alg$s(alg$pt(res, quantifier(relcard)))
         }
     } else if (!is.null(quantifier)) {
         stop("'quantifier' must be a function or NULL")
@@ -121,7 +121,7 @@ compose <- function(x,
       # TODO: test excluding features!
       # TODO: excluding should not be inside of this function - it should be a separate function
       fe <- function(x, y) {
-        goedel.tconorm(alg$pt(x, y))
+        alg$s(alg$pt(x, y))
       }
       e <- mult(x, e, fe)
       res <- alg$pt(res, alg$n(e))

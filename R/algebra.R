@@ -61,6 +61,8 @@
 #' * `"goedel"`: strict negation and Goedel t-norm, t-conorm, residuum, and bi-residuum;
 #' * `"goguen"`: strict negation and Goguen t-norm, t-conorm, residuum, and bi-residuum;
 #' * `"lukasiewicz"`: involutive negation and Lukasiewicz t-norm, t-conorm, residuum, and bi-residuum.
+#' Moreover, `algebra` returns supremum and infimum functions computed as maximum and minimum,
+#' respectively.
 #'
 #' `is.algebra` tests whether the given `a` argument is a valid
 #' algebra, i.e. a list returned by the `algebra` function.
@@ -106,9 +108,11 @@
 #' numeric vector of the same size as the argument `x`.
 #'
 #' `algebra` returns a list of functions of the requested algebra:
-#' `"n"` (negation), `"t"` (t-norm), `"pt"` (parallel, i.e.
+#' `"n"` (negation), `"t"` (t-norm), `"pt"` (parallel, i.e.,
 #' element-wise, t-norm), `"c"` (t-conorm), `"pc"` (parallel
-#' t-conorm), `"r"` (residuum), and `"b"` (bi-residuum).
+#' t-conorm), `"r"` (residuum), `"b"` (bi-residuum), `"s"` (supremum),
+#' `"ps"` (parallel, i.e., element-wise supremum), `"i"` (infimum), and
+#' `"pi"` (parallel, i.e., element-wise infimum).
 #'
 #' @author Michal Burda
 #' @keywords models robust
@@ -141,6 +145,10 @@
 #'     a$pc(x, y) # parallel t-conorm
 #'     a$r(x, y)  # residuum
 #'     a$b(x, y)  # bi-residuum
+#'     a$s(x, y)  # supremum
+#'     a$ps(x, y) # parallel supremum
+#'     a$i(x, y)  # infimum
+#'     a$pi(x, y) # parallel infimum
 #'
 #'     is.algebra(a) # TRUE
 #' @export
@@ -164,7 +172,11 @@ is.algebra <- function(a) {
            is.function(a$c) &&
            is.function(a$pc) &&
            is.function(a$r) &&
-           is.function(a$b))
+           is.function(a$b) &&
+           is.function(a$s) &&
+           is.function(a$ps) &&
+           is.function(a$i) &&
+           is.function(a$pi))
 }
 
 
@@ -360,7 +372,11 @@ strict.neg <- function(x) {
                              c=goedel.tconorm,
                              pc=pgoedel.tconorm,
                              r=goedel.residuum,
-                             b=goedel.biresiduum)
+                             b=goedel.biresiduum,
+                             i=goedel.tnorm,
+                             pi=pgoedel.tnorm,
+                             s=goedel.tconorm,
+                             ps=pgoedel.tconorm)
                   },
                   'lukasiewicz'=function(...) {
                         list(n=invol.neg,
@@ -369,7 +385,11 @@ strict.neg <- function(x) {
                              c=lukas.tconorm,
                              pc=plukas.tconorm,
                              r=lukas.residuum,
-                             b=lukas.biresiduum)
+                             b=lukas.biresiduum,
+                             i=goedel.tnorm,
+                             pi=pgoedel.tnorm,
+                             s=goedel.tconorm,
+                             ps=pgoedel.tconorm)
                   },
                   'goguen'=function(...) {
                         list(n=strict.neg,
@@ -378,5 +398,9 @@ strict.neg <- function(x) {
                              c=goguen.tconorm,
                              pc=pgoguen.tconorm,
                              r=goguen.residuum,
-                             b=goguen.biresiduum)
+                             b=goguen.biresiduum,
+                             i=goedel.tnorm,
+                             pi=pgoedel.tnorm,
+                             s=goedel.tconorm,
+                             ps=pgoedel.tconorm)
                    })
