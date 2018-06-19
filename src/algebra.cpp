@@ -15,9 +15,6 @@ inline void testInvalids(double x) {
     if ((x) < 0 || (x) > 1) {
         stop("argument out of range 0..1");
     }
-    if (R_IsNaN((x))) {
-        stop("NaN argument");
-    }
 }
 
 
@@ -25,17 +22,15 @@ inline void testInvalids(double x) {
 double goedel_tnorm(NumericVector vals, LogicalVector naRm)
 {
     double res = 1.0;
-    bool na = false;
     for (int i = 0; i < vals.size(); ++i) {
         testInvalids(vals[i]);
-        if (R_IsNA(vals[i])) {
-            na = true;
+        if (NumericVector::is_na(vals[i])) {
+            if (!naRm[0]) {
+                return NA_REAL;
+            }
         } else if (vals[i] < res) {
             res = vals[i];
         }
-    }
-    if (!naRm[0] && na && res > 0) {
-        return NA_REAL;
     }
     return res;
 }
@@ -45,23 +40,20 @@ double goedel_tnorm(NumericVector vals, LogicalVector naRm)
 double lukas_tnorm(NumericVector vals, LogicalVector naRm)
 {
     double res = 1.0;
-    bool na = false;
     for (int i = 0; i < vals.size(); ++i) {
         testInvalids(vals[i]);
-        if (R_IsNA(vals[i])) {
-            na = true;
-            ++res;
+        if (NumericVector::is_na(vals[i])) {
+            if (naRm[0]) {
+                ++res;
+            } else {
+                return NA_REAL;
+            }
         } else {
             res += vals[i];
         }
     }
     res -= vals.size();
-    if (res <= 0) {
-        return 0.0;
-    } else if (!naRm[0] && na) {
-        return NA_REAL;
-    }
-    return res;
+    return res > 0 ? res : 0;
 }
 
 
@@ -72,14 +64,13 @@ double goguen_tnorm(NumericVector vals, LogicalVector naRm)
     bool na = false;
     for (int i = 0; i < vals.size(); ++i) {
         testInvalids(vals[i]);
-        if (R_IsNA(vals[i])) {
-            na = true;
+        if (NumericVector::is_na(vals[i])) {
+            if (!naRm[0]) {
+                return NA_REAL;
+            }
         } else {
             res = res * vals[i];
         }
-    }
-    if (!naRm[0] && na && res > 0) {
-        return NA_REAL;
     }
     return res;
 }
@@ -89,17 +80,15 @@ double goguen_tnorm(NumericVector vals, LogicalVector naRm)
 double goedel_tconorm(NumericVector vals, LogicalVector naRm)
 {
     double res = 0.0;
-    bool na = false;
     for (int i = 0; i < vals.size(); ++i) {
         testInvalids(vals[i]);
-        if (R_IsNA(vals[i])) {
-            na = true;
+        if (NumericVector::is_na(vals[i])) {
+            if (!naRm[0]) {
+                return NA_REAL;
+            }
         } else if (vals[i] > res) {
             res = vals[i];
         }
-    }
-    if (!naRm[0] && na && res < 1) {
-        return NA_REAL;
     }
     return res;
 }
@@ -109,21 +98,17 @@ double goedel_tconorm(NumericVector vals, LogicalVector naRm)
 double lukas_tconorm(NumericVector vals, LogicalVector naRm)
 {
     double res = 0.0;
-    bool na = false;
     for (int i = 0; i < vals.size(); ++i) {
         testInvalids(vals[i]);
-        if (R_IsNA(vals[i])) {
-            na = true;
+        if (NumericVector::is_na(vals[i])) {
+            if (!naRm[0]) {
+                return NA_REAL;
+            }
         } else {
             res += vals[i];
         }
     }
-    if (res >= 1) {
-        return 1.0;
-    } else if (!naRm[0] && na) {
-        return NA_REAL;
-    }
-    return res;
+    return res >= 1 ? 1 : res;
 }
 
 
@@ -131,17 +116,15 @@ double lukas_tconorm(NumericVector vals, LogicalVector naRm)
 double goguen_tconorm(NumericVector vals, LogicalVector naRm)
 {
     double res = 0.0;
-    bool na = false;
     for (int i = 0; i < vals.size(); ++i) {
         testInvalids(vals[i]);
-        if (R_IsNA(vals[i])) {
-            na = true;
+        if (NumericVector::is_na(vals[i])) {
+            if (!naRm[0]) {
+                return NA_REAL;
+            }
         } else {
             res = res + vals[i] - res * vals[i];
         }
-    }
-    if (!naRm[0] && na && res < 1) {
-        return NA_REAL;
     }
     return res;
 }
@@ -157,9 +140,7 @@ NumericVector goedel_residuum(NumericVector x, NumericVector y)
         int yi = i % y.size();
         testInvalids(x[xi]);
         testInvalids(y[yi]);
-        if (x[xi] == 0) {
-            res[i] = 1;
-        } else if (R_IsNA(x[xi]) || R_IsNA(y[yi])) {
+        if (NumericVector::is_na(x[xi]) || NumericVector::is_na(y[yi])) {
             res[i] = NA_REAL;
         } else if (x[xi] <= y[yi]) {
             res[i] = 1;
@@ -181,9 +162,7 @@ NumericVector lukas_residuum(NumericVector x, NumericVector y)
         int yi = i % y.size();
         testInvalids(x[xi]);
         testInvalids(y[yi]);
-        if (x[xi] == 0) {
-            res[i] = 1;
-        } else if (R_IsNA(x[xi]) || R_IsNA(y[yi])) {
+        if (NumericVector::is_na(x[xi]) || NumericVector::is_na(y[yi])) {
             res[i] = NA_REAL;
         } else if (x[xi] <= y[yi]) {
             res[i] = 1;
@@ -205,9 +184,7 @@ NumericVector goguen_residuum(NumericVector x, NumericVector y)
         int yi = i % y.size();
         testInvalids(x[xi]);
         testInvalids(y[yi]);
-        if (x[xi] == 0) {
-            res[i] = 1;
-        } else if (R_IsNA(x[xi]) || R_IsNA(y[yi])) {
+        if (NumericVector::is_na(x[xi]) || NumericVector::is_na(y[yi])) {
             res[i] = NA_REAL;
         } else if (x[xi] <= y[yi]) {
             res[i] = 1;
@@ -225,7 +202,7 @@ NumericVector invol_neg(NumericVector x)
     NumericVector res(x.size());
     for (int i = 0; i < x.size(); ++i) {
         testInvalids(x[i]);
-        if (R_IsNA(x[i])) {
+        if (NumericVector::is_na(x[i])) {
             res[i] = NA_REAL;
         } else {
             res[i] = 1 - x[i];
@@ -241,7 +218,7 @@ NumericVector strict_neg(NumericVector x)
     NumericVector res(x.size());
     for (int i = 0; i < x.size(); ++i) {
         testInvalids(x[i]);
-        if (R_IsNA(x[i])) {
+        if (NumericVector::is_na(x[i])) {
             res[i] = NA_REAL;
         } else if (x[i] == 0) {
             res[i] = 1;

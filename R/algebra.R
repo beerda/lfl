@@ -9,7 +9,7 @@
 #' firstly so that a numeric vector of length 1 is returned.
 #'
 #' `pgoedel.tnorm`, `plukas.tnorm`, and `pgoguen.tnorm` compute
-#' the same t-norms, but in a parallel manner (element-wisely). I.e. the values
+#' the same t-norms, but in an element-wise manner. I.e. the values
 #' with indices 1 of all arguments are used to compute the t-norm, then the
 #' second values (while recycling the vectors if they do not have the same
 #' size) so that the result is a vector of values.
@@ -17,8 +17,7 @@
 #' `goedel.tconorm`, `lukas.tconorm`, `goguen.tconorm`, are
 #' similar to the previously mentioned functions, exept that they compute
 #' triangular conorms (t-conorms).  `pgoedel.tconorm`,
-#' `plukas.tconorm`, and `pgoguen.tconorm` are their parallel (i.e.
-#' element-wise) alternatives.
+#' `plukas.tconorm`, and `pgoguen.tconorm` are their element-wise alternatives.
 #'
 #' `goedel.residuum`, `lukas.residuum`, and `goguen.residuum`
 #' compute residua (i.e. implications) and `goedel.biresiduum`,
@@ -50,11 +49,10 @@
 #' as follows: \deqn{B(a, b) = T(R(a, b), R(b, a)).}
 #'
 #' The arguments have to be numbers from the interval \eqn{[0, 1]}. Values
-#' outside that range cause an error. Also NaN causes an error.
+#' outside that range cause an error. NaN values are treated as NAs.
 #'
-#' If `na.rm=TRUE` then missing values (NA) are ignored. Otherwise, they
-#' are treated as unknown values accordingly to Kleene logic. See the examples
-#' below.
+#' If `na.rm=TRUE` then missing values (NA or NaN) are ignored. Otherwise, if
+#' some argument is NA or NaN, the result is NA. See the examples below.
 #'
 #' `algebra` returns a named list of functions that together form Goedel,
 #' Goguen, or Lukasiewicz algebra:
@@ -73,10 +71,10 @@
 #'
 #' For the `algebra()` function, these arguments are passed to the factory
 #' functions that create the algebra. (Currently unused.)
-#' @param na.rm whether to ignore NA values: `TRUE` means that NA's are
+#' @param na.rm whether to ignore missing values: `TRUE` means that NA's and NaN's are
 #' ignored, i.e.  the computation is performed as if such values were not
-#' present in the arguments; `FALSE` means that the NA's in arguments are
-#' taken into considerations, details below.
+#' present in the arguments; `FALSE` means that the missing values are propagated
+#' to the results.
 #' @param x Numeric vector of values to compute a residuum or bi-residuum from.
 #' Values outside the \eqn{[0,1]} interval cause an error. NA values are also
 #' permitted.
@@ -95,9 +93,9 @@
 #' return a numeric vector of size 1 that is the result of the appropriate
 #' t-norm or t-conorm applied on all values of all arguments.
 #'
-#' Parallel versions of t-norms and t-conorms (such as `pgoedel.tnorm`)
+#' Element-wise versions of t-norms and t-conorms (such as `pgoedel.tnorm`)
 #' return a vector of results after applying the appropriate t-norm or t-conorm
-#' on argument in an element-wise (i.e. parallel, by indices) way. The
+#' on argument in an element-wise (i.e. by indices) way. The
 #' resulting vector is of length of the longest argument (shorter arguments are
 #' recycled).
 #'
@@ -108,16 +106,16 @@
 #' numeric vector of the same size as the argument `x`.
 #'
 #' `algebra` returns a list of functions of the requested algebra:
-#' `"n"` (negation), `"t"` (t-norm), `"pt"` (parallel, i.e.,
-#' element-wise, t-norm), `"c"` (t-conorm), `"pc"` (parallel
-#' t-conorm), `"r"` (residuum), `"b"` (bi-residuum), `"s"` (supremum),
-#' `"ps"` (parallel, i.e., element-wise supremum), `"i"` (infimum), and
-#' `"pi"` (parallel, i.e., element-wise infimum).
+#' `"n"` (negation), `"t"` (t-norm), `"pt"` (element-wise t-norm),
+#' `"c"` (t-conorm), `"pc"` (element-wise t-conorm), `"r"` (residuum),
+#' `"b"` (bi-residuum), `"s"` (supremum),
+#' `"ps"` (element-wise supremum), `"i"` (infimum), and
+#' `"pi"` (element-wise infimum).
 #'
 #' @author Michal Burda
 #' @keywords models robust
 #' @examples
-#'     # direct and parallel version of functions
+#'     # direct and element-wise version of functions
 #'     goedel.tnorm(c(0.3, 0.2, 0.5), c(0.8, 0.1, 0.5))  # 0.1
 #'     pgoedel.tnorm(c(0.3, 0.2, 0.5), c(0.8, 0.1, 0.5)) # c(0.3, 0.1, 0.5)
 #'
@@ -140,15 +138,15 @@
 #'     a <- algebra('goedel')
 #'     a$n(x)     # negation
 #'     a$t(x, y)  # t-norm
-#'     a$pt(x, y) # parallel t-norm
+#'     a$pt(x, y) # element-wise t-norm
 #'     a$c(x, y)  # t-conorm
-#'     a$pc(x, y) # parallel t-conorm
+#'     a$pc(x, y) # element-wise t-conorm
 #'     a$r(x, y)  # residuum
 #'     a$b(x, y)  # bi-residuum
 #'     a$s(x, y)  # supremum
-#'     a$ps(x, y) # parallel supremum
+#'     a$ps(x, y) # element-wise supremum
 #'     a$i(x, y)  # infimum
-#'     a$pi(x, y) # parallel infimum
+#'     a$pi(x, y) # element-wise infimum
 #'
 #'     is.algebra(a) # TRUE
 #' @export
@@ -187,8 +185,7 @@ is.algebra <- function(a) {
             return(NULL)
         }
         vals <- lapply(elts, as.numeric)
-        vals <- do.call('cbind', vals)
-        res <- apply(vals, 1, f, na.rm=na.rm)
+        res <- do.call('mapply', c(list(f), vals, list(MoreArgs=list(na.rm=na.rm))))
         mostattributes(res) <- attributes(elts[[1L]])
         return(res)
     }

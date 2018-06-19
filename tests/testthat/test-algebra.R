@@ -9,8 +9,6 @@ test_that('minimum (Goedel) t-norm', {
     expect_that(goedel.tnorm(1, 0.9, 1, 1), equals(0.9))
     expect_that(goedel.tnorm(0.2, NA, 1, na.rm=TRUE), equals(0.2))
     expect_that(goedel.tnorm(0.2, NA, 0, na.rm=TRUE), equals(0))
-    expect_that(goedel.tnorm(0.2, NA, 1, na.rm=FALSE), equals(NA_real_))
-    expect_that(goedel.tnorm(0.2, NA, 0, na.rm=FALSE), equals(0))
 
     expect_that(goedel.tnorm(c(0.2, 0.5, 0.1, 0.3)), equals(0.1))
     expect_that(goedel.tnorm(c(0.4, 0.5, 0.3)), equals(0.3))
@@ -20,8 +18,6 @@ test_that('minimum (Goedel) t-norm', {
     expect_that(goedel.tnorm(c(1, 0.9, 1, 1)), equals(0.9))
     expect_that(goedel.tnorm(c(0.2, NA, 1), na.rm=TRUE), equals(0.2))
     expect_that(goedel.tnorm(c(0.2, NA, 0), na.rm=TRUE), equals(0))
-    expect_that(goedel.tnorm(c(0.2, NA, 1), na.rm=FALSE), equals(NA_real_))
-    expect_that(goedel.tnorm(c(0.2, NA, 0), na.rm=FALSE), equals(0))
 })
 
 
@@ -30,23 +26,20 @@ test_that('lukasiewicz t-norm', {
     expect_that(lukas.tnorm(0.8, 0.5, 0.9), equals(0.2))
     expect_that(lukas.tnorm(1, 1, 1, 1), equals(1))
     expect_that(lukas.tnorm(1, 0.9, 1, 1), equals(0.9))
+    expect_that(lukas.tnorm(1, 0.9, 0.8, 1), equals(0.7))
     expect_that(lukas.tnorm(0.2, 0.5, 0.0), equals(0))
-    expect_that(lukas.tnorm(0.2, 0.4, NA), equals(0))
+    expect_that(lukas.tnorm(1, 0.9, NA, NA, 0.8, NA, na.rm=TRUE), equals(0.7))
     expect_that(lukas.tnorm(1, 0.9, 1, 1, NA, na.rm=TRUE), equals(0.9))
     expect_that(lukas.tnorm(1, 0.9, 0, 1, NA, na.rm=TRUE), equals(0))
-    expect_that(lukas.tnorm(1, 0.9, 1, 1, NA, na.rm=FALSE), equals(NA_real_))
-    expect_that(lukas.tnorm(1, 0.9, 0, 1, NA, na.rm=FALSE), equals(0))
 
     expect_that(lukas.tnorm(c(0.2, 0.5, 0.1, 0.3)), equals(0))
     expect_that(lukas.tnorm(c(0.8, 0.5, 0.9)), equals(0.2))
     expect_that(lukas.tnorm(c(1, 1, 1, 1)), equals(1))
     expect_that(lukas.tnorm(c(1, 0.9, 1, 1)), equals(0.9))
     expect_that(lukas.tnorm(c(0.2, 0.5, 0.0)), equals(0))
-    expect_that(lukas.tnorm(c(0.2, 0.4, NA)), equals(0))
+    expect_that(lukas.tnorm(c(1, 0.9, NA, NA, 0.8, NA), na.rm=TRUE), equals(0.7))
     expect_that(lukas.tnorm(c(1, 0.9, 1, 1, NA), na.rm=TRUE), equals(0.9))
     expect_that(lukas.tnorm(c(1, 0.9, 0, 1, NA), na.rm=TRUE), equals(0))
-    expect_that(lukas.tnorm(c(1, 0.9, 1, 1, NA), na.rm=FALSE), equals(NA_real_))
-    expect_that(lukas.tnorm(c(1, 0.9, 0, 1, NA), na.rm=FALSE), equals(0))
 })
 
 
@@ -58,8 +51,7 @@ test_that('product (goguen) t-norm', {
     expect_that(goguen.tnorm(0.2, 0.5, 0.0), equals(0))
     expect_that(goguen.tnorm(1, 0.9, 1, NA, 1, na.rm=TRUE), equals(0.9))
     expect_that(goguen.tnorm(1, 0.9, 0, NA, 1, na.rm=TRUE), equals(0))
-    expect_that(goguen.tnorm(1, 0.9, 1, NA, 1, na.rm=FALSE), equals(NA_real_))
-    expect_that(goguen.tnorm(1, 0.9, 0, NA, 1, na.rm=FALSE), equals(0))
+    expect_that(goguen.tnorm(0.8, NA, NA, 0.5, NA, 0.9, na.rm=TRUE), equals(0.8 * 0.5 * 0.9))
 
     expect_that(goguen.tnorm(c(0.2, 0.5, 0.1, 0.3)), equals(0.2 * 0.5 * 0.1 * 0.3))
     expect_that(goguen.tnorm(c(0.8, 0.5, 0.9)), equals(0.8 * 0.5 * 0.9))
@@ -68,8 +60,7 @@ test_that('product (goguen) t-norm', {
     expect_that(goguen.tnorm(c(0.2, 0.5, 0.0)), equals(0))
     expect_that(goguen.tnorm(c(1, 0.9, 1, NA, 1), na.rm=TRUE), equals(0.9))
     expect_that(goguen.tnorm(c(1, 0.9, 0, NA, 1), na.rm=TRUE), equals(0))
-    expect_that(goguen.tnorm(c(1, 0.9, 1, NA, 1), na.rm=FALSE), equals(NA_real_))
-    expect_that(goguen.tnorm(c(1, 0.9, 0, NA, 1), na.rm=FALSE), equals(0))
+    expect_that(goguen.tnorm(c(0.8, NA, NA, 0.5, NA, 0.9), na.rm=TRUE), equals(0.8 * 0.5 * 0.9))
 })
 
 
@@ -78,22 +69,24 @@ for (ttt in names(.tnorms)) {
         tnorm <- .tnorms[[ttt]]
 
         expect_that(tnorm(), equals(1))
-        expect_that(tnorm(0.2, NA, 1), equals(as.numeric(NA)))
-        expect_that(tnorm(0.2, NA, 0), equals(0))
+        expect_that(tnorm(0.2, NA, 1), equals(NA_real_))
+        expect_that(tnorm(0.2, NA, 0), equals(NA_real_))
+        expect_that(tnorm(0.2, NaN, 1), equals(NA_real_))
+        expect_that(tnorm(0.2, NaN, 0), equals(NA_real_))
         expect_that(tnorm(0.2, Inf, 0), throws_error('argument out of range 0..1'))
         expect_that(tnorm(0.2, -Inf, 0), throws_error('argument out of range 0..1'))
         expect_that(tnorm(0.2, 3, 0), throws_error('argument out of range 0..1'))
         expect_that(tnorm(0.2, -3, 0), throws_error('argument out of range 0..1'))
-        expect_that(tnorm(0.2, NaN, 0), throws_error('NaN argument'))
 
         expect_that(tnorm(c()), equals(1))
-        expect_that(tnorm(c(0.2, NA, 1)), equals(as.numeric(NA)))
-        expect_that(tnorm(c(0.2, NA, 0)), equals(0))
+        expect_that(tnorm(c(0.2, NA, 1)), equals(NA_real_))
+        expect_that(tnorm(c(0.2, NA, 0)), equals(NA_real_))
+        expect_that(tnorm(c(0.2, NaN, 1)), equals(NA_real_))
+        expect_that(tnorm(c(0.2, NaN, 0)), equals(NA_real_))
         expect_that(tnorm(c(0.2, Inf, 0)), throws_error('argument out of range 0..1'))
         expect_that(tnorm(c(0.2, -Inf, 0)), throws_error('argument out of range 0..1'))
         expect_that(tnorm(c(0.2, 3, 0)), throws_error('argument out of range 0..1'))
         expect_that(tnorm(c(0.2, -3, 0)), throws_error('argument out of range 0..1'))
-        expect_that(tnorm(c(0.2, NaN, 0)), throws_error('NaN argument'))
     })
 }
 
@@ -145,12 +138,13 @@ for (ttt in names(.ptnorms)) {
 
         expect_true(is.null(tnorm()))
         expect_that(tnorm(c(0.2, NA, 1), c(0.8, 0.6, NA))[2:3], equals(as.numeric(c(NA, NA))))
-        expect_that(tnorm(c(0.2, NA, 0), c(0.8, 0, NA))[2:3], equals(c(0, 0)))
+        expect_that(tnorm(c(0.2, NA, 0), c(0.8, 0, NA))[2:3], equals(as.numeric(c(NA, NA))))
+        expect_that(tnorm(c(0.2, NaN, 1), c(0.8, 0.6, NA))[2:3], equals(as.numeric(c(NA, NA))))
+        expect_that(tnorm(c(0.2, NaN, 0), c(0.8, 0, NaN))[2:3], equals(as.numeric(c(NA, NA))))
         expect_that(tnorm(c(0.2, 0.9, 0), c(0.8, 0, Inf)), throws_error('argument out of range 0..1'))
         expect_that(tnorm(c(0.2, 0.9, 0), c(0.8, 0, -Inf)), throws_error('argument out of range 0..1'))
         expect_that(tnorm(c(0.2, 0.9, 0), c(0.8, 0, 3)), throws_error('argument out of range 0..1'))
         expect_that(tnorm(c(0.2, 0.9, 0), c(0.8, 0, -3)), throws_error('argument out of range 0..1'))
-        expect_that(tnorm(c(0.2, 0.9, 0), c(0.8, 0, NaN)), throws_error('NaN argument'))
 
         mr <- matrix(runif(12), nrow=3, ncol=4)
         colnames(mr) <- LETTERS[1:4]
@@ -182,8 +176,6 @@ test_that('goedel t-conorm', {
     expect_that(goedel.tconorm(0, 0, 0, 0), equals(0))
     expect_that(goedel.tconorm(0.2, NA, 0.5, na.rm=TRUE), equals(0.5))
     expect_that(goedel.tconorm(0.2, NA, 1, na.rm=TRUE), equals(1))
-    expect_that(goedel.tconorm(0.2, NA, 0.5, na.rm=FALSE), equals(NA_real_))
-    expect_that(goedel.tconorm(0.2, NA, 1, na.rm=FALSE), equals(1))
 
     expect_that(goedel.tconorm(c(0.2, 0.5, 0.1, 0.3)), equals(0.5))
     expect_that(goedel.tconorm(c(0.4, 0.5, 0.8)), equals(0.8))
@@ -192,8 +184,6 @@ test_that('goedel t-conorm', {
     expect_that(goedel.tconorm(c(0, 0, 0, 0)), equals(0))
     expect_that(goedel.tconorm(c(0.2, NA, 0.5), na.rm=TRUE), equals(0.5))
     expect_that(goedel.tconorm(c(0.2, NA, 1), na.rm=TRUE), equals(1))
-    expect_that(goedel.tconorm(c(0.2, NA, 0.5), na.rm=FALSE), equals(NA_real_))
-    expect_that(goedel.tconorm(c(0.2, NA, 1), na.rm=FALSE), equals(1))
 })
 
 
@@ -204,8 +194,6 @@ test_that('lukasiewicz t-conorm', {
     expect_that(lukas.tconorm(0, 0, 0, 0), equals(0))
     expect_that(lukas.tconorm(0.2, NA, 0.5, na.rm=TRUE), equals(0.7))
     expect_that(lukas.tconorm(0.2, NA, 1, na.rm=TRUE), equals(1))
-    expect_that(lukas.tconorm(0.2, NA, 0.5, na.rm=FALSE), equals(NA_real_))
-    expect_that(lukas.tconorm(0.2, NA, 1, na.rm=FALSE), equals(1))
 
     expect_that(lukas.tconorm(c(0.2, 0.5, 0.1, 0.0)), equals(0.8))
     expect_that(lukas.tconorm(c(0.4, 0.5, 0.8)), equals(1))
@@ -213,8 +201,6 @@ test_that('lukasiewicz t-conorm', {
     expect_that(lukas.tconorm(c(0, 0, 0, 0)), equals(0))
     expect_that(lukas.tconorm(c(0.2, NA, 0.5), na.rm=TRUE), equals(0.7))
     expect_that(lukas.tconorm(c(0.2, NA, 1), na.rm=TRUE), equals(1))
-    expect_that(lukas.tconorm(c(0.2, NA, 0.5), na.rm=FALSE), equals(NA_real_))
-    expect_that(lukas.tconorm(c(0.2, NA, 1), na.rm=FALSE), equals(1))
 })
 
 
@@ -224,16 +210,12 @@ test_that('goguen t-conorm', {
     expect_that(goguen.tconorm(0, 0, 0, 0), equals(0))
     expect_that(goguen.tconorm(0.2, NA, 0.5, na.rm=TRUE), equals(0.6))
     expect_that(goguen.tconorm(0.2, NA, 1, na.rm=TRUE), equals(1))
-    expect_that(goguen.tconorm(0.2, NA, 0.5, na.rm=FALSE), equals(NA_real_))
-    expect_that(goguen.tconorm(0.2, NA, 1, na.rm=FALSE), equals(1))
 
     expect_that(goguen.tconorm(c(0.2, 0.5, 0.1, 0.3)), equals(0.748))
     expect_that(goguen.tconorm(c(0.2, 1, 0.0)), equals(1))
     expect_that(goguen.tconorm(c(0, 0, 0, 0)), equals(0))
     expect_that(goguen.tconorm(c(0.2, NA, 0.5), na.rm=TRUE), equals(0.6))
     expect_that(goguen.tconorm(c(0.2, NA, 1), na.rm=TRUE), equals(1))
-    expect_that(goguen.tconorm(c(0.2, NA, 0.5), na.rm=FALSE), equals(NA_real_))
-    expect_that(goguen.tconorm(c(0.2, NA, 1), na.rm=FALSE), equals(1))
 })
 
 
@@ -242,22 +224,20 @@ for (ttt in names(.tconorms)) {
         tconorm <- .tconorms[[ttt]]
 
         expect_that(tconorm(), equals(0))
-        expect_that(tconorm(0.2, NA, 0), equals(as.numeric(NA)))
-        expect_that(tconorm(0.2, NA, 1), equals(1))
+        expect_that(tconorm(0.2, NA, 0), equals(NA_real_))
+        expect_that(tconorm(0.2, NA, 1), equals(NA_real_))
         expect_that(tconorm(0.2, Inf, 0), throws_error('argument out of range 0..1'))
         expect_that(tconorm(0.2, -Inf, 0), throws_error('argument out of range 0..1'))
         expect_that(tconorm(0.2, 3, 0), throws_error('argument out of range 0..1'))
         expect_that(tconorm(0.2, -3, 0), throws_error('argument out of range 0..1'))
-        expect_that(tconorm(0.2, NaN, 0), throws_error('NaN argument'))
 
         expect_that(tconorm(c()), equals(0))
-        expect_that(tconorm(c(0.2, NA, 0)), equals(as.numeric(NA)))
-        expect_that(tconorm(c(0.2, NA, 1)), equals(1))
+        expect_that(tconorm(c(0.2, NA, 0)), equals(NA_real_))
+        expect_that(tconorm(c(0.2, NA, 1)), equals(NA_real_))
         expect_that(tconorm(c(0.2, Inf, 0)), throws_error('argument out of range 0..1'))
         expect_that(tconorm(c(0.2, -Inf, 0)), throws_error('argument out of range 0..1'))
         expect_that(tconorm(c(0.2, 3, 0)), throws_error('argument out of range 0..1'))
         expect_that(tconorm(c(0.2, -3, 0)), throws_error('argument out of range 0..1'))
-        expect_that(tconorm(c(0.2, NaN, 0)), throws_error('NaN argument'))
     })
 }
 
@@ -291,26 +271,27 @@ for (ttt in names(.residua)) {
     test_that(paste(ttt, 'residua borders'), {
         resid <- .residua[[ttt]]
 
-        expect_that(resid(0.2, NA), equals(as.numeric(NA)))
-        expect_that(resid(0, NA), equals(1))
+        expect_that(resid(0, NA), equals(NA_real_))
+        expect_that(resid(0.4, NA), equals(NA_real_))
+        expect_that(resid(1, NA), equals(NA_real_))
         expect_that(resid(0.2, Inf), throws_error('argument out of range 0..1'))
         expect_that(resid(0.2, -Inf), throws_error('argument out of range 0..1'))
         expect_that(resid(0.2, 3), throws_error('argument out of range 0..1'))
         expect_that(resid(0.2, -3), throws_error('argument out of range 0..1'))
-        expect_that(resid(0.2, NaN), throws_error('NaN argument'))
 
-        expect_that(resid(NA, 0.2), equals(as.numeric(NA)))
+        expect_that(resid(NA, 0), equals(NA_real_))
+        expect_that(resid(NA, 0.2), equals(NA_real_))
+        expect_that(resid(NA, 1), equals(NA_real_))
         expect_that(resid(Inf, 0.2), throws_error('argument out of range 0..1'))
         expect_that(resid(-Inf, 0.2), throws_error('argument out of range 0..1'))
         expect_that(resid(3, 0.2), throws_error('argument out of range 0..1'))
         expect_that(resid(-3, 0.2), throws_error('argument out of range 0..1'))
-        expect_that(resid(NaN, 0.2), throws_error('NaN argument'))
     })
 }
 
 
 test_that('involutive negation', {
-    expect_that(invol.neg(c(0, 0.2, NA, 0.8, 1)), equals(c(1, 0.8, NA, 0.2, 0)))
+    expect_that(invol.neg(c(0, 0.2, NA, 0.8, 1, NaN)), equals(c(1, 0.8, NA, 0.2, 0, NA)))
 
     m <- matrix(c(0, 0.2, NA, 0.8, 1, 0.3), nrow=2)
     colnames(m) <- letters[1:3]
@@ -324,12 +305,11 @@ test_that('involutive negation', {
     expect_that(invol.neg(c(3, 0.2)), throws_error('argument out of range 0..1'))
     expect_that(invol.neg(c(-Inf, 0.2)), throws_error('argument out of range 0..1'))
     expect_that(invol.neg(c(Inf, 0.2)), throws_error('argument out of range 0..1'))
-    expect_that(invol.neg(c(NaN, 0.2)), throws_error('NaN argument'))
 })
 
 
 test_that('strict negation', {
-    expect_that(strict.neg(c(0, 0.2, NA, 0.8, 1)), equals(c(1, 0, NA, 0, 0)))
+    expect_that(strict.neg(c(0, 0.2, NA, 0.8, 1, NaN)), equals(c(1, 0, NA, 0, 0, NA)))
 
     m <- matrix(c(0, 0.2, NA, 0.8, 1, 0.3), nrow=2)
     colnames(m) <- letters[1:3]
@@ -343,7 +323,6 @@ test_that('strict negation', {
     expect_that(strict.neg(c(3, 0.2)), throws_error('argument out of range 0..1'))
     expect_that(strict.neg(c(-Inf, 0.2)), throws_error('argument out of range 0..1'))
     expect_that(strict.neg(c(Inf, 0.2)), throws_error('argument out of range 0..1'))
-    expect_that(strict.neg(c(NaN, 0.2)), throws_error('NaN argument'))
 })
 
 
