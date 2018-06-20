@@ -72,16 +72,10 @@ test_that('fire rules on NA data matrix', {
                   c('a'),
                   c('a', 'b'))
 
-    res <- fire(x, rules, 'goguen', onlyAnte=FALSE, na.rm=FALSE)
+    res <- fire(x, rules, 'goguen', onlyAnte=FALSE)
     expect_equal(res, list(c(0.1125, 0.15),
                            c(1, 1),
                            c(0.05, NA),
                            c(0.0075, NA)))
-
-    res <- fire(x, rules, 'goguen', onlyAnte=FALSE, na.rm=TRUE)
-    expect_equal(res, list(c(0.1125, 0.15),
-                           c(1, 1),
-                           c(0.05, 1),
-                           c(0.0075, 0.2)))
 })
 

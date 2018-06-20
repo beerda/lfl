@@ -29,29 +29,29 @@ algebra(name, stdneg = FALSE, ...)
 
 is.algebra(a)
 
-goedel.tnorm(..., na.rm = FALSE)
+goedel.tnorm(...)
 
-lukas.tnorm(..., na.rm = FALSE)
+lukas.tnorm(...)
 
-goguen.tnorm(..., na.rm = FALSE)
+goguen.tnorm(...)
 
-pgoedel.tnorm(..., na.rm = FALSE)
+pgoedel.tnorm(...)
 
-plukas.tnorm(..., na.rm = FALSE)
+plukas.tnorm(...)
 
-pgoguen.tnorm(..., na.rm = FALSE)
+pgoguen.tnorm(...)
 
-goedel.tconorm(..., na.rm = FALSE)
+goedel.tconorm(...)
 
-lukas.tconorm(..., na.rm = FALSE)
+lukas.tconorm(...)
 
-goguen.tconorm(..., na.rm = FALSE)
+goguen.tconorm(...)
 
-pgoedel.tconorm(..., na.rm = FALSE)
+pgoedel.tconorm(...)
 
-plukas.tconorm(..., na.rm = FALSE)
+plukas.tconorm(...)
 
-pgoguen.tconorm(..., na.rm = FALSE)
+pgoguen.tconorm(...)
 
 goedel.residuum(x, y)
 
@@ -87,11 +87,6 @@ functions that create the algebra. (Currently unused.)}
 
 \item{a}{An object to be checked if it is a valid algebra (i.e. a list
 returned by the \code{algebra} function).}
-
-\item{na.rm}{whether to ignore missing values: \code{TRUE} means that NA's and NaN's are
-ignored, i.e.  the computation is performed as if such values were not
-present in the arguments; \code{FALSE} means that the missing values are propagated
-to the results.}
 
 \item{x}{Numeric vector of values to compute a residuum or bi-residuum from.
 Values outside the \eqn{[0,1]} interval cause an error. NA values are also
@@ -180,8 +175,7 @@ as follows: \deqn{B(a, b) = T(R(a, b), R(b, a)).}
 The arguments have to be numbers from the interval \eqn{[0, 1]}. Values
 outside that range cause an error. NaN values are treated as NAs.
 
-If \code{na.rm=TRUE} then missing values (NA or NaN) are ignored. Otherwise, if
-some argument is NA or NaN, the result is NA. See the examples below.
+If some argument is NA or NaN, the result is NA.
 
 \code{algebra} returns a named list of functions that together form Goedel,
 Goguen, or Lukasiewicz algebra:
@@ -200,19 +194,6 @@ algebra, i.e. a list returned by the \code{algebra} function.
     # direct and element-wise version of functions
     goedel.tnorm(c(0.3, 0.2, 0.5), c(0.8, 0.1, 0.5))  # 0.1
     pgoedel.tnorm(c(0.3, 0.2, 0.5), c(0.8, 0.1, 0.5)) # c(0.3, 0.1, 0.5)
-
-    # handling of missing values
-    goedel.tnorm(c(0.3, 0, NA), na.rm=TRUE)    # 0
-    goedel.tnorm(c(0.3, 0.7, NA), na.rm=TRUE)  # 0.3
-
-    goedel.tnorm(c(0.3, 0, NA), na.rm=FALSE)   # 0
-    goedel.tnorm(c(0.3, 0.7, NA), na.rm=FALSE) # NA
-
-    goedel.tconorm(c(0.3, 1, NA), na.rm=TRUE)    # 1
-    goedel.tconorm(c(0.3, 0.7, NA), na.rm=TRUE)  # 0.7
-
-    goedel.tconorm(c(0.3, 1, NA), na.rm=FALSE)   # 1
-    goedel.tconorm(c(0.3, 0.7, NA), na.rm=FALSE) # NA
 
     # algebras
     x <- runif(10)

@@ -6,74 +6,68 @@
 using namespace Rcpp;
 
 // goedel_tnorm
-double goedel_tnorm(NumericVector vals, LogicalVector naRm);
-RcppExport SEXP _lfl_goedel_tnorm(SEXP valsSEXP, SEXP naRmSEXP) {
+double goedel_tnorm(NumericVector vals);
+RcppExport SEXP _lfl_goedel_tnorm(SEXP valsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type vals(valsSEXP);
-    Rcpp::traits::input_parameter< LogicalVector >::type naRm(naRmSEXP);
-    rcpp_result_gen = Rcpp::wrap(goedel_tnorm(vals, naRm));
+    rcpp_result_gen = Rcpp::wrap(goedel_tnorm(vals));
     return rcpp_result_gen;
 END_RCPP
 }
 // lukas_tnorm
-double lukas_tnorm(NumericVector vals, LogicalVector naRm);
-RcppExport SEXP _lfl_lukas_tnorm(SEXP valsSEXP, SEXP naRmSEXP) {
+double lukas_tnorm(NumericVector vals);
+RcppExport SEXP _lfl_lukas_tnorm(SEXP valsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type vals(valsSEXP);
-    Rcpp::traits::input_parameter< LogicalVector >::type naRm(naRmSEXP);
-    rcpp_result_gen = Rcpp::wrap(lukas_tnorm(vals, naRm));
+    rcpp_result_gen = Rcpp::wrap(lukas_tnorm(vals));
     return rcpp_result_gen;
 END_RCPP
 }
 // goguen_tnorm
-double goguen_tnorm(NumericVector vals, LogicalVector naRm);
-RcppExport SEXP _lfl_goguen_tnorm(SEXP valsSEXP, SEXP naRmSEXP) {
+double goguen_tnorm(NumericVector vals);
+RcppExport SEXP _lfl_goguen_tnorm(SEXP valsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type vals(valsSEXP);
-    Rcpp::traits::input_parameter< LogicalVector >::type naRm(naRmSEXP);
-    rcpp_result_gen = Rcpp::wrap(goguen_tnorm(vals, naRm));
+    rcpp_result_gen = Rcpp::wrap(goguen_tnorm(vals));
     return rcpp_result_gen;
 END_RCPP
 }
 // goedel_tconorm
-double goedel_tconorm(NumericVector vals, LogicalVector naRm);
-RcppExport SEXP _lfl_goedel_tconorm(SEXP valsSEXP, SEXP naRmSEXP) {
+double goedel_tconorm(NumericVector vals);
+RcppExport SEXP _lfl_goedel_tconorm(SEXP valsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type vals(valsSEXP);
-    Rcpp::traits::input_parameter< LogicalVector >::type naRm(naRmSEXP);
-    rcpp_result_gen = Rcpp::wrap(goedel_tconorm(vals, naRm));
+    rcpp_result_gen = Rcpp::wrap(goedel_tconorm(vals));
     return rcpp_result_gen;
 END_RCPP
 }
 // lukas_tconorm
-double lukas_tconorm(NumericVector vals, LogicalVector naRm);
-RcppExport SEXP _lfl_lukas_tconorm(SEXP valsSEXP, SEXP naRmSEXP) {
+double lukas_tconorm(NumericVector vals);
+RcppExport SEXP _lfl_lukas_tconorm(SEXP valsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type vals(valsSEXP);
-    Rcpp::traits::input_parameter< LogicalVector >::type naRm(naRmSEXP);
-    rcpp_result_gen = Rcpp::wrap(lukas_tconorm(vals, naRm));
+    rcpp_result_gen = Rcpp::wrap(lukas_tconorm(vals));
     return rcpp_result_gen;
 END_RCPP
 }
 // goguen_tconorm
-double goguen_tconorm(NumericVector vals, LogicalVector naRm);
-RcppExport SEXP _lfl_goguen_tconorm(SEXP valsSEXP, SEXP naRmSEXP) {
+double goguen_tconorm(NumericVector vals);
+RcppExport SEXP _lfl_goguen_tconorm(SEXP valsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type vals(valsSEXP);
-    Rcpp::traits::input_parameter< LogicalVector >::type naRm(naRmSEXP);
-    rcpp_result_gen = Rcpp::wrap(goguen_tconorm(vals, naRm));
+    rcpp_result_gen = Rcpp::wrap(goguen_tconorm(vals));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -212,12 +206,12 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_lfl_goedel_tnorm", (DL_FUNC) &_lfl_goedel_tnorm, 2},
-    {"_lfl_lukas_tnorm", (DL_FUNC) &_lfl_lukas_tnorm, 2},
-    {"_lfl_goguen_tnorm", (DL_FUNC) &_lfl_goguen_tnorm, 2},
-    {"_lfl_goedel_tconorm", (DL_FUNC) &_lfl_goedel_tconorm, 2},
-    {"_lfl_lukas_tconorm", (DL_FUNC) &_lfl_lukas_tconorm, 2},
-    {"_lfl_goguen_tconorm", (DL_FUNC) &_lfl_goguen_tconorm, 2},
+    {"_lfl_goedel_tnorm", (DL_FUNC) &_lfl_goedel_tnorm, 1},
+    {"_lfl_lukas_tnorm", (DL_FUNC) &_lfl_lukas_tnorm, 1},
+    {"_lfl_goguen_tnorm", (DL_FUNC) &_lfl_goguen_tnorm, 1},
+    {"_lfl_goedel_tconorm", (DL_FUNC) &_lfl_goedel_tconorm, 1},
+    {"_lfl_lukas_tconorm", (DL_FUNC) &_lfl_lukas_tconorm, 1},
+    {"_lfl_goguen_tconorm", (DL_FUNC) &_lfl_goguen_tconorm, 1},
     {"_lfl_goedel_residuum", (DL_FUNC) &_lfl_goedel_residuum, 2},
     {"_lfl_lukas_residuum", (DL_FUNC) &_lfl_lukas_residuum, 2},
     {"_lfl_goguen_residuum", (DL_FUNC) &_lfl_goguen_residuum, 2},

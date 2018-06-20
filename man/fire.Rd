@@ -5,7 +5,7 @@
 \title{Evaluate rules and obtain truth-degrees}
 \usage{
 fire(x, rules, tnorm = c("goedel", "goguen", "lukasiewicz"),
-  onlyAnte = TRUE, parallel = FALSE, ...)
+  onlyAnte = TRUE, parallel = FALSE)
 }
 \arguments{
 \item{x}{Truth degrees of predicates. \code{x} could be either a numeric
@@ -33,8 +33,6 @@ rule to be ignored.
 If \code{FALSE}, all predicates in a rule will be included in the conjunction.}
 
 \item{parallel}{Deprecated parameter. Computation is done sequentially.}
-
-\item{...}{other arguments (such as \code{na.rm=TRUE}) passed to the underlying \code{tnorm} function.}
 }
 \value{
 If \code{x} is a matrix then the result of this function is a list

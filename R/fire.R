@@ -46,7 +46,6 @@
 #'
 #' If `FALSE`, all predicates in a rule will be included in the conjunction.
 #' @param parallel Deprecated parameter. Computation is done sequentially.
-#' @param ... other arguments (such as `na.rm=TRUE`) passed to the underlying `tnorm` function.
 #' @return If `x` is a matrix then the result of this function is a list
 #' of numeric vectors with truth values of each rule, i.e., each element of the
 #' resulting list corresponds to a rule and each value of the vector in the resulting
@@ -84,8 +83,7 @@ fire <- function(x,
                  rules,
                  tnorm=c("goedel", "goguen", "lukasiewicz"),
                  onlyAnte=TRUE,
-                 parallel=FALSE,
-                 ...) {
+                 parallel=FALSE) {
     if (parallel) {
         warning('"parallel=TRUE" is deprecated. Computing sequentially.')
     }
@@ -128,7 +126,7 @@ fire <- function(x,
         if (length(rule) <= 0) {
             return(rep(1, nrow(x)))
         } else {
-            return(do.call(tnorm, c(xx[rule], list(...))))
+            return(do.call(tnorm, xx[rule]))
         }
     })
 

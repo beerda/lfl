@@ -7,8 +7,6 @@ test_that('minimum (Goedel) t-norm', {
     expect_that(goedel.tnorm(0.2, 0.5, 0.0), equals(0))
     expect_that(goedel.tnorm(1, 1, 1, 1), equals(1))
     expect_that(goedel.tnorm(1, 0.9, 1, 1), equals(0.9))
-    expect_that(goedel.tnorm(0.2, NA, 1, na.rm=TRUE), equals(0.2))
-    expect_that(goedel.tnorm(0.2, NA, 0, na.rm=TRUE), equals(0))
 
     expect_that(goedel.tnorm(c(0.2, 0.5, 0.1, 0.3)), equals(0.1))
     expect_that(goedel.tnorm(c(0.4, 0.5, 0.3)), equals(0.3))
@@ -16,8 +14,6 @@ test_that('minimum (Goedel) t-norm', {
     expect_that(goedel.tnorm(c(0.2, 0.5, 0.0)), equals(0))
     expect_that(goedel.tnorm(c(1, 1, 1, 1)), equals(1))
     expect_that(goedel.tnorm(c(1, 0.9, 1, 1)), equals(0.9))
-    expect_that(goedel.tnorm(c(0.2, NA, 1), na.rm=TRUE), equals(0.2))
-    expect_that(goedel.tnorm(c(0.2, NA, 0), na.rm=TRUE), equals(0))
 })
 
 
@@ -28,18 +24,12 @@ test_that('lukasiewicz t-norm', {
     expect_that(lukas.tnorm(1, 0.9, 1, 1), equals(0.9))
     expect_that(lukas.tnorm(1, 0.9, 0.8, 1), equals(0.7))
     expect_that(lukas.tnorm(0.2, 0.5, 0.0), equals(0))
-    expect_that(lukas.tnorm(1, 0.9, NA, NA, 0.8, NA, na.rm=TRUE), equals(0.7))
-    expect_that(lukas.tnorm(1, 0.9, 1, 1, NA, na.rm=TRUE), equals(0.9))
-    expect_that(lukas.tnorm(1, 0.9, 0, 1, NA, na.rm=TRUE), equals(0))
 
     expect_that(lukas.tnorm(c(0.2, 0.5, 0.1, 0.3)), equals(0))
     expect_that(lukas.tnorm(c(0.8, 0.5, 0.9)), equals(0.2))
     expect_that(lukas.tnorm(c(1, 1, 1, 1)), equals(1))
     expect_that(lukas.tnorm(c(1, 0.9, 1, 1)), equals(0.9))
     expect_that(lukas.tnorm(c(0.2, 0.5, 0.0)), equals(0))
-    expect_that(lukas.tnorm(c(1, 0.9, NA, NA, 0.8, NA), na.rm=TRUE), equals(0.7))
-    expect_that(lukas.tnorm(c(1, 0.9, 1, 1, NA), na.rm=TRUE), equals(0.9))
-    expect_that(lukas.tnorm(c(1, 0.9, 0, 1, NA), na.rm=TRUE), equals(0))
 })
 
 
@@ -49,18 +39,12 @@ test_that('product (goguen) t-norm', {
     expect_that(goguen.tnorm(1, 1, 1, 1), equals(1))
     expect_that(goguen.tnorm(1, 0.9, 1, 1), equals(0.9))
     expect_that(goguen.tnorm(0.2, 0.5, 0.0), equals(0))
-    expect_that(goguen.tnorm(1, 0.9, 1, NA, 1, na.rm=TRUE), equals(0.9))
-    expect_that(goguen.tnorm(1, 0.9, 0, NA, 1, na.rm=TRUE), equals(0))
-    expect_that(goguen.tnorm(0.8, NA, NA, 0.5, NA, 0.9, na.rm=TRUE), equals(0.8 * 0.5 * 0.9))
 
     expect_that(goguen.tnorm(c(0.2, 0.5, 0.1, 0.3)), equals(0.2 * 0.5 * 0.1 * 0.3))
     expect_that(goguen.tnorm(c(0.8, 0.5, 0.9)), equals(0.8 * 0.5 * 0.9))
     expect_that(goguen.tnorm(c(1, 1, 1, 1)), equals(1))
     expect_that(goguen.tnorm(c(1, 0.9, 1, 1)), equals(0.9))
     expect_that(goguen.tnorm(c(0.2, 0.5, 0.0)), equals(0))
-    expect_that(goguen.tnorm(c(1, 0.9, 1, NA, 1), na.rm=TRUE), equals(0.9))
-    expect_that(goguen.tnorm(c(1, 0.9, 0, NA, 1), na.rm=TRUE), equals(0))
-    expect_that(goguen.tnorm(c(0.8, NA, NA, 0.5, NA, 0.9), na.rm=TRUE), equals(0.8 * 0.5 * 0.9))
 })
 
 
@@ -68,7 +52,7 @@ for (ttt in names(.tnorms)) {
     test_that(paste(ttt, 't-norm borders'), {
         tnorm <- .tnorms[[ttt]]
 
-        expect_that(tnorm(), equals(1))
+        expect_that(tnorm(), equals(NA_real_))
         expect_that(tnorm(0.2, NA, 1), equals(NA_real_))
         expect_that(tnorm(0.2, NA, 0), equals(NA_real_))
         expect_that(tnorm(0.2, NaN, 1), equals(NA_real_))
@@ -78,7 +62,7 @@ for (ttt in names(.tnorms)) {
         expect_that(tnorm(0.2, 3, 0), throws_error('argument out of range 0..1'))
         expect_that(tnorm(0.2, -3, 0), throws_error('argument out of range 0..1'))
 
-        expect_that(tnorm(c()), equals(1))
+        expect_that(tnorm(c()), equals(NA_real_))
         expect_that(tnorm(c(0.2, NA, 1)), equals(NA_real_))
         expect_that(tnorm(c(0.2, NA, 0)), equals(NA_real_))
         expect_that(tnorm(c(0.2, NaN, 1)), equals(NA_real_))
@@ -174,16 +158,12 @@ test_that('goedel t-conorm', {
     expect_that(goedel.tconorm(0.9, 0.5, 0.2), equals(0.9))
     expect_that(goedel.tconorm(0.2, 1, 0.0), equals(1))
     expect_that(goedel.tconorm(0, 0, 0, 0), equals(0))
-    expect_that(goedel.tconorm(0.2, NA, 0.5, na.rm=TRUE), equals(0.5))
-    expect_that(goedel.tconorm(0.2, NA, 1, na.rm=TRUE), equals(1))
 
     expect_that(goedel.tconorm(c(0.2, 0.5, 0.1, 0.3)), equals(0.5))
     expect_that(goedel.tconorm(c(0.4, 0.5, 0.8)), equals(0.8))
     expect_that(goedel.tconorm(c(0.9, 0.5, 0.2)), equals(0.9))
     expect_that(goedel.tconorm(c(0.2, 1, 0.0)), equals(1))
     expect_that(goedel.tconorm(c(0, 0, 0, 0)), equals(0))
-    expect_that(goedel.tconorm(c(0.2, NA, 0.5), na.rm=TRUE), equals(0.5))
-    expect_that(goedel.tconorm(c(0.2, NA, 1), na.rm=TRUE), equals(1))
 })
 
 
@@ -192,15 +172,11 @@ test_that('lukasiewicz t-conorm', {
     expect_that(lukas.tconorm(0.4, 0.5, 0.8), equals(1))
     expect_that(lukas.tconorm(1, 1, 1), equals(1))
     expect_that(lukas.tconorm(0, 0, 0, 0), equals(0))
-    expect_that(lukas.tconorm(0.2, NA, 0.5, na.rm=TRUE), equals(0.7))
-    expect_that(lukas.tconorm(0.2, NA, 1, na.rm=TRUE), equals(1))
 
     expect_that(lukas.tconorm(c(0.2, 0.5, 0.1, 0.0)), equals(0.8))
     expect_that(lukas.tconorm(c(0.4, 0.5, 0.8)), equals(1))
     expect_that(lukas.tconorm(c(1, 1, 1)), equals(1))
     expect_that(lukas.tconorm(c(0, 0, 0, 0)), equals(0))
-    expect_that(lukas.tconorm(c(0.2, NA, 0.5), na.rm=TRUE), equals(0.7))
-    expect_that(lukas.tconorm(c(0.2, NA, 1), na.rm=TRUE), equals(1))
 })
 
 
@@ -208,14 +184,10 @@ test_that('goguen t-conorm', {
     expect_that(goguen.tconorm(0.2, 0.5, 0.1, 0.3), equals(0.748))
     expect_that(goguen.tconorm(0.2, 1, 0.0), equals(1))
     expect_that(goguen.tconorm(0, 0, 0, 0), equals(0))
-    expect_that(goguen.tconorm(0.2, NA, 0.5, na.rm=TRUE), equals(0.6))
-    expect_that(goguen.tconorm(0.2, NA, 1, na.rm=TRUE), equals(1))
 
     expect_that(goguen.tconorm(c(0.2, 0.5, 0.1, 0.3)), equals(0.748))
     expect_that(goguen.tconorm(c(0.2, 1, 0.0)), equals(1))
     expect_that(goguen.tconorm(c(0, 0, 0, 0)), equals(0))
-    expect_that(goguen.tconorm(c(0.2, NA, 0.5), na.rm=TRUE), equals(0.6))
-    expect_that(goguen.tconorm(c(0.2, NA, 1), na.rm=TRUE), equals(1))
 })
 
 
@@ -223,7 +195,7 @@ for (ttt in names(.tconorms)) {
     test_that(paste(ttt, 't-conorm borders'), {
         tconorm <- .tconorms[[ttt]]
 
-        expect_that(tconorm(), equals(0))
+        expect_that(tconorm(), equals(NA_real_))
         expect_that(tconorm(0.2, NA, 0), equals(NA_real_))
         expect_that(tconorm(0.2, NA, 1), equals(NA_real_))
         expect_that(tconorm(0.2, Inf, 0), throws_error('argument out of range 0..1'))
@@ -231,7 +203,7 @@ for (ttt in names(.tconorms)) {
         expect_that(tconorm(0.2, 3, 0), throws_error('argument out of range 0..1'))
         expect_that(tconorm(0.2, -3, 0), throws_error('argument out of range 0..1'))
 
-        expect_that(tconorm(c()), equals(0))
+        expect_that(tconorm(c()), equals(NA_real_))
         expect_that(tconorm(c(0.2, NA, 0)), equals(NA_real_))
         expect_that(tconorm(c(0.2, NA, 1)), equals(NA_real_))
         expect_that(tconorm(c(0.2, Inf, 0)), throws_error('argument out of range 0..1'))

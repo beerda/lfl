@@ -19,15 +19,16 @@ inline void testInvalids(double x) {
 
 
 // [[Rcpp::export(name=".goedel.tnorm")]]
-double goedel_tnorm(NumericVector vals, LogicalVector naRm)
+double goedel_tnorm(NumericVector vals)
 {
+    if (vals.size() <= 0) {
+        return NA_REAL;
+    }
     double res = 1.0;
     for (int i = 0; i < vals.size(); ++i) {
         testInvalids(vals[i]);
         if (NumericVector::is_na(vals[i])) {
-            if (!naRm[0]) {
-                return NA_REAL;
-            }
+            return NA_REAL;
         } else if (vals[i] < res) {
             res = vals[i];
         }
@@ -37,17 +38,16 @@ double goedel_tnorm(NumericVector vals, LogicalVector naRm)
 
 
 // [[Rcpp::export(name=".lukas.tnorm")]]
-double lukas_tnorm(NumericVector vals, LogicalVector naRm)
+double lukas_tnorm(NumericVector vals)
 {
+    if (vals.size() <= 0) {
+        return NA_REAL;
+    }
     double res = 1.0;
     for (int i = 0; i < vals.size(); ++i) {
         testInvalids(vals[i]);
         if (NumericVector::is_na(vals[i])) {
-            if (naRm[0]) {
-                ++res;
-            } else {
-                return NA_REAL;
-            }
+            return NA_REAL;
         } else {
             res += vals[i];
         }
@@ -58,16 +58,16 @@ double lukas_tnorm(NumericVector vals, LogicalVector naRm)
 
 
 // [[Rcpp::export(name=".goguen.tnorm")]]
-double goguen_tnorm(NumericVector vals, LogicalVector naRm)
+double goguen_tnorm(NumericVector vals)
 {
+    if (vals.size() <= 0) {
+        return NA_REAL;
+    }
     double res = 1.0;
-    bool na = false;
     for (int i = 0; i < vals.size(); ++i) {
         testInvalids(vals[i]);
         if (NumericVector::is_na(vals[i])) {
-            if (!naRm[0]) {
-                return NA_REAL;
-            }
+            return NA_REAL;
         } else {
             res = res * vals[i];
         }
@@ -77,15 +77,16 @@ double goguen_tnorm(NumericVector vals, LogicalVector naRm)
 
 
 // [[Rcpp::export(name=".goedel.tconorm")]]
-double goedel_tconorm(NumericVector vals, LogicalVector naRm)
+double goedel_tconorm(NumericVector vals)
 {
+    if (vals.size() <= 0) {
+        return NA_REAL;
+    }
     double res = 0.0;
     for (int i = 0; i < vals.size(); ++i) {
         testInvalids(vals[i]);
         if (NumericVector::is_na(vals[i])) {
-            if (!naRm[0]) {
-                return NA_REAL;
-            }
+            return NA_REAL;
         } else if (vals[i] > res) {
             res = vals[i];
         }
@@ -95,15 +96,16 @@ double goedel_tconorm(NumericVector vals, LogicalVector naRm)
 
 
 // [[Rcpp::export(name=".lukas.tconorm")]]
-double lukas_tconorm(NumericVector vals, LogicalVector naRm)
+double lukas_tconorm(NumericVector vals)
 {
+    if (vals.size() <= 0) {
+        return NA_REAL;
+    }
     double res = 0.0;
     for (int i = 0; i < vals.size(); ++i) {
         testInvalids(vals[i]);
         if (NumericVector::is_na(vals[i])) {
-            if (!naRm[0]) {
-                return NA_REAL;
-            }
+            return NA_REAL;
         } else {
             res += vals[i];
         }
@@ -113,15 +115,16 @@ double lukas_tconorm(NumericVector vals, LogicalVector naRm)
 
 
 // [[Rcpp::export(name=".goguen.tconorm")]]
-double goguen_tconorm(NumericVector vals, LogicalVector naRm)
+double goguen_tconorm(NumericVector vals)
 {
+    if (vals.size() <= 0) {
+        return NA_REAL;
+    }
     double res = 0.0;
     for (int i = 0; i < vals.size(); ++i) {
         testInvalids(vals[i]);
         if (NumericVector::is_na(vals[i])) {
-            if (!naRm[0]) {
-                return NA_REAL;
-            }
+            return NA_REAL;
         } else {
             res = res + vals[i] - res * vals[i];
         }
