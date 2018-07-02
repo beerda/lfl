@@ -160,7 +160,7 @@ is.algebra <- function(a) {
 }
 
 
-.parallelizeAlgebraOperation <- function(f) {
+.elementWisely <- function(f) {
     function(...) {
         elts <- list(...)
         if (length(elts) <= 0L) {
@@ -200,15 +200,15 @@ goguen.tnorm <- function(...) {
 
 #' @rdname algebra
 #' @export
-pgoedel.tnorm <- .parallelizeAlgebraOperation(goedel.tnorm)
+pgoedel.tnorm <- .elementWisely(goedel.tnorm)
 
 #' @rdname algebra
 #' @export
-plukas.tnorm <- .parallelizeAlgebraOperation(lukas.tnorm)
+plukas.tnorm <- .elementWisely(lukas.tnorm)
 
 #' @rdname algebra
 #' @export
-pgoguen.tnorm <- .parallelizeAlgebraOperation(goguen.tnorm)
+pgoguen.tnorm <- .elementWisely(goguen.tnorm)
 
 
 ###########################################################
@@ -237,15 +237,15 @@ goguen.tconorm <- function(...) {
 
 #' @rdname algebra
 #' @export
-pgoedel.tconorm <- .parallelizeAlgebraOperation(goedel.tconorm)
+pgoedel.tconorm <- .elementWisely(goedel.tconorm)
 
 #' @rdname algebra
 #' @export
-plukas.tconorm <- .parallelizeAlgebraOperation(lukas.tconorm)
+plukas.tconorm <- .elementWisely(lukas.tconorm)
 
 #' @rdname algebra
 #' @export
-pgoguen.tconorm <- .parallelizeAlgebraOperation(goguen.tconorm)
+pgoguen.tconorm <- .elementWisely(goguen.tconorm)
 
 
 ###########################################################
