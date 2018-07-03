@@ -56,6 +56,10 @@ test_that('sobocinski', {
     expect_that(a$ps(NaN, 0.8), equals(0.8))
     expect_that(a$ps(c(0.5, NA, 0.4), c(NA, 0.4, 0.5)), equals(c(0.5, 0.4, 0.5)))
 
+    expect_that(a$n(NA), equals(a$r(NA, 0)))
+    expect_that(a$n(1), equals(a$r(1, 0)))
+    expect_that(a$n(0), equals(a$r(0, 0)))
+    expect_that(a$n(0.8), equals(a$r(0.8, 0)))
 })
 
 
@@ -140,6 +144,11 @@ test_that('kleene', {
     expect_that(a$ps(c(0.5, NA, 0.4, NA, NA),
                      c(NA, 0.4, 0.5, 0, 1)),
                 equals(c(NA_real_, NA_real_, 0.5, NA_real_, 1)))
+
+    expect_that(a$n(NA), equals(a$r(NA, 0)))
+    expect_that(a$n(1), equals(a$r(1, 0)))
+    expect_that(a$n(0), equals(a$r(0, 0)))
+    expect_that(a$n(0.8), equals(a$r(0.8, 0)))
 
 })
 
@@ -238,4 +247,10 @@ test_that('lowerEst', {
     expect_that(a$ps(c(0, 0.5, NA, 0.4, 1),
                      c(NA, NA, 0.4, 0.5, NA)),
                 equals(c(NA_real_, 0.5, 0.4, 0.5, 1)))
+
+    expect_that(a$n(NA), equals(a$r(NA, 0)))
+    expect_that(a$n(1), equals(a$r(1, 0)))
+    expect_that(a$n(0), equals(a$r(0, 0)))
+    expect_that(a$n(0.8), equals(a$r(0.8, 0)))
+
 })

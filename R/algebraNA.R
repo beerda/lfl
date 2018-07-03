@@ -12,7 +12,8 @@
 }
 
 
-.algebraModification <- function(algebra, norm, conorm, resid) {
+.algebraModification <- function(algebra, norm, conorm, resid, neg) {
+    resN <- neg(algebra$n)
     resT <- norm(algebra$t)
     resPT <- .elementWisely(resT)
     resC <- conorm(algebra$c)
@@ -20,7 +21,7 @@
     resB <- function(x, y) { resPT(resR(x, y), resR(y, x)) }
     resI <- norm(algebra$i)
     resS <- conorm(algebra$s)
-    return(list(n=algebra$n,
+    return(list(n=resN,
                 t=resT,
                 pt=resPT,
                 c=resC,
@@ -39,6 +40,14 @@
 #' @export
 #' @importFrom stats na.omit
 sobocinski <- function(algebra) {
+    neg <- function(f) {
+        return(function(x) {
+            res <- f(x)
+            res[is.na(x)] <- 0
+            res
+        })
+    }
+
     norm <- function(f) {
         return(function(...) {
             f(na.omit(c(...)))
@@ -56,7 +65,7 @@ sobocinski <- function(algebra) {
         })
     }
 
-    .algebraModification(algebra, norm, norm, resid)
+    .algebraModification(algebra, norm, norm, resid, neg)
 }
 
 
@@ -95,12 +104,20 @@ kleene <- function(algebra) {
         })
     }
 
-    .algebraModification(algebra, norm, conorm, resid)
+    .algebraModification(algebra, norm, conorm, resid, identity)
 }
 
 
 #' @export
 lowerEst <- function(algebra) {
+    neg <- function(f) {
+        return(function(x) {
+            res <- f(x)
+            res[is.na(x)] <- 0
+            res
+        })
+    }
+
     norm <- function(f) {
         return(function(...) {
             dots <- c(...)
@@ -136,7 +153,7 @@ lowerEst <- function(algebra) {
         })
     }
 
-    alg <- .algebraModification(algebra, norm, conorm, resid)
+    alg <- .algebraModification(algebra, norm, conorm, resid, neg)
     alg$b <- function(x, y) { stop('lowerEst bi-residuum not implemented') }
     return(alg)
 }
