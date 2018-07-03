@@ -50,11 +50,93 @@ sobocinski <- function(algebra) {
             res <- f(x, y)
             naX <- is.na(x)
             naY <- is.na(y)
-            res[naY] <- invol.neg(x[naY])
+            res[naY] <- algebra$n(x[naY])
             res[naX] <- y[naX]
             res
         })
     }
 
     .algebraModification(algebra, norm, norm, resid)
+}
+
+
+#' @export
+kleene <- function(algebra) {
+    norm <- function(f) {
+        return(function(...) {
+            dots <- c(...)
+            res <- f(na.omit(dots))
+            if (!is.na(res) && res > 0 && any(is.na(dots))) {
+                return(NA_real_)
+            }
+            return(res)
+        })
+    }
+
+    conorm <- function(f) {
+        return(function(...) {
+            dots <- c(...)
+            res <- f(na.omit(dots))
+            if (!is.na(res) && res < 1 && any(is.na(dots))) {
+                return(NA_real_)
+            }
+            return(res)
+        })
+    }
+
+    resid <- function(f) {
+        return(function(x, y) {
+            res <- f(x, y)
+            res[is.na(x)] <- NA_real_
+            res[is.na(y)] <- NA_real_
+            res[x == 0] <- 1
+            res[y == 1] <- 1
+            res
+        })
+    }
+
+    .algebraModification(algebra, norm, conorm, resid)
+}
+
+
+#' @export
+lowerEst <- function(algebra) {
+    norm <- function(f) {
+        return(function(...) {
+            dots <- c(...)
+            res <- f(na.omit(dots))
+            if (!is.na(res) && res > 0 && any(is.na(dots))) {
+                return(NA_real_)
+            }
+            return(res)
+        })
+    }
+
+    conorm <- function(f) {
+        return(function(...) {
+            dots <- c(...)
+            res <- f(na.omit(dots))
+            if (!is.na(res) && res == 0 && any(is.na(dots))) {
+                return(NA_real_)
+            }
+            return(res)
+        })
+    }
+
+    resid <-function(f) {
+        return(function(x, y) {
+            res <- f(x, y)
+            naX <- is.na(x)
+            naY <- is.na(y)
+            res[naX] <- y[naX]
+            res[naY] <- NA_real_
+            res[naX & naY] <- 1
+            res[naY & x == 0] <- 1
+            return(res)
+        })
+    }
+
+    alg <- .algebraModification(algebra, norm, conorm, resid)
+    alg$b <- function(x, y) { stop('lowerEst bi-residuum not implemented') }
+    return(alg)
 }
