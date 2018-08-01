@@ -71,10 +71,7 @@ composition type \code{type}, and possibly also by a \code{quantifier}.
 
 }
 \seealso{
-[algebra(), [mult()], [lingexpr()]
-
-[algebra(), [mult()]: R:algebra(),%20[mult()
-[lingexpr()]: R:lingexpr()
+[algebra(), \code{\link[=mult]{mult()}}, \code{\link[=lingexpr]{lingexpr()}}
 }
 \author{
 Michal Burda

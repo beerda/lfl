@@ -69,16 +69,8 @@ In detail, the function first computes the fuzzy set of each fired consequent
 by calling \code{part\[i\] <- firing(degrees\[i\], partition\[, conseq\[i\]\])} for each
 \code{i}-th consequent and the results are aggregated using the \code{aggreg}
 parameter: \code{aggreg(part\[1\], part\[2\], ...)}. In order to aggregate consequents
-in a Mamdani-Assilian's fashion, set \code{firing} to [pgoedel.tnorm()] and \code{aggreg}
-to [pgoedel.tconorm()].
-
-[i]: R:i%5C
-[i]: R:i%5C
-[, conseq[i]: R:,%20conseq%5C[i%5C
-[1]: R:1%5C
-[2]: R:2%5C
-[pgoedel.tnorm()]: R:pgoedel.tnorm()
-[pgoedel.tconorm()]: R:pgoedel.tconorm()
+in a Mamdani-Assilian's fashion, set \code{firing} to \code{\link[=pgoedel.tnorm]{pgoedel.tnorm()}} and \code{aggreg}
+to \code{\link[=pgoedel.tconorm]{pgoedel.tconorm()}}.
 }
 \examples{
     # create a partition matrix

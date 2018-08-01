@@ -4,10 +4,10 @@
 \alias{searchrules}
 \title{Searching for fuzzy association rules}
 \usage{
-searchrules(d, lhs = 2:ncol(d), rhs = 1, tnorm = c("goedel", "goguen",
-  "lukasiewicz"), n = 100, best = c("confidence"), minSupport = 0.02,
-  minConfidence = 0.75, maxConfidence = 1, maxLength = 4,
-  numThreads = 1, trie = (maxConfidence < 1))
+searchrules(d, lhs = 2:ncol(d), rhs = 1, tnorm = c("goedel",
+  "goguen", "lukasiewicz"), n = 100, best = c("confidence"),
+  minSupport = 0.02, minConfidence = 0.75, maxConfidence = 1,
+  maxLength = 4, numThreads = 1, trie = (maxConfidence < 1))
 }
 \arguments{
 \item{d}{An object of class \code{\link[=fsets]{fsets()}} - it is basically a matrix

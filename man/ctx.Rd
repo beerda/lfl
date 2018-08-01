@@ -39,19 +39,20 @@
 ctx3(low = 0, center = low + (high - low) * relCenter, high = 1,
   relCenter = 0.5)
 
-ctx3bilat(negMax = -1, negCenter = origin + (negMax - origin) * relCenter,
-  origin = 0, center = origin + (max - origin) * relCenter, max = 1,
-  relCenter = 0.5)
+ctx3bilat(negMax = -1, negCenter = origin + (negMax - origin) *
+  relCenter, origin = 0, center = origin + (max - origin) * relCenter,
+  max = 1, relCenter = 0.5)
 
-ctx5(low = 0, lowerCenter = mean(c(low, center)), center = low + (high -
-  low) * relCenter, upperCenter = mean(c(center, high)), high = 1,
-  relCenter = 0.5)
+ctx5(low = 0, lowerCenter = mean(c(low, center)), center = low +
+  (high - low) * relCenter, upperCenter = mean(c(center, high)),
+  high = 1, relCenter = 0.5)
 
 ctx5bilat(negMax = -1, negUpperCenter = mean(c(negCenter, negMax)),
   negCenter = origin + (negMax - origin) * relCenter,
   negLowerCenter = mean(c(origin, negCenter)), origin = 0,
-  lowerCenter = mean(c(origin, center)), center = origin + (max - origin) *
-  relCenter, upperCenter = mean(c(center, max)), max = 1, relCenter = 0.5)
+  lowerCenter = mean(c(origin, center)), center = origin + (max -
+  origin) * relCenter, upperCenter = mean(c(center, max)), max = 1,
+  relCenter = 0.5)
 
 as.ctx3(x)
 

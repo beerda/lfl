@@ -3,7 +3,6 @@
 \name{triangular}
 \alias{triangular}
 \alias{raisedcosinal}
-\alias{raisedcosinal}
 \title{Factories for functions that convert numeric data into membership degrees of fuzzy sets}
 \usage{
 triangular(lo, center, hi)

@@ -6,12 +6,8 @@
 \alias{fcut.numeric}
 \alias{fcut.matrix}
 \alias{fcut.data.frame}
-\alias{fcut.default}
 \alias{fcut.factor}
 \alias{fcut.logical}
-\alias{fcut.numeric}
-\alias{fcut.data.frame}
-\alias{fcut.matrix}
 \title{Transform data into a \code{fsets} S3 class using shapes derived from
 triangles or raised cosines}
 \usage{
@@ -24,10 +20,12 @@ fcut(x, ...)
 \method{fcut}{logical}(x, name = deparse(substitute(x)), ...)
 
 \method{fcut}{numeric}(x, breaks, name = deparse(substitute(x)),
-  type = c("triangle", "raisedcos"), merge = 1, parallel = FALSE, ...)
+  type = c("triangle", "raisedcos"), merge = 1, parallel = FALSE,
+  ...)
 
 \method{fcut}{data.frame}(x, breaks = NULL, name = NULL,
-  type = c("triangle", "raisedcos"), merge = 1, parallel = FALSE, ...)
+  type = c("triangle", "raisedcos"), merge = 1, parallel = FALSE,
+  ...)
 
 \method{fcut}{matrix}(x, ...)
 }

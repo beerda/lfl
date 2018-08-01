@@ -18,14 +18,15 @@ lcut(x, ...)
 
 \method{lcut}{logical}(x, name = deparse(substitute(x)), ...)
 
-\method{lcut}{numeric}(x, context = minmax, atomic = c("sm", "me", "bi",
-  "lm", "um", "ze", "neg.sm", "neg.me", "neg.bi", "neg.lm", "neg.um"),
-  hedges = c("ex", "si", "ve", "ty", "-", "ml", "ro", "qr", "vr"),
-  name = NULL, ...)
+\method{lcut}{numeric}(x, context = minmax, atomic = c("sm", "me",
+  "bi", "lm", "um", "ze", "neg.sm", "neg.me", "neg.bi", "neg.lm",
+  "neg.um"), hedges = c("ex", "si", "ve", "ty", "-", "ml", "ro", "qr",
+  "vr"), name = NULL, ...)
 
-\method{lcut}{data.frame}(x, context = minmax, atomic = c("sm", "me", "bi",
-  "lm", "um", "ze", "neg.sm", "neg.me", "neg.bi", "neg.lm", "neg.um"),
-  hedges = c("ex", "si", "ve", "ty", "-", "ml", "ro", "qr", "vr"), ...)
+\method{lcut}{data.frame}(x, context = minmax, atomic = c("sm", "me",
+  "bi", "lm", "um", "ze", "neg.sm", "neg.me", "neg.bi", "neg.lm",
+  "neg.um"), hedges = c("ex", "si", "ve", "ty", "-", "ml", "ro", "qr",
+  "vr"), ...)
 
 \method{lcut}{matrix}(x, ...)
 }
