@@ -305,6 +305,7 @@ public:
     { return (m_lhsPrefix.find(attr) != m_lhsPrefix.end()); }
 
 
+    /*
     friend std::ostream& operator<< (std::ostream& stream, const Task& obj) {
         stream << "lhs: ";
         if (obj.hasLhs()) {
@@ -335,6 +336,7 @@ public:
         }
         return stream;
     }
+     */
 };
 
 
