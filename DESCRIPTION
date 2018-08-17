@@ -17,4 +17,4 @@ NeedsCompilation: yes
 SystemRequirements: C++11
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0
