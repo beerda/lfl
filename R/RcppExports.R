@@ -61,6 +61,10 @@
     .Call(`_lfl_mult`, x, y, f)
 }
 
+.reduce <- function(config) {
+    .Call(`_lfl_reduce`, config)
+}
+
 .search <- function(rcppData, config) {
     .Call(`_lfl_search`, rcppData, config)
 }

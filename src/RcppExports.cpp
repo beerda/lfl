@@ -178,6 +178,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// reduce
+NumericVector reduce(List config);
+RcppExport SEXP _lfl_reduce(SEXP configSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type config(configSEXP);
+    rcpp_result_gen = Rcpp::wrap(reduce(config));
+    return rcpp_result_gen;
+END_RCPP
+}
 // search
 List search(NumericMatrix rcppData, List config);
 RcppExport SEXP _lfl_search(SEXP rcppDataSEXP, SEXP configSEXP) {
@@ -221,6 +232,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_lfl_raisedcos", (DL_FUNC) &_lfl_raisedcos, 2},
     {"_lfl_hedge", (DL_FUNC) &_lfl_hedge, 2},
     {"_lfl_mult", (DL_FUNC) &_lfl_mult, 3},
+    {"_lfl_reduce", (DL_FUNC) &_lfl_reduce, 1},
     {"_lfl_search", (DL_FUNC) &_lfl_search, 2},
     {"_lfl_specificity", (DL_FUNC) &_lfl_specificity, 4},
     {NULL, NULL, 0}
