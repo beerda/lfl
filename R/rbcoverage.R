@@ -61,7 +61,7 @@ rbcoverage <- function(x,
     if (is.vector(x)) {
         x <- matrix(x, nrow=1, dimnames=list(NULL, names(x)))
     }
-    .mustBeNumericMatrix(x)
+    .mustBe(is.matrix(x) && is.numeric(x), "'x' must be a numeric vector or matrix")
     .mustBeInInterval(x, 0, 1)
 
     if (is.farules(rules)) {
