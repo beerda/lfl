@@ -60,7 +60,8 @@ compose <- function(x,
                     e=NULL,
                     alg=c('goedel', 'goguen', 'lukasiewicz'),
                     type=c('basic', 'sub', 'super', 'square'),
-                    quantifier=NULL) {
+                    quantifier=NULL,
+                    sort=sort) {
 
     .mustBeNumericMatrix(x)
     .mustBeNumericMatrix(y)
@@ -102,6 +103,9 @@ compose <- function(x,
 
     .mustBe(is.function(type), "'type' must be either one of 'basic', 'sub', 'super', 'square', or a function with 1 argument")
 
+    # TODO: the 'quantifier' argument is not a real quantifier! It is more a linguistic expression giving degrees to relative
+    # cardinalitites. The quantifiers are tightly related to algebras, e.g. the 'sort' function is a property of algebra (especially
+    # if considering algebras that work with NAs)
     if (is.function(quantifier)) {
         merge <- function(x) {
             res <- sort(x, decreasing=TRUE)
