@@ -349,7 +349,7 @@ fcut.data.frame <- function(x,
         aMerge <- merge[[n]]
         aType <- type[[n]]
 
-        res <- fcut(x[, n],
+        res <- fcut(x[[n]],
                     breaks=aBreaks,
                     name=n,
                     type=aType,
