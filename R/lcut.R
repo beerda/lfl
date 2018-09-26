@@ -268,7 +268,7 @@ lcut.data.frame <- function(x,
     }
     res <- NULL
     for (i in colnames(x)) {
-        f <- lcut(x[, i],
+        f <- lcut(x[[i]],
                   context=.byNameOrDefault(context, i, minmax),
                   atomic=.byNameOrDefault(atomic, i, c('sm', 'me', 'bi', 'lm', 'um', 'ze', 'neg.sm', 'neg.me', 'neg.bi', 'neg.lm', 'neg.um')),
                   hedges=.byNameOrDefault(hedges, i, c('ex', 'si', 've', 'ty', '-', 'ml', 'ro', 'qr', 'vr')),
