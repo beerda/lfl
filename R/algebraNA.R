@@ -111,11 +111,7 @@ kleene <- function(algebra) {
 #' @export
 lowerEst <- function(algebra) {
     neg <- function(f) {
-        return(function(x) {
-            res <- f(x)
-            res[is.na(x)] <- 0
-            res
-        })
+        return(f)
     }
 
     norm <- function(f) {
@@ -149,6 +145,7 @@ lowerEst <- function(algebra) {
             res[naY] <- NA_real_
             res[naX & naY] <- 1
             res[naY & x == 0] <- 1
+            res[naX & y == 0] <- NA_real_
             return(res)
         })
     }

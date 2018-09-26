@@ -199,7 +199,7 @@ test_that('lowerEst', {
 
     expect_that(a$r(c(0.5, 0.8,   NA,      0.3,       NA,      0,    1,    NA, NA, 0,   1, 0.6),
                     c(0.8, 0.5,   0.4,      NA,       NA,     NA,   NA,     0, 1, 0.3, 0.3, 0)),
-             equals(c(1.0, 0.625, 0.4,   NA_real_,     1,      1, NA_real_, 0, 1,  1,  0.3, 0)))
+             equals(c(1.0, 0.625, 0.4,   NA_real_,     1,      1, NA_real_, NA_real_, 1,  1,  0.3, 0)))
 
     #expect_that(a$b(c(0.5,   0.8,   NA,       0.4,      NA,       0,        1),
                     #c(0.8,   0.5,   0.4,      NA,       NA,       NA,       NA)),

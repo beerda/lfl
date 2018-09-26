@@ -71,8 +71,8 @@ test_that('basic E lukas lowerEst', {
                    0.1, 0.4, 1, 1, 0, 0, 0, 0,
                    0, 0, 0, 0, 1, 1, 0.2, 0.2,
                    0, 0, 0, 0, 1, 1, 0, 0,
-                   0, 0, 0, 0, 0.5, 0, 0.5, 0,
-                   0, 0, 0, 0, 0, 0, 0, 0.8), byrow=TRUE, nrow=8)
+                   0, 0, 0, 0, 0.5, NA_real_, 0.5, 0,
+                   0, 0, 0, 0, NA_real_, NA_real_, NA_real_, 0.8), byrow=TRUE, nrow=8)
 
     expect_that(compose(R, S, E, alg=lowerEst(algebra('lukas')), type='basic'),
                 equals(RS))
@@ -100,14 +100,14 @@ test_that('sub lukas lowerEst', {
                   0, 0, 0, 0, 0.5, 1, 0.9, 0,
                   NA, 0, 0.5, 0, 0.7, 0.5, 0.5, 0.5), byrow=TRUE, nrow=10)
 
-    RS <- matrix(c(1, 0, 0.1, 0, 0, 0, 0, 0,
-                   0, 0, 0.5, 0.7, 0, 0, 0, 0,
+    RS <- matrix(c(1, NA, 0.1, 0, 0, 0, 0, 0,
+                   0, NA, 0.5, 0.7, 0, 0, 0, 0,
                    NA, NA, 0.9, NA, 0, 0, 0, 0,
                    NA, 0.4, 0.9, NA, 0, 0, 0, 0,
                    0, 0, 0, 0, 0.5, 0.5, NA, NA,
                    0, 0, 0, 0, 0.5, 0.5, 0, 0,
-                   0, 0, 0, 0, 0, 0, 0, 0,
-                   0, 0, 0, 0, 0, 0, 0, 0), byrow=TRUE, nrow=8)
+                   0, 0, 0, 0, NA, NA, NA, 0,
+                   0, 0, 0, 0, NA, NA, NA, NA), byrow=TRUE, nrow=8)
 
     expect_that(compose(R, S, alg=lowerEst(algebra('lukas')), type='sub'),
                 equals(RS))
