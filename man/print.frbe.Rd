@@ -2,12 +2,12 @@
 % Please edit documentation in R/print.frbe.R
 \name{print.frbe}
 \alias{print.frbe}
-\title{Print an instance of the \code{\link{frbe}} class}
+\title{Print an instance of the \code{\link[=frbe]{frbe()}} class}
 \usage{
 \method{print}{frbe}(x, ...)
 }
 \arguments{
-\item{x}{An instance of \code{\link{frbe}} class}
+\item{x}{An instance of \code{\link[=frbe]{frbe()}} class}
 
 \item{...}{Unused.}
 }
@@ -15,11 +15,11 @@
 None.
 }
 \description{
-Format an object of the \code{\link{frbe}} class into human readable form
+Format an object of the \code{\link[=frbe]{frbe()}} class into human readable form
 and print it to the output.
 }
 \details{
-Format an object of the \code{\link{frbe}} class into human readable form
+Format an object of the \code{\link[=frbe]{frbe()}} class into human readable form
 and print it to the output.
 }
 \examples{
@@ -40,7 +40,7 @@ Ensemble Generated from Data by Linguistic Associations Mining. FUZZY SET
 SYST. 2015.
 }
 \seealso{
-\code{\link{frbe}}
+\code{\link[=frbe]{frbe()}}
 }
 \author{
 Michal Burda

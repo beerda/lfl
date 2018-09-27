@@ -14,23 +14,21 @@
 #' error measure.  FRBE forecast should be made for a horizon of the same value
 #' as length of the vector of real values.
 #'
-#' @param fit A FRBE model of class \code{frbe} as returned by the
-#' \code{\link{frbe}} function.
+#' @param fit A FRBE model of class `frbe` as returned by the [frbe()] function.
 #' @param real A numeric vector of real (known) values. The vector must
 #' correspond to the values being forecasted, i.e. the length must be the same
-#' as the horizon forecasted by \code{\link{frbe}}.
+#' as the horizon forecasted by [frbe()].
 #' @param error Error measure to be computed. It can be either Symmetric Mean
-#' Absolute Percentage Error (SMAPE), Mean Absolute Scaled Error (MASE), or
-#' Root Mean Squared Error (RMSE).  See \code{\link{smape}},
-#' \code{\link{mase}}, and \code{\link{rmse}}, for more details.
+#' Absolute Percentage Error (`smape`), Mean Absolute Scaled Error (`mase`), or
+#' Root Mean Squared Error (`rmse`). See also [smape()], [mase()], and [rmse()]
+#' for more details.
 #' @return Function returns a data.frame with single row and columns
 #' corresponding to the error of the individual forecasting methods that the
 #' FRBE is computed from. Additionally to this, a column "avg" is added with
 #' error of simple average of the individual forecasting methods and a column
 #' "frbe" with error of the FRBE forecasts.
 #' @author Michal Burda
-#' @seealso \code{\link{frbe}}, \code{\link{smape}}, \code{\link{mase}},
-#' \code{\link{rmse}}
+#' @seealso [frbe()], [smape()], [mase()], [rmse()]
 #' @references Štěpnička, M., Burda, M., Štěpničková, L. Fuzzy Rule Base
 #' Ensemble Generated from Data by Linguistic Associations Mining. FUZZY SET
 #' SYST. 2015.
@@ -45,7 +43,7 @@
 #'   f <- frbe(ts(train, frequency=frequency(wineind)), h=horizon)
 #'   evalfrbe(f, test)
 #'
-#' @export evalfrbe
+#' @export
 #' @importFrom plyr colwise
 evalfrbe <- function(fit,
                      real,

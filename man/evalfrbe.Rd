@@ -7,17 +7,16 @@
 evalfrbe(fit, real, error = c("smape", "mase", "rmse"))
 }
 \arguments{
-\item{fit}{A FRBE model of class \code{frbe} as returned by the
-\code{\link{frbe}} function.}
+\item{fit}{A FRBE model of class \code{frbe} as returned by the \code{\link[=frbe]{frbe()}} function.}
 
 \item{real}{A numeric vector of real (known) values. The vector must
 correspond to the values being forecasted, i.e. the length must be the same
-as the horizon forecasted by \code{\link{frbe}}.}
+as the horizon forecasted by \code{\link[=frbe]{frbe()}}.}
 
 \item{error}{Error measure to be computed. It can be either Symmetric Mean
-Absolute Percentage Error (SMAPE), Mean Absolute Scaled Error (MASE), or
-Root Mean Squared Error (RMSE).  See \code{\link{smape}},
-\code{\link{mase}}, and \code{\link{rmse}}, for more details.}
+Absolute Percentage Error (\code{smape}), Mean Absolute Scaled Error (\code{mase}), or
+Root Mean Squared Error (\code{rmse}). See also \code{\link[=smape]{smape()}}, \code{\link[=mase]{mase()}}, and \code{\link[=rmse]{rmse()}}
+for more details.}
 }
 \value{
 Function returns a data.frame with single row and columns
@@ -52,8 +51,7 @@ Ensemble Generated from Data by Linguistic Associations Mining. FUZZY SET
 SYST. 2015.
 }
 \seealso{
-\code{\link{frbe}}, \code{\link{smape}}, \code{\link{mase}},
-\code{\link{rmse}}
+\code{\link[=frbe]{frbe()}}, \code{\link[=smape]{smape()}}, \code{\link[=mase]{mase()}}, \code{\link[=rmse]{rmse()}}
 }
 \author{
 Michal Burda

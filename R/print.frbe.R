@@ -1,16 +1,16 @@
-#' Print an instance of the \code{\link{frbe}} class
+#' Print an instance of the [frbe()] class
 #'
-#' Format an object of the \code{\link{frbe}} class into human readable form
+#' Format an object of the [frbe()] class into human readable form
 #' and print it to the output.
 #'
-#' Format an object of the \code{\link{frbe}} class into human readable form
+#' Format an object of the [frbe()] class into human readable form
 #' and print it to the output.
 #'
-#' @param x An instance of \code{\link{frbe}} class
+#' @param x An instance of [frbe()] class
 #' @param ... Unused.
 #' @return None.
 #' @author Michal Burda
-#' @seealso \code{\link{frbe}}
+#' @seealso [frbe()]
 #' @references Štěpnička, M., Burda, M., Štěpničková, L. Fuzzy Rule Base
 #' Ensemble Generated from Data by Linguistic Associations Mining. FUZZY SET
 #' SYST. 2015.

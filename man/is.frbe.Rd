@@ -2,7 +2,7 @@
 % Please edit documentation in R/is.frbe.R
 \name{is.frbe}
 \alias{is.frbe}
-\title{Test whether \code{x} is a valid object of the \code{frbe} class}
+\title{Test whether \code{x} is a valid object of the S3 \code{frbe} class}
 \usage{
 is.frbe(x)
 }
@@ -10,16 +10,16 @@ is.frbe(x)
 \item{x}{An object being tested.}
 }
 \value{
-TRUE if \code{x} is a valid \code{frbe} object and FALSE otherwise.
+\code{TRUE} if \code{x} is a valid \code{frbe} object and \code{FALSE} otherwise.
 }
 \description{
-Test whether \code{x} has a valid format for the objects of the \code{frbe}
-class.
+Test whether \code{x} has a valid format for the objects of the S3 \code{frbe} class.
 }
 \details{
 This function tests wheter \code{x} inherits from \code{frbe} i.e. whether
 it is a list with the following elements: \code{forecasts} data frame,
 \code{features} data frame, \code{weights} vector, and \code{mean} vector.
+Instances of the S3 class \code{frbe} are usually created by the \code{\link[=frbe]{frbe()}} function.
 }
 \references{
 Štěpnička, M., Burda, M., Štěpničková, L. Fuzzy Rule Base
@@ -27,7 +27,7 @@ Ensemble Generated from Data by Linguistic Associations Mining. FUZZY SET
 SYST. 2015.
 }
 \seealso{
-\code{\link{frbe}}
+\code{\link[=frbe]{frbe()}}
 }
 \author{
 Michal Burda
