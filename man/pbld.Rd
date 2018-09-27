@@ -56,29 +56,28 @@ row of membership degrees in \code{partition}.
 \examples{
 
 # --- TRAINING PART ---
-# split data into training and testing set
-testing <- CO2[1:5, ]
-training <- CO2[-1 * 1:5, ]
-
 # custom context of the RHS variable
 uptakeContext <- ctx3(7, 28.3, 46)
 
-# convert training data into fuzzy sets
-d <- lcut(training, context=list(uptake=uptakeContext))
+# convert data into fuzzy sets
+d <- lcut(CO2, context=list(uptake=uptakeContext))
+
+# split data into the training and testing set
+testingIndices <- 1:5
+trainingIndices <- setdiff(seq_len(nrow(CO2)), testingIndices)
+training <- d[trainingIndices, ]
+testing <- d[testingIndices, ]
 
 # search for rules
-r <- searchrules(d, lhs=1:38, rhs=39:58, minConfidence=0.5)
+r <- searchrules(training, lhs=1:38, rhs=39:58, minConfidence=0.5)
 
 # --- TESTING PART ---
-# convert testing data info fuzzy sets
-x <- lcut(testing, context=list(uptake=uptakeContext))
-
 # prepare values and partition
 v <- seq(uptakeContext[1], uptakeContext[3], length.out=1000)
 p <- lcut(v, name='uptake', context=uptakeContext)
 
 # do the inference
-pbld(x, r, p, v)
+pbld(testing, r, p, v)
 
 }
 \references{
