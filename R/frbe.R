@@ -177,20 +177,19 @@ frbe <- function(d, h=10) {
                                   stationarity=.computeStationarity(d),
                                   frequency=.computeFrequency(d))
 
-    f <- lcut3(result$features, context=.frbemodel$featuresContext)
-    #ctx <- lapply(.frbemodel$featuresContext, function(x) {
-        #do.call('ctx3', as.list(x))
-    #})
-    #f <- lcut(result$features,
-              #context=ctx,
-              #atomic=c("sm", "me", "bi"),
-              #hedges=c("ex", "si", "ve", "ml", "ro", "qr", "vr"))
+    #f <- lcut3(result$features, context=.frbemodel$featuresContext)
+    ctx <- lapply(.frbemodel$featuresContext, function(x) {
+        do.call('ctx3', as.list(x))
+    })
+    atomic <- c("sm", "me", "bi")
+    hedges <- c("ex", "si", "ve", "-", "ml", "ro", "qr", "vr")
+    f <- lcut(result$features, context=ctx, atomic=atomic, hedges=hedges)
 
     result$weights <- sapply(names(.frbemodel$model),
                              function(n) {
-                                 ctx <- .frbemodel$weightContext[[n]]
+                                 ctx <- do.call('ctx3', as.list(.frbemodel$weightContext[[n]]))
                                  vals <- seq(from=ctx[1], to=ctx[3], length.out=1000)
-                                 parts <- lcut3(vals, name='weight', context=ctx)
+                                 parts <- lcut(vals, name='weight', context=ctx, atomic=atomic, hedges=hedges)
                                  pbld(f, .frbemodel$model[[n]], parts, vals, type='global')
                              })
     result$weights <- result$weights[colnames(result$forecasts)]
