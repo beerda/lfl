@@ -177,7 +177,7 @@ fcut.factor <- function(x,
 
     res <- laply(x, function(a) { a == levels(x) }) + 0
     res <- as.matrix(res)
-    colnames(res) <- paste(name, levels(x), sep='.')
+    colnames(res) <- paste(name, levels(x), sep='=')
 
     theVars <- rep(name, ncol(res))
     theSpecs <- matrix(0, nrow=ncol(res), ncol=ncol(res))
@@ -242,7 +242,7 @@ fcut.numeric <- function(x,
         func(x, b[1], b[2], b[3])
     })
     singles <- t(as.matrix(singles))
-    colnames(singles) <- paste(name, 1:ncol(singles), sep='.')
+    colnames(singles) <- paste(name, 1:ncol(singles), sep='=')
 
     # handle merging
     merge <- as.integer(merge)
