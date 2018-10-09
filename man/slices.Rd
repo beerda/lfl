@@ -28,8 +28,11 @@ Function is useful e.g. together with the \code{\link{pbld}} or
 \code{\link{lcut}} or \code{\link{fcut}}) or \code{\link{defuzz}}).
 }
 \examples{
-
+\dontrun{
     slices(1, 5, 10) # 1, 1.5, 2, 2.5, 3, 3.5 4, 4.5, 5
+}
+# is the same as
+seq(1, 5, length.out=10)
 
 
 }

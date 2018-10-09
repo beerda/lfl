@@ -18,8 +18,11 @@
 #' \code{\link{lcut}}
 #' @keywords models robust
 #' @examples
-#'
+#' \dontrun{
 #'     slices(1, 5, 10) # 1, 1.5, 2, 2.5, 3, 3.5 4, 4.5, 5
+#' }
+#' # is the same as
+#' seq(1, 5, length.out=10)
 #'
 #'
 #' @export slices
