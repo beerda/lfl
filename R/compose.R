@@ -27,6 +27,8 @@
 #' argument, a vector of relative cardinalities, that would be translated into
 #' membership degrees. A result of the [lingexpr()] function is a
 #' good candidate for that.
+#' @param sort Sorting function used within quantifier application. The given function
+#' must sort the membership degrees and allow the `decreasing` argument as in [base::sort()].
 #' @return A matrix with \eqn{v} rows and \eqn{w} columns, where \eqn{v} is the
 #' number of rows of `x` and \eqn{w} is the number of columns of `y`.
 #' @author Michal Burda

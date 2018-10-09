@@ -31,6 +31,9 @@ it must be a numeric matrix with dimensions equal to the \code{y} matrix.}
 argument, a vector of relative cardinalities, that would be translated into
 membership degrees. A result of the \code{\link[=lingexpr]{lingexpr()}} function is a
 good candidate for that.}
+
+\item{sort}{Sorting function used within quantifier application. The given function
+must sort the membership degrees and allow the \code{decreasing} argument as in \code{\link[base:sort]{base::sort()}}.}
 }
 \value{
 A matrix with \eqn{v} rows and \eqn{w} columns, where \eqn{v} is the
