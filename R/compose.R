@@ -29,6 +29,8 @@
 #' good candidate for that.
 #' @param sort Sorting function used within quantifier application. The given function
 #' must sort the membership degrees and allow the `decreasing` argument as in [base::sort()].
+#' This function have to be explicitly specified typically if performing compositions that
+#' handle `NA` values.
 #' @return A matrix with \eqn{v} rows and \eqn{w} columns, where \eqn{v} is the
 #' number of rows of `x` and \eqn{w} is the number of columns of `y`.
 #' @author Michal Burda

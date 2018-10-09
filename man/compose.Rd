@@ -33,7 +33,9 @@ membership degrees. A result of the \code{\link[=lingexpr]{lingexpr()}} function
 good candidate for that.}
 
 \item{sort}{Sorting function used within quantifier application. The given function
-must sort the membership degrees and allow the \code{decreasing} argument as in \code{\link[base:sort]{base::sort()}}.}
+must sort the membership degrees and allow the \code{decreasing} argument as in \code{\link[base:sort]{base::sort()}}.
+This function have to be explicitly specified typically if performing compositions that
+handle \code{NA} values.}
 }
 \value{
 A matrix with \eqn{v} rows and \eqn{w} columns, where \eqn{v} is the
