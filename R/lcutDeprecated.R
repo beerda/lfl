@@ -1,3 +1,62 @@
+#' Deprecated functions for transformation of data into a `fsets` S3 class of linguistic fuzzy attributes
+#'
+#' These functions are deprecated. Please use [lcut()] or [fcut()] instead.
+#'
+#' @param x Data to be transformed: if it is a numeric vector, matrix, or data
+#' frame, then the creation of linguistic fuzzy attributes takes place. For
+#' other data types the [fcut()] function is called implicitly.
+#' @param context A definition of context of a numeric attribute. Context
+#' determines how people understand the notions "small", "medium", or "big"
+#' with respect to that attribute. If `x` is a numeric vector then context
+#' should be a vector of 3 numbers:
+#' typical small, medium, and big value. If the context is set to NULL, these values
+#' are taken directly from `x` as follows:
+#' * small: \eqn{= min(x)};
+#' * medium: \eqn{= (max(x) - min(x)) * defaultCenter + min(x)};
+#' * big: \eqn{= max(x)}.
+#' If `x` is a matrix or data frame then `context` should be a named list
+#' of contexts for each `x`'s column. If some context is omitted, it will be determined
+#' directly from data as explained above.
+#'
+#' Regardless of the value of the `atomic` argument, all 3 numbers of the context
+#' must be provided everytime.
+#' @param defaultCenter A value used to determine a typical "medium" value from
+#' data (see `context` above). If `context` is not specified then typical "medium"
+#' is determined as \deqn{(max(x) - min(x)) * defaultCenter + min(x).}
+#' Default value of `defaultCenter` is 0.5, however, some literature specifies
+#' 0.42 as another sensible value with proper linguistic interpretation.
+#' @param atomic A vector of atomic linguistic expressions to be used for
+#' creation of fuzzy attributes.
+#' @param hedges A vector of linguistic hedges to be used for creation of fuzzy
+#' attributes.
+#' @param name A name to be added as a suffix to the created fuzzy attribute
+#' names. This parameter can be used only if `x` is a numeric vector. If
+#' `x` is a matrix or data frame, `name` should be NULL because the
+#' fuzzy attribute names are taken from column names of parameter `x`.
+#' The `name` is also used as a value for the `vars` attribute of the resulting
+#' [fsets()] instance.
+#' @param parallel Whether the processing should be run in parallel or not.
+#' Parallelization is implemented using the [foreach::foreach()] function.
+#' The parallel environment must be set properly in advance, e.g. with the
+#' [doMC::registerDoMC()] function.
+#' @param ...  Other parameters to some methods.
+#' @return An object of S3 class `fsets` is returned, which is a numeric matrix
+#' with columns representing the fuzzy attributes. Each source columm of the
+#' `x` argument corresponds to multiple columns in the resulting matrix.
+#' Columns will have names derived from used \eqn{hedges}, atomic expression,
+#' and \eqn{name} specified as the optional parameter.
+#'
+#' The resulting object would also have set the [vars()] and [specs()]
+#' properties with the former being created from original
+#' column names (if `x` is a matrix or data frame) or the `name`
+#' argument (if `x` is a numeric vector). The [specs()]
+#' incidency matrix would be created to reflect the following order of the
+#' hedges: \eqn{"ex" < "si" < "ve" < "-" < "ml" < "ro" < "qr" < "vr"} and
+#' \eqn{"ty" < "" < "ml" < "ro" < "qr" < "vr"}.  Fuzzy attributes created from
+#' the same source numeric vector (or column) would be ordered that way, with other fuzzy attributes
+#' (from the other source) being incomparable.
+#' @author Michal Burda
+#' @keywords models robust
 #' @export
 lcut3 <- function(x, ...) {
     .Deprecated('lcut', 'lfl')
@@ -5,6 +64,7 @@ lcut3 <- function(x, ...) {
 }
 
 
+#' @rdname lcut3
 #' @export
 lcut5 <- function(x, ...) {
     .Deprecated('lcut', 'lfl')
@@ -12,12 +72,14 @@ lcut5 <- function(x, ...) {
 }
 
 
+#' @rdname lcut3
 #' @export
 lcut3.default <- function(x, ...) {
     return(fcut(x, ...))
 }
 
 
+#' @rdname lcut3
 #' @export
 lcut5.default <- function(...) {
     return(fcut(...))
@@ -151,6 +213,7 @@ lcut5.default <- function(...) {
 }
 
 
+#' @rdname lcut3
 #' @export
 lcut3.numeric <- function(x,
                           context=NULL,
@@ -297,6 +360,7 @@ lcut3.numeric <- function(x,
 }
 
 
+#' @rdname lcut3
 #' @export
 lcut5.numeric <- function(x,
                           context=NULL,
@@ -363,6 +427,7 @@ lcut5.numeric <- function(x,
 }
 
 
+#' @rdname lcut3
 #' @export
 lcut3.data.frame <- function(x,
                              context=NULL,
@@ -409,6 +474,7 @@ lcut3.data.frame <- function(x,
 }
 
 
+#' @rdname lcut3
 #' @export
 lcut5.data.frame <- function(x,
                              context=NULL,
@@ -455,6 +521,7 @@ lcut5.data.frame <- function(x,
 }
 
 
+#' @rdname lcut3
 #' @export
 lcut3.matrix <- function(x, ...) {
     if (!is.matrix(x)) {
@@ -465,6 +532,7 @@ lcut3.matrix <- function(x, ...) {
 }
 
 
+#' @rdname lcut3
 #' @export
 lcut5.matrix <- function(x, ...) {
     if (!is.matrix(x)) {
