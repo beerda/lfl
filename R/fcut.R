@@ -195,7 +195,15 @@ fcut.logical <- function(x,
     .mustBeLogicalVector(x)
     .mustNotBeNull(name)
     .mustBeCharacterScalar(name)
-    return(fcut(as.factor(x), name=name, ...))
+
+    res <- matrix(c(x+0, (!x)+0), byrow=FALSE, ncol=2)
+    colnames(res) <- c(name, paste0('not.', name))
+
+    theVars <- rep(name, ncol(res))
+    theSpecs <- matrix(0, nrow=ncol(res), ncol=ncol(res))
+    return(fsets(res,
+                 vars=theVars,
+                 specs=theSpecs))
 }
 
 
