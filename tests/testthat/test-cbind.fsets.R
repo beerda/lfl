@@ -7,10 +7,10 @@ test_that('cbind of two fsets', {
     expect_silent(res <- cbind(a, b))
 
 
-    expectedNames <- c('x.1', 'x.2', 'x.3',
-                       'x.1|x.2', 'x.2|x.3',
-                       'y.1', 'y.2', 'y.3',
-                       'y.1|y.2|y.3')
+    expectedNames <- c('x=1', 'x=2', 'x=3',
+                       'x=1|x=2', 'x=2|x=3',
+                       'y=1', 'y=2', 'y=3',
+                       'y=1|y=2|y=3')
 
     expect_true(is.matrix(res))
     expect_equal(ncol(res), 9)
@@ -48,10 +48,10 @@ test_that('cbind of two fsets and NULL', {
 
     expect_silent(res <- cbind(a, b, NULL))
 
-    expectedNames <- c('x.1', 'x.2', 'x.3',
-                       'x.1|x.2', 'x.2|x.3',
-                       'y.1', 'y.2', 'y.3',
-                       'y.1|y.2|y.3')
+    expectedNames <- c('x=1', 'x=2', 'x=3',
+                       'x=1|x=2', 'x=2|x=3',
+                       'y=1', 'y=2', 'y=3',
+                       'y=1|y=2|y=3')
 
     expect_true(is.matrix(res))
     expect_equal(ncol(res), 9)
