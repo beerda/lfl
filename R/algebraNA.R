@@ -35,8 +35,109 @@
 }
 
 
+#' Modify algebra's way of computing with `NA` values.
+#'
+#' By default, the objects created with the [algebra()] function represent a mathematical
+#' algebra capable to work on the \eqn{[0,1]} interval. If `NA` appears as a value instead,
+#' it is propagated to the result. That is, any operation with `NA` results in `NA`, by default.
+#' This scheme of handling missing values is also known as Bochvar's.
+#'
+#' The `sobocinski()`, `kleene()` and `dragonfly()` functions modify the algebra to
+#' handle the `NA` in a different way than default. Sobocinski's algebra simply ignores `NA` values
+#' whereas Kleene's algebra treats `NA` as "unknown value". Dragonfly approach is a combination
+#' of Sobocinski's and Bochvar's approach, which preserves the ordering `0 <= NA <= 1`
+#' to obtain from compositions (see [compose()])
+#' the lower-estimate in the presence of missing values.
+#'
+#' In detail, the behaviour of the algebra modifiers is defined as follows:
+#'
+#' Sobocinski's negation for `n` being the underlying algebra:
+#' \tabular{ll}{
+#'   a  \tab n(a)\cr
+#'   NA \tab 0
+#' }
+#'
+#' Sobocinski's operation for `op` being one of `t`, `pt`, `c`, `pc`, `i`, `pi`, `s`, `ps`
+#' from the underlying algebra:
+#' \tabular{lll}{
+#'      \tab b        \tab NA\cr
+#'   a  \tab op(a, b) \tab a \cr
+#'   NA \tab b        \tab NA
+#' }
+#'
+#' Sobocinski's operation for `r` from the underlying algebra:
+#' \tabular{lll}{
+#'       \tab b       \tab NA  \cr
+#'    a  \tab r(a, b) \tab n(a)\cr
+#'    NA \tab b       \tab NA
+#' }
+#'
+#' Kleene's negation is identical to `n` from the underlying algebra.
+#'
+#' Kleene's operation for `op` being one of `t`, `pt`, `i`, `pi` from the underlying algebra:
+#' \tabular{llll}{
+#'      \tab b        \tab NA \tab 0\cr
+#'   a  \tab op(a, b) \tab NA \tab 0\cr
+#'   NA \tab NA       \tab NA \tab 0\cr
+#'   0  \tab 0        \tab 0  \tab 0
+#' }
+#'
+#' Kleene's operation for `op` being one of `c`, `pc`, `s`, `ps` from the underlying algebra:
+#' \tabular{llll}{
+#'      \tab b        \tab NA \tab 1\cr
+#'   a  \tab op(a, b) \tab NA \tab 1\cr
+#'   NA \tab NA       \tab NA \tab 1\cr
+#'   1  \tab 1        \tab 1  \tab 1
+#' }
+#'
+#' Kleene's operation for `r` from the underlying algebra:
+#' \tabular{llll}{
+#'      \tab b        \tab NA \tab 1\cr
+#'   a  \tab r(a, b)  \tab NA \tab 1\cr
+#'   NA \tab NA       \tab NA \tab 1\cr
+#'   0  \tab 1        \tab 1  \tab 1
+#' }
+#'
+#' Dragonfly negation is identical to `n` from the underlying algebra.
+#'
+#' Dragonfly operation for `op` being one of `t`, `pt`, `i`, `pi` from the underlying algebra:
+#' \tabular{lllll}{
+#'      \tab b        \tab NA \tab 0 \tab 1\cr
+#'   a  \tab op(a, b) \tab NA \tab 0 \tab a\cr
+#'   NA \tab NA       \tab NA \tab 0 \tab NA\cr
+#'   0  \tab 0        \tab 0  \tab 0 \tab 0\cr
+#'   1  \tab b        \tab NA \tab 0 \tab 1
+#' }
+#'
+#' Dragonfly operation for `op` being one of `c`, `pc`, `s`, `ps` from the underlying algebra:
+#' \tabular{lllll}{
+#'      \tab b        \tab NA \tab 0  \tab 1\cr
+#'   a  \tab op(a, b) \tab a  \tab a  \tab 1\cr
+#'   NA \tab b        \tab NA \tab NA \tab 1\cr
+#'   0  \tab b        \tab NA \tab 0  \tab 1\cr
+#'   1  \tab 1        \tab 1  \tab 1  \tab 1
+#' }
+#'
+#' Dragonfly operation for `r` from the underlying algebra:
+#' \tabular{lllll}{
+#'      \tab b       \tab NA \tab 0    \tab 1\cr
+#'   a  \tab r(a, b) \tab NA \tab n(a) \tab 1\cr
+#'   NA \tab b       \tab 1  \tab NA   \tab 1\cr
+#'   0  \tab 1       \tab 1  \tab 1    \tab 1\cr
+#'   1  \tab b       \tab NA \tab 0    \tab 1
+#' }
+#'
+#' @param algebra the underlying algebra object to be modified -- see the [algebra()] function
+#' @return A list of function of the same structure as is the list returned from the [algebra()] function
 #' @author Michal Burda
 #' @keywords models robust
+#' @examples
+#' a <- algebra('lukas')
+#' b <- sobocinski(a)
+#'
+#' a$t(0.3, NA)  # NA
+#' b$t(0.3, NA)  # 0.3
+#'
 #' @export
 #' @importFrom stats na.omit
 sobocinski <- function(algebra) {
@@ -112,10 +213,6 @@ kleene <- function(algebra) {
 #' @export
 #' @rdname sobocinski
 dragonfly <- function(algebra) {
-    neg <- function(f) {
-        return(f)
-    }
-
     norm <- function(f) {
         return(function(...) {
             dots <- c(...)
@@ -152,7 +249,7 @@ dragonfly <- function(algebra) {
         })
     }
 
-    alg <- .algebraModification(algebra, norm, conorm, resid, neg)
+    alg <- .algebraModification(algebra, norm, conorm, resid, identity)
     alg$b <- function(x, y) { stop('dragonfly bi-residuum not implemented') }
     return(alg)
 }
