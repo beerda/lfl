@@ -153,8 +153,8 @@ test_that('kleene', {
 })
 
 
-test_that('lowerEst', {
-    a <-lowerEst(algebra('goguen'))
+test_that('dragonfly', {
+    a <-dragonfly(algebra('goguen'))
 
     expect_that(a$t(), equals(NA_real_))
     expect_that(a$t(NA), equals(NA_real_))

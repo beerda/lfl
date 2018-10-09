@@ -70,6 +70,7 @@ sobocinski <- function(algebra) {
 
 
 #' @export
+#' @rdname sobocinski
 kleene <- function(algebra) {
     norm <- function(f) {
         return(function(...) {
@@ -109,7 +110,8 @@ kleene <- function(algebra) {
 
 
 #' @export
-lowerEst <- function(algebra) {
+#' @rdname sobocinski
+dragonfly <- function(algebra) {
     neg <- function(f) {
         return(f)
     }
@@ -151,6 +153,6 @@ lowerEst <- function(algebra) {
     }
 
     alg <- .algebraModification(algebra, norm, conorm, resid, neg)
-    alg$b <- function(x, y) { stop('lowerEst bi-residuum not implemented') }
+    alg$b <- function(x, y) { stop('dragonfly bi-residuum not implemented') }
     return(alg)
 }

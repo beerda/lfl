@@ -1,4 +1,4 @@
-test_that('basic lukas lowerEst', {
+test_that('basic lukas dragonfly', {
     R <- matrix(c(1, 0.9, 1, 0, 0, 0, NA, 0, 0, NA,
                   1, 0.2, 0.1, 1, 0, 0, NA, 0, 0, 0,
                   1, 0, 0.5, 0.9, 0, 0, 0.6, 0, 0, 0,
@@ -28,12 +28,12 @@ test_that('basic lukas lowerEst', {
                    NA, 0.5, 0.5, 0.2, 1, 1, 1, 1,
                    NA, NA, 0.5, NA, 1, 1, 1, 1), byrow=TRUE, nrow=8)
 
-    expect_that(compose(R, S, alg=lowerEst(algebra('lukas')), type='basic'),
+    expect_that(compose(R, S, alg=dragonfly(algebra('lukas')), type='basic'),
                 equals(RS))
 })
 
 
-test_that('basic E lukas lowerEst', {
+test_that('basic E lukas dragonfly', {
     R <- matrix(c(1, 0.9, 1, 0, 0, 0, NA, 0, 0, NA,
                   1, 0.2, 0.1, 1, 0, 0, NA, 0, 0, 0,
                   1, 0, 0.5, 0.9, 0, 0, 0.6, 0, 0, 0,
@@ -74,12 +74,12 @@ test_that('basic E lukas lowerEst', {
                    0, 0, 0, 0, 0.5, NA_real_, 0.5, 0,
                    0, 0, 0, 0, NA_real_, NA_real_, NA_real_, 0.8), byrow=TRUE, nrow=8)
 
-    expect_that(compose(R, S, E, alg=lowerEst(algebra('lukas')), type='basic'),
+    expect_that(compose(R, S, E, alg=dragonfly(algebra('lukas')), type='basic'),
                 equals(RS))
 })
 
 
-test_that('sub lukas lowerEst', {
+test_that('sub lukas dragonfly', {
     R <- matrix(c(1, 0.9, 1, 0, 0, 0, NA, 0, 0, NA,
                   1, 0.2, 0.1, 1, 0, 0, NA, 0, 0, 0,
                   1, 0, 0.5, 0.9, 0, 0, 0.6, 0, 0, 0,
@@ -109,7 +109,7 @@ test_that('sub lukas lowerEst', {
                    0, 0, 0, 0, NA, NA, NA, 0,
                    0, 0, 0, 0, NA, NA, NA, NA), byrow=TRUE, nrow=8)
 
-    expect_that(compose(R, S, alg=lowerEst(algebra('lukas')), type='sub'),
+    expect_that(compose(R, S, alg=dragonfly(algebra('lukas')), type='sub'),
                 equals(RS))
 })
 
