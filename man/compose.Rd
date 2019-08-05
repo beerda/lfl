@@ -6,7 +6,7 @@
 \usage{
 compose(x, y, e = NULL, alg = c("goedel", "goguen", "lukasiewicz"),
   type = c("basic", "sub", "super", "square"), quantifier = NULL,
-  sort = sort)
+  sorting = sort)
 }
 \arguments{
 \item{x}{A first fuzzy relation to be composed. It must be a numeric matrix
@@ -32,7 +32,7 @@ argument, a vector of relative cardinalities, that would be translated into
 membership degrees. A result of the \code{\link[=lingexpr]{lingexpr()}} function is a
 good candidate for that.}
 
-\item{sort}{Sorting function used within quantifier application. The given function
+\item{sorting}{Sorting function used within quantifier application. The given function
 must sort the membership degrees and allow the \code{decreasing} argument as in \code{\link[base:sort]{base::sort()}}.
 This function have to be explicitly specified typically if performing compositions that
 handle \code{NA} values.}

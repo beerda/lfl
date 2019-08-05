@@ -27,7 +27,7 @@
 #' argument, a vector of relative cardinalities, that would be translated into
 #' membership degrees. A result of the [lingexpr()] function is a
 #' good candidate for that.
-#' @param sort Sorting function used within quantifier application. The given function
+#' @param sorting Sorting function used within quantifier application. The given function
 #' must sort the membership degrees and allow the `decreasing` argument as in [base::sort()].
 #' This function have to be explicitly specified typically if performing compositions that
 #' handle `NA` values.
@@ -65,7 +65,7 @@ compose <- function(x,
                     alg=c('goedel', 'goguen', 'lukasiewicz'),
                     type=c('basic', 'sub', 'super', 'square'),
                     quantifier=NULL,
-                    sort=sort) {
+                    sorting=sort) {
 
     .mustBeNumericMatrix(x)
     .mustBeNumericMatrix(y)
@@ -112,7 +112,7 @@ compose <- function(x,
     # if considering algebras that work with NAs)
     if (is.function(quantifier)) {
         merge <- function(x) {
-            res <- sort(x, decreasing=TRUE)
+            res <- sorting(x, decreasing=TRUE)
             relcard <- seq_along(res) / length(res)
             alg$s(alg$pt(res, quantifier(relcard)))
         }
