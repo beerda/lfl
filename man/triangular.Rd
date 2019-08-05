@@ -25,7 +25,7 @@ of either triangular or raised-cosine shape that is defined by \code{lo}, \code{
 }
 \details{
 The arguments must satisfy \code{lo <= center <= hi}. Functions compute membership degrees of triangular or
-raised-cosine fuzzy sets. \code{x} values equal to \code{center obtain membership degree equal to 1,}x\code{values lower than}lo\code{or greater than}hi\code{obtain memberhsip degree equal to 0. A transition of the triangular (resp. raised cosinal) shape (with peak at}center\code{is computed for}x\code{values between}lo\code{and}hi`.
+raised-cosine fuzzy sets. \code{x} values equal to \code{center obtain membership degree equal to 1, }x\code{values lower than}lo\code{or greater than}hi\code{obtain memberhsip degree equal to 0. A transition of the triangular (resp. raised cosinal) shape (with peak at}center\code{is computed for}x\code{values between}lo\code{and}hi`.
 
 If \code{lo == -Inf} then any value that is lower or equal to center gets memberhsip degree 1.  Similarly, if \code{hi == Inf}
 then any value that is greater or equal to center gets memberhsip degree 1. \code{NA} and \code{NaN} values remain unchanged.
