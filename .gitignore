@@ -29,3 +29,4 @@ config.status
 *.so
 /autom4te.cache/
 .~*
+inst/doc

@@ -9,7 +9,9 @@ Description: Various algorithms related to linguistic fuzzy logic: mining for li
     rules, composition of fuzzy relations, performing perception-based logical deduction (PbLD), 
     and forecasting time-series using fuzzy rule-based ensemble (FRBE).
 License: GPL-3
-Suggests: testthat, doMC
+Suggests: testthat, doMC,
+    knitr,
+    rmarkdown
 Depends: R (>= 3.4.0)
 Imports: Rcpp (>= 0.12.12), foreach, forecast (>= 5.5), plyr, tseries, e1071, zoo, utils
 LinkingTo: Rcpp
@@ -17,4 +19,5 @@ NeedsCompilation: yes
 SystemRequirements: C++11
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
+VignetteBuilder: knitr
