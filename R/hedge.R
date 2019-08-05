@@ -1,12 +1,13 @@
-.hedgeParams <- list('ex'=c(0.77, 0.90, 0.99),
-                     'si'=c(0.71, 0.85, 0.962),
-                     've'=c(0.66, 0.79, 0.915),
-                     'ty'=c(0.88, 0.95, 1),
-                     '-' =c(0.45, 0.68, 0.851),
-                     'ml'=c(0.43, 0.6, 0.727),
-                     'ro'=c(0.4, 0.52, 0.619),
-                     'qr'=c(0.3, 0.42, 0.528),
-                     'vr'=c(0.1, 0.2, 0.421))
+#' @export
+defaultHedgeParams <- list('ex'=c(0.77, 0.90, 0.99),
+                           'si'=c(0.71, 0.85, 0.962),
+                           've'=c(0.66, 0.79, 0.915),
+                           'ty'=c(0.88, 0.95, 1),
+                           '-' =c(0.45, 0.68, 0.851),
+                           'ml'=c(0.43, 0.6, 0.727),
+                           'ro'=c(0.4, 0.52, 0.619),
+                           'qr'=c(0.3, 0.42, 0.528),
+                           'vr'=c(0.1, 0.2, 0.421))
 
 
 
@@ -47,9 +48,10 @@
 #'     plot(lingexpr(ctx3(), atomic='sm', hedge='ve'))
 #'
 #' @export
-hedge <- function(type=c('ex', 'si', 've', 'ty', '-', 'ml', 'ro', 'qr', 'vr')) {
+hedge <- function(type=c('ex', 'si', 've', 'ty', '-', 'ml', 'ro', 'qr', 'vr'),
+                  hedgeParams=defaultHedgeParams) {
     type <- match.arg(type)
-    params <- .hedgeParams[[type]]
+    params <- hedgeParams[[type]]
     return(function(x) {
         .Call('_lfl_hedge', as.numeric(as.vector(x)), params, PACKAGE='lfl')
     })

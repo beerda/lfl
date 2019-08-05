@@ -21,7 +21,7 @@ lcut(x, ...)
 \method{lcut}{numeric}(x, context = minmax, atomic = c("sm", "me",
   "bi", "lm", "um", "ze", "neg.sm", "neg.me", "neg.bi", "neg.lm",
   "neg.um"), hedges = c("ex", "si", "ve", "ty", "-", "ml", "ro", "qr",
-  "vr"), name = NULL, ...)
+  "vr"), name = NULL, hedgeParams = defaultHedgeParams, ...)
 
 \method{lcut}{data.frame}(x, context = minmax, atomic = c("sm", "me",
   "bi", "lm", "um", "ze", "neg.sm", "neg.me", "neg.bi", "neg.lm",

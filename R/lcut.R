@@ -177,6 +177,7 @@ lcut.numeric <- function(x,
                                   'neg.sm', 'neg.me', 'neg.bi', 'neg.lm', 'neg.um'),
                          hedges=c('ex', 'si', 've', 'ty', '-', 'ml', 'ro', 'qr', 'vr'),
                          name=NULL,
+                         hedgeParams=defaultHedgeParams,
                          ...) {
     atomic <- match.arg(atomic, several.ok=TRUE)
     hedges <- match.arg(hedges, several.ok=TRUE)
@@ -216,7 +217,7 @@ lcut.numeric <- function(x,
         allowedHedges <- names(which(allowed.lingexpr[, a]))
         allowedHedges <- intersect(allowedHedges, hedges)
         m <- lapply(allowedHedges, function(h) {
-            lingexpr(context, atomic=a, hedge=h)(x)
+            lingexpr(context, atomic=a, hedge=h, hedgeParams=hedgeParams)(x)
         })
         m <- matrix(unlist(m, use.names=FALSE), ncol=length(m), byrow=FALSE)
 

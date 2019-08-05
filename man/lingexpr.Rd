@@ -9,7 +9,8 @@
 \usage{
 lingexpr(context, atomic = c("sm", "me", "bi", "lm", "um", "ze",
   "neg.sm", "neg.me", "neg.bi", "neg.lm", "neg.um"), hedge = c("ex",
-  "si", "ve", "ty", "-", "ml", "ro", "qr", "vr"))
+  "si", "ve", "ty", "-", "ml", "ro", "qr", "vr"),
+  hedgeParams = defaultHedgeParams)
 
 allowed.lingexpr
 }

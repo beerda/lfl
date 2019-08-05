@@ -61,7 +61,8 @@
 lingexpr <- function(context,
                      atomic=c('sm', 'me', 'bi', 'lm', 'um', 'ze',
                               'neg.sm', 'neg.me', 'neg.bi', 'neg.lm', 'neg.um'),
-                     hedge=c('ex', 'si', 've', 'ty', '-', 'ml', 'ro', 'qr', 'vr')) {
+                     hedge=c('ex', 'si', 've', 'ty', '-', 'ml', 'ro', 'qr', 'vr'),
+                     hedgeParams=defaultHedgeParams) {
     atomic <- match.arg(atomic)
     h <- match.arg(hedge)
     if (!allowed.lingexpr[h, atomic]) {
@@ -70,7 +71,7 @@ lingexpr <- function(context,
     rm(hedge) # in order to access global hedge() function
 
     hor <- horizon(context, atomic)
-    hed <- hedge(h)
+    hed <- hedge(h, hedgeParams=hedgeParams)
 
     return(function(x) {
         hed(hor(x))
