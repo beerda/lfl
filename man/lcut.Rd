@@ -65,6 +65,8 @@ creation of fuzzy attributes.}
 
 \item{hedges}{A vector of linguistic hedges to be used for creation of fuzzy
 attributes.}
+
+\item{hedgeParams}{Parameters that determine the shape of the hedges}
 }
 \value{
 An object of S3 class \code{fsets} is returned, which is a numeric matrix

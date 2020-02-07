@@ -45,6 +45,7 @@
 #' @param context A context of linguistic expressions (see [ctx3()], [ctx5()], [ctx3bilat()] or [ctx5bilat()])
 #' @param atomic An atomic expression whose horizon we would like to obtain
 #' @param hedge The type of the required linguistic hedge ('-' for no hedging)
+#' @param hedgeParams Parameters that determine the shape of the hedges
 #' @return Returns a function with a single argument, which has to be a numeric vector.
 #' @author Michal Burda
 #' @seealso [horizon()], [hedge()], [fcut()], [lcut()], [ctx()]

@@ -78,6 +78,7 @@
 #' fuzzy attribute names are taken from column names of parameter `x`.
 #' The `name` is also used as a value for the `vars` attribute of the resulting
 #' [fsets()] instance.
+#' @param hedgeParams Parameters that determine the shape of the hedges
 #' @param ...  Other parameters to some methods.
 #' @return An object of S3 class `fsets` is returned, which is a numeric matrix
 #' with columns representing the fuzzy attributes. Each source columm of the
@@ -128,8 +129,6 @@
 #'
 #' @export
 #' @name lcut
-#' @name lcut3
-#' @name lcut5
 lcut <- function(x, ...) {
     UseMethod('lcut')
 }

@@ -11,6 +11,8 @@ hedge(
 }
 \arguments{
 \item{type}{The type of the required linguistic hedge}
+
+\item{hedgeParams}{Parameters that determine the shape of the hedges}
 }
 \value{
 Returns a function with a single argument, which has to be a numeric

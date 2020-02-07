@@ -1,3 +1,4 @@
+#' A list of the parameters that define the shape of the hedges.
 #' @export
 defaultHedgeParams <- list('ex'=c(0.77, 0.90, 0.99),
                            'si'=c(0.71, 0.85, 0.962),
@@ -31,6 +32,7 @@ defaultHedgeParams <- list('ex'=c(0.77, 0.90, 0.99),
 #' is to use the [lingexpr()] function.
 #'
 #' @param type The type of the required linguistic hedge
+#' @param hedgeParams Parameters that determine the shape of the hedges
 #' @return Returns a function with a single argument, which has to be a numeric
 #' vector.
 #' @author Michal Burda
