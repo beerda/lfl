@@ -4,8 +4,13 @@
 \alias{fire}
 \title{Evaluate rules and obtain truth-degrees}
 \usage{
-fire(x, rules, tnorm = c("goedel", "goguen", "lukasiewicz"),
-  onlyAnte = TRUE, parallel = FALSE)
+fire(
+  x,
+  rules,
+  tnorm = c("goedel", "goguen", "lukasiewicz"),
+  onlyAnte = TRUE,
+  parallel = FALSE
+)
 }
 \arguments{
 \item{x}{Truth degrees of predicates. \code{x} could be either a numeric

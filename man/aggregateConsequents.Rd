@@ -4,8 +4,13 @@
 \alias{aggregateConsequents}
 \title{Aggregation of fired consequents into a resulting fuzzy set}
 \usage{
-aggregateConsequents(conseq, degrees, partition, firing = lukas.residuum,
-  aggreg = pgoedel.tnorm)
+aggregateConsequents(
+  conseq,
+  degrees,
+  partition,
+  firing = lukas.residuum,
+  aggreg = pgoedel.tnorm
+)
 }
 \arguments{
 \item{conseq}{A character vector of consequents. Each value in the vector
@@ -66,9 +71,9 @@ computes a fuzzy set that results from a conjunction (Goedel minimum t-norm)
 of all provided implicative (Lukasiewicz residuum) rules.
 
 In detail, the function first computes the fuzzy set of each fired consequent
-by calling \code{part\[i\] <- firing(degrees\[i\], partition\[, conseq\[i\]\])} for each
+by calling \verb{part\[i\] <- firing(degrees\[i\], partition\[, conseq\[i\]\])} for each
 \code{i}-th consequent and the results are aggregated using the \code{aggreg}
-parameter: \code{aggreg(part\[1\], part\[2\], ...)}. In order to aggregate consequents
+parameter: \verb{aggreg(part\[1\], part\[2\], ...)}. In order to aggregate consequents
 in a Mamdani-Assilian's fashion, set \code{firing} to \code{\link[=pgoedel.tnorm]{pgoedel.tnorm()}} and \code{aggreg}
 to \code{\link[=pgoedel.tconorm]{pgoedel.tconorm()}}.
 }

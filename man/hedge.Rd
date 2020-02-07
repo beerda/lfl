@@ -4,8 +4,10 @@
 \alias{hedge}
 \title{Linguistic hedges}
 \usage{
-hedge(type = c("ex", "si", "ve", "ty", "-", "ml", "ro", "qr", "vr"),
-  hedgeParams = defaultHedgeParams)
+hedge(
+  type = c("ex", "si", "ve", "ty", "-", "ml", "ro", "qr", "vr"),
+  hedgeParams = defaultHedgeParams
+)
 }
 \arguments{
 \item{type}{The type of the required linguistic hedge}

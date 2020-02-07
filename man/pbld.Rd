@@ -5,8 +5,14 @@
 \title{Perform a Perception-based Logical Deduction (PbLD) with given rule-base on
 given dataset}
 \usage{
-pbld(x, rules, partition, values, type = c("global", "local"),
-  parallel = FALSE)
+pbld(
+  x,
+  rules,
+  partition,
+  values,
+  type = c("global", "local"),
+  parallel = FALSE
+)
 }
 \arguments{
 \item{x}{Input to the inference. It should be an object of class

@@ -7,10 +7,13 @@
 \title{Creator of functions representing linguistic expressions}
 \format{An object of class \code{matrix} with 9 rows and 11 columns.}
 \usage{
-lingexpr(context, atomic = c("sm", "me", "bi", "lm", "um", "ze",
-  "neg.sm", "neg.me", "neg.bi", "neg.lm", "neg.um"), hedge = c("ex",
-  "si", "ve", "ty", "-", "ml", "ro", "qr", "vr"),
-  hedgeParams = defaultHedgeParams)
+lingexpr(
+  context,
+  atomic = c("sm", "me", "bi", "lm", "um", "ze", "neg.sm", "neg.me", "neg.bi", "neg.lm",
+    "neg.um"),
+  hedge = c("ex", "si", "ve", "ty", "-", "ml", "ro", "qr", "vr"),
+  hedgeParams = defaultHedgeParams
+)
 
 allowed.lingexpr
 }
@@ -28,7 +31,7 @@ Returns a function with a single argument, which has to be a numeric vector.
 A linguistic expression represents vague human terms such as "very small", "extremely big" etc. Such notions are
 always reasoned within a given context. \code{lingexpr} returns a function that models a selected linguistic expression.
 Accordingly to the given \code{context}, \code{atomic} expression (such as "small", "big") and a linguistic \code{hedge} (such as
-\code{very}, \code{extremely}), the returned function transforms numeric values into degrees (from \code{[0, 1]} interval),
+\code{very}, \code{extremely}), the returned function transforms numeric values into degrees (from \verb{[0, 1]} interval),
 at which the values correspond to the expression.
 }
 \details{

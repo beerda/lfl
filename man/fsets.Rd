@@ -8,8 +8,11 @@
 \alias{specs<-}
 \title{S3 class representing a set of fuzzy sets on the fixed universe}
 \usage{
-fsets(x, vars = rep(deparse(substitute(x)), ncol(x)), specs = matrix(0,
-  nrow = ncol(x), ncol = ncol(x)))
+fsets(
+  x,
+  vars = rep(deparse(substitute(x)), ncol(x)),
+  specs = matrix(0, nrow = ncol(x), ncol = ncol(x))
+)
 
 vars(f)
 
@@ -34,7 +37,7 @@ vector into several different fuzzy sets. To indicate that all of them in
 fact describe the same original variable, the same name is stored on
 appropriate positions of the \code{vars} vector.}
 
-\item{specs}{A square numeric matrix containing values from \code{{0, 1}}.
+\item{specs}{A square numeric matrix containing values from \verb{\{0, 1\}}.
 It is a specificity matrix, for which both rows and columns correspond to
 \code{x}'s columns and where \code{specs[i][j] == 1} if and only if \code{i}-th fuzzy
 set (i.e. \code{x[, i]}) is more specific (is a subset or equal to) than \code{j}-th fuzzy
@@ -75,9 +78,9 @@ the same variable.
 \code{specs} attribute gives a square numeric matrix of size equal to the number
 of fuzzy sets in \code{fsets}. \code{specs[i][j] == 1} if and only if the \code{i}-th fuzzy
 set is more specific than \code{j}-th fuzzy set. Specificity of fuzzy sets means
-the nestedness of fuzzy set: for instance, \code{very small} is more specific than
-\code{small}; similarly, \code{extremely big} is more specific than \code{very big}; on the
-other hand, \code{very big} and \code{extremely small} are incomparable. A necessary
+the nestedness of fuzzy set: for instance, \verb{very small} is more specific than
+\code{small}; similarly, \verb{extremely big} is more specific than \verb{very big}; on the
+other hand, \verb{very big} and \verb{extremely small} are incomparable. A necessary
 condition for specificity is subsethood.
 }
 \examples{

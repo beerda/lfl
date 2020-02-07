@@ -19,13 +19,25 @@ fcut(x, ...)
 
 \method{fcut}{logical}(x, name = deparse(substitute(x)), ...)
 
-\method{fcut}{numeric}(x, breaks, name = deparse(substitute(x)),
-  type = c("triangle", "raisedcos"), merge = 1, parallel = FALSE,
-  ...)
+\method{fcut}{numeric}(
+  x,
+  breaks,
+  name = deparse(substitute(x)),
+  type = c("triangle", "raisedcos"),
+  merge = 1,
+  parallel = FALSE,
+  ...
+)
 
-\method{fcut}{data.frame}(x, breaks = NULL, name = NULL,
-  type = c("triangle", "raisedcos"), merge = 1, parallel = FALSE,
-  ...)
+\method{fcut}{data.frame}(
+  x,
+  breaks = NULL,
+  name = NULL,
+  type = c("triangle", "raisedcos"),
+  merge = 1,
+  parallel = FALSE,
+  ...
+)
 
 \method{fcut}{matrix}(x, ...)
 }

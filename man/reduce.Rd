@@ -4,8 +4,14 @@
 \alias{reduce}
 \title{Reduce the size of rule base}
 \usage{
-reduce(x, rules, ratio, tnorm = c("goedel", "goguen", "lukasiewicz"),
-  tconorm = c("goedel", "goguen", "lukasiewicz"), numThreads = 1)
+reduce(
+  x,
+  rules,
+  ratio,
+  tnorm = c("goedel", "goguen", "lukasiewicz"),
+  tconorm = c("goedel", "goguen", "lukasiewicz"),
+  numThreads = 1
+)
 }
 \arguments{
 \item{x}{Data for the rules to be evaluated on. Could be either a numeric

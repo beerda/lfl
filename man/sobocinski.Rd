@@ -28,7 +28,7 @@ This scheme of handling missing values is also known as Bochvar's.
 The \code{sobocinski()}, \code{kleene()} and \code{dragonfly()} functions modify the algebra to
 handle the \code{NA} in a different way than default. Sobocinski's algebra simply ignores \code{NA} values
 whereas Kleene's algebra treats \code{NA} as "unknown value". Dragonfly approach is a combination
-of Sobocinski's and Bochvar's approach, which preserves the ordering \code{0 <= NA <= 1}
+of Sobocinski's and Bochvar's approach, which preserves the ordering \verb{0 <= NA <= 1}
 to obtain from compositions (see \code{\link[=compose]{compose()}})
 the lower-estimate in the presence of missing values.
 

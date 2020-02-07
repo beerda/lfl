@@ -4,8 +4,12 @@
 \alias{rbcoverage}
 \title{Compute rule base coverage of data}
 \usage{
-rbcoverage(x, rules, tnorm = c("goedel", "goguen", "lukasiewicz"),
-  onlyAnte = TRUE)
+rbcoverage(
+  x,
+  rules,
+  tnorm = c("goedel", "goguen", "lukasiewicz"),
+  onlyAnte = TRUE
+)
 }
 \arguments{
 \item{x}{Data for the rules to be evaluated on. Could be either a numeric

@@ -4,8 +4,11 @@
 \alias{horizon}
 \title{Create a function that computes linguistic horizons}
 \usage{
-horizon(context, atomic = c("sm", "me", "bi", "lm", "um", "ze", "neg.sm",
-  "neg.me", "neg.bi", "neg.lm", "neg.um"))
+horizon(
+  context,
+  atomic = c("sm", "me", "bi", "lm", "um", "ze", "neg.sm", "neg.me", "neg.bi", "neg.lm",
+    "neg.um")
+)
 }
 \arguments{
 \item{context}{A context of linguistic expressions (see \code{\link[=ctx3]{ctx3()}}, \code{\link[=ctx5]{ctx5()}}, \code{\link[=ctx3bilat]{ctx3bilat()}} or \code{\link[=ctx5bilat]{ctx5bilat()}})}

@@ -21,19 +21,31 @@ lcut5(x, ...)
 
 \method{lcut5}{default}(...)
 
-\method{lcut3}{numeric}(x, context = NULL, defaultCenter = 0.5,
-  atomic = c("sm", "me", "bi"), hedges = c("ex", "si", "ve", "ml",
-  "ro", "qr", "vr"), name = NULL, parallel = FALSE, ...)
+\method{lcut3}{numeric}(
+  x,
+  context = NULL,
+  defaultCenter = 0.5,
+  atomic = c("sm", "me", "bi"),
+  hedges = c("ex", "si", "ve", "ml", "ro", "qr", "vr"),
+  name = NULL,
+  parallel = FALSE,
+  ...
+)
 
-\method{lcut5}{numeric}(x, context = NULL, defaultCenter = 0.5,
-  atomic = c("sm", "lm", "me", "um", "bi"), hedges = c("ex", "ve",
-  "ml", "ro", "ty"), name = NULL, parallel = FALSE, ...)
+\method{lcut5}{numeric}(
+  x,
+  context = NULL,
+  defaultCenter = 0.5,
+  atomic = c("sm", "lm", "me", "um", "bi"),
+  hedges = c("ex", "ve", "ml", "ro", "ty"),
+  name = NULL,
+  parallel = FALSE,
+  ...
+)
 
-\method{lcut3}{data.frame}(x, context = NULL, name = NULL,
-  parallel = FALSE, ...)
+\method{lcut3}{data.frame}(x, context = NULL, name = NULL, parallel = FALSE, ...)
 
-\method{lcut5}{data.frame}(x, context = NULL, name = NULL,
-  parallel = FALSE, ...)
+\method{lcut5}{data.frame}(x, context = NULL, name = NULL, parallel = FALSE, ...)
 
 \method{lcut3}{matrix}(x, ...)
 

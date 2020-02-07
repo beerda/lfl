@@ -4,9 +4,15 @@
 \alias{compose}
 \title{Composition of Fuzzy Relations}
 \usage{
-compose(x, y, e = NULL, alg = c("goedel", "goguen", "lukasiewicz"),
-  type = c("basic", "sub", "super", "square"), quantifier = NULL,
-  sorting = sort)
+compose(
+  x,
+  y,
+  e = NULL,
+  alg = c("goedel", "goguen", "lukasiewicz"),
+  type = c("basic", "sub", "super", "square"),
+  quantifier = NULL,
+  sorting = sort
+)
 }
 \arguments{
 \item{x}{A first fuzzy relation to be composed. It must be a numeric matrix

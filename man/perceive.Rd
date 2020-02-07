@@ -5,8 +5,14 @@
 \title{From a set of rules, remove each rule for which another rule exists that is
 more specific.}
 \usage{
-perceive(rules, fsets, type = c("global", "local"), fired = NULL,
-  vars = NULL, specs = NULL)
+perceive(
+  rules,
+  fsets,
+  type = c("global", "local"),
+  fired = NULL,
+  vars = NULL,
+  specs = NULL
+)
 }
 \arguments{
 \item{rules}{A list of character vectors where each element is a fuzzy set

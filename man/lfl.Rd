@@ -3,7 +3,6 @@
 \docType{package}
 \name{lfl}
 \alias{lfl}
-\alias{lfl-package}
 \title{lfl.}
 \description{
 lfl.

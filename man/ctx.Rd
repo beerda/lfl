@@ -36,23 +36,43 @@
 \alias{is.ctx5bilat}
 \title{Context for linguistic expressions}
 \usage{
-ctx3(low = 0, center = low + (high - low) * relCenter, high = 1,
-  relCenter = 0.5)
+ctx3(
+  low = 0,
+  center = low + (high - low) * relCenter,
+  high = 1,
+  relCenter = 0.5
+)
 
-ctx3bilat(negMax = -1, negCenter = origin + (negMax - origin) *
-  relCenter, origin = 0, center = origin + (max - origin) * relCenter,
-  max = 1, relCenter = 0.5)
-
-ctx5(low = 0, lowerCenter = mean(c(low, center)), center = low +
-  (high - low) * relCenter, upperCenter = mean(c(center, high)),
-  high = 1, relCenter = 0.5)
-
-ctx5bilat(negMax = -1, negUpperCenter = mean(c(negCenter, negMax)),
+ctx3bilat(
+  negMax = -1,
   negCenter = origin + (negMax - origin) * relCenter,
-  negLowerCenter = mean(c(origin, negCenter)), origin = 0,
-  lowerCenter = mean(c(origin, center)), center = origin + (max -
-  origin) * relCenter, upperCenter = mean(c(center, max)), max = 1,
-  relCenter = 0.5)
+  origin = 0,
+  center = origin + (max - origin) * relCenter,
+  max = 1,
+  relCenter = 0.5
+)
+
+ctx5(
+  low = 0,
+  lowerCenter = mean(c(low, center)),
+  center = low + (high - low) * relCenter,
+  upperCenter = mean(c(center, high)),
+  high = 1,
+  relCenter = 0.5
+)
+
+ctx5bilat(
+  negMax = -1,
+  negUpperCenter = mean(c(negCenter, negMax)),
+  negCenter = origin + (negMax - origin) * relCenter,
+  negLowerCenter = mean(c(origin, negCenter)),
+  origin = 0,
+  lowerCenter = mean(c(origin, center)),
+  center = origin + (max - origin) * relCenter,
+  upperCenter = mean(c(center, max)),
+  max = 1,
+  relCenter = 0.5
+)
 
 as.ctx3(x)
 
@@ -142,13 +162,13 @@ typically a value of zero.}
 \item{negLowerCenter}{A typical negative value between \code{negCenter} and
 \code{negOrigin}.}
 
-\item{x}{A value to be examined or converted. For \code{as.ctx*}, it can be
-an instance of any \code{ctx*} class or a numeric vector of size equal to
+\item{x}{A value to be examined or converted. For \verb{as.ctx*}, it can be
+an instance of any \verb{ctx*} class or a numeric vector of size equal to
 the number of points required for the given context type.}
 }
 \value{
-\code{ctx*} and \code{as.ctx*} return an instance of the appropriate
-class. \code{is.ctx*} returns \code{TRUE} or \code{FALSE}.
+\verb{ctx*} and \verb{as.ctx*} return an instance of the appropriate
+class. \verb{is.ctx*} returns \code{TRUE} or \code{FALSE}.
 }
 \description{
 A context describes a range of allowed values for a data column.
@@ -184,7 +204,7 @@ max) enables atomic expressions: negative big, negative medium, negative
 small, zero, small, medium, big.
 }
 
-The \code{as.ctx*} functions return instance of the aprropriate class. The
+The \verb{as.ctx*} functions return instance of the aprropriate class. The
 functions perform the conversion so that missing points of the new context
 are computed from the old context that is being transformed. In the
 subsequent table, rows represent compatible values of different context
@@ -203,7 +223,7 @@ center \tab center      \tab center    \tab center \cr
 high   \tab high        \tab max       \tab max
 }
 
-The \code{as.ctx*} conversion is performed by replacing values by rows, as
+The \verb{as.ctx*} conversion is performed by replacing values by rows, as
 indicated in the table above.  When converting from a context with less
 points to a context with more points (e.g. from unilateral to bilateral, or
 from trichotomy to pentachotomy), missing points are computed as follows:
@@ -215,7 +235,7 @@ from trichotomy to pentachotomy), missing points are computed as follows:
 symmetrically around \code{origin} to the corresponding positive points.
 }
 
-The code \code{as.ctx*} functions allow the parameter to be also a numeric
+The code \verb{as.ctx*} functions allow the parameter to be also a numeric
 vector of size equal to the number of points required for the given context
 type, i.e. 3 (\code{ctx3}), 5 (\code{ctx3bilat}, \code{ctx5}), or 9 (\code{ctx5bilat}).
 }

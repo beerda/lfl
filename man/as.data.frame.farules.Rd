@@ -15,7 +15,7 @@ Empty \code{\link[=farules]{farules()}} object is converted into an empty \code{
 \value{
 A data frame of statistics of the rules that are stored in the given
 \code{\link[=farules]{farules()}} object. Row names of the resulting data frame are in
-the form: \code{A1 & A2 & ... & An => C}, where \code{Ai} are antecedent
+the form: \verb{A1 & A2 & ... & An => C}, where \code{Ai} are antecedent
 predicates and \code{C} is a consequent. An empty \code{\link[=farules]{farules()}} object
 is converted into an empty \code{\link[=data.frame]{data.frame()}} object.
 }
