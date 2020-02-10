@@ -46,8 +46,6 @@ set (i.e. \code{x[, j]}).}
 \item{f}{An instance of S3 class \code{fsets}.}
 
 \item{value}{Attribute values to be set to the object.}
-
-\item{...}{further arguments to be passed to the underlying functions.}
 }
 \value{
 \code{\link[=fsets]{fsets()}} returns an object of S3 class \code{fsets}. \code{\link[=vars]{vars()}} returns
