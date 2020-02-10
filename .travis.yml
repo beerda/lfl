@@ -3,7 +3,7 @@ warnings_are_errors: true
 sudo: false
 
 before_install:
-  - tlmgr install framed
+   - sudo tlmgr install framed
 
 matrix:
   include:
