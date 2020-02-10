@@ -3,7 +3,7 @@ warnings_are_errors: true
 sudo: false
 
 before_install:
-   - sudo tlmgr install framed
+   - if [[ "$OSTYPE" != "linux-gnu" ]]; then sudo tlmgr install framed titling; fi
 
 matrix:
   include:
