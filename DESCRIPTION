@@ -2,7 +2,7 @@ Package: lfl
 Type: Package
 Title: Linguistic Fuzzy Logic
 Version: 2.0
-Date: 2017-12-01
+Date: 2020-02-11
 Author: Michal Burda
 Maintainer: Michal Burda <michal.burda@osu.cz>
 Description: Various algorithms related to linguistic fuzzy logic: mining for linguistic fuzzy association
@@ -20,4 +20,3 @@ SystemRequirements: C++11
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.0.2
-VignetteBuilder: knitr
