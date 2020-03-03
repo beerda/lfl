@@ -26,7 +26,10 @@
 #' @param quantifier If not NULL, it must be a function taking a single
 #' argument, a vector of relative cardinalities, that would be translated into
 #' membership degrees. A result of the [lingexpr()] function is a
-#' good candidate for that.
+#' good candidate for that. Note that the vector of relative cardinalities contains also
+#' two attributes, `x` and `y`, which carry the original `R`'s data row (in `x`) and `S`'s
+#' feature column (in `y`). These attributes are accessible using the standard [base::attr()]
+#' function. Find examples below that define some quantifiers.
 #' @param sorting Sorting function used within quantifier application. The given function
 #' must sort the membership degrees and allow the `decreasing` argument as in [base::sort()].
 #' This function have to be explicitly specified typically if performing compositions that
@@ -57,6 +60,20 @@
 #'                    0.1, 0.2, 0, 0.2), byrow=TRUE, nrow=5)
 #'
 #'     compose(R, S, alg='goedel', type='basic') # should be equal to RS
+#'
+#'     # Now define the quantifier "at least 2" meaning that at least 2 features are required
+#'     atLeast2n <-  function(relcard) {
+#'         ifelse(relcard < 2 / length(relcard), 0, 1)
+#'     }
+#'     compose(R, S, alg='goedel', type='basic', quantifier=atLeast2n)
+#'
+#'     # Now define the quantifier "at least 20%" meaning that at least 20% of features are required
+#'     atLeast20p <-  function(relcard) {
+#'         y <- attr(relcard, 'y')
+#'         a <- ceiling(0.2 * sum(y))
+#'         ifelse(relcard < a / length(relcard), 0, 1)
+#'     }
+#'     compose(R, S, alg='goedel', type='basic', quantifier=atLeast20p)
 #'
 #' @export compose
 compose <- function(x,
@@ -107,21 +124,29 @@ compose <- function(x,
 
     .mustBe(is.function(type), "'type' must be either one of 'basic', 'sub', 'super', 'square', or a function with 1 argument")
 
+    f <- NULL
     # TODO: the 'quantifier' argument is not a real quantifier! It is more a linguistic expression giving degrees to relative
     # cardinalitites. The quantifiers are tightly related to algebras, e.g. the 'sort' function is a property of algebra (especially
     # if considering algebras that work with NAs)
     if (is.function(quantifier)) {
-        merge <- function(x) {
-            res <- sorting(x, decreasing=TRUE)
+        merge <- function(val, x, y) {
+            res <- sorting(val, decreasing=TRUE)
             relcard <- seq_along(res) / length(res)
+            attr(relcard, 'x') <- x
+            attr(relcard, 'y') <- y
             alg$s(alg$pt(res, quantifier(relcard)))
         }
+        f <- function(x, y) {
+          merge(type(x, y), x, y)
+        }
+
     } else if (!is.null(quantifier)) {
         stop("'quantifier' must be a function or NULL")
-    }
 
-    f <- function(x, y) {
-        merge(type(x, y))
+    } else {
+      f <- function(x, y) {
+          merge(type(x, y))
+      }
     }
 
     res <- mult(x, y, f)

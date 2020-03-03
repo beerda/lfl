@@ -36,7 +36,10 @@ it must be a numeric matrix with dimensions equal to the \code{y} matrix.}
 \item{quantifier}{If not NULL, it must be a function taking a single
 argument, a vector of relative cardinalities, that would be translated into
 membership degrees. A result of the \code{\link[=lingexpr]{lingexpr()}} function is a
-good candidate for that.}
+good candidate for that. Note that the vector of relative cardinalities contains also
+two attributes, \code{x} and \code{y}, which carry the original \code{R}'s data row (in \code{x}) and \code{S}'s
+feature column (in \code{y}). These attributes are accessible using the standard \code{\link[base:attr]{base::attr()}}
+function. Find examples below that define some quantifiers.}
 
 \item{sorting}{Sorting function used within quantifier application. The given function
 must sort the membership degrees and allow the \code{decreasing} argument as in \code{\link[base:sort]{base::sort()}}.
@@ -80,6 +83,20 @@ composition type \code{type}, and possibly also by a \code{quantifier}.
                    0.1, 0.2, 0, 0.2), byrow=TRUE, nrow=5)
 
     compose(R, S, alg='goedel', type='basic') # should be equal to RS
+
+    # Now define the quantifier "at least 2" meaning that at least 2 features are required
+    atLeast2n <-  function(relcard) {
+        ifelse(relcard < 2 / length(relcard), 0, 1)
+    }
+    compose(R, S, alg='goedel', type='basic', quantifier=atLeast2n)
+
+    # Now define the quantifier "at least 20\%" meaning that at least 20\% of features are required
+    atLeast20p <-  function(relcard) {
+        y <- attr(relcard, 'y')
+        a <- ceiling(0.2 * sum(y))
+        ifelse(relcard < a / length(relcard), 0, 1)
+    }
+    compose(R, S, alg='goedel', type='basic', quantifier=atLeast20p)
 
 }
 \seealso{

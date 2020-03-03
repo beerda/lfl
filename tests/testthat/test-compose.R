@@ -17,7 +17,7 @@ test_that('basic goedel composition', {
                    0.7, 0.6, 0.5, 0.4,
                    1, 1, 1, 1,
                    0.1, 0.2, 0, 0.2), byrow=TRUE, nrow=5)
-        
+
     expect_that(compose(R, S, alg='goedel', type='basic'), equals(RS))
 })
 
@@ -40,7 +40,7 @@ test_that('basic goguen composition', {
                    0.7, 0.6, 0.5, 0.4,
                    1, 1, 1, 1,
                    0.1, 0.2, 0, 0.2), byrow=TRUE, nrow=5)
-        
+
     expect_that(compose(R, S, alg='goguen', type='basic'), equals(RS))
 })
 
@@ -112,7 +112,7 @@ test_that('lukasiewicz bandler-kohout superproduct composition', {
                    0.6, 0.3, 0.2, 0,
                    1, 0.4, 0.8, 0.9), byrow=TRUE, nrow=5)
 
-        
+
     expect_that(compose(R, S, alg='lukas', type='super'), equals(RS))
 })
 
@@ -138,7 +138,7 @@ test_that('lukasiewicz bandler-kohout square composition', {
                    0.6, 0.3, 0.2, 0,
                    0.3, 0, 0.7, 0.7), byrow=TRUE, nrow=5)
 
-        
+
     expect_that(compose(R, S, alg='lukas', type='square'), equals(RS))
 })
 
@@ -168,8 +168,47 @@ test_that('basic goedel composition with e', {
                    0.7, 0.6, 0.5, 0.4,
                    1, 1, 1, 1,
                    0.1, 0.2, 0, 0.2), byrow=TRUE, nrow=5)
-        
+
     expect_that(compose(R, S, E, alg='goedel', type='basic'), equals(RS))
 })
 
+test_that('basic goedel composition with quantifier', {
+    R <- matrix(c(1, 0, 1, 1, 1, 0, 0, 0), nrow=1)
+
+    S <- matrix(c(0, 0, 0, 0, 1, 0, 1, 1,
+                  0, 0, 0, 1, 1, 0, 1, 1,
+                  0, 0, 1, 1, 1, 0, 1, 1), byrow=FALSE, ncol=3)
+
+    RS1 <- matrix(c(1, 1, 1), nrow=1)
+    RS2 <- matrix(c(0, 1, 1), nrow=1)
+    RS3 <- matrix(c(0, 0, 1), nrow=1)
+
+    atLeastN <- function(a) {
+        function(xx) {
+            ifelse(xx < a / length(xx), 0, 1)
+        }
+    }
+
+    expect_that(compose(R, S, alg='goedel', type='basic', q=atLeastN(1)),
+                equals(RS1))
+    expect_that(compose(R, S, alg='goedel', type='basic', q=atLeastN(2)),
+                equals(RS2))
+    expect_that(compose(R, S, alg='goedel', type='basic', q=atLeastN(3)),
+                equals(RS3))
+
+    atLeastP <- function(p) {
+        function(xx) {
+            y <- attr(xx, 'y')
+            a <- ceiling(p * sum(y))
+            ifelse(xx < a / length(xx), 0, 1)
+        }
+    }
+
+    expect_that(compose(R, S, alg='goedel', type='basic', q=atLeastP(0.3)),
+                equals(RS1))
+    expect_that(compose(R, S, alg='goedel', type='basic', q=atLeastP(0.49)),
+                equals(RS2))
+    expect_that(compose(R, S, alg='goedel', type='basic', q=atLeastP(0.59)),
+                equals(RS3))
+})
 
