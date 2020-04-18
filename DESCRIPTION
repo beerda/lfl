@@ -3,7 +3,12 @@ Type: Package
 Title: Linguistic Fuzzy Logic
 Version: 2.0
 Date: 2020-02-11
-Author: Michal Burda
+Authors@R: 
+    person(given = "Michal",
+           family = "Burda",
+           role = c("aut", "cre"),
+           email = "michal.burda@osu.cz",
+           comment = c(ORCID = "0000-0002-4182-4407"))
 Maintainer: Michal Burda <michal.burda@osu.cz>
 Description: Various algorithms related to linguistic fuzzy logic: mining for linguistic fuzzy association
     rules, composition of fuzzy relations, performing perception-based logical deduction (PbLD), 
