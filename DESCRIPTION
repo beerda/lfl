@@ -1,8 +1,8 @@
 Package: lfl
 Type: Package
 Title: Linguistic Fuzzy Logic
-Version: 2.0
-Date: 2020-02-11
+Version: 2.1
+Date: 2020-05-19
 Authors@R: 
     person(given = "Michal",
            family = "Burda",
@@ -24,4 +24,4 @@ NeedsCompilation: yes
 SystemRequirements: C++11
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
