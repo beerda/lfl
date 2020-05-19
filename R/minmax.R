@@ -3,7 +3,7 @@
 #' This function creates a context (i.e. an instance of S3 class
 #' [ctx3()], [ctx3bilat()], [ctx5()], or [ctx5bilat()]) based on values
 #' of the numeric vector `x`. In default, the context is based on minimum
-#' and maximum value of `x` in the folowing way:
+#' and maximum value of `x` in the following way:
 #' * `ctx3`, `ctx5`: low = minimum, high = maximum value of `x`;
 #' * `ctx3bilat`, `ctx5bilat`: negMax = minimum, max = maximum value of `x`,
 #'    origin = mean of minimum and maximum.

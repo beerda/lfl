@@ -39,7 +39,7 @@
 #' that performs element-wise computation on arbitrary number of vector parameters
 #' similarly as e.g. [pgoedel.tnorm()], [pgoguen.tnorm()] or [plukas.tnorm()].
 #' @param onlyAnte `TRUE` is useful if rules store both the antecedent and consequent
-#' and if only the antecedent-part of a rule should be included into the evulated
+#' and if only the antecedent-part of a rule should be included into the evaluated
 #' conjunction. Antecedent-part of a rule are all predicates in the vector starting from
 #' the 2nd position. `TRUE` value in this parameter causes the first element of each
 #' rule to be ignored.

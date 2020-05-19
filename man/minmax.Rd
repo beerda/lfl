@@ -20,7 +20,7 @@ These values overwrite the defaults computed by \code{minmax} -- see the example
 This function creates a context (i.e. an instance of S3 class
 \code{\link[=ctx3]{ctx3()}}, \code{\link[=ctx3bilat]{ctx3bilat()}}, \code{\link[=ctx5]{ctx5()}}, or \code{\link[=ctx5bilat]{ctx5bilat()}}) based on values
 of the numeric vector \code{x}. In default, the context is based on minimum
-and maximum value of \code{x} in the folowing way:
+and maximum value of \code{x} in the following way:
 \itemize{
 \item \code{ctx3}, \code{ctx5}: low = minimum, high = maximum value of \code{x};
 \item \code{ctx3bilat}, \code{ctx5bilat}: negMax = minimum, max = maximum value of \code{x},

@@ -113,7 +113,7 @@ applied only if \code{x} is a matrix or data frame.}
 }
 \value{
 An object of class "fsets" is returned, which is a numeric matrix
-with columns representing the fuzzy attributes. Each source columm of the
+with columns representing the fuzzy attributes. Each source column of the
 \code{x} argument corresponds to multiple columns in the resulting matrix.
 Columns have names that indicate the name of the source as well as a index
 \eqn{i} of fuzzy set(s) -- see the description of arguments \code{breaks}
@@ -140,7 +140,7 @@ attributes.  The result is in the form of the object of class "fsets", i.e.
 a numeric matrix whose columns represent fuzzy sets (fuzzy attributes) with
 values being the membership degrees.
 
-The function behaves diffently to the type of input \code{x}.
+The function behaves differently to the type of input \code{x}.
 
 If \code{x} is a factor or a logical vector (or other non-numeric data) then
 for each distinct value of an input, a fuzzy set is created, and data would

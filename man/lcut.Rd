@@ -21,8 +21,8 @@ lcut(x, ...)
 \method{lcut}{numeric}(
   x,
   context = minmax,
-  atomic = c("sm", "me", "bi", "lm", "um", "ze", "neg.sm", "neg.me", "neg.bi", "neg.lm",
-    "neg.um"),
+  atomic = c("sm", "me", "bi", "lm", "um", "ze", "neg.sm", "neg.me", "neg.bi",
+    "neg.lm", "neg.um"),
   hedges = c("ex", "si", "ve", "ty", "-", "ml", "ro", "qr", "vr"),
   name = NULL,
   hedgeParams = defaultHedgeParams,
@@ -32,8 +32,8 @@ lcut(x, ...)
 \method{lcut}{data.frame}(
   x,
   context = minmax,
-  atomic = c("sm", "me", "bi", "lm", "um", "ze", "neg.sm", "neg.me", "neg.bi", "neg.lm",
-    "neg.um"),
+  atomic = c("sm", "me", "bi", "lm", "um", "ze", "neg.sm", "neg.me", "neg.bi",
+    "neg.lm", "neg.um"),
   hedges = c("ex", "si", "ve", "ty", "-", "ml", "ro", "qr", "vr"),
   ...
 )
@@ -70,7 +70,7 @@ attributes.}
 }
 \value{
 An object of S3 class \code{fsets} is returned, which is a numeric matrix
-with columns representing the fuzzy attributes. Each source columm of the
+with columns representing the fuzzy attributes. Each source column of the
 \code{x} argument corresponds to multiple columns in the resulting matrix.
 Columns will have names derived from used \eqn{hedges}, atomic expression,
 and \eqn{name} specified as the optional parameter.
@@ -136,7 +136,7 @@ see \link{allowed.lingexpr} for more details):
 Accordingly to the theory developed by Novak (2008), not every hedge is
 suitable with each atomic #' expression (see the description of the \code{hedges}
 argument).  The hedges to be used can be selected with the \code{hedges} argument.
-Function takes care of not to use hedge together with an un-applicable atomic
+Function takes care of not to use hedge together with an unapplicable atomic
 expression by itself.
 
 Obviously, distinct data have different meaning of what is "small",

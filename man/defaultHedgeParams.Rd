@@ -4,7 +4,9 @@
 \name{defaultHedgeParams}
 \alias{defaultHedgeParams}
 \title{A list of the parameters that define the shape of the hedges.}
-\format{An object of class \code{list} of length 9.}
+\format{
+An object of class \code{list} of length 9.
+}
 \usage{
 defaultHedgeParams
 }

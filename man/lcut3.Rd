@@ -102,7 +102,7 @@ The parallel environment must be set properly in advance, e.g. with the
 }
 \value{
 An object of S3 class \code{fsets} is returned, which is a numeric matrix
-with columns representing the fuzzy attributes. Each source columm of the
+with columns representing the fuzzy attributes. Each source column of the
 \code{x} argument corresponds to multiple columns in the resulting matrix.
 Columns will have names derived from used \eqn{hedges}, atomic expression,
 and \eqn{name} specified as the optional parameter.

@@ -2,7 +2,7 @@
 #'
 #' Test whether `x` has a valid format for the objects of the S3 `frbe` class.
 #'
-#' This function tests wheter `x` inherits from `frbe` i.e. whether
+#' This function tests whether `x` inherits from `frbe` i.e. whether
 #' it is a list with the following elements: `forecasts` data frame,
 #' `features` data frame, `weights` vector, and `mean` vector.
 #' Instances of the S3 class `frbe` are usually created by the [frbe()] function.

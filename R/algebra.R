@@ -15,7 +15,7 @@
 #' size) so that the result is a vector of values.
 #'
 #' `goedel.tconorm`, `lukas.tconorm`, `goguen.tconorm`, are
-#' similar to the previously mentioned functions, exept that they compute
+#' similar to the previously mentioned functions, except that they compute
 #' triangular conorms (t-conorms).  `pgoedel.tconorm`,
 #' `plukas.tconorm`, and `pgoguen.tconorm` are their element-wise alternatives.
 #'

@@ -142,7 +142,7 @@ specs <- function(f) {
 
 #' Test whether `x` is a valid object of the S3 `fsets` class
 #'
-#' This function tests wheter `x` inherits from S3 `fsets` class.
+#' This function tests whether `x` inherits from S3 `fsets` class.
 #'
 #' @param x An object being tested.
 #' @return TRUE if `x` is a valid `fsets` object and FALSE otherwise.

@@ -5,12 +5,14 @@
 \alias{lingexpr}
 \alias{allowed.lingexpr}
 \title{Creator of functions representing linguistic expressions}
-\format{An object of class \code{matrix} with 9 rows and 11 columns.}
+\format{
+An object of class \code{matrix} with 9 rows and 11 columns.
+}
 \usage{
 lingexpr(
   context,
-  atomic = c("sm", "me", "bi", "lm", "um", "ze", "neg.sm", "neg.me", "neg.bi", "neg.lm",
-    "neg.um"),
+  atomic = c("sm", "me", "bi", "lm", "um", "ze", "neg.sm", "neg.me", "neg.bi",
+    "neg.lm", "neg.um"),
   hedge = c("ex", "si", "ve", "ty", "-", "ml", "ro", "qr", "vr"),
   hedgeParams = defaultHedgeParams
 )

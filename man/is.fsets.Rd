@@ -13,7 +13,7 @@ is.fsets(x)
 TRUE if \code{x} is a valid \code{fsets} object and FALSE otherwise.
 }
 \description{
-This function tests wheter \code{x} inherits from S3 \code{fsets} class.
+This function tests whether \code{x} inherits from S3 \code{fsets} class.
 }
 \seealso{
 \code{\link[=fsets]{fsets()}}

@@ -204,7 +204,7 @@ max) enables atomic expressions: negative big, negative medium, negative
 small, zero, small, medium, big.
 }
 
-The \verb{as.ctx*} functions return instance of the aprropriate class. The
+The \verb{as.ctx*} functions return instance of the appropriate class. The
 functions perform the conversion so that missing points of the new context
 are computed from the old context that is being transformed. In the
 subsequent table, rows represent compatible values of different context

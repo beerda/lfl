@@ -16,7 +16,7 @@ is.frbe(x)
 Test whether \code{x} has a valid format for the objects of the S3 \code{frbe} class.
 }
 \details{
-This function tests wheter \code{x} inherits from \code{frbe} i.e. whether
+This function tests whether \code{x} inherits from \code{frbe} i.e. whether
 it is a list with the following elements: \code{forecasts} data frame,
 \code{features} data frame, \code{weights} vector, and \code{mean} vector.
 Instances of the S3 class \code{frbe} are usually created by the \code{\link[=frbe]{frbe()}} function.

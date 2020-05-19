@@ -3,7 +3,9 @@
 \docType{package}
 \name{lfl}
 \alias{lfl}
-\title{lfl.}
+\title{lfl - Linguistic Fuzzy Logic}
 \description{
-lfl.
+Various algorithms related to linguistic fuzzy logic: mining for linguistic fuzzy association
+rules, composition of fuzzy relations, performing perception-based logical deduction (PbLD),
+and forecasting time-series using fuzzy rule-based ensemble (FRBE).
 }

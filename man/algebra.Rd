@@ -137,7 +137,7 @@ second values (while recycling the vectors if they do not have the same
 size) so that the result is a vector of values.
 
 \code{goedel.tconorm}, \code{lukas.tconorm}, \code{goguen.tconorm}, are
-similar to the previously mentioned functions, exept that they compute
+similar to the previously mentioned functions, except that they compute
 triangular conorms (t-conorms).  \code{pgoedel.tconorm},
 \code{plukas.tconorm}, and \code{pgoguen.tconorm} are their element-wise alternatives.
 
