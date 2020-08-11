@@ -156,10 +156,11 @@ algebra <- function(name, stdneg=FALSE, ...) {
 #' @seealso [algebra()]
 #' @keywords models robust
 #' @export
+#' @importFrom utils str
 print.algebra <- function(x, ...) {
   cat('Algebra:', x$call, '\n')
   x$call <- NULL
-  str(a, give.attr=FALSE, no.list=TRUE)
+  str(x, give.attr=FALSE, no.list=TRUE)
 }
 
 
