@@ -12,7 +12,7 @@
 }
 
 
-.algebraModification <- function(algebra, norm, conorm, resid, neg) {
+.algebraModification <- function(call, algebra, norm, conorm, resid, neg) {
     resN <- neg(algebra$n)
     resT <- norm(algebra$t)
     resPT <- .elementWisely(resT)
@@ -21,7 +21,7 @@
     resB <- function(x, y) { resPT(resR(x, y), resR(y, x)) }
     resI <- norm(algebra$i)
     resS <- conorm(algebra$s)
-    return(list(n=resN,
+    res <- list(n=resN,
                 t=resT,
                 pt=resPT,
                 c=resC,
@@ -31,7 +31,10 @@
                 i=resI,
                 pi=.elementWisely(resI),
                 s=resS,
-                ps=.elementWisely(resS)))
+                ps=.elementWisely(resS))
+    res$call <- paste0(call, '(', algebra$call, ')')
+    class(res) <- c('algebra', 'list')
+    res
 }
 
 
@@ -166,7 +169,7 @@ sobocinski <- function(algebra) {
         })
     }
 
-    .algebraModification(algebra, norm, norm, resid, neg)
+    .algebraModification('sobocinski', algebra, norm, norm, resid, neg)
 }
 
 
@@ -206,7 +209,7 @@ kleene <- function(algebra) {
         })
     }
 
-    .algebraModification(algebra, norm, conorm, resid, identity)
+    .algebraModification('kleene', algebra, norm, conorm, resid, identity)
 }
 
 
@@ -249,7 +252,7 @@ dragonfly <- function(algebra) {
         })
     }
 
-    alg <- .algebraModification(algebra, norm, conorm, resid, identity)
+    alg <- .algebraModification('dragonfly', algebra, norm, conorm, resid, identity)
     alg$b <- function(x, y) { stop('dragonfly bi-residuum not implemented') }
     return(alg)
 }

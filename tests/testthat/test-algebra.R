@@ -299,7 +299,9 @@ test_that('strict negation', {
 
 
 test_that('algebra', {
-  a <- algebra('goedel')
+  a <- algebra('goe')
+  expect_true(inherits(a, 'algebra'))
+  expect_true(inherits(a, 'list'))
   expect_true(is.algebra(a))
   expect_that(a$t, equals(goedel.tnorm))
   expect_that(a$pt, equals(pgoedel.tnorm))
@@ -312,8 +314,11 @@ test_that('algebra', {
   expect_that(a$ps, equals(pgoedel.tconorm))
   expect_that(a$i, equals(goedel.tnorm))
   expect_that(a$pi, equals(pgoedel.tnorm))
+  expect_that(a$call, equals('algebra("goedel")'))
 
   a <- algebra('lukas')
+  expect_true(inherits(a, 'algebra'))
+  expect_true(inherits(a, 'list'))
   expect_true(is.algebra(a))
   expect_that(a$t, equals(lukas.tnorm))
   expect_that(a$pt, equals(plukas.tnorm))
@@ -326,8 +331,11 @@ test_that('algebra', {
   expect_that(a$ps, equals(pgoedel.tconorm))
   expect_that(a$i, equals(goedel.tnorm))
   expect_that(a$pi, equals(pgoedel.tnorm))
+  expect_that(a$call, equals('algebra("lukasiewicz")'))
 
-  a <- algebra('goguen')
+  a <- algebra('gog')
+  expect_true(inherits(a, 'algebra'))
+  expect_true(inherits(a, 'list'))
   expect_true(is.algebra(a))
   expect_that(a$t, equals(goguen.tnorm))
   expect_that(a$pt, equals(pgoguen.tnorm))
@@ -340,4 +348,5 @@ test_that('algebra', {
   expect_that(a$ps, equals(pgoedel.tconorm))
   expect_that(a$i, equals(goedel.tnorm))
   expect_that(a$pi, equals(pgoedel.tnorm))
+  expect_that(a$call, equals('algebra("goguen")'))
 })

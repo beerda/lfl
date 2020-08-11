@@ -183,9 +183,10 @@ Goguen, or Lukasiewicz algebra:
 \item \code{"goedel"}: strict negation and Goedel t-norm, t-conorm, residuum, and bi-residuum;
 \item \code{"goguen"}: strict negation and Goguen t-norm, t-conorm, residuum, and bi-residuum;
 \item \code{"lukasiewicz"}: involutive negation and Lukasiewicz t-norm, t-conorm, residuum, and bi-residuum.
+}
+
 Moreover, \code{algebra} returns supremum and infimum functions computed as maximum and minimum,
 respectively.
-}
 
 \code{is.algebra} tests whether the given \code{a} argument is a valid
 algebra, i.e. a list returned by the \code{algebra} function.

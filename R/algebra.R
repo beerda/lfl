@@ -58,6 +58,7 @@
 #' * `"goedel"`: strict negation and Goedel t-norm, t-conorm, residuum, and bi-residuum;
 #' * `"goguen"`: strict negation and Goguen t-norm, t-conorm, residuum, and bi-residuum;
 #' * `"lukasiewicz"`: involutive negation and Lukasiewicz t-norm, t-conorm, residuum, and bi-residuum.
+#'
 #' Moreover, `algebra` returns supremum and infimum functions computed as maximum and minimum,
 #' respectively.
 #'
@@ -138,7 +139,27 @@ algebra <- function(name, stdneg=FALSE, ...) {
     if (stdneg) {
         res[['n']] <- invol.neg
     }
+    class(res) <- c('algebra', 'list')
+    res$call <- paste0('algebra("', name, '"',
+                       ifelse(stdneg, ', stdneg=TRUE', ''),
+                       ')')
     return(res)
+}
+
+
+#' Print an instance of the [algebra()] S3 class in a human readable form.
+#'
+#' @param x An instance of the [algebra()] S3 class
+#' @param ...  Unused.
+#' @return None.
+#' @author Michal Burda
+#' @seealso [algebra()]
+#' @keywords models robust
+#' @export
+print.algebra <- function(x, ...) {
+  cat('Algebra:', x$call, '\n')
+  x$call <- NULL
+  str(a, give.attr=FALSE, no.list=TRUE)
 }
 
 
@@ -146,6 +167,7 @@ algebra <- function(name, stdneg=FALSE, ...) {
 #' @export
 is.algebra <- function(a) {
   return(is.list(a) &&
+           inherits(a, 'algebra') &&
            is.function(a$n) &&
            is.function(a$t) &&
            is.function(a$pt) &&

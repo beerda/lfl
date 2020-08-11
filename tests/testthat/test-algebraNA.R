@@ -1,8 +1,13 @@
 set.seed(34523)
 
 test_that('sobocinski', {
-    a <- sobocinski(algebra('goguen'))
+    a <- sobocinski(algebra('luk'))
+    expect_that(a$call, equals('sobocinski(algebra("lukasiewicz"))'))
 
+
+    a <- sobocinski(algebra('gog'))
+
+    expect_that(a$call, equals('sobocinski(algebra("goguen"))'))
     expect_that(a$t(), equals(NA_real_))
     expect_that(a$t(NA), equals(NA_real_))
     expect_that(a$t(NaN), equals(NA_real_))
@@ -64,8 +69,13 @@ test_that('sobocinski', {
 
 
 test_that('kleene', {
-    a <- kleene(algebra('goguen'))
+    a <- kleene(algebra('luk'))
+    expect_that(a$call, equals('kleene(algebra("lukasiewicz"))'))
 
+
+    a <- kleene(algebra('gog'))
+
+    expect_that(a$call, equals('kleene(algebra("goguen"))'))
     expect_that(a$t(), equals(NA_real_))
     expect_that(a$t(NA), equals(NA_real_))
     expect_that(a$t(NaN), equals(NA_real_))
@@ -154,8 +164,13 @@ test_that('kleene', {
 
 
 test_that('dragonfly', {
-    a <-dragonfly(algebra('goguen'))
+    a <- dragonfly(algebra('luk'))
+    expect_that(a$call, equals('dragonfly(algebra("lukasiewicz"))'))
 
+
+    a <-dragonfly(algebra('gog'))
+
+    expect_that(a$call, equals('dragonfly(algebra("goguen"))'))
     expect_that(a$t(), equals(NA_real_))
     expect_that(a$t(NA), equals(NA_real_))
     expect_that(a$t(NaN), equals(NA_real_))
