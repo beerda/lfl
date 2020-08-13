@@ -73,7 +73,7 @@ strict.neg(x)
 \item{name}{The name of the algebra to be created. Must be one of: "goedel",
 "lukasiewicz", "goguen" (or an unambiguous abbreviation).}
 
-\item{stdneg}{\code{TRUE} if to force the use of a "standard" negation (i.e.
+\item{stdneg}{\code{TRUE} (Deprecated.) if to force the use of a "standard" negation (i.e.
 involutive negation).  Otherwise, the appropriate negation is used in the
 algebra (e.g. strict negation in Goedel and Goguen algebra and involutive
 negation in Lukasiewicz algebra).}
@@ -114,11 +114,20 @@ longest argument (shorter argument is recycled).
 numeric vector of the same size as the argument \code{x}.
 
 \code{algebra} returns a list of functions of the requested algebra:
-\code{"n"} (negation), \code{"t"} (t-norm), \code{"pt"} (element-wise t-norm),
+\code{"n"} (residual negation), \code{"ni"} (involutive negation), \code{"t"} (t-norm),
+\code{"pt"} (element-wise t-norm),
 \code{"c"} (t-conorm), \code{"pc"} (element-wise t-conorm), \code{"r"} (residuum),
 \code{"b"} (bi-residuum), \code{"s"} (supremum),
 \code{"ps"} (element-wise supremum), \code{"i"} (infimum), and
 \code{"pi"} (element-wise infimum).
+
+For Lukasiewicz algebra, the elements \code{"n"} and \code{"ni"} are the same, i.e.
+the \code{invol.neg} function. For Goedel and Goguen algebra, \code{"n"} (the residual
+negation) equals \code{strict.neg} and \code{"ni"} (the involutive negation) equals
+\code{invol.neg}.
+
+\code{"s"}, \code{"ps"}, \code{"i"}, \code{"pi"} are the same for each type of algebra:
+\code{goedel.conorm}, \code{pgoedel.conorm}, \code{goedel.tnorm}, and \code{pgoedel.tnorm}.
 }
 \description{
 Compute triangular norms (t-norms), triangular conorms (t-conorms), residua,
@@ -177,15 +186,23 @@ outside that range cause an error. NaN values are treated as NAs.
 
 If some argument is NA or NaN, the result is NA.
 
-\code{algebra} returns a named list of functions that together form Goedel,
-Goguen, or Lukasiewicz algebra:
+Selection of a t-norm may serve as a basis for definition of other operations.
+From the t-norm, the operation of a residual implication may be defined, which
+in turn allows the definition of a residual negation. If the residual negation
+is not involutive, the involutive negation is often added as a new operation
+and together with the t-norm can be used to define the t-conorm. Therefore,
+the \code{algebra} function returns a named list of operations derived from the selected
+Goedel, Goguen, or Lukasiewicz t-norm. Concretely:
 \itemize{
-\item \code{"goedel"}: strict negation and Goedel t-norm, t-conorm, residuum, and bi-residuum;
-\item \code{"goguen"}: strict negation and Goguen t-norm, t-conorm, residuum, and bi-residuum;
-\item \code{"lukasiewicz"}: involutive negation and Lukasiewicz t-norm, t-conorm, residuum, and bi-residuum.
+\item \code{algebra("goedel")}: returns the strict negation as the residual negation,
+the involutive negation, and also the Goedel t-norm, t-conorm, residuum, and bi-residuum;
+\item \code{algebra("goguen")}: returns the strict negation as the residual negation,
+the involutive negation, and also the Goguen t-norm, t-conorm, residuum, and bi-residuum;
+\item \code{algebra("lukasiewicz")}: returns involutive negation as both residal and involutive
+negation, and also the Lukasiewicz t-norm, t-conorm, residuum, and bi-residuum.
 }
 
-Moreover, \code{algebra} returns supremum and infimum functions computed as maximum and minimum,
+Moreover, \code{algebra} returns the supremum and infimum functions computed as maximum and minimum,
 respectively.
 
 \code{is.algebra} tests whether the given \code{a} argument is a valid
@@ -200,7 +217,8 @@ algebra, i.e. a list returned by the \code{algebra} function.
     x <- runif(10)
     y <- runif(10)
     a <- algebra('goedel')
-    a$n(x)     # negation
+    a$n(x)     # residual negation
+    a$ni(x)    # involutive negation
     a$t(x, y)  # t-norm
     a$pt(x, y) # element-wise t-norm
     a$c(x, y)  # t-conorm

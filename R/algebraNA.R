@@ -14,6 +14,7 @@
 
 .algebraModification <- function(call, algebra, norm, conorm, resid, neg) {
     resN <- neg(algebra$n)
+    resNI <- neg(algebra$ni)
     resT <- norm(algebra$t)
     resPT <- .elementWisely(resT)
     resC <- conorm(algebra$c)
@@ -22,6 +23,7 @@
     resI <- norm(algebra$i)
     resS <- conorm(algebra$s)
     res <- list(n=resN,
+                ni=resNI,
                 t=resT,
                 pt=resPT,
                 c=resC,
@@ -31,8 +33,8 @@
                 i=resI,
                 pi=.elementWisely(resI),
                 s=resS,
-                ps=.elementWisely(resS))
-    res$call <- paste0(call, '(', algebra$call, ')')
+                ps=.elementWisely(resS),
+                algebratype=c(algebra$algebratype, call))
     class(res) <- c('algebra', 'list')
     res
 }

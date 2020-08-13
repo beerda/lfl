@@ -2,12 +2,12 @@ set.seed(34523)
 
 test_that('sobocinski', {
     a <- sobocinski(algebra('luk'))
-    expect_that(a$call, equals('sobocinski(algebra("lukasiewicz"))'))
+    expect_that(a$algebratype, equals(c('lukasiewicz', 'sobocinski')))
 
 
     a <- sobocinski(algebra('gog'))
 
-    expect_that(a$call, equals('sobocinski(algebra("goguen"))'))
+    expect_that(a$algebratype, equals(c('goguen', 'sobocinski')))
     expect_that(a$t(), equals(NA_real_))
     expect_that(a$t(NA), equals(NA_real_))
     expect_that(a$t(NaN), equals(NA_real_))
@@ -62,20 +62,25 @@ test_that('sobocinski', {
     expect_that(a$ps(c(0.5, NA, 0.4), c(NA, 0.4, 0.5)), equals(c(0.5, 0.4, 0.5)))
 
     expect_that(a$n(NA), equals(a$r(NA, 0)))
-    expect_that(a$n(1), equals(a$r(1, 0)))
-    expect_that(a$n(0), equals(a$r(0, 0)))
+    expect_that(a$n(1), equals(0))
+    expect_that(a$n(0), equals(1))
     expect_that(a$n(0.8), equals(a$r(0.8, 0)))
+
+    expect_that(a$ni(NA), equals(a$r(NA, 0)))
+    expect_that(a$ni(1), equals(0))
+    expect_that(a$ni(0), equals(1))
+    expect_that(a$ni(0.8), equals(0.2))
 })
 
 
 test_that('kleene', {
     a <- kleene(algebra('luk'))
-    expect_that(a$call, equals('kleene(algebra("lukasiewicz"))'))
+    expect_that(a$algebratype, equals(c('lukasiewicz', 'kleene')))
 
 
     a <- kleene(algebra('gog'))
 
-    expect_that(a$call, equals('kleene(algebra("goguen"))'))
+    expect_that(a$algebratype, equals(c('goguen', 'kleene')))
     expect_that(a$t(), equals(NA_real_))
     expect_that(a$t(NA), equals(NA_real_))
     expect_that(a$t(NaN), equals(NA_real_))
@@ -156,21 +161,25 @@ test_that('kleene', {
                 equals(c(NA_real_, NA_real_, 0.5, NA_real_, 1)))
 
     expect_that(a$n(NA), equals(a$r(NA, 0)))
-    expect_that(a$n(1), equals(a$r(1, 0)))
-    expect_that(a$n(0), equals(a$r(0, 0)))
+    expect_that(a$n(1), equals(0))
+    expect_that(a$n(0), equals(1))
     expect_that(a$n(0.8), equals(a$r(0.8, 0)))
 
+    expect_that(a$ni(NA), equals(a$r(NA, 0)))
+    expect_that(a$ni(1), equals(0))
+    expect_that(a$ni(0), equals(1))
+    expect_that(a$ni(0.8), equals(0.2))
 })
 
 
 test_that('dragonfly', {
     a <- dragonfly(algebra('luk'))
-    expect_that(a$call, equals('dragonfly(algebra("lukasiewicz"))'))
+    expect_that(a$algebratype, equals(c('lukasiewicz', 'dragonfly')))
 
 
     a <-dragonfly(algebra('gog'))
 
-    expect_that(a$call, equals('dragonfly(algebra("goguen"))'))
+    expect_that(a$algebratype, equals(c('goguen', 'dragonfly')))
     expect_that(a$t(), equals(NA_real_))
     expect_that(a$t(NA), equals(NA_real_))
     expect_that(a$t(NaN), equals(NA_real_))
@@ -264,8 +273,12 @@ test_that('dragonfly', {
                 equals(c(NA_real_, 0.5, 0.4, 0.5, 1)))
 
     expect_that(a$n(NA), equals(a$r(NA, 0)))
-    expect_that(a$n(1), equals(a$r(1, 0)))
-    expect_that(a$n(0), equals(a$r(0, 0)))
+    expect_that(a$n(1), equals(0))
+    expect_that(a$n(0), equals(1))
     expect_that(a$n(0.8), equals(a$r(0.8, 0)))
 
+    expect_that(a$ni(NA), equals(a$r(NA, 0)))
+    expect_that(a$ni(1), equals(0))
+    expect_that(a$ni(0), equals(1))
+    expect_that(a$ni(0.8), equals(0.2))
 })
