@@ -169,6 +169,7 @@ sobocinski <- function(algebra) {
             naY <- is.na(y)
             res[naY] <- algebra$n(x[naY])
             res[naX] <- y[naX]
+            res[naX & naY] <- NA_real_
             res
         })
     }
