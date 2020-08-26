@@ -183,25 +183,33 @@ sobocinski <- function(algebra) {
 kleene <- function(algebra) {
     .mustBeAlgebra(algebra)
 
+    neg <- function(f) {
+        return(function(x) {
+            res <- f(x)
+            res[is.na(x)] <- NA_real_
+            res
+        })
+    }
+
     norm <- function(f) {
         return(function(...) {
             dots <- c(...)
-            res <- f(na.omit(dots))
-            if (!is.na(res) && res > 0 && any(is.na(dots))) {
+            nonadots <- na.omit(dots)
+            if (length(dots) != length(nonadots) && all(nonadots > 0)) {
                 return(NA_real_)
             }
-            return(res)
+            return(f(nonadots))
         })
     }
 
     conorm <- function(f) {
         return(function(...) {
             dots <- c(...)
-            res <- f(na.omit(dots))
-            if (!is.na(res) && res < 1 && any(is.na(dots))) {
+            nonadots <- na.omit(dots)
+            if (length(dots) != length(nonadots) && all(nonadots < 1)) {
                 return(NA_real_)
             }
-            return(res)
+            return(f(nonadots))
         })
     }
 
@@ -216,7 +224,7 @@ kleene <- function(algebra) {
         })
     }
 
-    .algebraModification('kleene', algebra, norm, conorm, resid, identity)
+    .algebraModification('kleene', algebra, norm, conorm, resid, neg)
 }
 
 
