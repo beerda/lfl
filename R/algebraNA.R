@@ -146,6 +146,8 @@
 #' @export
 #' @importFrom stats na.omit
 sobocinski <- function(algebra) {
+    .mustBeAlgebra(algebra)
+
     neg <- function(f) {
         return(function(x) {
             res <- f(x)
@@ -178,6 +180,8 @@ sobocinski <- function(algebra) {
 #' @export
 #' @rdname sobocinski
 kleene <- function(algebra) {
+    .mustBeAlgebra(algebra)
+
     norm <- function(f) {
         return(function(...) {
             dots <- c(...)
@@ -218,6 +222,8 @@ kleene <- function(algebra) {
 #' @export
 #' @rdname sobocinski
 dragonfly <- function(algebra) {
+    .mustBeAlgebra(algebra)
+
     norm <- function(f) {
         return(function(...) {
             dots <- c(...)

@@ -102,6 +102,14 @@
     }
  }
 
+.mustBeAlgebra <- function(x) {
+    if (!isTRUE(is.algebra(x))) {
+        stop(paste0(as.list(sys.call(-1))[[1]],
+                    ": '", deparse(substitute(x)), "' must be the algebra object"),
+             call.=FALSE)
+    }
+ }
+
 .mustBeFunction <- function(x) {
     if (!isTRUE(is.function(x))) {
         stop(paste0(as.list(sys.call(-1))[[1]],
