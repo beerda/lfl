@@ -158,18 +158,22 @@ sobocinski <- function(algebra) {
 
     norm <- function(f) {
         return(function(...) {
-            f(na.omit(c(...)))
+            nonadots <- na.omit(c(...))
+            if (length(nonadots) <= 0) {
+                return(NA_real_)
+            }
+            f(nonadots)
         })
     }
 
     resid <- function(f) {
         return(function(x, y) {
             res <- f(x, y)
-            naX <- is.na(x)
-            naY <- is.na(y)
-            res[naY] <- algebra$n(x[naY])
-            res[naX] <- y[naX]
-            res[naX & naY] <- NA_real_
+            xNA <- is.na(x)
+            yNA <- is.na(y)
+            res[yNA] <- algebra$n(x[yNA])
+            res[xNA] <- y[xNA]
+            res[xNA & yNA] <- NA_real_
             res
         })
     }
