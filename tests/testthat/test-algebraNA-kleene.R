@@ -202,3 +202,11 @@ test_that('kleene 2', {
     a <- kleene(algebra('lukasiewicz'))
     expect_equal(a$r(0.5, NA), NA_real_)
 })
+
+
+test_that('kleene is non-associative', {
+    a <- kleene(algebra('lukasiewicz'))
+
+    expect_equal(a$t(0.3, 0.2, NA), 0)
+    expect_equal(a$t(NA, 0.3, 0.2), 0)
+})

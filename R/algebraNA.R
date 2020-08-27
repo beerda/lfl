@@ -199,10 +199,11 @@ kleene <- function(algebra) {
         return(function(...) {
             dots <- c(...)
             nonadots <- na.omit(dots)
-            if (length(dots) != length(nonadots) && all(nonadots > 0)) {
+            res <- f(nonadots)
+            if (length(dots) != length(nonadots) && !is.na(res) && res > 0) {
                 return(NA_real_)
             }
-            return(f(nonadots))
+            res
         })
     }
 
@@ -210,10 +211,11 @@ kleene <- function(algebra) {
         return(function(...) {
             dots <- c(...)
             nonadots <- na.omit(dots)
-            if (length(dots) != length(nonadots) && all(nonadots < 1)) {
+            res <- f(nonadots)
+            if (length(dots) != length(nonadots) && !is.na(res) && res < 1) {
                 return(NA_real_)
             }
-            return(f(nonadots))
+            res
         })
     }
 
