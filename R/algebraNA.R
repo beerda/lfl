@@ -239,43 +239,168 @@ kleene <- function(algebra) {
 dragonfly <- function(algebra) {
     .mustBeAlgebra(algebra)
 
+    neg <- function(f) {
+        return(function(x) {
+            res <- f(x)
+            res[is.na(x)] <- NA_real_
+            res
+        })
+    }
+
     norm <- function(f) {
         return(function(...) {
             dots <- c(...)
-            res <- f(na.omit(dots))
-            if (!is.na(res) && res > 0 && any(is.na(dots))) {
+            nonadots <- na.omit(dots)
+            res <- f(nonadots)
+            if (length(dots) != length(nonadots) && !is.na(res) && res > 0) {
                 return(NA_real_)
             }
-            return(res)
+            res
         })
     }
 
     conorm <- function(f) {
         return(function(...) {
             dots <- c(...)
-            res <- f(na.omit(dots))
-            if (!is.na(res) && res == 0 && any(is.na(dots))) {
+            nonadots <- na.omit(dots)
+            res <- f(nonadots)
+            if (length(dots) != length(nonadots) && !is.na(res) && res == 0) {
                 return(NA_real_)
             }
-            return(res)
+            res
         })
     }
 
     resid <-function(f) {
         return(function(x, y) {
             res <- f(x, y)
-            naX <- is.na(x)
-            naY <- is.na(y)
-            res[naX] <- y[naX]
-            res[naY] <- NA_real_
-            res[naX & naY] <- 1
-            res[naY & x == 0] <- 1
-            res[naX & y == 0] <- NA_real_
+            xNA <- is.na(x)
+            yNA <- is.na(y)
+            x0 <- !xNA & x == 0
+            y0 <- !yNA & y == 0
+            res[xNA] <- y[xNA]
+            res[yNA] <- NA_real_
+            res[xNA & yNA] <- 1
+            res[yNA & x0] <- 1
+            res[xNA & y0] <- NA_real_
             return(res)
         })
     }
 
     alg <- .algebraModification('dragonfly', algebra, norm, conorm, resid, identity)
     alg$b <- function(x, y) { stop('dragonfly bi-residuum not implemented') }
+    return(alg)
+}
+
+
+#' @export
+#' @rdname sobocinski
+nelson <- function(algebra) {
+    .mustBeAlgebra(algebra)
+
+    neg <- function(f) {
+        return(function(x) {
+            res <- f(x)
+            res[is.na(x)] <- 1
+            res
+        })
+    }
+
+    norm <- function(f) {
+        return(function(...) {
+            dots <- c(...)
+            nonadots <- na.omit(dots)
+            res <- f(nonadots)
+            if (length(dots) != length(nonadots) && !is.na(res) && res > 0) {
+                return(NA_real_)
+            }
+            res
+        })
+    }
+
+    conorm <- function(f) {
+        return(function(...) {
+            dots <- c(...)
+            nonadots <- na.omit(dots)
+            res <- f(nonadots)
+            if (length(dots) != length(nonadots) && !is.na(res) && res < 1) {
+                return(NA_real_)
+            }
+            res
+        })
+    }
+
+    resid <- function(f) {
+        return(function(x, y) {
+            res <- f(x, y)
+            xNA <- is.na(x)
+            yNA <- is.na(y)
+            x0 <- !xNA & x == 0
+            y0 <- !yNA & y == 0
+            y1 <- !yNA & y == 1
+            res[yNA] <- NA_real_
+            res[x0 & yNA] <- 1
+            res[xNA] <- 1
+            res[xNA & !(y0 | y1 | yNA)] <- NA_real_
+            res
+        })
+    }
+
+    .algebraModification('nelson', algebra, norm, conorm, resid, neg)
+}
+
+
+#' @export
+#' @rdname sobocinski
+lowerEst <- function(algebra) {
+    .mustBeAlgebra(algebra)
+
+    neg <- function(f) {
+        return(function(x) {
+            res <- f(x)
+            res[is.na(x)] <- 0
+            res
+        })
+    }
+
+    norm <- function(f) {
+        return(function(...) {
+            dots <- c(...)
+            nonadots <- na.omit(dots)
+            res <- f(nonadots)
+            if (length(dots) != length(nonadots) && !is.na(res) && res > 0) {
+                return(NA_real_)
+            }
+            res
+        })
+    }
+
+    conorm <- function(f) {
+        return(function(...) {
+            dots <- c(...)
+            nonadots <- na.omit(dots)
+            res <- f(nonadots)
+            if (length(dots) != length(nonadots) && !is.na(res) && res == 0) {
+                return(NA_real_)
+            }
+            res
+        })
+    }
+
+    resid <-function(f) {
+        return(function(x, y) {
+            res <- f(x, y)
+            xNA <- is.na(x)
+            yNA <- is.na(y)
+            x0 <- !xNA & x == 0
+            res[yNA] <- NA_real_
+            res[yNA & x0] <- 1
+            res[xNA] <- y[xNA]
+            res
+        })
+    }
+
+    alg <- .algebraModification('lowerEst', algebra, norm, conorm, resid, neg)
+    alg$b <- function(x, y) { stop('lowerEst bi-residuum not implemented') }
     return(alg)
 }
