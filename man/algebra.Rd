@@ -73,7 +73,7 @@ strict.neg(x)
 \item{name}{The name of the algebra to be created. Must be one of: "goedel",
 "lukasiewicz", "goguen" (or an unambiguous abbreviation).}
 
-\item{stdneg}{\code{TRUE} (Deprecated.) if to force the use of a "standard" negation (i.e.
+\item{stdneg}{(Deprecated.) \code{TRUE} if to force the use of a "standard" negation (i.e.
 involutive negation).  Otherwise, the appropriate negation is used in the
 algebra (e.g. strict negation in Goedel and Goguen algebra and involutive
 negation in Lukasiewicz algebra).}
@@ -162,12 +162,12 @@ negation, respectively.
 Let \eqn{a}, \eqn{b} be values from the interval \eqn{[0, 1]}. The realized functions
 can be defined as follows:
 \itemize{
-\item Goedel t-norm: \eqn{min\{a, b\}};
+\item Goedel t-norm: \eqn{min{a, b}};
 \item Goguen t-norm: \eqn{ab};
-\item Lukasiewicz t-norm: \eqn{max\{0, a+b-1\}};
-\item Goedel t-conorm: \eqn{max\{a, b\}};
+\item Lukasiewicz t-norm: \eqn{max{0, a+b-1}};
+\item Goedel t-conorm: \eqn{max{a, b}};
 \item Goguen t-conorm: \eqn{a+b-ab};
-\item Lukasiewicz t-conorm: \eqn{min\{1, a+b\}};
+\item Lukasiewicz t-conorm: \eqn{min{1, a+b}};
 \item Goedel residuum (standard Goedel implication): \eqn{1} if \eqn{a \le b} and
 \eqn{b} otherwise;
 \item Goguen residuum (implication): \eqn{1} if \eqn{a \le b} and \eqn{b/a}
@@ -184,7 +184,8 @@ as follows: \deqn{B(a, b) = T(R(a, b), R(b, a)).}
 The arguments have to be numbers from the interval \eqn{[0, 1]}. Values
 outside that range cause an error. NaN values are treated as NAs.
 
-If some argument is NA or NaN, the result is NA.
+If some argument is NA or NaN, the result is NA. For other handling of missing values,
+see \link{algebraNA}.
 
 Selection of a t-norm may serve as a basis for definition of other operations.
 From the t-norm, the operation of a residual implication may be defined, which

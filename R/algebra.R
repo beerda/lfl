@@ -30,12 +30,12 @@
 #'
 #' Let \eqn{a}, \eqn{b} be values from the interval \eqn{[0, 1]}. The realized functions
 #' can be defined as follows:
-#' * Goedel t-norm: \eqn{min\{a, b\}};
+#' * Goedel t-norm: \eqn{min{a, b}};
 #' * Goguen t-norm: \eqn{ab};
-#' * Lukasiewicz t-norm: \eqn{max\{0, a+b-1\}};
-#' * Goedel t-conorm: \eqn{max\{a, b\}};
+#' * Lukasiewicz t-norm: \eqn{max{0, a+b-1}};
+#' * Goedel t-conorm: \eqn{max{a, b}};
 #' * Goguen t-conorm: \eqn{a+b-ab};
-#' * Lukasiewicz t-conorm: \eqn{min\{1, a+b\}};
+#' * Lukasiewicz t-conorm: \eqn{min{1, a+b}};
 #' * Goedel residuum (standard Goedel implication): \eqn{1} if \eqn{a \le b} and
 #'   \eqn{b} otherwise;
 #' * Goguen residuum (implication): \eqn{1} if \eqn{a \le b} and \eqn{b/a}
@@ -51,7 +51,8 @@
 #' The arguments have to be numbers from the interval \eqn{[0, 1]}. Values
 #' outside that range cause an error. NaN values are treated as NAs.
 #'
-#' If some argument is NA or NaN, the result is NA.
+#' If some argument is NA or NaN, the result is NA. For other handling of missing values,
+#' see [algebraNA].
 #'
 #' Selection of a t-norm may serve as a basis for definition of other operations.
 #' From the t-norm, the operation of a residual implication may be defined, which
@@ -73,26 +74,26 @@
 #' `is.algebra` tests whether the given `a` argument is a valid
 #' algebra, i.e. a list returned by the `algebra` function.
 #'
+#' @param name The name of the algebra to be created. Must be one of: "goedel",
+#' "lukasiewicz", "goguen" (or an unambiguous abbreviation).
+#' @param stdneg (Deprecated.) `TRUE` if to force the use of a "standard" negation (i.e.
+#' involutive negation).  Otherwise, the appropriate negation is used in the
+#' algebra (e.g. strict negation in Goedel and Goguen algebra and involutive
+#' negation in Lukasiewicz algebra).
 #' @param ...  For t-norms and t-conorms, these arguments are numeric vectors
 #' of values to compute t-norms or t-conorms from.  Values outside the
 #' \eqn{[0,1]} interval cause an error. NA values are also permitted.
 #'
 #' For the `algebra()` function, these arguments are passed to the factory
 #' functions that create the algebra. (Currently unused.)
+#' @param a An object to be checked if it is a valid algebra (i.e. a list
+#' returned by the `algebra` function).
 #' @param x Numeric vector of values to compute a residuum or bi-residuum from.
 #' Values outside the \eqn{[0,1]} interval cause an error. NA values are also
 #' permitted.
 #' @param y Numeric vector of values to compute a residuum or bi-residuum from.
 #' Values outside the \eqn{[0,1]} interval cause an error. NA values are also
 #' permitted.
-#' @param name The name of the algebra to be created. Must be one of: "goedel",
-#' "lukasiewicz", "goguen" (or an unambiguous abbreviation).
-#' @param stdneg `TRUE` (Deprecated.) if to force the use of a "standard" negation (i.e.
-#' involutive negation).  Otherwise, the appropriate negation is used in the
-#' algebra (e.g. strict negation in Goedel and Goguen algebra and involutive
-#' negation in Lukasiewicz algebra).
-#' @param a An object to be checked if it is a valid algebra (i.e. a list
-#' returned by the `algebra` function).
 #' @return Functions for t-norms and t-conorms (such as `goedel.tnorm`)
 #' return a numeric vector of size 1 that is the result of the appropriate
 #' t-norm or t-conorm applied on all values of all arguments.

@@ -6,7 +6,7 @@
 \alias{allowed.lingexpr}
 \title{Creator of functions representing linguistic expressions}
 \format{
-An object of class \code{matrix} with 9 rows and 11 columns.
+An object of class \code{matrix} (inherits from \code{array}) with 9 rows and 11 columns.
 }
 \usage{
 lingexpr(
