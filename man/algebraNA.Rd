@@ -2,8 +2,11 @@
 % Please edit documentation in R/algebraNA.R
 \name{sobocinski}
 \alias{sobocinski}
+\alias{algebraNA}
 \alias{kleene}
 \alias{dragonfly}
+\alias{nelson}
+\alias{lowerEst}
 \title{Modify algebra's way of computing with \code{NA} values.}
 \usage{
 sobocinski(algebra)
@@ -11,6 +14,10 @@ sobocinski(algebra)
 kleene(algebra)
 
 dragonfly(algebra)
+
+nelson(algebra)
+
+lowerEst(algebra)
 }
 \arguments{
 \item{algebra}{the underlying algebra object to be modified -- see the \code{\link[=algebra]{algebra()}} function}

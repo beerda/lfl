@@ -12,9 +12,9 @@
 }
 
 
-.algebraModification <- function(call, algebra, norm, conorm, resid, neg) {
+.algebraModification <- function(call, algebra, norm, conorm, resid, neg, invol) {
     resN <- neg(algebra$n)
-    resNI <- neg(algebra$ni)
+    resNI <- invol(algebra$ni)
     resT <- norm(algebra$t)
     resPT <- .elementWisely(resT)
     resC <- conorm(algebra$c)
@@ -211,6 +211,8 @@
 #'
 #' @export
 #' @importFrom stats na.omit
+#' @rdname algebraNA
+#' @aliases algebraNA
 sobocinski <- function(algebra) {
     .mustBeAlgebra(algebra)
 
@@ -236,12 +238,12 @@ sobocinski <- function(algebra) {
         })
     }
 
-    .algebraModification('sobocinski', algebra, norm, norm, resid, .neg0)
+    .algebraModification('sobocinski', algebra, norm, norm, resid, .neg0, .negNA)
 }
 
 
 #' @export
-#' @rdname sobocinski
+#' @rdname algebraNA
 kleene <- function(algebra) {
     .mustBeAlgebra(algebra)
 
@@ -256,12 +258,12 @@ kleene <- function(algebra) {
         })
     }
 
-    .algebraModification('kleene', algebra, .normKleene, .conormKleene, resid, .negNA)
+    .algebraModification('kleene', algebra, .normKleene, .conormKleene, resid, .negNA, .negNA)
 }
 
 
 #' @export
-#' @rdname sobocinski
+#' @rdname algebraNA
 dragonfly <- function(algebra) {
     .mustBeAlgebra(algebra)
 
@@ -281,14 +283,14 @@ dragonfly <- function(algebra) {
         })
     }
 
-    alg <- .algebraModification('dragonfly', algebra, .normKleene, .conormDragon, resid, .negNA)
+    alg <- .algebraModification('dragonfly', algebra, .normKleene, .conormDragon, resid, .negNA, .negNA)
     alg$b <- function(x, y) { stop('dragonfly bi-residuum not implemented') }
     return(alg)
 }
 
 
 #' @export
-#' @rdname sobocinski
+#' @rdname algebraNA
 nelson <- function(algebra) {
     .mustBeAlgebra(algebra)
 
@@ -308,12 +310,12 @@ nelson <- function(algebra) {
         })
     }
 
-    .algebraModification('nelson', algebra, .normKleene, .conormKleene, resid, .neg1)
+    .algebraModification('nelson', algebra, .normKleene, .conormKleene, resid, .neg1, .negNA)
 }
 
 
 #' @export
-#' @rdname sobocinski
+#' @rdname algebraNA
 lowerEst <- function(algebra) {
     .mustBeAlgebra(algebra)
 
@@ -330,7 +332,7 @@ lowerEst <- function(algebra) {
         })
     }
 
-    alg <- .algebraModification('lowerEst', algebra, .normKleene, .conormDragon, resid, .neg0)
+    alg <- .algebraModification('lowerEst', algebra, .normKleene, .conormDragon, resid, .neg0, .negNA)
     alg$b <- function(x, y) { stop('lowerEst bi-residuum not implemented') }
     return(alg)
 }

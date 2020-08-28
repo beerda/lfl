@@ -65,7 +65,7 @@ test_that('sobocinski', {
     expect_that(a$n(0), equals(1))
     expect_that(a$n(0.8), equals(a$r(0.8, 0)))
 
-    expect_that(a$ni(NA), equals(0))
+    expect_that(a$ni(NA), equals(NA_real_))
     expect_that(a$ni(1), equals(0))
     expect_that(a$ni(0), equals(1))
     expect_that(a$ni(0.8), equals(0.2))
