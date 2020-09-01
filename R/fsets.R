@@ -329,10 +329,6 @@ print.fsets <- function(x, ...) {
     v <- vars(x)
     s <- specs(x)
     print(as.matrix(x))
-    cat("\nvars:\n")
-    print(v)
-    cat("\nspecs:\n")
-    print(s)
 }
 
 
