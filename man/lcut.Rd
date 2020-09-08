@@ -24,7 +24,7 @@ lcut(x, ...)
   atomic = c("sm", "me", "bi", "lm", "um", "ze", "neg.sm", "neg.me", "neg.bi",
     "neg.lm", "neg.um"),
   hedges = c("ex", "si", "ve", "ty", "-", "ml", "ro", "qr", "vr"),
-  name = NULL,
+  name = deparse(substitute(x)),
   hedgeParams = defaultHedgeParams,
   ...
 )
@@ -48,17 +48,17 @@ other data types the \code{\link[=fcut]{fcut()}} function is called implicitly.}
 \item{...}{Other parameters to some methods.}
 
 \item{name}{A name to be added as a suffix to the created fuzzy attribute
-names. This parameter can be used only if \code{x} is a numeric vector. If
-\code{x} is a matrix or data frame, \code{name} should be NULL because the
-fuzzy attribute names are taken from column names of parameter \code{x}.
-The \code{name} is also used as a value for the \code{vars} attribute of the resulting
-\code{\link[=fsets]{fsets()}} instance.}
+names. This parameter can be used only if \code{x} is a numeric or logical
+vector or a factor. If \code{x} is a matrix or data frame, \code{name} should be NULL
+because the fuzzy attribute names are taken from column names of parameter
+\code{x}. The \code{name} is also used as a value for the \code{vars} attribute of the
+resulting \code{\link[=fsets]{fsets()}} instance.}
 
-\item{context}{A definition of context of a numeric attribute. It must be
-an instance of an S3 class \code{\link[=ctx3]{ctx3()}}, \code{\link[=ctx5]{ctx5()}}, \code{\link[=ctx3bilat]{ctx3bilat()}} or \code{\link[=ctx5bilat]{ctx5bilat()}}.
+\item{context}{A definition of context of a numeric attribute. It must be an
+instance of an S3 class \code{\link[=ctx3]{ctx3()}}, \code{\link[=ctx5]{ctx5()}}, \code{\link[=ctx3bilat]{ctx3bilat()}} or \code{\link[=ctx5bilat]{ctx5bilat()}}.
 
-If \code{x} is a matrix or data frame then \code{context} should be a named
-list of contexts for each \code{x}'s column.}
+If \code{x} is a matrix or data frame then \code{context} should be a named list of
+contexts for each \code{x}'s column.}
 
 \item{atomic}{A vector of atomic linguistic expressions to be used for
 creation of fuzzy attributes.}
@@ -76,21 +76,21 @@ Columns will have names derived from used \eqn{hedges}, atomic expression,
 and \eqn{name} specified as the optional parameter.
 
 The resulting object would also have set the \code{\link[=vars]{vars()}} and \code{\link[=specs]{specs()}}
-properties with the former being created from original
-column names (if \code{x} is a matrix or data frame) or the \code{name}
-argument (if \code{x} is a numeric vector). The \code{\link[=specs]{specs()}}
-incidency matrix would be created to reflect the following order of the
-hedges: \eqn{"ex" < "si" < "ve" < "-" < "ml" < "ro" < "qr" < "vr"} and
-\eqn{"ty" < "" < "ml" < "ro" < "qr" < "vr"}.  Fuzzy attributes created from
-the same source numeric vector (or column) would be ordered that way, with other fuzzy attributes
-(from the other source) being incomparable.
+properties with the former being created from original column names (if \code{x}
+is a matrix or data frame) or the \code{name} argument (if \code{x} is a numeric
+vector). The \code{\link[=specs]{specs()}} incidency matrix would be created to reflect the
+following order of the hedges: \eqn{"ex" < "si" < "ve" < "-" < "ml" < "ro"
+  < "qr" < "vr"} and \eqn{"ty" < "" < "ml" < "ro" < "qr" < "vr"}.  Fuzzy
+attributes created from the same source numeric vector (or column) would be
+ordered that way, with other fuzzy attributes (from the other source) being
+incomparable.
 }
 \description{
 This function creates a set of linguistic fuzzy attributes from crisp data.
 Numeric vectors, matrix or data frame columns are transformed into a set of
 fuzzy attributes, i.e. columns with membership degrees. Factors and other
-data types are transformed to fuzzy attributes by calling the
-\code{\link[=fcut]{fcut()}} function.
+data types are transformed to fuzzy attributes by calling the \code{\link[=fcut]{fcut()}}
+function.
 }
 \details{
 The aim of this function is to transform numeric data into a set of fuzzy
@@ -99,19 +99,20 @@ interpretation. This is a unique variant of fuzzification that is suitable
 for the inference mechanism based on Perception-based Linguistic Description
 (PbLD) -- see \code{\link[=pbld]{pbld()}}.
 
-A numeric vector is transformed into a set of fuzzy attributes accordingly
-to the following scheme:
+A numeric vector is transformed into a set of fuzzy attributes accordingly to
+the following scheme:
 
 \eqn{<hedge> <atomic expression>}
 
 where \eqn{<atomic expression>} is an atomic linguistic expression, a value
-from the following possibilities (note that the allowance of atomic expressions
-is influenced with \code{context} being used - see \link{ctx} for details):
+from the following possibilities (note that the allowance of atomic
+expressions is influenced with \code{context} being used - see \link{ctx} for details):
 \itemize{
 \item \code{neg.bi}: big negative (far from zero)
 \item \code{neg.um}: upper medium negative (between medium negative and big negative)
 \item \code{neg.me}: medium negative
-\item \code{neg.lm}: lower medium negative (between medium negative and small negative)
+\item \code{neg.lm}: lower medium negative (between medium negative and small
+negative)
 \item \code{neg.sm}: small negative (close to zero)
 \item \code{ze}: zero
 \item \code{sm}: small
@@ -119,9 +120,12 @@ is influenced with \code{context} being used - see \link{ctx} for details):
 \item \code{me}: medium
 \item \code{um}: upper medium
 \item \code{bi}: big
+}
+
 A \eqn{<hedge>} is a modifier that further concretizes the atomic expression
 (note that not each combination of hedge and atomic expression is allowed -
 see \link{allowed.lingexpr} for more details):
+\itemize{
 \item \code{ex}: extremely,
 \item \code{si}: significantly,
 \item \code{ve}: very,
@@ -139,15 +143,15 @@ argument).  The hedges to be used can be selected with the \code{hedges} argumen
 Function takes care of not to use hedge together with an unapplicable atomic
 expression by itself.
 
-Obviously, distinct data have different meaning of what is "small",
-"medium", or "big" etc.  Therefore, a \code{context} has to be set that
-specifies sensible values for these linguistic expressions.
+Obviously, distinct data have different meaning of what is "small", "medium",
+or "big" etc.  Therefore, a \code{context} has to be set that specifies sensible
+values for these linguistic expressions.
 
-If a matrix (resp. data frame) is provided to this function instead of
-a single vector, all columns are processed the same way.
+If a matrix (resp. data frame) is provided to this function instead of a
+single vector, all columns are processed the same way.
 
-The function also sets up properly the \code{\link[=vars]{vars()}} and
-\code{\link[=specs]{specs()}} properties of the result.
+The function also sets up properly the \code{\link[=vars]{vars()}} and \code{\link[=specs]{specs()}} properties of
+the result.
 }
 \examples{
 

@@ -3,8 +3,8 @@
 #' This function creates a set of linguistic fuzzy attributes from crisp data.
 #' Numeric vectors, matrix or data frame columns are transformed into a set of
 #' fuzzy attributes, i.e. columns with membership degrees. Factors and other
-#' data types are transformed to fuzzy attributes by calling the
-#' [fcut()] function.
+#' data types are transformed to fuzzy attributes by calling the [fcut()]
+#' function.
 #'
 #' The aim of this function is to transform numeric data into a set of fuzzy
 #' attributes.  The resulting fuzzy attributes have direct linguistic
@@ -12,37 +12,41 @@
 #' for the inference mechanism based on Perception-based Linguistic Description
 #' (PbLD) -- see [pbld()].
 #'
-#' A numeric vector is transformed into a set of fuzzy attributes accordingly
-#' to the following scheme:
+#' A numeric vector is transformed into a set of fuzzy attributes accordingly to
+#' the following scheme:
 #'
 #' \eqn{<hedge> <atomic expression>}
 #'
 #' where \eqn{<atomic expression>} is an atomic linguistic expression, a value
-#' from the following possibilities (note that the allowance of atomic expressions
-#' is influenced with `context` being used - see [ctx] for details):
-#' * `neg.bi`: big negative (far from zero)
-#' * `neg.um`: upper medium negative (between medium negative and big negative)
-#' * `neg.me`: medium negative
-#' * `neg.lm`: lower medium negative (between medium negative and small negative)
-#' * `neg.sm`: small negative (close to zero)
-#' * `ze`: zero
-#' * `sm`: small
-#' * `lm`: lower medium
-#' * `me`: medium
-#' * `um`: upper medium
-#' * `bi`: big
-#'  A \eqn{<hedge>} is a modifier that further concretizes the atomic expression
-#'  (note that not each combination of hedge and atomic expression is allowed -
-#'  see [allowed.lingexpr] for more details):
-#' * `ex`: extremely,
-#' * `si`: significantly,
-#' * `ve`: very,
-#' * `ty`: typically,
-#' * `-`: empty hedge (no hedging),
-#' * `ml`: more or less,
-#' * `ro`: roughly,
-#' * `qr`: quite roughly,
-#' * `vr`: very roughly.
+#' from the following possibilities (note that the allowance of atomic
+#' expressions is influenced with `context` being used - see [ctx] for details):
+#'
+#'  * `neg.bi`: big negative (far from zero)
+#'  * `neg.um`: upper medium negative (between medium negative and big negative)
+#'  * `neg.me`: medium negative
+#'  * `neg.lm`: lower medium negative (between medium negative and small
+#'    negative)
+#'  * `neg.sm`: small negative (close to zero)
+#'  * `ze`: zero
+#'  * `sm`: small
+#'  * `lm`: lower medium
+#'  * `me`: medium
+#'  * `um`: upper medium
+#'  * `bi`: big
+#'
+#' A \eqn{<hedge>} is a modifier that further concretizes the atomic expression
+#' (note that not each combination of hedge and atomic expression is allowed -
+#' see [allowed.lingexpr] for more details):
+#'
+#'  * `ex`: extremely,
+#'  * `si`: significantly,
+#'  * `ve`: very,
+#'  * `ty`: typically,
+#'  * `-`: empty hedge (no hedging),
+#'  * `ml`: more or less,
+#'  * `ro`: roughly,
+#'  * `qr`: quite roughly,
+#'  * `vr`: very roughly.
 #'
 #' Accordingly to the theory developed by Novak (2008), not every hedge is
 #' suitable with each atomic #' expression (see the description of the `hedges`
@@ -50,55 +54,55 @@
 #' Function takes care of not to use hedge together with an unapplicable atomic
 #' expression by itself.
 #'
-#' Obviously, distinct data have different meaning of what is "small",
-#' "medium", or "big" etc.  Therefore, a `context` has to be set that
-#' specifies sensible values for these linguistic expressions.
+#' Obviously, distinct data have different meaning of what is "small", "medium",
+#' or "big" etc.  Therefore, a `context` has to be set that specifies sensible
+#' values for these linguistic expressions.
 #'
-#' If a matrix (resp. data frame) is provided to this function instead of
-#' a single vector, all columns are processed the same way.
+#' If a matrix (resp. data frame) is provided to this function instead of a
+#' single vector, all columns are processed the same way.
 #'
-#' The function also sets up properly the [vars()] and
-#' [specs()] properties of the result.
+#' The function also sets up properly the [vars()] and [specs()] properties of
+#' the result.
 #'
 #' @param x Data to be transformed: if it is a numeric vector, matrix, or data
-#' frame, then the creation of linguistic fuzzy attributes takes place. For
-#' other data types the [fcut()] function is called implicitly.
-#' @param context A definition of context of a numeric attribute. It must be
-#' an instance of an S3 class [ctx3()], [ctx5()], [ctx3bilat()] or [ctx5bilat()].
+#'   frame, then the creation of linguistic fuzzy attributes takes place. For
+#'   other data types the [fcut()] function is called implicitly.
+#' @param context A definition of context of a numeric attribute. It must be an
+#'   instance of an S3 class [ctx3()], [ctx5()], [ctx3bilat()] or [ctx5bilat()].
 #'
-#' If `x` is a matrix or data frame then `context` should be a named
-#' list of contexts for each `x`'s column.
+#'   If `x` is a matrix or data frame then `context` should be a named list of
+#'   contexts for each `x`'s column.
 #' @param atomic A vector of atomic linguistic expressions to be used for
-#' creation of fuzzy attributes.
+#'   creation of fuzzy attributes.
 #' @param hedges A vector of linguistic hedges to be used for creation of fuzzy
-#' attributes.
+#'   attributes.
 #' @param name A name to be added as a suffix to the created fuzzy attribute
-#' names. This parameter can be used only if `x` is a numeric vector. If
-#' `x` is a matrix or data frame, `name` should be NULL because the
-#' fuzzy attribute names are taken from column names of parameter `x`.
-#' The `name` is also used as a value for the `vars` attribute of the resulting
-#' [fsets()] instance.
+#'   names. This parameter can be used only if `x` is a numeric or logical
+#'   vector or a factor. If `x` is a matrix or data frame, `name` should be NULL
+#'   because the fuzzy attribute names are taken from column names of parameter
+#'   `x`. The `name` is also used as a value for the `vars` attribute of the
+#'   resulting [fsets()] instance.
 #' @param hedgeParams Parameters that determine the shape of the hedges
 #' @param ...  Other parameters to some methods.
 #' @return An object of S3 class `fsets` is returned, which is a numeric matrix
-#' with columns representing the fuzzy attributes. Each source column of the
-#' `x` argument corresponds to multiple columns in the resulting matrix.
-#' Columns will have names derived from used \eqn{hedges}, atomic expression,
-#' and \eqn{name} specified as the optional parameter.
+#'   with columns representing the fuzzy attributes. Each source column of the
+#'   `x` argument corresponds to multiple columns in the resulting matrix.
+#'   Columns will have names derived from used \eqn{hedges}, atomic expression,
+#'   and \eqn{name} specified as the optional parameter.
 #'
-#' The resulting object would also have set the [vars()] and [specs()]
-#' properties with the former being created from original
-#' column names (if `x` is a matrix or data frame) or the `name`
-#' argument (if `x` is a numeric vector). The [specs()]
-#' incidency matrix would be created to reflect the following order of the
-#' hedges: \eqn{"ex" < "si" < "ve" < "-" < "ml" < "ro" < "qr" < "vr"} and
-#' \eqn{"ty" < "" < "ml" < "ro" < "qr" < "vr"}.  Fuzzy attributes created from
-#' the same source numeric vector (or column) would be ordered that way, with other fuzzy attributes
-#' (from the other source) being incomparable.
+#'   The resulting object would also have set the [vars()] and [specs()]
+#'   properties with the former being created from original column names (if `x`
+#'   is a matrix or data frame) or the `name` argument (if `x` is a numeric
+#'   vector). The [specs()] incidency matrix would be created to reflect the
+#'   following order of the hedges: \eqn{"ex" < "si" < "ve" < "-" < "ml" < "ro"
+#'   < "qr" < "vr"} and \eqn{"ty" < "" < "ml" < "ro" < "qr" < "vr"}.  Fuzzy
+#'   attributes created from the same source numeric vector (or column) would be
+#'   ordered that way, with other fuzzy attributes (from the other source) being
+#'   incomparable.
 #' @author Michal Burda
 #' @seealso [fcut()], [fsets()], [vars()], [specs()]
 #' @references V. Novak, A comprehensive theory of trichotomous evaluative
-#' linguistic expressions, Fuzzy Sets and Systems 159 (22) (2008) 2939--2969.
+#'   linguistic expressions, Fuzzy Sets and Systems 159 (22) (2008) 2939--2969.
 #' @keywords models robust multivariate
 #' @examples
 #'
@@ -175,7 +179,7 @@ lcut.numeric <- function(x,
                          atomic=c('sm', 'me', 'bi', 'lm', 'um', 'ze',
                                   'neg.sm', 'neg.me', 'neg.bi', 'neg.lm', 'neg.um'),
                          hedges=c('ex', 'si', 've', 'ty', '-', 'ml', 'ro', 'qr', 'vr'),
-                         name=NULL,
+                         name=deparse(substitute(x)),
                          hedgeParams=defaultHedgeParams,
                          ...) {
     atomic <- match.arg(atomic, several.ok=TRUE)
