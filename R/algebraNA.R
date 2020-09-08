@@ -111,10 +111,11 @@
 #' By default, the objects created with the [algebra()] function represent a mathematical
 #' algebra capable to work on the \eqn{[0,1]} interval. If `NA` appears as a value instead,
 #' it is propagated to the result. That is, any operation with `NA` results in `NA`, by default.
-#' This scheme of handling missing values is also known as Bochvar's.
+#' This scheme of handling missing values is also known as Bochvar's. To change this default
+#' behaviour, the following functions may be applied.
 #'
-#' The `sobocinski()`, `kleene()` and `dragonfly()` functions modify the algebra to
-#' handle the `NA` in a different way than default. Sobocinski's algebra simply ignores `NA` values
+#' The `sobocinski()`, `kleene()`, `nelson()`, `lowerEst()` and `dragonfly()` functions modify the algebra to
+#' handle the `NA` in a different way than is the default. Sobocinski's algebra simply ignores `NA` values
 #' whereas Kleene's algebra treats `NA` as "unknown value". Dragonfly approach is a combination
 #' of Sobocinski's and Bochvar's approach, which preserves the ordering `0 <= NA <= 1`
 #' to obtain from compositions (see [compose()])
