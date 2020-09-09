@@ -23,10 +23,10 @@ test_that('lcut3 on vector', {
                paste(meHedgeNames, 'Me', sep=''),
                paste(biHedgeNames, 'Bi', sep=''))
 
-    res <- lcut3(d$a,
+    res <- suppressWarnings(lcut3(d$a,
                  context=c(0, 0.5, 1),
                  hedges=testedHedges,
-                 name='a')
+                 name='a'))
     expectedAttrs <- paste(attrs, '.a', sep='')
 
     expect_true(is.matrix(res))
@@ -89,10 +89,10 @@ test_that('lcut3 on vector (some hedges disabled)', {
                paste(meHedgeNames, 'Me', sep=''),
                paste(biHedgeNames, 'Bi', sep=''))
 
-    res <- lcut3(d$a,
+    res <- suppressWarnings(lcut3(d$a,
                  context=c(0, 0.5, 1),
                  hedges=testedHedges,
-                 name='a')
+                 name='a'))
     expectedAttrs <- paste(attrs, '.a', sep='')
 
     expect_true(is.matrix(res))
@@ -162,9 +162,9 @@ test_that('lcut3 on matrix', {
                paste(meHedgeNames, 'Me', sep=''),
                paste(biHedgeNames, 'Bi', sep=''))
 
-    res <- lcut3(m,
+    res <- suppressWarnings(lcut3(m,
                  context=c(0, 0.5, 1),
-                 hedges=testedHedges)
+                 hedges=testedHedges))
     expectedAttrs <- c(paste(attrs, '.a', sep=''),
                        paste(attrs, '.b', sep=''))
 
@@ -241,9 +241,9 @@ test_that('lcut3 on data.frame', {
                paste(meHedgeNames, 'Me', sep=''),
                paste(biHedgeNames, 'Bi', sep=''))
 
-    res <- lcut3(d,
+    res <- suppressWarnings(lcut3(d,
                  context=c(0, 0.5, 1),
-                 hedges=testedHedges)
+                 hedges=testedHedges))
     expectedAttrs <- c(paste(attrs, '.a', sep=''),
                        paste(attrs, '.b', sep=''))
 
@@ -309,9 +309,9 @@ test_that('lcut3 on single row data.frame', {
                paste(meHedgeNames, 'Me', sep=''),
                paste(biHedgeNames, 'Bi', sep=''))
 
-    res <- lcut3(d[1, ],
+    res <- suppressWarnings(lcut3(d[1, ],
                  context=c(0, 0.5, 1),
-                 hedges=testedHedges)
+                 hedges=testedHedges))
     expectedAttrs <- c(paste(attrs, '.a', sep=''),
                        paste(attrs, '.b', sep=''))
 
@@ -372,10 +372,10 @@ test_that('lcut3 on data.frame - only single atomic expression', {
 
     attrs <- paste(meHedgeNames, 'Me', sep='')
 
-    res <- lcut3(d,
+    res <- suppressWarnings(lcut3(d,
                  atomic='me',
                  context=c(0, 0.5, 1),
-                 hedges=testedHedges)
+                 hedges=testedHedges))
     expectedAttrs <- c(paste(attrs, '.a', sep=''),
                        paste(attrs, '.b', sep=''))
 
@@ -420,10 +420,10 @@ test_that('lcut3 on data.frame - only some hedges and atomic expressions', {
     attrs <- c(paste(smHedgeNames, 'Sm', sep=''),
                paste(biHedgeNames, 'Bi', sep=''))
 
-    res <- lcut3(d,
+    res <- suppressWarnings(lcut3(d,
                  atomic=c('sm', 'bi'),
                  context=c(0, 0.5, 1),
-                 hedges=testedHedges)
+                 hedges=testedHedges))
 
     expectedAttrs <- c(paste(attrs, '.a', sep=''),
                        paste(attrs, '.b', sep=''))
@@ -479,10 +479,10 @@ test_that('lcut3 empty data.frame', {
 
     d <- d[1, , drop=FALSE]
     d <- d[-1, , drop=FALSE]
-    res <- lcut3(d,
+    res <- suppressWarnings(lcut3(d,
                  atomic=c('sm', 'bi'),
                  context=c(0, 0.5, 1),
-                 hedges=testedHedges)
+                 hedges=testedHedges))
 
     expectedAttrs <- c(paste(attrs, '.a', sep=''),
                        paste(attrs, '.b', sep=''))
