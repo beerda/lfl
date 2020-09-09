@@ -348,23 +348,25 @@ test_that('lcut on empty row data frame', {
 
 
 test_that('lcut empty data.frame', {
-    testedHedges <- c("ex", "ml", "ro", "qr", "vr")
-    hedgeNames   <- c("Ex", "Ml", "Ro", "Qr", "Vr")
+    testedHedges <- c("ex", "-", "ml", "ro", "qr", "vr")
+    hedgeNames   <- c("ex", "", "ml", "ro", "qr", "vr")
 
-    smHedgeNames <- c("Ex", "", "Ml", "Ro", "Qr", "Vr")
-    biHedgeNames <- smHedgeNames
+    smHedgeNames <- hedgeNames
+    biHedgeNames <- hedgeNames
 
-    attrs <- c(paste(smHedgeNames, 'Sm', sep=''),
-               paste(biHedgeNames, 'Bi', sep=''))
+    attrs <- c(paste(smHedgeNames, 'sm', sep='.'),
+               paste(biHedgeNames, 'bi', sep='.'))
 
     d <- d[FALSE, , drop=FALSE]
-    res <- lcut3(d,
-                 atomic=c('sm', 'bi'),
-                 context=c(0, 0.5, 1),
-                 hedges=testedHedges)
+    res <- lcut(d,
+                atomic=c('sm', 'bi'),
+                context=ctx3(0, 0.5, 1),
+                hedges=testedHedges)
 
     expectedAttrs <- c(paste(attrs, '.a', sep=''),
                        paste(attrs, '.b', sep=''))
+    expectedAttrs <- sub('^\\.', '', expectedAttrs)
+
     expect_true(is.matrix(res))
     expect_equal(ncol(res), 24)
     expect_equal(nrow(res), 0)
