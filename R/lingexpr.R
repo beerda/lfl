@@ -45,6 +45,8 @@
 #' @param context A context of linguistic expressions (see [ctx3()], [ctx5()], [ctx3bilat()] or [ctx5bilat()])
 #' @param atomic An atomic expression whose horizon we would like to obtain
 #' @param hedge The type of the required linguistic hedge ('-' for no hedging)
+#' @param negated Negate the expression? (For instance, "not very small".) Negation
+#'   is done using the [invol.neg()] function.
 #' @param hedgeParams Parameters that determine the shape of the hedges
 #' @return Returns a function with a single argument, which has to be a numeric vector.
 #' @author Michal Burda
@@ -63,7 +65,9 @@ lingexpr <- function(context,
                      atomic=c('sm', 'me', 'bi', 'lm', 'um', 'ze',
                               'neg.sm', 'neg.me', 'neg.bi', 'neg.lm', 'neg.um'),
                      hedge=c('ex', 'si', 've', 'ty', '-', 'ml', 'ro', 'qr', 'vr'),
+                     negated=FALSE,
                      hedgeParams=defaultHedgeParams) {
+    .mustBeLogicalScalar(negated)
     atomic <- match.arg(atomic)
     h <- match.arg(hedge)
     if (!allowed.lingexpr[h, atomic]) {
@@ -73,9 +77,10 @@ lingexpr <- function(context,
 
     hor <- horizon(context, atomic)
     hed <- hedge(h, hedgeParams=hedgeParams)
+    neg <- if (negated) invol.neg else identity
 
     return(function(x) {
-        hed(hor(x))
+        neg(hed(hor(x)))
     })
 }
 

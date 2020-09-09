@@ -14,6 +14,7 @@ lingexpr(
   atomic = c("sm", "me", "bi", "lm", "um", "ze", "neg.sm", "neg.me", "neg.bi",
     "neg.lm", "neg.um"),
   hedge = c("ex", "si", "ve", "ty", "-", "ml", "ro", "qr", "vr"),
+  negated = FALSE,
   hedgeParams = defaultHedgeParams
 )
 
@@ -25,6 +26,9 @@ allowed.lingexpr
 \item{atomic}{An atomic expression whose horizon we would like to obtain}
 
 \item{hedge}{The type of the required linguistic hedge ('-' for no hedging)}
+
+\item{negated}{Negate the expression? (For instance, "not very small".) Negation
+is done using the \code{\link[=invol.neg]{invol.neg()}} function.}
 
 \item{hedgeParams}{Parameters that determine the shape of the hedges}
 }

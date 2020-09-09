@@ -5,3 +5,4 @@
 * added involutive negation to algebra()$ni
 * added nelson(), lowerEst() handlers of NA for algebra()
 * added print() method for linguistic contexts
+* added negated=FALSE argument to the lingexpr() function
