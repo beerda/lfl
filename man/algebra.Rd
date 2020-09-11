@@ -178,8 +178,10 @@ otherwise;
 \item Strict negation: \eqn{1} if \eqn{x=0} and \eqn{0} otherwise.
 }
 
-Bi-residuum \eqn{B} is derived from t-norm \eqn{T} and residuum \eqn{R}
-as follows: \deqn{B(a, b) = T(R(a, b), R(b, a)).}
+Bi-residuum \eqn{B} is derived from residuum \eqn{R}
+as follows: \deqn{B(a, b) = inf(R(a, b), R(b, a)),}
+where \eqn{inf} is the operation of infimum, which for all three algebras
+corresponds to the \eqn{min} operation.
 
 The arguments have to be numbers from the interval \eqn{[0, 1]}. Values
 outside that range cause an error. NaN values are treated as NAs.

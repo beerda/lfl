@@ -36,7 +36,7 @@ test_that('algebraic properties', {
                         expect_equal(a$c(!!!x, !!!y), a$ni(a$t(a$ni(!!!x), a$ni(!!!y))), info=amodif)
 
                         # bi-residuum
-                        expect_equal(a$b(x, y), a$t(a$r(x, y), a$r(y, x)), info=amodif)
+                        expect_equal(a$b(x, y), a$i(a$r(x, y), a$r(y, x)), info=amodif)
                     }
                 }
             }

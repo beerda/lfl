@@ -174,4 +174,5 @@ test_that('sobocinski 2', {
 
     a <- sobocinski(algebra('lukasiewicz'))
     expect_equal(a$r(0.5, NA), 0.5)
+    expect_equal(a$b(0.5, NA), 0.5)
 })

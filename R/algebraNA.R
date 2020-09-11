@@ -19,9 +19,10 @@
     resPT <- .elementWisely(resT)
     resC <- conorm(algebra$c)
     resR <- resid(algebra$r)
-    resB <- function(x, y) { resPT(resR(x, y), resR(y, x)) }
     resI <- norm(algebra$i)
+    resPI <- .elementWisely(resI)
     resS <- conorm(algebra$s)
+    resB <- function(x, y) { resPI(resR(x, y), resR(y, x)) }
     res <- list(n=resN,
                 ni=resNI,
                 t=resT,
@@ -31,7 +32,7 @@
                 r=resR,
                 b=resB,
                 i=resI,
-                pi=.elementWisely(resI),
+                pi=resPI,
                 s=resS,
                 ps=.elementWisely(resS),
                 algebratype=c(algebra$algebratype, call))
@@ -285,7 +286,6 @@ dragonfly <- function(algebra) {
     }
 
     alg <- .algebraModification('dragonfly', algebra, .normKleene, .conormDragon, resid, .negNA, .negNA)
-    alg$b <- function(x, y) { stop('dragonfly bi-residuum not implemented') }
     return(alg)
 }
 
@@ -334,6 +334,5 @@ lowerEst <- function(algebra) {
     }
 
     alg <- .algebraModification('lowerEst', algebra, .normKleene, .conormDragon, resid, .neg0, .negNA)
-    alg$b <- function(x, y) { stop('lowerEst bi-residuum not implemented') }
     return(alg)
 }

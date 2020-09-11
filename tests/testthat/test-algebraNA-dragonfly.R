@@ -53,10 +53,9 @@ test_that('dragonfly', {
                     c(0.8, 0.5,   0.4,      NA,       NA,     NA,   NA,     0, 1, 0.3, 0.3, 0)),
              equals(c(1.0, 0.625, 0.4,   NA_real_,     1,      1, NA_real_, NA_real_, 1,  1,  0.3, 0)))
 
-    #expect_that(a$b(c(0.5,   0.8,   NA,       0.4,      NA,       0,        1),
-                    #c(0.8,   0.5,   0.4,      NA,       NA,       NA,       NA)),
-             #equals(c(0.625, 0.625, NA_real_, NA_real_, NA_real_, NA_real_, NA_real_)))
-    expect_error(a$b(0.5, 0.3))
+    expect_that(a$b(c(0.5,   0.8,   NA,       0.4,      NA,       0,        1),
+                    c(0.8,   0.5,   0.4,      NA,       NA,       NA,       NA)),
+             equals(c(0.625, 0.625, NA_real_, NA_real_, 1,        NA_real_, NA_real_)))
 
     expect_that(a$i(), equals(NA_real_))
     expect_that(a$i(NA), equals(NA_real_))
@@ -192,16 +191,16 @@ test_that('dragonfly 2', {
     expect_equal(a$ni(c(0, 0.5, 1, NA)),
                       c(1, 0.5, 0, NA_real_))
 
-    # expect_equal(a$b(0.4, 0.5), 4/5)
-    # expect_equal(a$b(0, NA), 0)
-    # expect_equal(a$b(0.5, NA), 0)
-    # expect_equal(a$b(1, NA), 0)
-    # expect_equal(a$b(0.5, 0.4), 4/5)
-    # expect_equal(a$b(NA, 0), 0)
-    # expect_equal(a$b(NA, 0.5), 0)
-    # expect_equal(a$b(NA, 1), 0)
-    # expect_equal(a$b(NA, NA), NA_real_)
-    # expect_equal(a$b(0.5, 0.5), 1)
+    expect_equal(a$b(0.4, 0.5), 4/5)
+    expect_equal(a$b(0, NA), NA_real_)
+    expect_equal(a$b(0.5, NA_real_), NA_real_)
+    expect_equal(a$b(1, NA), NA_real_)
+    expect_equal(a$b(0.5, 0.4), 4/5)
+    expect_equal(a$b(NA, 0), NA_real_)
+    expect_equal(a$b(NA, 0.5), NA_real_)
+    expect_equal(a$b(NA, 1), NA_real_)
+    expect_equal(a$b(NA, NA), 1)
+    expect_equal(a$b(0.5, 0.5), 1)
 
     expect_equal(a$r(0.4, 0.5), 1)
     expect_equal(a$r(0, NA), 1)

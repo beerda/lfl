@@ -239,6 +239,30 @@ test_that('goguen residuum', {
 })
 
 
+test_that('goedel bi-residuum', {
+    expect_that(goedel.biresiduum(c(0, 0.2, 0.8, 1), 1), equals(c(0, 0.2, 0.8, 1)))
+    expect_that(goedel.biresiduum(c(0, 0.2, 0.8, 1), 0), equals(c(1, 0, 0, 0)))
+    expect_that(goedel.biresiduum(c(0, 0.2, 0.8, 1), 0.5), equals(c(0, 0.2, 0.5, 0.5)))
+    expect_that(goedel.biresiduum(c(0, 0.2, 0.8, 1), c(0.3, 0.9)), equals(c(0, 0.2, 0.3, 0.9)))
+})
+
+
+test_that('lukasiewicz bi-residuum', {
+    expect_that(lukas.biresiduum(c(0, 0.2, 0.8, 1), 1), equals(c(0, 0.2, 0.8, 1)))
+    expect_that(lukas.biresiduum(c(0, 0.2, 0.8, 1), 0), equals(c(1, 0.8, 0.2, 0)))
+    expect_that(lukas.biresiduum(c(0, 0.2, 0.8, 1), 0.5), equals(c(0.5, 0.7, 0.7, 0.5)))
+    expect_that(lukas.biresiduum(c(0, 0.2, 0.8, 1), c(0.3, 0.9)), equals(c(0.7, 0.3, 0.5, 0.9)))
+})
+
+
+test_that('goguen bi-residuum', {
+    expect_that(goguen.biresiduum(c(0, 0.2, 0.8, 1), 1), equals(c(0, 0.2, 0.8, 1)))
+    expect_that(goguen.biresiduum(c(0, 0.2, 0.8, 1), 0), equals(c(1, 0, 0, 0)))
+    expect_that(goguen.biresiduum(c(0, 0.2, 0.8, 1), 0.5), equals(c(0, 2/5, 5/8, 0.5)))
+    expect_that(goguen.biresiduum(c(0, 0.2, 0.8, 1), c(0.3, 0.9)), equals(c(0, 2/9, 3/8, 0.9)))
+})
+
+
 for (ttt in names(.residua)) {
     test_that(paste(ttt, 'residua borders'), {
         resid <- .residua[[ttt]]
