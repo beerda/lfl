@@ -222,7 +222,6 @@ test_that('goedel residuum', {
 })
 
 
-
 test_that('lukasiewicz residuum', {
     expect_that(lukas.residuum(c(0, 0.2, 0.8, 1), 1), equals(c(1, 1, 1, 1)))
     expect_that(lukas.residuum(c(0, 0.2, 0.8, 1), 0), equals(c(1, 0.8, 0.2, 0)))
@@ -323,6 +322,10 @@ test_that('strict negation', {
 
 
 test_that('algebra', {
+  o <- c(0.5, 1, 0, 0.8, NA, 0.3)
+  oi <- c(3, 6, 1, 4, 2, 5)
+  od <- c(2, 4, 1, 6, 3, 5)
+
   a <- algebra('goe')
   expect_true(inherits(a, 'algebra'))
   expect_true(inherits(a, 'list'))
@@ -340,6 +343,8 @@ test_that('algebra', {
   expect_that(a$i, equals(goedel.tnorm))
   expect_that(a$pi, equals(pgoedel.tnorm))
   expect_that(a$algebratype, equals('goedel'))
+  expect_equal(a$order(o), oi)
+  expect_equal(a$order(o, decreasing=TRUE), od)
 
   a <- algebra('lukas')
   expect_true(inherits(a, 'algebra'))
@@ -358,6 +363,8 @@ test_that('algebra', {
   expect_that(a$i, equals(goedel.tnorm))
   expect_that(a$pi, equals(pgoedel.tnorm))
   expect_that(a$algebratype, equals('lukasiewicz'))
+  expect_equal(a$order(o), oi)
+  expect_equal(a$order(o, decreasing=TRUE), od)
 
   a <- algebra('gog')
   expect_true(inherits(a, 'algebra'))
@@ -376,4 +383,6 @@ test_that('algebra', {
   expect_that(a$i, equals(goedel.tnorm))
   expect_that(a$pi, equals(pgoedel.tnorm))
   expect_that(a$algebratype, equals('goguen'))
+  expect_equal(a$order(o), oi)
+  expect_equal(a$order(o, decreasing=TRUE), od)
 })

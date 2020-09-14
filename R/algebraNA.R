@@ -12,7 +12,7 @@
 }
 
 
-.algebraModification <- function(call, algebra, norm, conorm, resid, neg, invol) {
+.algebraModification <- function(call, algebra, norm, conorm, resid, neg, invol, ord) {
     resN <- neg(algebra$n)
     resNI <- invol(algebra$ni)
     resT <- norm(algebra$t)
@@ -35,6 +35,7 @@
                 pi=resPI,
                 s=resS,
                 ps=.elementWisely(resS),
+                order=ord,
                 algebratype=c(algebra$algebratype, call))
     class(res) <- c('algebra', 'list')
     res
@@ -104,6 +105,27 @@
         }
         res
     })
+}
+
+
+.undefinedOrder <- function(x, decreasing=FALSE) {
+    stop('Cannot complete the computation, "order" is unimplemented for the algebra.')
+}
+
+
+.dragonflyOrder <- function(x, decreasing=FALSE) {
+    large <- sum(!is.na(x) & x > 0)
+    zeros <- sum(!is.na(x) & x == 0)
+    nas <- sum(is.na(x))
+    ordered <- order(x, decreasing=TRUE, na.last=TRUE)
+    res <- c(ordered[seq(from=1, length.out=large)],
+             ordered[seq(from=large + zeros + 1, length.out=nas)],
+             ordered[seq(from=large + 1, length.out=zeros)])
+    if (decreasing) {
+        return(res)
+    } else {
+        return(rev(res))
+    }
 }
 
 
@@ -240,7 +262,7 @@ sobocinski <- function(algebra) {
         })
     }
 
-    .algebraModification('sobocinski', algebra, norm, norm, resid, .neg0, .negNA)
+    .algebraModification('sobocinski', algebra, norm, norm, resid, .neg0, .negNA, .undefinedOrder)
 }
 
 
@@ -260,7 +282,7 @@ kleene <- function(algebra) {
         })
     }
 
-    .algebraModification('kleene', algebra, .normKleene, .conormKleene, resid, .negNA, .negNA)
+    .algebraModification('kleene', algebra, .normKleene, .conormKleene, resid, .negNA, .negNA, .undefinedOrder)
 }
 
 
@@ -285,7 +307,7 @@ dragonfly <- function(algebra) {
         })
     }
 
-    alg <- .algebraModification('dragonfly', algebra, .normKleene, .conormDragon, resid, .negNA, .negNA)
+    alg <- .algebraModification('dragonfly', algebra, .normKleene, .conormDragon, resid, .negNA, .negNA, .dragonflyOrder)
     return(alg)
 }
 
@@ -311,7 +333,7 @@ nelson <- function(algebra) {
         })
     }
 
-    .algebraModification('nelson', algebra, .normKleene, .conormKleene, resid, .neg1, .negNA)
+    .algebraModification('nelson', algebra, .normKleene, .conormKleene, resid, .neg1, .negNA, .undefinedOrder)
 }
 
 
@@ -333,6 +355,6 @@ lowerEst <- function(algebra) {
         })
     }
 
-    alg <- .algebraModification('lowerEst', algebra, .normKleene, .conormDragon, resid, .neg0, .negNA)
+    alg <- .algebraModification('lowerEst', algebra, .normKleene, .conormDragon, resid, .neg0, .negNA, .dragonflyOrder)
     return(alg)
 }

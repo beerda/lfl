@@ -176,3 +176,9 @@ test_that('sobocinski 2', {
     expect_equal(a$r(0.5, NA), 0.5)
     expect_equal(a$b(0.5, NA), 0.5)
 })
+
+
+test_that('sobocinski order', {
+    a <- sobocinski(algebra('lukasiewicz'))
+    expect_error(a$order(0))
+})

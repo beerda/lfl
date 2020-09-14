@@ -205,7 +205,8 @@ is.algebra <- function(a) {
            is.function(a$s) &&
            is.function(a$ps) &&
            is.function(a$i) &&
-           is.function(a$pi))
+           is.function(a$pi) &&
+           is.function(a$order))
 }
 
 
@@ -393,6 +394,10 @@ strict.neg <- function(x) {
                    goedel=strict.neg,
                    goguen=strict.neg)
 
+.defaultOrder <- function(x, decreasing=FALSE) {
+  order(x, decreasing=decreasing)
+}
+
 .algebras <- list('goedel'=function(...) {
                         list(n=strict.neg,
                              ni=invol.neg,
@@ -405,7 +410,8 @@ strict.neg <- function(x) {
                              i=goedel.tnorm,
                              pi=pgoedel.tnorm,
                              s=goedel.tconorm,
-                             ps=pgoedel.tconorm)
+                             ps=pgoedel.tconorm,
+                             order=.defaultOrder)
                   },
                   'lukasiewicz'=function(...) {
                         list(n=invol.neg,
@@ -419,7 +425,8 @@ strict.neg <- function(x) {
                              i=goedel.tnorm,
                              pi=pgoedel.tnorm,
                              s=goedel.tconorm,
-                             ps=pgoedel.tconorm)
+                             ps=pgoedel.tconorm,
+                             order=.defaultOrder)
                   },
                   'goguen'=function(...) {
                         list(n=strict.neg,
@@ -433,5 +440,6 @@ strict.neg <- function(x) {
                              i=goedel.tnorm,
                              pi=pgoedel.tnorm,
                              s=goedel.tconorm,
-                             ps=pgoedel.tconorm)
+                             ps=pgoedel.tconorm,
+                             order=.defaultOrder)
                    })

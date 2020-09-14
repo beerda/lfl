@@ -6,3 +6,5 @@
 * added nelson(), lowerEst() handlers of NA for algebra()
 * added print() method for linguistic contexts
 * added negated=FALSE argument to the lingexpr() function
+* implemented bi-residuum of the dragonfly algebra
+* implemented order operation of the dragonfly and lowerEst algebras

@@ -222,3 +222,30 @@ test_that('dragonfly is non-associative', {
     expect_equal(a$t(0.3, 0.2, NA), 0)
     expect_equal(a$t(NA, 0.3, 0.2), 0)
 })
+
+
+test_that('dragonfly order', {
+    a <- dragonfly(algebra('lukasiewicz'))
+
+    expect_equal(a$order(c(NA), decreasing=FALSE), c(1))
+    expect_equal(a$order(c(0), decreasing=FALSE), c(1))
+    expect_equal(a$order(c(0.3), decreasing=FALSE), c(1))
+    expect_equal(a$order(c(0.3, 0), decreasing=FALSE), c(2, 1))
+    expect_equal(a$order(c(0.3, 0, 0.8), decreasing=FALSE), c(2, 1, 3))
+    expect_equal(a$order(c(0.3, NA, 0, 0.8), decreasing=FALSE), c(3, 2, 1, 4))
+    expect_equal(a$order(c(1, 0.3, NA, 0, 0.8), decreasing=FALSE), c(4, 3, 2, 5, 1))
+    expect_equal(a$order(c(NA, 0), decreasing=FALSE), c(2, 1))
+    expect_equal(a$order(c(NA, 0.5), decreasing=FALSE), c(1, 2))
+    expect_equal(a$order(c(NA, 1), decreasing=FALSE), c(1, 2))
+
+    expect_equal(a$order(c(NA), decreasing=TRUE), c(1))
+    expect_equal(a$order(c(0), decreasing=TRUE), c(1))
+    expect_equal(a$order(c(0.3), decreasing=TRUE), c(1))
+    expect_equal(a$order(c(0.3, 0), decreasing=TRUE), c(1, 2))
+    expect_equal(a$order(c(0.3, 0, 0.8), decreasing=TRUE), c(3, 1, 2))
+    expect_equal(a$order(c(0.3, NA, 0, 0.8), decreasing=TRUE), c(4, 1, 2, 3))
+    expect_equal(a$order(c(1, 0.3, NA, 0, 0.8), decreasing=TRUE), c(1, 5, 2, 3, 4))
+    expect_equal(a$order(c(NA, 0), decreasing=TRUE), c(1, 2))
+    expect_equal(a$order(c(NA, 0.5), decreasing=TRUE), c(2, 1))
+    expect_equal(a$order(c(NA, 1), decreasing=TRUE), c(2, 1))
+})

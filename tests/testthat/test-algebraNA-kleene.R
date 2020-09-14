@@ -210,3 +210,9 @@ test_that('kleene is non-associative', {
     expect_equal(a$t(0.3, 0.2, NA), 0)
     expect_equal(a$t(NA, 0.3, 0.2), 0)
 })
+
+
+test_that('kleene order', {
+    a <- kleene(algebra('lukasiewicz'))
+    expect_error(a$order(0))
+})
