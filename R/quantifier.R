@@ -1,10 +1,8 @@
 #' @export
 quant <- function(measure,
-                  weighting=TRUE,
                   relative=TRUE,
-                  alg=c('goedel', 'goguen', 'lukasiewicz')) {
+                  alg=c('lukasiewicz', 'goedel', 'goguen')) {
     .mustBeFunction(measure)
-    .mustBeLogicalScalar(weighting)
     .mustBeLogicalScalar(relative)
     if (is.character(alg)) {
         alg <- match.arg(alg)
@@ -12,10 +10,9 @@ quant <- function(measure,
     }
     .mustBe(is.algebra(alg), "'alg' must be either one of 'goedel', 'goguen', lukasiewicz', or an instance of class 'algebra'")
 
-    cumcard <- if (weighting) cumsum else seq_along
     relate <- if (relative) function(u) { u / u[length(u)] } else identity
 
-    function(x, u) {
+    function(x, u=1) {
         .mustBeNumericVector(x)
         .mustBeNumericVector(u)
 
@@ -23,53 +20,55 @@ quant <- function(measure,
         x <- rep_len(x, l)
         u <- rep_len(u, l)
         o <- alg$order(x, decreasing=TRUE)
-        m <- measure(relate(cumcard(u[o])))
+        m <- measure(relate(cumsum(u[o])))
         alg$s(alg$pi(x[o], m))
     }
 }
 
 
 #' @export
-quantifier <- function(type=c('all', 'almost.all', 'most', 'many', 'few', 'several', 'some', 'at.least', 'at.most'),
+quantifier <- function(quantity=c('all', 'almost.all', 'most', 'many', 'some', 'at.least'),
                        context=ctx3(),
                        n=0,
-                       weighting=TRUE,
-                       alg=c('goedel', 'goguen', 'lukasiewicz')) {
-    type <- match.arg(type)
+                       alg=c('lukasiewicz', 'goedel', 'goguen')) {
+    quantity <- match.arg(quantity)
     .mustBeNumericScalar(n)
 
     m <- NULL
     r <- NULL
-    if (type == 'all') {
+    if (quantity == 'all') {
         m <- function(x) { (x >= 1) + 0 }
         r <- TRUE
-    } else if (type == 'almost.all') {
+    } else if (quantity == 'almost.all') {
         m <- lingexpr(context=context, atomic='bi', hedge='ex')
         r <- TRUE
-    } else if (type == 'most') {
+    } else if (quantity == 'most') {
         m <- lingexpr(context=context, atomic='bi', hedge='ve')
         r <- TRUE
-    } else if (type == 'many') {
+    } else if (quantity == 'many') {
         m <- lingexpr(context=context, atomic='sm', hedge='-', negated=TRUE)
         r <- TRUE
-    } else if (type == 'few') {
-        m <- lingexpr(context=context, atomic='sm', hedge='si')
-        r <- TRUE
-    } else if (type == 'several') {
-        m <- lingexpr(context=context, atomic='sm', hedge='ve')
-        r <- TRUE
-    } else if (type == 'some') {
+
+    # quantifiers with decreasing measure function are still unclear to me
+    #} else if (quantity == 'few') {
+        #m <- lingexpr(context=context, atomic='sm', hedge='si')
+        #r <- TRUE
+    #} else if (quantity == 'several') {
+        #m <- lingexpr(context=context, atomic='sm', hedge='ve')
+        #r <- TRUE
+    #} else if (quantity == 'at.most') {
+        #m <- function(x) { (x <= n) + 0 }
+        #r <- FALSE
+
+    } else if (quantity == 'some') {
         m <- function(x) { (x > 0) + 0 }
         r <- FALSE
-    } else if (type == 'at.least') {
+    } else if (quantity == 'at.least') {
         m <- function(x) { (x >= n) + 0 }
         r <- FALSE
-    } else if (type == 'at.most') {
-        m <- function(x) { (x <= n) + 0 }
-        r <- FALSE
     } else {
-        .stop(paste0('Unknown quantifier type: ', type))
+        .stop(paste0('Unknown quantity: ', quantity))
     }
 
-    quant(measure=m, relative=r, weighting=weighting, alg=alg)
+    quant(measure=m, relative=r, alg=alg)
 }
