@@ -2,12 +2,12 @@
 % Please edit documentation in R/exprs.R
 \name{triangular}
 \alias{triangular}
-\alias{raisedcosinal}
+\alias{raisedcosine}
 \title{Factories for functions that convert numeric data into membership degrees of fuzzy sets}
 \usage{
 triangular(lo, center, hi)
 
-raisedcosinal(lo, center, hi)
+raisedcosine(lo, center, hi)
 }
 \arguments{
 \item{lo}{A lower bound (can be -Inf).}
@@ -30,7 +30,7 @@ raised-cosine fuzzy sets. \code{x} values equal to \verb{center obtain membershi
 If \code{lo == -Inf} then any value that is lower or equal to center gets memberhsip degree 1.  Similarly, if \code{hi == Inf}
 then any value that is greater or equal to center gets memberhsip degree 1. \code{NA} and \code{NaN} values remain unchanged.
 
-\code{triangular()} produces fuzzy sets of a triangular shape (with peak at \code{center}), \code{raisedcosinal()} produces
+\code{triangular()} produces fuzzy sets of a triangular shape (with peak at \code{center}), \code{raisedcosine()} produces
 fuzzy sets defined as a raised cosine hill.
 }
 \examples{
@@ -38,7 +38,7 @@ fuzzy sets defined as a raised cosine hill.
 tr <- triangular(1, 2, 3)
 tr(1:30 / 3)
 
-rc <- raisedcosinal(1, 2, 3)
+rc <- raisedcosine(1, 2, 3)
 rc(1:30 / 3)
 
 plot(triangular(-1, 0, 1), from=-2, to=3)
@@ -46,10 +46,10 @@ plot(triangular(-1, 0, 2), from=-2, to=3)
 plot(triangular(-Inf, 0, 1), from=-2, to=3)
 plot(triangular(-1, 0, Inf), from=-2, to=3)
 
-plot(raisedcosinal(-1, 0, 1), from=-2, to=3)
-plot(raisedcosinal(-1, 0, 2), from=-2, to=3)
-plot(raisedcosinal(-Inf, 0, 1), from=-2, to=3)
-plot(raisedcosinal(-1, 0, Inf), from=-2, to=3)
+plot(raisedcosine(-1, 0, 1), from=-2, to=3)
+plot(raisedcosine(-1, 0, 2), from=-2, to=3)
+plot(raisedcosine(-Inf, 0, 1), from=-2, to=3)
+plot(raisedcosine(-1, 0, Inf), from=-2, to=3)
 
 }
 \seealso{

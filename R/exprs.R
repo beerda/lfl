@@ -11,10 +11,10 @@
 #' If `lo == -Inf` then any value that is lower or equal to center gets memberhsip degree 1.  Similarly, if `hi == Inf`
 #' then any value that is greater or equal to center gets memberhsip degree 1. `NA` and `NaN` values remain unchanged.
 #'
-#' `triangular()` produces fuzzy sets of a triangular shape (with peak at `center`), `raisedcosinal()` produces
+#' `triangular()` produces fuzzy sets of a triangular shape (with peak at `center`), `raisedcosine()` produces
 #' fuzzy sets defined as a raised cosine hill.
 #'
-#' @aliases triangular raisedcosinal
+#' @aliases triangular raisedcosine
 #' @param lo A lower bound (can be -Inf).
 #' @param center A peak value.
 #' @param hi An upper bound (can be Inf).
@@ -27,7 +27,7 @@
 #' tr <- triangular(1, 2, 3)
 #' tr(1:30 / 3)
 #'
-#' rc <- raisedcosinal(1, 2, 3)
+#' rc <- raisedcosine(1, 2, 3)
 #' rc(1:30 / 3)
 #'
 #' plot(triangular(-1, 0, 1), from=-2, to=3)
@@ -35,10 +35,10 @@
 #' plot(triangular(-Inf, 0, 1), from=-2, to=3)
 #' plot(triangular(-1, 0, Inf), from=-2, to=3)
 #'
-#' plot(raisedcosinal(-1, 0, 1), from=-2, to=3)
-#' plot(raisedcosinal(-1, 0, 2), from=-2, to=3)
-#' plot(raisedcosinal(-Inf, 0, 1), from=-2, to=3)
-#' plot(raisedcosinal(-1, 0, Inf), from=-2, to=3)
+#' plot(raisedcosine(-1, 0, 1), from=-2, to=3)
+#' plot(raisedcosine(-1, 0, 2), from=-2, to=3)
+#' plot(raisedcosine(-Inf, 0, 1), from=-2, to=3)
+#' plot(raisedcosine(-1, 0, Inf), from=-2, to=3)
 #'
 #' @export
 triangular <- function(lo, center, hi) {
@@ -64,7 +64,7 @@ triangular <- function(lo, center, hi) {
 
 #' @rdname triangular
 #' @export
-raisedcosinal <- function(lo, center, hi) {
+raisedcosine <- function(lo, center, hi) {
     .mustBeNumericScalar(lo)
     .mustBeNumericScalar(center)
     .mustBeNumericScalar(hi)

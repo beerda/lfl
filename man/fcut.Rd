@@ -85,7 +85,7 @@ function with 3 or 4 arguments:
 membership degrees from values of the first argument while considering
 the boundaries given by the next 3 arguments;
 \item if \code{type} is a 3-argument function, it is assumed that it is a factory
-function similar to \code{\link[=triangular]{triangular()}} or \code{\link[=raisedcosinal]{raisedcosinal()}}, which, from given
+function similar to \code{\link[=triangular]{triangular()}} or \code{\link[=raisedcosine]{raisedcosine()}}, which, from given
 three boundaries, creates a function that computes membership degrees.
 }}
 
@@ -153,7 +153,7 @@ specifying th second fuzzy set etc. The shape of the fuzzy set is determined
 by the \code{type} argument that may be equal either to a string
 \code{'triangle'} or \code{'raisedcos'} or it could be a function that
 computes the membership degrees for itself (see \code{\link[=triangular]{triangular()}} or
-\code{\link[=raisedcosinal]{raisedcosinal()}} functions for details). Additionally, super-sets of
+\code{\link[=raisedcosine]{raisedcosine()}} functions for details). Additionally, super-sets of
 these elementary sets may be created by specifying the \code{merge}
 argument. Values of this argument specify how many consecutive fuzzy sets
 should be combined (by using the Lukasiewic's t-conorm) to produce

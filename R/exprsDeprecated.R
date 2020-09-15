@@ -32,7 +32,7 @@ triangle <- function(x, lo, center, hi) {
 #' @rdname triangle
 #' @export
 raisedcos <- function(x, lo, center, hi) {
-    .Deprecated('raisedcosinal')
+    .Deprecated('raisedcosine')
     if (lo > center || lo > hi) {
         stop('"lo" must be the lower-bound of the interval <lo, hi>')
     }
