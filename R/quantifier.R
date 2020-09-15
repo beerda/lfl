@@ -28,7 +28,6 @@ quant <- function(measure,
 
 #' @export
 quantifier <- function(quantity=c('all', 'almost.all', 'most', 'many', 'some', 'at.least'),
-                       context=ctx3(),
                        n=0,
                        alg=c('lukasiewicz', 'goedel', 'goguen')) {
     quantity <- match.arg(quantity)
@@ -40,21 +39,21 @@ quantifier <- function(quantity=c('all', 'almost.all', 'most', 'many', 'some', '
         m <- function(x) { (x >= 1) + 0 }
         r <- TRUE
     } else if (quantity == 'almost.all') {
-        m <- lingexpr(context=context, atomic='bi', hedge='ex')
+        m <- lingexpr(context=ctx3(), atomic='bi', hedge='ex')
         r <- TRUE
     } else if (quantity == 'most') {
-        m <- lingexpr(context=context, atomic='bi', hedge='ve')
+        m <- lingexpr(context=ctx3(), atomic='bi', hedge='ve')
         r <- TRUE
     } else if (quantity == 'many') {
-        m <- lingexpr(context=context, atomic='sm', hedge='-', negated=TRUE)
+        m <- lingexpr(context=ctx3(), atomic='sm', hedge='-', negated=TRUE)
         r <- TRUE
 
     # quantifiers with decreasing measure function are still unclear to me
     #} else if (quantity == 'few') {
-        #m <- lingexpr(context=context, atomic='sm', hedge='si')
+        #m <- lingexpr(context=ctx3(), atomic='sm', hedge='si')
         #r <- TRUE
     #} else if (quantity == 'several') {
-        #m <- lingexpr(context=context, atomic='sm', hedge='ve')
+        #m <- lingexpr(context=ctx3(), atomic='sm', hedge='ve')
         #r <- TRUE
     #} else if (quantity == 'at.most') {
         #m <- function(x) { (x <= n) + 0 }
