@@ -13,7 +13,7 @@ test_that('algebraic properties', {
         for (amodif in names(alg)) {
             a <- alg[[amodif]]
 
-            for (x in c(0, 0.3, 0.5, 1, NA)) {
+            for (x in c(0, 0.5, 1, NA)) {
                 # residual negation is derived from residuum
                 expect_equal(a$n(x), a$r(x, 0), info=amodif)
 
