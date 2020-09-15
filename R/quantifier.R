@@ -28,10 +28,14 @@ quant <- function(measure,
 
 #' @export
 quantifier <- function(quantity=c('all', 'almost.all', 'most', 'many', 'some', 'at.least'),
-                       n=0,
+                       n=NULL,
                        alg=c('lukasiewicz', 'goedel', 'goguen')) {
     quantity <- match.arg(quantity)
-    .mustBeNumericScalar(n)
+    if (is.character(alg)) {
+        alg <- match.arg(alg)
+        alg <- algebra(alg)
+    }
+    .mustBe(is.algebra(alg), "'alg' must be either one of 'goedel', 'goguen', lukasiewicz', or an instance of class 'algebra'")
 
     m <- NULL
     r <- NULL
@@ -63,6 +67,8 @@ quantifier <- function(quantity=c('all', 'almost.all', 'most', 'many', 'some', '
         m <- function(x) { (x > 0) + 0 }
         r <- FALSE
     } else if (quantity == 'at.least') {
+        .mustBeNumericScalar(n)
+        .mustBe(n >= 0)
         m <- function(x) { (x >= n) + 0 }
         r <- FALSE
     } else {
