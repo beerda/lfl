@@ -25,10 +25,10 @@ determined with \code{lo}, \code{center}, \code{hi}.
 \description{
 These functions compute membership degrees of numeric fuzzy sets with
 triangular or raised-cosinal shape. These functions are \emph{deprecated}.
-Please use \code{\link[=triangular]{triangular()}} or \code{\link[=raisedcosinal]{raisedcosinal()}} functions instead.
+Please use \code{\link[=triangular]{triangular()}} or \code{\link[=raisedcosine]{raisedcosine()}} functions instead.
 }
 \seealso{
-\code{\link[=triangular]{triangular()}}, \code{\link[=raisedcosinal]{raisedcosinal()}}
+\code{\link[=triangular]{triangular()}}, \code{\link[=raisedcosine]{raisedcosine()}}
 }
 \author{
 Michal Burda
