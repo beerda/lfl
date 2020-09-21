@@ -73,7 +73,7 @@ below on how to use it as a quantifier of the <1,1> type.)
   a <- c(0.9, 1, 1, 0.2, 1)
   b <- c(0.2, 1, 0, 0.5, 0.8)
   q <- quantifier('some')
-  q(x=lukas.pt(a, b), w=a)
+  q(x=plukas.tnorm(a, b), w=a)
 }
 \references{
 Dvořák, A., Holčapek, M. L-fuzzy quantifiers of type <1> determined by fuzzy measures.
