@@ -144,7 +144,7 @@ quant <- function(measure,
 #'   a <- c(0.9, 1, 1, 0.2, 1)
 #'   b <- c(0.2, 1, 0, 0.5, 0.8)
 #'   q <- quantifier('some')
-#'   q(x=lukas.pt(a, b), w=a)
+#'   q(x=plukas.tnorm(a, b), w=a)
 #' @export
 quantifier <- function(quantity=c('all', 'almost.all', 'most', 'many', 'some', 'at.least'),
                        n=NULL,
