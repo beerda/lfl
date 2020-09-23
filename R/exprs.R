@@ -5,11 +5,11 @@
 #'
 #' The arguments must satisfy `lo <= center <= hi`. Functions compute membership degrees of triangular or
 #' raised-cosine fuzzy sets. `x` values equal to `center obtain membership degree equal to 1, `x` values lower than `lo`
-#' or greater than `hi` obtain memberhsip degree equal to 0. A transition of the triangular (resp. raised cosinal) shape
+#' or greater than `hi` obtain membership degree equal to 0. A transition of the triangular (resp. raised cosine) shape
 #' (with peak at `center` is computed for `x` values between `lo` and `hi`.
 #'
-#' If `lo == -Inf` then any value that is lower or equal to center gets memberhsip degree 1.  Similarly, if `hi == Inf`
-#' then any value that is greater or equal to center gets memberhsip degree 1. `NA` and `NaN` values remain unchanged.
+#' If `lo == -Inf` then any value that is lower or equal to center gets membership degree 1.  Similarly, if `hi == Inf`
+#' then any value that is greater or equal to center gets membership degree 1. `NA` and `NaN` values remain unchanged.
 #'
 #' `triangular()` produces fuzzy sets of a triangular shape (with peak at `center`), `raisedcosine()` produces
 #' fuzzy sets defined as a raised cosine hill.

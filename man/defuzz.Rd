@@ -40,9 +40,9 @@ crisp value.
 Function converts input fuzzy set into a crisp value. The definition of
 input fuzzy set is provided by the arguments \code{degrees} and
 \code{values}. These arguments should be numeric vectors of the same length,
-the former containing memberhsip degrees in the interval \eqn{[0, 1]} and
+the former containing membership degrees in the interval \eqn{[0, 1]} and
 the latter containing the corresponding crisp values: i.e., \code{values[i]}
-has a memberhsip degree \code{degrees[i]}.
+has a membership degree \code{degrees[i]}.
 }
 \examples{
 

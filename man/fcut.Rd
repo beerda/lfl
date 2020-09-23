@@ -62,7 +62,7 @@ sets would be created for \eqn{n} break-points.
 
 If considering an i-th fuzzy set (of \code{type='triangle'}), \code{x}
 values lower than \eqn{i}-th break (and greater than \eqn{(i+2)}-th break)
-would result in zero memberhsip degree, values equal to \eqn{(i+1)}-th break
+would result in zero membership degree, values equal to \eqn{(i+1)}-th break
 would have membership degree equal 1 and values between them the appropriate
 membership degree between 0 and 1.
 
@@ -70,7 +70,7 @@ The resulting fuzzy sets would be named after the original data by adding
 dot (".") and a number \eqn{i} of fuzzy set.
 
 Unlike \code{\link[base:cut]{base::cut()}}, \code{x} values, that are lower or greater than
-the given break-points, will have all memberhsip degrees equal to zero.
+the given break-points, will have all membership degrees equal to zero.
 
 For non-numeric data, this argument is ignored. For \code{x} being a numeric
 vector, it must be a vector of numeric values. For \code{x} being a numeric

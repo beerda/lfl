@@ -31,7 +31,7 @@ forms a rule.}
 consequents in \code{rules}. These membership degrees must correspond to
 \code{values}.}
 
-\item{values}{Crisp values that correspond to rows of memberhsip degrees in
+\item{values}{Crisp values that correspond to rows of membership degrees in
 the \code{partition} matrix.  Function assumes that the values are sorted in
 the ascending order.}
 

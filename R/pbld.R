@@ -33,7 +33,7 @@
 #' @param partition A [fsets()] object with columns that are
 #' consequents in `rules`. These membership degrees must correspond to
 #' `values`.
-#' @param values Crisp values that correspond to rows of memberhsip degrees in
+#' @param values Crisp values that correspond to rows of membership degrees in
 #' the `partition` matrix.  Function assumes that the values are sorted in
 #' the ascending order.
 #' @param type The type of inference to use. It can be either `"local"` or

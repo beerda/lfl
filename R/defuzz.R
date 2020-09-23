@@ -8,9 +8,9 @@
 #' Function converts input fuzzy set into a crisp value. The definition of
 #' input fuzzy set is provided by the arguments `degrees` and
 #' `values`. These arguments should be numeric vectors of the same length,
-#' the former containing memberhsip degrees in the interval \eqn{[0, 1]} and
+#' the former containing membership degrees in the interval \eqn{[0, 1]} and
 #' the latter containing the corresponding crisp values: i.e., `values[i]`
-#' has a memberhsip degree `degrees[i]`.
+#' has a membership degree `degrees[i]`.
 #'
 #' @param degrees A fuzzy set in the form of a numeric vector of membership
 #' degrees of values provided as the `values` argument.

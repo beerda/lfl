@@ -135,7 +135,7 @@
 #' algebra capable to work on the \eqn{[0,1]} interval. If `NA` appears as a value instead,
 #' it is propagated to the result. That is, any operation with `NA` results in `NA`, by default.
 #' This scheme of handling missing values is also known as Bochvar's. To change this default
-#' behaviour, the following functions may be applied.
+#' behavior, the following functions may be applied.
 #'
 #' The `sobocinski()`, `kleene()`, `nelson()`, `lowerEst()` and `dragonfly()` functions modify the algebra to
 #' handle the `NA` in a different way than is the default. Sobocinski's algebra simply ignores `NA` values

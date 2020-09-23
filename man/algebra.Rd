@@ -201,7 +201,7 @@ Goedel, Goguen, or Lukasiewicz t-norm. Concretely:
 the involutive negation, and also the Goedel t-norm, t-conorm, residuum, and bi-residuum;
 \item \code{algebra("goguen")}: returns the strict negation as the residual negation,
 the involutive negation, and also the Goguen t-norm, t-conorm, residuum, and bi-residuum;
-\item \code{algebra("lukasiewicz")}: returns involutive negation as both residal and involutive
+\item \code{algebra("lukasiewicz")}: returns involutive negation as both residual and involutive
 negation, and also the Lukasiewicz t-norm, t-conorm, residuum, and bi-residuum.
 }
 

@@ -67,7 +67,7 @@
 #'    the involutive negation, and also the Goedel t-norm, t-conorm, residuum, and bi-residuum;
 #' * `algebra("goguen")`: returns the strict negation as the residual negation,
 #'    the involutive negation, and also the Goguen t-norm, t-conorm, residuum, and bi-residuum;
-#' * `algebra("lukasiewicz")`: returns involutive negation as both residal and involutive
+#' * `algebra("lukasiewicz")`: returns involutive negation as both residual and involutive
 #'    negation, and also the Lukasiewicz t-norm, t-conorm, residuum, and bi-residuum.
 #'
 #' Moreover, `algebra` returns the supremum and infimum functions computed as maximum and minimum,

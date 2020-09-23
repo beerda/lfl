@@ -30,7 +30,7 @@ By default, the objects created with the \code{\link[=algebra]{algebra()}} funct
 algebra capable to work on the \eqn{[0,1]} interval. If \code{NA} appears as a value instead,
 it is propagated to the result. That is, any operation with \code{NA} results in \code{NA}, by default.
 This scheme of handling missing values is also known as Bochvar's. To change this default
-behaviour, the following functions may be applied.
+behavior, the following functions may be applied.
 }
 \details{
 The \code{sobocinski()}, \code{kleene()}, \code{nelson()}, \code{lowerEst()} and \code{dragonfly()} functions modify the algebra to
