@@ -61,8 +61,8 @@ will be produced regardless of its interest measures.
 
 If you want to disable this feature, set \code{maxConfidence} to 1.}
 
-\item{maxLength}{Maximum allowed length of the antecedent, i.e. maximum
-number of predicates that are allowed on the left-hand side of the rule. If
+\item{maxLength}{Maximum allowed length of the rule, i.e. maximum
+number of predicates that are allowed on the left-hand + right-hand side of the rule. If
 negative, the maximum length of rules is unlimited.}
 
 \item{numThreads}{Number of threads used to perform the algorithm in

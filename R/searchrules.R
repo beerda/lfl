@@ -40,8 +40,8 @@
 #' will be produced regardless of its interest measures.
 #'
 #' If you want to disable this feature, set `maxConfidence` to 1.
-#' @param maxLength Maximum allowed length of the antecedent, i.e. maximum
-#' number of predicates that are allowed on the left-hand side of the rule. If
+#' @param maxLength Maximum allowed length of the rule, i.e. maximum
+#' number of predicates that are allowed on the left-hand + right-hand side of the rule. If
 #' negative, the maximum length of rules is unlimited.
 #' @param numThreads Number of threads used to perform the algorithm in
 #' parallel. If greater than 1, the OpenMP library (not to be confused with
