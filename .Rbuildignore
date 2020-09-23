@@ -7,4 +7,5 @@
 ^TODO.ods$
 ^\.~.*$
 ^CRAN-RELEASE$
+^RELEASE-HOWTO.txt$
 ^cran-comments\.md$

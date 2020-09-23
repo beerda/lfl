@@ -1,0 +1,7 @@
+devtools::spell_check()
+devtools::check_rhub(env_vars=c(`_R_CHECK_FORCE_SUGGESTS_`="false"))
+devtools::check_win_devel()
+
+and then:
+
+devtools::release()
