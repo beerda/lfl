@@ -37,11 +37,24 @@ mult <- function(x, y, f, ...) {
     .mustBeFunction(f)
     .mustBe(length(formals(f)) >= 2, "'f' must be a function with at least 2 arguments")
 
+    if (is.null(colnames(x))) {
+        colnames(x) <- rownames(y)
+    }
+    if (is.null(rownames(y))) {
+        rownames(y) <- colnames(x)
+    }
+    if (!is.null(colnames(x))) {
+        .mustBe(all(colnames(x) == rownames(y)))
+    }
+
     ff <- f
     if (length(list(...)) > 0) {
         ff <- function(xx, yy) {
             f(xx, yy, ...)
         }
     }
-    .Call('_lfl_mult', x, y, ff, PACKAGE='lfl')
+    res <- .Call('_lfl_mult', x, y, ff, PACKAGE='lfl')
+    colnames(res) <- colnames(y)
+    rownames(res) <- rownames(x)
+    res
 }
