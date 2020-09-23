@@ -3,6 +3,7 @@ warnings_are_errors: true
 sudo: false
 
 before_install:
+   - if [[ "$OSTYPE" != "linux-gnu" ]]; then sudo tlmgr update --self; fi
    - if [[ "$OSTYPE" != "linux-gnu" ]]; then sudo tlmgr install framed collection-fontsrecommended; fi
 
 matrix:
