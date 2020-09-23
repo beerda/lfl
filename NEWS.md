@@ -7,6 +7,8 @@
 * implemented bi-residuum of the dragonfly algebra
 * implemented order operation of the dragonfly and lowerEst algebras
 * added fuzzy quantifiers
+* deprecated some arguments of the compose() function
+* removed deprecated functions: lcut3(), lcut5()
 
 
 # lfl 2.0.1
