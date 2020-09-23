@@ -74,7 +74,7 @@ test_that('basic E lukas dragonfly', {
                    0, 0, 0, 0, 0.5, NA_real_, 0.5, 0,
                    0, 0, 0, 0, NA_real_, NA_real_, NA_real_, 0.8), byrow=TRUE, nrow=8)
 
-    expect_that(compose(R, S, E, alg=dragonfly(algebra('lukas')), type='basic'),
+    expect_that(suppressWarnings(compose(R, S, E, alg=dragonfly(algebra('lukas')), type='basic')),
                 equals(RS))
 })
 

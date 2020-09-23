@@ -169,7 +169,7 @@ test_that('basic goedel composition with e', {
                    1, 1, 1, 1,
                    0.1, 0.2, 0, 0.2), byrow=TRUE, nrow=5)
 
-    expect_that(compose(R, S, E, alg='goedel', type='basic'), equals(RS))
+    expect_that(suppressWarnings(compose(R, S, E, alg='goedel', type='basic')), equals(RS))
 })
 
 test_that('basic goedel composition with quantifier', {
@@ -189,11 +189,11 @@ test_that('basic goedel composition with quantifier', {
         }
     }
 
-    expect_that(compose(R, S, alg='goedel', type='basic', q=atLeastN(1)),
+    expect_that(suppressWarnings(compose(R, S, alg='goedel', type='basic', q=atLeastN(1))),
                 equals(RS1))
-    expect_that(compose(R, S, alg='goedel', type='basic', q=atLeastN(2)),
+    expect_that(suppressWarnings(compose(R, S, alg='goedel', type='basic', q=atLeastN(2))),
                 equals(RS2))
-    expect_that(compose(R, S, alg='goedel', type='basic', q=atLeastN(3)),
+    expect_that(suppressWarnings(compose(R, S, alg='goedel', type='basic', q=atLeastN(3))),
                 equals(RS3))
 
     atLeastP <- function(p) {
@@ -204,11 +204,28 @@ test_that('basic goedel composition with quantifier', {
         }
     }
 
-    expect_that(compose(R, S, alg='goedel', type='basic', q=atLeastP(0.3)),
+    expect_that(suppressWarnings(compose(R, S, alg='goedel', type='basic', q=atLeastP(0.3))),
                 equals(RS1))
-    expect_that(compose(R, S, alg='goedel', type='basic', q=atLeastP(0.49)),
+    expect_that(suppressWarnings(compose(R, S, alg='goedel', type='basic', q=atLeastP(0.49))),
                 equals(RS2))
-    expect_that(compose(R, S, alg='goedel', type='basic', q=atLeastP(0.59)),
+    expect_that(suppressWarnings(compose(R, S, alg='goedel', type='basic', q=atLeastP(0.59))),
                 equals(RS3))
 })
 
+
+test_that('compose handling of row/col-names', {
+    set.seed(334)
+
+    x <- matrix(runif(24, 0, 1), ncol=6)
+    y <- matrix(runif(18, 0, 1), nrow=6)
+    rownames(x) <- rev(LETTERS[seq_len(nrow(x))])
+    colnames(x) <- letters[seq_len(ncol(x))]
+    rownames(y) <- letters[seq_len(nrow(y))]
+    colnames(y) <- LETTERS[seq_len(ncol(y))]
+    res <- compose(x, y)
+    expect_equal(colnames(res), colnames(y))
+    expect_equal(rownames(res), rownames(x))
+
+    colnames(x) <- rev(letters[seq_len(ncol(x))])
+    expect_error(compose(x, y))
+})

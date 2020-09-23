@@ -23,7 +23,7 @@ match with the number of rows of the \code{y} matrix.}
 with values within the \eqn{[0,1]} interval. The number of columns must
 match with the number of rows of the \code{x} matrix.}
 
-\item{e}{An excluding fuzzy relation. If not NULL,
+\item{e}{Deprecated. An excluding fuzzy relation. If not NULL,
 it must be a numeric matrix with dimensions equal to the \code{y} matrix.}
 
 \item{alg}{An algebra to be used for composition. It must be one of
@@ -33,7 +33,7 @@ it must be a numeric matrix with dimensions equal to the \code{y} matrix.}
 \item{type}{A type of a composition to be performed. It must be one of
 \code{'basic'} (default), \code{'sub'}, \code{'super'}, or \code{'square'}.}
 
-\item{quantifier}{If not NULL, it must be a function taking a single
+\item{quantifier}{Deprecated. If not NULL, it must be a function taking a single
 argument, a vector of relative cardinalities, that would be translated into
 membership degrees. A result of the \code{\link[=lingexpr]{lingexpr()}} function is a
 good candidate for that. Note that the vector of relative cardinalities contains also
@@ -41,7 +41,7 @@ two attributes, \code{x} and \code{y}, which carry the original \code{R}'s data 
 feature column (in \code{y}). These attributes are accessible using the standard \code{\link[base:attr]{base::attr()}}
 function. Find examples below that define some quantifiers.}
 
-\item{sorting}{Sorting function used within quantifier application. The given function
+\item{sorting}{Deprecated. Sorting function used within quantifier application. The given function
 must sort the membership degrees and allow the \code{decreasing} argument as in \code{\link[base:sort]{base::sort()}}.
 This function have to be explicitly specified typically if performing compositions that
 handle \code{NA} values.}
@@ -56,11 +56,18 @@ Composition of Fuzzy Relations
 \details{
 Function composes a fuzzy relation \code{x} (i.e. a numeric matrix of size
 \eqn{(u,v)}) with a fuzzy relation \code{y} (i.e. a numeric matrix of size
-\eqn{(v,w)}) and possibly with the use of an exclusion fuzzy relation
+\eqn{(v,w)}) and possibly with the deprecated use of an exclusion fuzzy relation
 \code{e} (i.e. a numeric matrix of size \eqn{(v,w)}).
 
 The style of composition is determined by the algebra \code{alg}, the
-composition type \code{type}, and possibly also by a \code{quantifier}.
+composition type \code{type}, and possibly also by a deprecated \code{quantifier}.
+
+This function performs four main composition types, the basic composition (
+also known as direct product), the Bandler-Kohout subproduct (also subdirect
+product), the Bandler-Kohout superproduct (also supdirect product), and finally,
+the Bandler-Kohout square product. More complicated composition operations
+may be performed by using the \code{\link[=mult]{mult()}} function and/or by combining multiple
+composition results with the \code{\link[=algebra]{algebra()}} operations.
 }
 \examples{
     R <- matrix(c(0.1, 0.6, 1, 0, 0, 0,
@@ -83,21 +90,6 @@ composition type \code{type}, and possibly also by a \code{quantifier}.
                    0.1, 0.2, 0, 0.2), byrow=TRUE, nrow=5)
 
     compose(R, S, alg='goedel', type='basic') # should be equal to RS
-
-    # Now define the quantifier "at least 2" meaning that at least 2 features are required
-    atLeast2n <-  function(relcard) {
-        ifelse(relcard < 2 / length(relcard), 0, 1)
-    }
-    compose(R, S, alg='goedel', type='basic', quantifier=atLeast2n)
-
-    # Now define the quantifier "at least 20\%" meaning that at least 20\% of features are required
-    atLeast20p <-  function(relcard) {
-        y <- attr(relcard, 'y')
-        a <- ceiling(0.2 * sum(y))
-        ifelse(relcard < a / length(relcard), 0, 1)
-    }
-    compose(R, S, alg='goedel', type='basic', quantifier=atLeast20p)
-
 }
 \seealso{
 [algebra(), \code{\link[=mult]{mult()}}, \code{\link[=lingexpr]{lingexpr()}}

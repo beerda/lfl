@@ -4,11 +4,18 @@
 #'
 #' Function composes a fuzzy relation `x` (i.e. a numeric matrix of size
 #' \eqn{(u,v)}) with a fuzzy relation `y` (i.e. a numeric matrix of size
-#' \eqn{(v,w)}) and possibly with the use of an exclusion fuzzy relation
+#' \eqn{(v,w)}) and possibly with the deprecated use of an exclusion fuzzy relation
 #' `e` (i.e. a numeric matrix of size \eqn{(v,w)}).
 #'
 #' The style of composition is determined by the algebra `alg`, the
-#' composition type `type`, and possibly also by a `quantifier`.
+#' composition type `type`, and possibly also by a deprecated `quantifier`.
+#'
+#' This function performs four main composition types, the basic composition (
+#' also known as direct product), the Bandler-Kohout subproduct (also subdirect
+#' product), the Bandler-Kohout superproduct (also supdirect product), and finally,
+#' the Bandler-Kohout square product. More complicated composition operations
+#' may be performed by using the [mult()] function and/or by combining multiple
+#' composition results with the [algebra()] operations.
 #'
 #' @param x A first fuzzy relation to be composed. It must be a numeric matrix
 #' with values within the \eqn{[0,1]} interval. The number of columns must
@@ -16,21 +23,21 @@
 #' @param y A second fuzzy relation to be composed. It must be a numeric matrix
 #' with values within the \eqn{[0,1]} interval. The number of columns must
 #' match with the number of rows of the `x` matrix.
-#' @param e An excluding fuzzy relation. If not NULL,
+#' @param e Deprecated. An excluding fuzzy relation. If not NULL,
 #' it must be a numeric matrix with dimensions equal to the `y` matrix.
 #' @param alg An algebra to be used for composition. It must be one of
 #' `'goedel'` (default), `'goguen'`, or `'lukasiewicz'`, or an instance of class `algebra`
 #' (see [algebra()]).
 #' @param type A type of a composition to be performed. It must be one of
 #' `'basic'` (default), `'sub'`, `'super'`, or `'square'`.
-#' @param quantifier If not NULL, it must be a function taking a single
+#' @param quantifier Deprecated. If not NULL, it must be a function taking a single
 #' argument, a vector of relative cardinalities, that would be translated into
 #' membership degrees. A result of the [lingexpr()] function is a
 #' good candidate for that. Note that the vector of relative cardinalities contains also
 #' two attributes, `x` and `y`, which carry the original `R`'s data row (in `x`) and `S`'s
 #' feature column (in `y`). These attributes are accessible using the standard [base::attr()]
 #' function. Find examples below that define some quantifiers.
-#' @param sorting Sorting function used within quantifier application. The given function
+#' @param sorting Deprecated. Sorting function used within quantifier application. The given function
 #' must sort the membership degrees and allow the `decreasing` argument as in [base::sort()].
 #' This function have to be explicitly specified typically if performing compositions that
 #' handle `NA` values.
@@ -60,21 +67,6 @@
 #'                    0.1, 0.2, 0, 0.2), byrow=TRUE, nrow=5)
 #'
 #'     compose(R, S, alg='goedel', type='basic') # should be equal to RS
-#'
-#'     # Now define the quantifier "at least 2" meaning that at least 2 features are required
-#'     atLeast2n <-  function(relcard) {
-#'         ifelse(relcard < 2 / length(relcard), 0, 1)
-#'     }
-#'     compose(R, S, alg='goedel', type='basic', quantifier=atLeast2n)
-#'
-#'     # Now define the quantifier "at least 20%" meaning that at least 20% of features are required
-#'     atLeast20p <-  function(relcard) {
-#'         y <- attr(relcard, 'y')
-#'         a <- ceiling(0.2 * sum(y))
-#'         ifelse(relcard < a / length(relcard), 0, 1)
-#'     }
-#'     compose(R, S, alg='goedel', type='basic', quantifier=atLeast20p)
-#'
 #' @export compose
 compose <- function(x,
                     y,
@@ -91,8 +83,13 @@ compose <- function(x,
     .mustBe(ncol(x) == nrow(y), "The number of columns of 'x' must be equal to the number of rows of 'y'")
 
     if (!is.null(e)) {
+        .Deprecated('mult',
+                    msg=paste('The "e" argument is deprecated. Complex compositions',
+                                'have to be computed by using the "compose()" or "mult()"',
+                                'functions and combined with algebra() operations.'))
         .mustBeNumericMatrix(e)
         .mustBe(nrow(y) == nrow(e) && ncol(y) == ncol(e), "'e' must have the same dimensions as 'y'")
+
     }
 
     if (is.character(alg)) {
@@ -129,6 +126,10 @@ compose <- function(x,
     # cardinalitites. The quantifiers are tightly related to algebras, e.g. the 'sort' function is a property of algebra (especially
     # if considering algebras that work with NAs)
     if (is.function(quantifier)) {
+        .Deprecated('mult',
+                    msg=paste('The "quantifier" argument is deprecated. Complex compositions',
+                                'have to be computed by using the "compose()" or "mult()"',
+                                'functions and combined with algebra() operations.'))
         merge <- function(val, x, y) {
             res <- sorting(val, decreasing=TRUE)
             relcard <- seq_along(res) / length(res)
