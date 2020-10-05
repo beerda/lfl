@@ -49,3 +49,16 @@ test_that("quantifier: at.least", {
     expect_equal(q(c(1, 0.3, 0.2, 0.9), c(0, 0.9, 0.5, 1)), 0.2)
     expect_equal(q(c(1, 0.3, 0.2, 0.9), c(0.11, 0.9, 0.5, 1)), 0.3)
 })
+
+test_that("bochvar quantifier", {
+    for (quant in c('all', 'almost.all', 'most', 'many', 'some')) {
+        for (alg in c('lukas', 'goedel', 'goguen')) {
+            q <- quantifier('all', alg='lukas')
+            expect_equal(q(0, NA_real_), NA_real_)
+            expect_equal(q(0.3, NA_real_), NA_real_)
+            expect_equal(q(1, NA_real_), NA_real_)
+            expect_equal(q(c(0.1, NA, 1), c(0.01, 0.9, 0.5)), NA_real_)
+            expect_equal(q(c(0.1, 0.9, 1), c(0.01, NA, 0.5)), NA_real_)
+        }
+    }
+})
