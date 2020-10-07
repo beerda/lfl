@@ -68,6 +68,7 @@ quant <- function(measure,
     function(x, w=1) {
         .mustBeNumericVector(x)
         .mustBeNumericVector(w)
+        .mustBe(all(!is.na(w)), "The 'w' argument must not contain NAs")
 
         l <- max(length(x), length(w))
         x <- rep_len(x, l)
