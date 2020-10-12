@@ -1,85 +1,3 @@
-#' A low-level function for creation of fuzzy quantifiers.
-#'
-#' A quantifier is a function that computes a fuzzy truth value of a claim about
-#' the quantity. This function creates the <1>-type quantifier. (See the examples
-#' below on how to use it as a quantifier of the <1,1> type.)
-#'
-#' @param measure A non-decreasing function that assigns a truth value from the
-#'   \eqn{[0, 1]} interval to the either relative or absolute quantity
-#' @param relative Whether the measure assumes relative or absolute quantity.
-#'   Relative quantity is always a number from the \eqn{[0,1]} interval
-#' @param alg The underlying algebra must be either a string (one from 'lukasiewicz',
-#'   'goedel' or 'goguen') or an instance of the S3 class [algebra()].
-#' @return A two-argument function, which expects two numeric vectors of equal length
-#'   (the vector elements are recycled to ensure equal lengths). The first argument, `x`,
-#'   is a vector of membership degrees to be measured, the second argument, `w`, is
-#'   the vector of weights.
-#'
-#'   Let \eqn{U} be the set of input vector indices (1 to `length(x)`). Then the quantifier
-#'   computes the truth values accordingly to the following formula:
-#'   \eqn{\vee_{z \subseteq u} \wedge_{u \in U} (x[u] \wedge measure(sum(x[u] / sum(w[u]))))}
-#'
-#'   Setting `w` to 1 yields to operation of the <1> quantifier as developed by Dvořák et al.
-#'   To compute the <1,1> quantifier as developed by Dvořák et al., e.g. "almost all A are B", `w` must
-#'   be set again to 1 and `x` to the result of the implication \eqn{A \Rightarrow B}.
-#'   To compute the <1,1> quantifier as proposed by Murinová et al., e.g. "almost all A are B",
-#'   `x` must be set to the result of the implication \eqn{A \Rightarrow B} and `w` to the membership
-#'   degrees of \eqn{A}. See the examples below.
-#' @references Dvořák, A., Holčapek, M. L-fuzzy quantifiers of type <1> determined by fuzzy measures.
-#'   Fuzzy Sets and Systems vol.160, issue 23, 3425-3452, 2009.
-#' @references Dvořák, A., Holčapek, M. Type <1,1> fuzzy quantifiers determined by fuzzy measures.
-#'   IEEE International Conference on Fuzzy Systems (FuzzIEEE), 2010.
-#' @references Murinová, P., Novák, V. The theory of intermediate quantifiers in fuzzy natural logic
-#'   revisited and the model of "Many". Fuzzy Sets and Systems, vol 388, 2020.
-#' @author Michal Burda
-#' @keywords models robust
-#' @seealso [quantifier()], [lingexpr()]
-#' @examples
-#'   # Dvorak <1> "almost all" quantifier
-#'   q <- quant(lingexpr(ctx3(), atomic='bi', hedge='ex'))
-#'   a <- c(0.9, 1, 1, 0.2, 1)
-#'   q(x=a, w=1)
-#'
-#'   # Dvorak <1,1> "almost all" quantifier
-#'   a <- c(0.9, 1, 1, 0.2, 1)
-#'   b <- c(0.2, 1, 0, 0.5, 0.8)
-#'   q <- quant(lingexpr(ctx3(), atomic='bi', hedge='ex'))
-#'   q(x=lukas.residuum(a, b), w=1)
-#'
-#'   # Murinová <1,1> "almost all" quantifier
-#'   a <- c(0.9, 1, 1, 0.2, 1)
-#'   b <- c(0.2, 1, 0, 0.5, 0.8)
-#'   q <- quant(lingexpr(ctx3(), atomic='bi', hedge='ex'))
-#'   q(x=lukas.residuum(a, b), w=a)
-#' @export
-quant <- function(measure,
-                  relative=TRUE,
-                  alg=c('lukasiewicz', 'goedel', 'goguen')) {
-    .mustBeFunction(measure)
-    .mustBeLogicalScalar(relative)
-    if (is.character(alg)) {
-        alg <- match.arg(alg)
-        alg <- algebra(alg)
-    }
-    .mustBe(is.algebra(alg), "'alg' must be either one of 'goedel', 'goguen', lukasiewicz', or an instance of class 'algebra'")
-
-    relate <- if (relative) function(u) { u / u[length(u)] } else identity
-
-    function(x, w=1) {
-        .mustBeNumericVector(x)
-        .mustBeNumericVector(w)
-        .mustBe(all(!is.na(w)), "The 'w' argument must not contain NAs")
-
-        l <- max(length(x), length(w))
-        x <- rep_len(x, l)
-        w <- rep_len(w, l)
-        o <- alg$order(x, decreasing=TRUE)
-        m <- measure(relate(cumsum(w[o])))
-        alg$s(alg$pi(x[o], m))
-    }
-}
-
-
 # Create an (intermediate) fuzzy quantifier
 #
 #' A quantifier is a function that computes a fuzzy truth value of a claim about
@@ -106,7 +24,10 @@ quant <- function(measure,
 #'
 #'   Let \eqn{U} be the set of input vector indices (1 to `length(x)`). Then the quantifier
 #'   computes the truth values accordingly to the following formula:
-#'   \eqn{\vee_{z \subseteq u} \wedge_{u \in U} (x[u] \wedge measure(sum(x[u] / sum(w[u]))))}
+#'   \eqn{\vee_{z \subseteq U} \wedge_{u \in z} (x[u]) \wedge measure(m_z)},
+#'   where
+#'   \eqn{m_z = sum(w)} for `"some"` and `"at.least` and \eqn{m_z = sum(w[z]) / sum(w)} otherwise.
+#'   See [sugeno()] for more details on how the quantifier is evaluated.
 #'
 #'   Setting `w` to 1 yields to operation of the <1> quantifier as developed by Dvořák et al.
 #'   To compute the <1,1> quantifier as developed by Dvořák et al., e.g. "almost all A are B", `w` must
@@ -122,7 +43,7 @@ quant <- function(measure,
 #'   revisited and the model of "Many". Fuzzy Sets and Systems, vol 388, 2020.
 #' @author Michal Burda
 #' @keywords models robust
-#' @seealso [quant()], [lingexpr()]
+#' @seealso [sugeno()], [lingexpr()]
 #' @examples
 #'   # Dvorak <1> "almost all" quantifier
 #'   q <- quantifier('almost.all')
@@ -195,5 +116,5 @@ quantifier <- function(quantity=c('all', 'almost.all', 'most', 'many', 'some', '
         .stop(paste0('Unknown quantity: ', quantity))
     }
 
-    quant(measure=m, relative=r, alg=alg)
+    sugeno(measure=m, relative=r, strong=FALSE, alg=alg)
 }

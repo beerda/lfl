@@ -37,7 +37,10 @@ the vector of weights to which the element belongs to the universe.
 
 Let \eqn{U} be the set of input vector indices (1 to \code{length(x)}). Then the quantifier
 computes the truth values accordingly to the following formula:
-\eqn{\vee_{z \subseteq u} \wedge_{u \in U} (x[u] \wedge measure(sum(x[u] / sum(w[u]))))}
+\eqn{\vee_{z \subseteq U} \wedge_{u \in z} (x[u]) \wedge measure(m_z)},
+where
+\eqn{m_z = sum(w)} for \code{"some"} and \verb{"at.least} and \eqn{m_z = sum(w[z]) / sum(w)} otherwise.
+See \code{\link[=sugeno]{sugeno()}} for more details on how the quantifier is evaluated.
 
 Setting \code{w} to 1 yields to operation of the <1> quantifier as developed by Dvořák et al.
 To compute the <1,1> quantifier as developed by Dvořák et al., e.g. "almost all A are B", \code{w} must
@@ -86,7 +89,7 @@ Murinová, P., Novák, V. The theory of intermediate quantifiers in fuzzy natura
 revisited and the model of "Many". Fuzzy Sets and Systems, vol 388, 2020.
 }
 \seealso{
-\code{\link[=quant]{quant()}}, \code{\link[=lingexpr]{lingexpr()}}
+\code{\link[=sugeno]{sugeno()}}, \code{\link[=lingexpr]{lingexpr()}}
 }
 \author{
 Michal Burda
