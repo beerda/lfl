@@ -1,7 +1,7 @@
 #' Deprecated functions to compute membership degrees of numeric fuzzy sets
 #'
 #' These functions compute membership degrees of numeric fuzzy sets with
-#' triangular or raised-cosinal shape. These functions are *deprecated*.
+#' triangular or raised-cosine shape. These functions are *deprecated*.
 #' Please use [triangular()] or [raisedcosine()] functions instead.
 #'
 #' @param x A numeric vector to be transformed.
