@@ -1,7 +1,7 @@
 Package: lfl
 Type: Package
 Title: Linguistic Fuzzy Logic
-Version: 2.1.0
+Version: 2.1.1
 Date: 2020-11-03
 Authors@R: 
     person(given = "Michal",
