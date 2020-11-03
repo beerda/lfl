@@ -2,7 +2,7 @@ Package: lfl
 Type: Package
 Title: Linguistic Fuzzy Logic
 Version: 2.1.0
-Date: 2020-10-14
+Date: 2020-11-03
 Authors@R: 
     person(given = "Michal",
            family = "Burda",
@@ -17,7 +17,7 @@ License: GPL-3
 Suggests: testthat, doMC,
     knitr,
     rmarkdown
-Depends: R (>= 4.0.0)
+Depends: R (>= 3.6)
 Imports: Rcpp (>= 0.12.12), foreach, forecast (>= 5.5), plyr, tseries, e1071, zoo
 LinkingTo: Rcpp
 NeedsCompilation: yes

@@ -1,3 +1,7 @@
+# lfl 2.1.1
+* fixed the minimum required version of R to 3.6
+
+
 # lfl 2.1.0
 * the result of algebra() is now an S3 class, implemented print.algebra()
 * added involutive negation to algebra()$ni
