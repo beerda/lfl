@@ -323,8 +323,8 @@ test_that('strict negation', {
 
 test_that('algebra', {
   o <- c(0.5, 1, 0, 0.8, NA, 0.3)
-  oi <- c(3, 6, 1, 4, 2, 5)
-  od <- c(2, 4, 1, 6, 3, 5)
+  osi <- c(3, 6, 1, 4, 2, 5) # supremal increasing
+  oii <- c(5, 3, 6, 1, 4, 2) # infimal increasing
 
   a <- algebra('goe')
   expect_true(inherits(a, 'algebra'))
@@ -343,8 +343,10 @@ test_that('algebra', {
   expect_that(a$i, equals(goedel.tnorm))
   expect_that(a$pi, equals(pgoedel.tnorm))
   expect_that(a$algebratype, equals('goedel'))
-  expect_equal(a$order(o), oi)
-  expect_equal(a$order(o, decreasing=TRUE), od)
+  expect_equal(a$order(o, decreasing=FALSE, supremal=TRUE), osi)
+  expect_equal(a$order(o, decreasing=TRUE, supremal=TRUE), rev(osi))
+  expect_equal(a$order(o, decreasing=FALSE, supremal=FALSE), oii)
+  expect_equal(a$order(o, decreasing=TRUE, supremal=FALSE), rev(oii))
 
   a <- algebra('lukas')
   expect_true(inherits(a, 'algebra'))
@@ -363,8 +365,10 @@ test_that('algebra', {
   expect_that(a$i, equals(goedel.tnorm))
   expect_that(a$pi, equals(pgoedel.tnorm))
   expect_that(a$algebratype, equals('lukasiewicz'))
-  expect_equal(a$order(o), oi)
-  expect_equal(a$order(o, decreasing=TRUE), od)
+  expect_equal(a$order(o, decreasing=FALSE, supremal=TRUE), osi)
+  expect_equal(a$order(o, decreasing=TRUE, supremal=TRUE), rev(osi))
+  expect_equal(a$order(o, decreasing=FALSE, supremal=FALSE), oii)
+  expect_equal(a$order(o, decreasing=TRUE, supremal=FALSE), rev(oii))
 
   a <- algebra('gog')
   expect_true(inherits(a, 'algebra'))
@@ -383,6 +387,8 @@ test_that('algebra', {
   expect_that(a$i, equals(goedel.tnorm))
   expect_that(a$pi, equals(pgoedel.tnorm))
   expect_that(a$algebratype, equals('goguen'))
-  expect_equal(a$order(o), oi)
-  expect_equal(a$order(o, decreasing=TRUE), od)
+  expect_equal(a$order(o, decreasing=FALSE, supremal=TRUE), osi)
+  expect_equal(a$order(o, decreasing=TRUE, supremal=TRUE), rev(osi))
+  expect_equal(a$order(o, decreasing=FALSE, supremal=FALSE), oii)
+  expect_equal(a$order(o, decreasing=TRUE, supremal=FALSE), rev(oii))
 })

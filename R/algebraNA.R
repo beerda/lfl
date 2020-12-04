@@ -108,12 +108,12 @@
 }
 
 
-.undefinedOrder <- function(x, decreasing=FALSE) {
+.undefinedOrder <- function(x, decreasing=FALSE, supremal=TRUE) {
     stop('Cannot complete the computation, "order" is unimplemented for the algebra.')
 }
 
 
-.dragonflyOrder <- function(x, decreasing=FALSE) {
+.dragonflyOrder <- function(x, decreasing=FALSE, supremal=TRUE) {
     large <- sum(!is.na(x) & x > 0)
     zeros <- sum(!is.na(x) & x == 0)
     nas <- sum(is.na(x))

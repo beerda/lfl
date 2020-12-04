@@ -394,8 +394,8 @@ strict.neg <- function(x) {
                    goedel=strict.neg,
                    goguen=strict.neg)
 
-.defaultOrder <- function(x, decreasing=FALSE) {
-  order(x, decreasing=decreasing)
+.defaultOrder <- function(x, decreasing=FALSE, supremal=TRUE) {
+  order(x, decreasing=decreasing, na.last=xor(supremal, decreasing))
 }
 
 .algebras <- list('goedel'=function(...) {
