@@ -113,6 +113,11 @@
 }
 
 
+.sobocinskiOrder <- function(x, decreasing=FALSE, supremal=TRUE) {
+  order(x, decreasing=decreasing, na.last=!xor(supremal, decreasing))
+}
+
+
 .dragonflyOrder <- function(x, decreasing=FALSE, supremal=TRUE) {
     large <- sum(!is.na(x) & x > 0)
     zeros <- sum(!is.na(x) & x == 0)
@@ -262,7 +267,7 @@ sobocinski <- function(algebra) {
         })
     }
 
-    .algebraModification('sobocinski', algebra, norm, norm, resid, .neg0, .negNA, .undefinedOrder)
+    .algebraModification('sobocinski', algebra, norm, norm, resid, .neg0, .negNA, .sobocinskiOrder)
 }
 
 

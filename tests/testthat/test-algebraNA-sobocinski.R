@@ -180,5 +180,13 @@ test_that('sobocinski 2', {
 
 test_that('sobocinski order', {
     a <- sobocinski(algebra('lukasiewicz'))
-    expect_error(a$order(0))
+
+    o <- c(0.5, 1, 0, 0.8, NA, 0.3)
+    osi <- c(5, 3, 6, 1, 4, 2) # supremal increasing
+    oii <- c(3, 6, 1, 4, 2, 5) # infimal increasing
+
+    expect_equal(a$order(o, decreasing=FALSE, supremal=TRUE), osi)
+    expect_equal(a$order(o, decreasing=TRUE, supremal=TRUE), rev(osi))
+    expect_equal(a$order(o, decreasing=FALSE, supremal=FALSE), oii)
+    expect_equal(a$order(o, decreasing=TRUE, supremal=FALSE), rev(oii))
 })
