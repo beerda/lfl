@@ -12,7 +12,7 @@
 }
 
 
-.algebraModification <- function(call, algebra, norm, conorm, resid, neg, invol, ord) {
+.algebraModification <- function(call, algebra, norm, conorm, resid, neg, invol, ord, cumm) {
     resN <- neg(algebra$n)
     resNI <- invol(algebra$ni)
     resT <- norm(algebra$t)
@@ -36,6 +36,7 @@
                 s=resS,
                 ps=.elementWisely(resS),
                 order=ord,
+                cumm=cumm,
                 algebratype=c(algebra$algebratype, call))
     class(res) <- c('algebra', 'list')
     res
@@ -143,6 +144,21 @@
     } else {
         return(rev(res))
     }
+}
+
+
+.undefinedCumMeasure <- function(measure, x, w=1, relative=TRUE) {
+  stop('cumm is not defined.')
+}
+
+
+.sobocinskiCumMeasure <- function(measure, x, w=1, relative=TRUE) {
+    w[is.na(x) | is.na(w)] <- 0
+    r <- cumsum(w)
+    if (relative) {
+        r <- r / r[length(r)]
+    }
+    measure(r)
 }
 
 
@@ -279,7 +295,8 @@ sobocinski <- function(algebra) {
         })
     }
 
-    .algebraModification('sobocinski', algebra, norm, norm, resid, .neg0, .negNA, .sobocinskiOrder)
+    .algebraModification('sobocinski', algebra, norm, norm, resid, .neg0, .negNA,
+                         .sobocinskiOrder, .sobocinskiCumMeasure)
 }
 
 
@@ -299,7 +316,8 @@ kleene <- function(algebra) {
         })
     }
 
-    .algebraModification('kleene', algebra, .normKleene, .conormKleene, resid, .negNA, .negNA, .kleeneOrder)
+    .algebraModification('kleene', algebra, .normKleene, .conormKleene, resid,
+                         .negNA, .negNA, .kleeneOrder, .undefinedCumMeasure)
 }
 
 
@@ -324,7 +342,9 @@ dragonfly <- function(algebra) {
         })
     }
 
-    alg <- .algebraModification('dragonfly', algebra, .normKleene, .conormDragon, resid, .negNA, .negNA, .dragonflyOrder)
+    alg <- .algebraModification('dragonfly', algebra, .normKleene, .conormDragon,
+                                resid, .negNA, .negNA, .dragonflyOrder,
+                                .undefinedCumMeasure)
     return(alg)
 }
 
@@ -350,7 +370,8 @@ nelson <- function(algebra) {
         })
     }
 
-    .algebraModification('nelson', algebra, .normKleene, .conormKleene, resid, .neg1, .negNA, .undefinedOrder)
+    .algebraModification('nelson', algebra, .normKleene, .conormKleene, resid,
+                         .neg1, .negNA, .undefinedOrder, .undefinedCumMeasure)
 }
 
 
@@ -372,6 +393,8 @@ lowerEst <- function(algebra) {
         })
     }
 
-    alg <- .algebraModification('lowerEst', algebra, .normKleene, .conormDragon, resid, .neg0, .negNA, .dragonflyOrder)
+    alg <- .algebraModification('lowerEst', algebra, .normKleene, .conormDragon,
+                                resid, .neg0, .negNA, .dragonflyOrder,
+                                .undefinedCumMeasure)
     return(alg)
 }

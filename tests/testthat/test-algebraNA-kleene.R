@@ -224,3 +224,10 @@ test_that('kleene order', {
     expect_equal(o[a$order(o, decreasing=FALSE, supremal=FALSE)], o[oii])
     expect_equal(o[a$order(o, decreasing=TRUE, supremal=FALSE)], o[rev(oii)])
 })
+
+
+test_that('kleene reduce infimum', {
+    a <- kleene(algebra('lukasiewicz'))
+    expect_equal(Reduce(a$i, c(1, NA, 0.4, 0.2, 0), accumulate=TRUE),
+                 c(1, NA, NA, NA, 0))
+})

@@ -54,7 +54,6 @@ sugeno <- function(measure,
     }
     .mustBe(is.algebra(alg), "'alg' must be either one of 'goedel', 'goguen', lukasiewicz', or an instance of class 'algebra'")
 
-    relate <- if (relative) function(u) { u / u[length(u)] } else identity
     conj <- if (strong) alg$pt else alg$pi
 
     function(x, w=1) {
@@ -65,8 +64,10 @@ sugeno <- function(measure,
         l <- max(length(x), length(w))
         x <- rep_len(x, l)
         w <- rep_len(w, l)
+
         o <- alg$order(x, decreasing=TRUE)
-        m <- measure(relate(cumsum(w[o])))
-        alg$s(conj(x[o], m))
+        i <- Reduce(alg$i, x[o], accumulate=TRUE)
+        m <- alg$cumm(measure=measure, x=x[o], w=w[o], relative=relative)
+        alg$s(conj(i, m))
     }
 }

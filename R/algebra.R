@@ -395,7 +395,15 @@ strict.neg <- function(x) {
                    goguen=strict.neg)
 
 .defaultOrder <- function(x, decreasing=FALSE, supremal=TRUE) {
-  order(x, decreasing=decreasing, na.last=xor(supremal, decreasing))
+    order(x, decreasing=decreasing, na.last=xor(supremal, decreasing))
+}
+
+.defaultCumMeasure <- function(measure, x, w=1, relative=TRUE) {
+    r <- cumsum(w)
+    if (relative) {
+        r <- r / r[length(r)]
+    }
+    measure(r)
 }
 
 .algebras <- list('goedel'=function(...) {
@@ -411,7 +419,8 @@ strict.neg <- function(x) {
                              pi=pgoedel.tnorm,
                              s=goedel.tconorm,
                              ps=pgoedel.tconorm,
-                             order=.defaultOrder)
+                             order=.defaultOrder,
+                             cumm=.defaultCumMeasure)
                   },
                   'lukasiewicz'=function(...) {
                         list(n=invol.neg,
@@ -426,7 +435,8 @@ strict.neg <- function(x) {
                              pi=pgoedel.tnorm,
                              s=goedel.tconorm,
                              ps=pgoedel.tconorm,
-                             order=.defaultOrder)
+                             order=.defaultOrder,
+                             cumm=.defaultCumMeasure)
                   },
                   'goguen'=function(...) {
                         list(n=strict.neg,
@@ -441,5 +451,6 @@ strict.neg <- function(x) {
                              pi=pgoedel.tnorm,
                              s=goedel.tconorm,
                              ps=pgoedel.tconorm,
-                             order=.defaultOrder)
+                             order=.defaultOrder,
+                             cumm=.defaultCumMeasure)
                    })
