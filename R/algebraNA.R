@@ -118,6 +118,18 @@
 }
 
 
+.kleeneOrder <- function(x, decreasing=FALSE, supremal=TRUE) {
+    if (supremal) {
+        x[is.na(x)] <- 2
+        x[x==1] <- 3
+    } else {
+        x[is.na(x)] <- -1
+        x[x==0] <- -2
+    }
+    order(x, decreasing=decreasing)
+}
+
+
 .dragonflyOrder <- function(x, decreasing=FALSE, supremal=TRUE) {
     large <- sum(!is.na(x) & x > 0)
     zeros <- sum(!is.na(x) & x == 0)
@@ -287,7 +299,7 @@ kleene <- function(algebra) {
         })
     }
 
-    .algebraModification('kleene', algebra, .normKleene, .conormKleene, resid, .negNA, .negNA, .undefinedOrder)
+    .algebraModification('kleene', algebra, .normKleene, .conormKleene, resid, .negNA, .negNA, .kleeneOrder)
 }
 
 

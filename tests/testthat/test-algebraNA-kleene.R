@@ -214,5 +214,13 @@ test_that('kleene is non-associative', {
 
 test_that('kleene order', {
     a <- kleene(algebra('lukasiewicz'))
-    expect_error(a$order(0))
+
+    o <- c(0.5, NA, 1, 0, 0.8, NA, 0.3)
+    osi <- c(4, 7, 1, 5, 6, 2, 3) # supremal increasing
+    oii <- c(4, 6, 2, 7, 1, 5, 3) # infimal increasing
+
+    expect_equal(o[a$order(o, decreasing=FALSE, supremal=TRUE)], o[osi])
+    expect_equal(o[a$order(o, decreasing=TRUE, supremal=TRUE)], o[rev(osi)])
+    expect_equal(o[a$order(o, decreasing=FALSE, supremal=FALSE)], o[oii])
+    expect_equal(o[a$order(o, decreasing=TRUE, supremal=FALSE)], o[rev(oii)])
 })
