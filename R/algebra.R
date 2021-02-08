@@ -206,7 +206,8 @@ is.algebra <- function(a) {
            is.function(a$ps) &&
            is.function(a$i) &&
            is.function(a$pi) &&
-           is.function(a$order))
+           is.function(a$order) &&
+           is.function(a$cumm))
 }
 
 
@@ -398,7 +399,7 @@ strict.neg <- function(x) {
     order(x, decreasing=decreasing, na.last=xor(supremal, decreasing))
 }
 
-.defaultCumMeasure <- function(measure, x, w=1, relative=TRUE) {
+.defaultCumMeasure <- function(measure, x, w, relative=TRUE) {
     r <- cumsum(w)
     if (relative) {
         r <- r / r[length(r)]

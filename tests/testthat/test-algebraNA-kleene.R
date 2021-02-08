@@ -231,3 +231,36 @@ test_that('kleene reduce infimum', {
     expect_equal(Reduce(a$i, c(1, NA, 0.4, 0.2, 0), accumulate=TRUE),
                  c(1, NA, NA, NA, 0))
 })
+
+
+test_that('kleene cumm', {
+    measure <- function(x) {
+        ifelse(x <= 0.3, 0,
+               ifelse(x >= 0.7, 1, x))
+    }
+    a <- kleene(algebra('lukasiewicz'))
+
+    expect_equal(a$cumm(measure, x=NA, w=c(1, 1, 1, 1), relative=TRUE),
+                 c(0, 0.5, 1, 1))
+    expect_equal(a$cumm(measure, x=NA, w=c(1, 1, 1, 0), relative=TRUE),
+                 c(1/3, 2/3, 1, 1))
+    # TODO: nevime co to ma delat
+    #expect_equal(a$cumm(measure, w=c(0, 0, 0, 0), relative=TRUE),
+                 #c(0, 0, 0, 0))
+    expect_equal(a$cumm(measure, x=NA, w=c(1, 0.6, 1, 0), relative=TRUE),
+                 c(1/2.6, 1.6/2.6, 1, 1))
+
+    expect_equal(a$cumm(measure, x=NA, w=c(NA, 1, 1, 1, 1), relative=TRUE),
+                 c(0, NA, NA, 1, 1))
+    expect_equal(a$cumm(measure, x=NA, w=c(1, 1, NA, 1, 1), relative=TRUE),
+                 c(0, NA, NA, 1, 1))
+    expect_equal(a$cumm(measure, x=NA, w=c(1, 1, 1, NA, 1), relative=TRUE),
+                 c(0, NA, NA, 1, 1))
+    expect_equal(a$cumm(measure, x=NA, w=c(1, 1, 1, 1, NA), relative=TRUE),
+                 c(0, NA, NA, 1, 1))
+    expect_equal(a$cumm(measure, x=NA, w=c(1, 1, 1, NA, 0), relative=TRUE),
+                 c(NA, NA, 1, 1, 1))
+
+    expect_equal(a$cumm(measure, x=NA, w=c(NA, NA, 1, 1, 1), relative=TRUE),
+                 c(0, NA, NA, NA, 1))
+})

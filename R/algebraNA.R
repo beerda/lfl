@@ -147,18 +147,42 @@
 }
 
 
-.undefinedCumMeasure <- function(measure, x, w=1, relative=TRUE) {
+.undefinedCumMeasure <- function(measure, x, w, relative=TRUE) {
   stop('cumm is not defined.')
 }
 
 
-.sobocinskiCumMeasure <- function(measure, x, w=1, relative=TRUE) {
+.sobocinskiCumMeasure <- function(measure, x, w, relative=TRUE) {
     w[is.na(x) | is.na(w)] <- 0
     r <- cumsum(w)
     if (relative) {
-        r <- r / r[length(r)]
+        sumAll <- r[length(r)]
+        if (sumAll == 0) {
+            stop('Cannot measure with sum(w)=0')
+        }
+        r <- r / sumAll
     }
     measure(r)
+}
+
+
+.kleeneCumMeasure <- function(measure, x, w, relative=TRUE) {
+    w0 <- ifelse(is.na(w), 0, w)
+    w1 <- ifelse(is.na(w), 1, w)
+    r0 <- cumsum(w0)
+    r1 <- cumsum(w1)
+    if (relative) {
+        sumAll0 <- r0[length(r0)]
+        sumAll1 <- r1[length(r1)]
+        if (sumAll0 == 0) {
+            stop('Cannot measure with sum(w)=0')
+        }
+        r0 <- r0 / sumAll0
+        r1 <- r1 / sumAll1
+    }
+    r0 <- measure(r0)
+    r1 <- measure(r1)
+    ifelse(r0 == r1, r0, NA_real_)
 }
 
 
@@ -317,7 +341,7 @@ kleene <- function(algebra) {
     }
 
     .algebraModification('kleene', algebra, .normKleene, .conormKleene, resid,
-                         .negNA, .negNA, .kleeneOrder, .undefinedCumMeasure)
+                         .negNA, .negNA, .kleeneOrder, .kleeneCumMeasure)
 }
 
 

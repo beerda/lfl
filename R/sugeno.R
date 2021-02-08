@@ -20,7 +20,7 @@
 #'   \eqn{m_z = sum(w[z]) / sum(w)} if `relative==TRUE` or \eqn{m_z = sum(w)} if `relative==FALSE`
 #'   and where CONJ is a strong conjunction (i.e. `alg$pt`) or a weak conjunction
 #'   (i.e. `alg$pi`) accordingly to the `strong` parameter.
-#' @author Michal Burda
+#' @author Michal Burda, Viktor Pavliska
 #' @keywords models robust
 #' @seealso [quantifier()], [lingexpr()]
 #' @examples

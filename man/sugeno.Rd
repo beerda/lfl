@@ -63,7 +63,7 @@ A factory function for creation of sugeno-integrals.
 \code{\link[=quantifier]{quantifier()}}, \code{\link[=lingexpr]{lingexpr()}}
 }
 \author{
-Michal Burda
+Michal Burda, Viktor Pavliska
 }
 \keyword{models}
 \keyword{robust}
