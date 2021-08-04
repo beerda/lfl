@@ -69,5 +69,8 @@ sugeno <- function(measure,
         i <- Reduce(alg$i, x[o], accumulate=TRUE)
         m <- alg$cumm(measure=measure, x=x[o], w=w[o], relative=relative)
         alg$s(conj(i, m))
+
+        # NOTE: az budeme psat clanek, tak dokazat, ze kleeneho kvantifikator
+        # kdyz uz je v x NA, tak uz to nevrati nic jineho nez 1, NA nebo 0.
     }
 }
