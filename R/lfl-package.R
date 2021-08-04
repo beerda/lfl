@@ -8,5 +8,6 @@
 #' @docType package
 #' @useDynLib lfl, .registration = TRUE
 #' @importFrom Rcpp evalCpp
+#' @import shiny
 #'
 NULL
