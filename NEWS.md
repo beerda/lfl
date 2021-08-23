@@ -1,3 +1,7 @@
+# lfl 2.1.2
+* added vignette
+
+
 # lfl 2.1.1
 * fixed the minimum required version of R to 3.6
 
