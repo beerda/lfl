@@ -1,10 +1,9 @@
-bibentry(bibtype = "inproceedings",
-         title = "Linguistic Fuzzy Logic in {R}",
-         author = c(person("Michal", "Burda")),
-         year = 2015,
-         booktitle = "Proc. {IEEE} International Conference On Fuzzy Systems (FUZZ-IEEE)",
-         publisher = "IEEE",
-         pages = "1-7",
-         isbn = "978-1-4673-7428-6",
-         address = "Istanbul")
+bibentry(bibtype = "article",
+         title = "lfl: An {R} package for linguistic fuzzy logic",
+         author = c(person("Michal", "Burda"), person("Martin", "Štěpnička")),
+         journal = "Fuzzy Sets and Systems",
+         year = 2021,
+         issn = "0165-0114",
+         doi = "https://doi.org/10.1016/j.fss.2021.07.007",
+         url = "https://www.sciencedirect.com/science/article/pii/S0165011421002475")
 
