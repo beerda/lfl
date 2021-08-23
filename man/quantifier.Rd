@@ -17,7 +17,7 @@ quantifier(
 truth to which all elements of the universe have the given property,
 'almost.all', #'   'most', and 'many' evaluate whether the property is
 present in extremely big, very big, or not small number of elements from
-the universe, where these linguistic expressions are internally modelled
+the universe, where these linguistic expressions are internally modeled
 using the \code{\link[=lingexpr]{lingexpr()}} function. 'at.least' quantity requires the 'n'
 argument to be specified, as it computes the truth value that at least
 \eqn{n} elements from the universe have the given property.}

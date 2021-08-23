@@ -144,7 +144,7 @@
 #' to obtain from compositions (see [compose()])
 #' the lower-estimate in the presence of missing values.
 #'
-#' In detail, the behaviour of the algebra modifiers is defined as follows:
+#' In detail, the behavior of the algebra modifiers is defined as follows:
 #'
 #' Sobocinski's negation for `n` being the underlying algebra:
 #' \tabular{ll}{

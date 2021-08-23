@@ -39,7 +39,7 @@
 #'   by column names of the matrix), each row corresponds to a single crisp
 #'   value (which is not important for this function), hence each cell
 #'   corresponds to a membership degree in which the crisp value is a member of
-#'   a fuzzy set modelling the consequent.  Each consequent in `conseq`
+#'   a fuzzy set modeling the consequent.  Each consequent in `conseq`
 #'   must correspond to some column of this matrix. Such matrix may be created
 #'   e.g. by using [fcut()] or [lcut()] functions.
 #' @param firing A two-argument function used to compute the resulting truth value of the consequent.

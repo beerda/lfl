@@ -40,7 +40,7 @@ of Sobocinski's and Bochvar's approach, which preserves the ordering \verb{0 <= 
 to obtain from compositions (see \code{\link[=compose]{compose()}})
 the lower-estimate in the presence of missing values.
 
-In detail, the behaviour of the algebra modifiers is defined as follows:
+In detail, the behavior of the algebra modifiers is defined as follows:
 
 Sobocinski's negation for \code{n} being the underlying algebra:
 \tabular{ll}{
