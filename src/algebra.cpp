@@ -17,15 +17,10 @@ inline void testInvalids(double x) {
     }
 }
 
-// [[Rcpp::export(name=".goedel.tnorm")]]
-double goedel_tnorm(NumericVector vals)
-{
-    if (vals.size() <= 0) {
-        return NA_REAL;
-    }
+inline double internalGoedelTnorm(int size, std::function<double(int)> getValue) {
     double res = 1.0;
-    for (int i = 0; i < vals.size(); ++i) {
-        double v = vals[i];
+    for (int i = 0; i < size; ++i) {
+        double v = getValue(i);
         testInvalids(v);
         if (NumericVector::is_na(v)) {
             res = NA_REAL;
@@ -37,6 +32,15 @@ double goedel_tnorm(NumericVector vals)
     return res;
 }
 
+// [[Rcpp::export(name=".goedel.tnorm")]]
+double goedel_tnorm(NumericVector vals)
+{
+    if (vals.size() <= 0) {
+        return NA_REAL;
+    }
+    auto fun = [&vals](int i) { return vals[i]; };
+    return internalGoedelTnorm(vals.size(), fun);
+}
 
 // [[Rcpp::export(name=".pgoedel.tnorm")]]
 NumericVector pgoedel_tnorm(List list, int size)
@@ -44,27 +48,13 @@ NumericVector pgoedel_tnorm(List list, int size)
     if (list.size() <= 0) {
         return NumericVector(0);
     }
-
     NumericVector result(size);
-
     for (int j = 0; j < size; ++j) {
-        double res = 1.0;
-        for (int i = 0; i < list.size(); ++i) {
-            NumericVector vec = list[i];
-            double v = vec[j % vec.size()];
-            testInvalids(v);
-            if (NumericVector::is_na(v)) {
-                res = NA_REAL;
-                break;
-            } else if (v < res) {
-                res = v;
-            }
-        }
-        result[j] = res;
+        auto fun = [&list, &j](int i) { NumericVector vec = list[i]; return vec[j % vec.size()]; };
+        result[j] = internalGoedelTnorm(list.size(), fun);
     }
     return result;
 }
-
 
 // [[Rcpp::export(name=".lukas.tnorm")]]
 double lukas_tnorm(NumericVector vals)
