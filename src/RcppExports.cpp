@@ -90,6 +90,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// pgoedel_tconorm
+NumericVector pgoedel_tconorm(List list, int size);
+RcppExport SEXP _lfl_pgoedel_tconorm(SEXP listSEXP, SEXP sizeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type list(listSEXP);
+    Rcpp::traits::input_parameter< int >::type size(sizeSEXP);
+    rcpp_result_gen = Rcpp::wrap(pgoedel_tconorm(list, size));
+    return rcpp_result_gen;
+END_RCPP
+}
 // lukas_tconorm
 double lukas_tconorm(NumericVector vals);
 RcppExport SEXP _lfl_lukas_tconorm(SEXP valsSEXP) {
@@ -101,6 +113,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// plukas_tconorm
+NumericVector plukas_tconorm(List list, int size);
+RcppExport SEXP _lfl_plukas_tconorm(SEXP listSEXP, SEXP sizeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type list(listSEXP);
+    Rcpp::traits::input_parameter< int >::type size(sizeSEXP);
+    rcpp_result_gen = Rcpp::wrap(plukas_tconorm(list, size));
+    return rcpp_result_gen;
+END_RCPP
+}
 // goguen_tconorm
 double goguen_tconorm(NumericVector vals);
 RcppExport SEXP _lfl_goguen_tconorm(SEXP valsSEXP) {
@@ -109,6 +133,18 @@ BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type vals(valsSEXP);
     rcpp_result_gen = Rcpp::wrap(goguen_tconorm(vals));
+    return rcpp_result_gen;
+END_RCPP
+}
+// pgoguen_tconorm
+NumericVector pgoguen_tconorm(List list, int size);
+RcppExport SEXP _lfl_pgoguen_tconorm(SEXP listSEXP, SEXP sizeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type list(listSEXP);
+    Rcpp::traits::input_parameter< int >::type size(sizeSEXP);
+    rcpp_result_gen = Rcpp::wrap(pgoguen_tconorm(list, size));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -265,8 +301,11 @@ static const R_CallMethodDef CallEntries[] = {
     {"_lfl_goguen_tnorm", (DL_FUNC) &_lfl_goguen_tnorm, 1},
     {"_lfl_pgoguen_tnorm", (DL_FUNC) &_lfl_pgoguen_tnorm, 2},
     {"_lfl_goedel_tconorm", (DL_FUNC) &_lfl_goedel_tconorm, 1},
+    {"_lfl_pgoedel_tconorm", (DL_FUNC) &_lfl_pgoedel_tconorm, 2},
     {"_lfl_lukas_tconorm", (DL_FUNC) &_lfl_lukas_tconorm, 1},
+    {"_lfl_plukas_tconorm", (DL_FUNC) &_lfl_plukas_tconorm, 2},
     {"_lfl_goguen_tconorm", (DL_FUNC) &_lfl_goguen_tconorm, 1},
+    {"_lfl_pgoguen_tconorm", (DL_FUNC) &_lfl_pgoguen_tconorm, 2},
     {"_lfl_goedel_residuum", (DL_FUNC) &_lfl_goedel_residuum, 2},
     {"_lfl_lukas_residuum", (DL_FUNC) &_lfl_lukas_residuum, 2},
     {"_lfl_goguen_residuum", (DL_FUNC) &_lfl_goguen_residuum, 2},

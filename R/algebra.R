@@ -210,19 +210,6 @@ is.algebra <- function(a) {
 }
 
 
-.elementWisely <- function(f) {
-    function(...) {
-        elts <- list(...)
-        if (length(elts) <= 0L) {
-            return(NULL)
-        }
-        vals <- lapply(elts, as.numeric)
-        res <- do.call('mapply', c(list(f), vals))
-        mostattributes(res) <- attributes(elts[[1L]])
-        return(res)
-    }
-}
-
 ###########################################################
 # t-norms
 
@@ -317,15 +304,46 @@ goguen.tconorm <- function(...) {
 
 #' @rdname algebra
 #' @export
-pgoedel.tconorm <- .elementWisely(goedel.tconorm)
+pgoedel.tconorm <- function(...) {
+  elts <- list(...)
+  if (length(elts) <= 0L) {
+    return(NULL);
+  }
+  vals <- lapply(elts, as.numeric)
+  size <- max(sapply(vals, length))
+  res <- .Call('_lfl_pgoedel_tconorm', vals, size, PACKAGE='lfl')
+  mostattributes(res) <- attributes(elts[[1L]])
+  res
+}
 
 #' @rdname algebra
 #' @export
-plukas.tconorm <- .elementWisely(lukas.tconorm)
+plukas.tconorm <- function(...) {
+  elts <- list(...)
+  if (length(elts) <= 0L) {
+    return(NULL);
+  }
+  vals <- lapply(elts, as.numeric)
+  size <- max(sapply(vals, length))
+  res <- .Call('_lfl_plukas_tconorm', vals, size, PACKAGE='lfl')
+  mostattributes(res) <- attributes(elts[[1L]])
+  res
+}
+
 
 #' @rdname algebra
 #' @export
-pgoguen.tconorm <- .elementWisely(goguen.tconorm)
+pgoguen.tconorm <- function(...) {
+  elts <- list(...)
+  if (length(elts) <= 0L) {
+    return(NULL);
+  }
+  vals <- lapply(elts, as.numeric)
+  size <- max(sapply(vals, length))
+  res <- .Call('_lfl_pgoguen_tconorm', vals, size, PACKAGE='lfl')
+  mostattributes(res) <- attributes(elts[[1L]])
+  res
+}
 
 
 ###########################################################

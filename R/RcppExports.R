@@ -29,12 +29,24 @@
     .Call(`_lfl_goedel_tconorm`, vals)
 }
 
+.pgoedel.tconorm <- function(list, size) {
+    .Call(`_lfl_pgoedel_tconorm`, list, size)
+}
+
 .lukas.tconorm <- function(vals) {
     .Call(`_lfl_lukas_tconorm`, vals)
 }
 
+.plukas.tconorm <- function(list, size) {
+    .Call(`_lfl_plukas_tconorm`, list, size)
+}
+
 .goguen.tconorm <- function(vals) {
     .Call(`_lfl_goguen_tconorm`, vals)
+}
+
+.pgoguen.tconorm <- function(list, size) {
+    .Call(`_lfl_pgoguen_tconorm`, list, size)
 }
 
 .goedel.residuum <- function(x, y) {
