@@ -13,8 +13,16 @@
     .Call(`_lfl_lukas_tnorm`, vals)
 }
 
+.plukas.tnorm <- function(list, size) {
+    .Call(`_lfl_plukas_tnorm`, list, size)
+}
+
 .goguen.tnorm <- function(vals) {
     .Call(`_lfl_goguen_tnorm`, vals)
+}
+
+.pgoguen.tnorm <- function(list, size) {
+    .Call(`_lfl_pgoguen_tnorm`, list, size)
 }
 
 .goedel.tconorm <- function(vals) {

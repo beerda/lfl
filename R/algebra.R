@@ -263,11 +263,32 @@ pgoedel.tnorm <- function(...) {
 
 #' @rdname algebra
 #' @export
-plukas.tnorm <- .elementWisely(lukas.tnorm)
+plukas.tnorm <- function(...) {
+  elts <- list(...)
+  if (length(elts) <= 0L) {
+    return(NULL);
+  }
+  vals <- lapply(elts, as.numeric)
+  size <- max(sapply(vals, length))
+  res <- .Call('_lfl_plukas_tnorm', vals, size, PACKAGE='lfl')
+  mostattributes(res) <- attributes(elts[[1L]])
+  res
+}
+
 
 #' @rdname algebra
 #' @export
-pgoguen.tnorm <- .elementWisely(goguen.tnorm)
+pgoguen.tnorm <- function(...) {
+  elts <- list(...)
+  if (length(elts) <= 0L) {
+    return(NULL);
+  }
+  vals <- lapply(elts, as.numeric)
+  size <- max(sapply(vals, length))
+  res <- .Call('_lfl_pgoguen_tnorm', vals, size, PACKAGE='lfl')
+  mostattributes(res) <- attributes(elts[[1L]])
+  res
+}
 
 
 ###########################################################
