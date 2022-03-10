@@ -21,6 +21,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// pgoedel_tnorm
+NumericVector pgoedel_tnorm(List list, int size);
+RcppExport SEXP _lfl_pgoedel_tnorm(SEXP listSEXP, SEXP sizeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type list(listSEXP);
+    Rcpp::traits::input_parameter< int >::type size(sizeSEXP);
+    rcpp_result_gen = Rcpp::wrap(pgoedel_tnorm(list, size));
+    return rcpp_result_gen;
+END_RCPP
+}
 // lukas_tnorm
 double lukas_tnorm(NumericVector vals);
 RcppExport SEXP _lfl_lukas_tnorm(SEXP valsSEXP) {
@@ -223,6 +235,7 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_lfl_goedel_tnorm", (DL_FUNC) &_lfl_goedel_tnorm, 1},
+    {"_lfl_pgoedel_tnorm", (DL_FUNC) &_lfl_pgoedel_tnorm, 2},
     {"_lfl_lukas_tnorm", (DL_FUNC) &_lfl_lukas_tnorm, 1},
     {"_lfl_goguen_tnorm", (DL_FUNC) &_lfl_goguen_tnorm, 1},
     {"_lfl_goedel_tconorm", (DL_FUNC) &_lfl_goedel_tconorm, 1},

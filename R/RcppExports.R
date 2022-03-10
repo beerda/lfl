@@ -5,6 +5,10 @@
     .Call(`_lfl_goedel_tnorm`, vals)
 }
 
+.pgoedel.tnorm <- function(list, size) {
+    .Call(`_lfl_pgoedel_tnorm`, list, size)
+}
+
 .lukas.tnorm <- function(vals) {
     .Call(`_lfl_lukas_tnorm`, vals)
 }

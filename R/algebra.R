@@ -223,7 +223,6 @@ is.algebra <- function(a) {
     }
 }
 
-
 ###########################################################
 # t-norms
 
@@ -250,7 +249,17 @@ goguen.tnorm <- function(...) {
 
 #' @rdname algebra
 #' @export
-pgoedel.tnorm <- .elementWisely(goedel.tnorm)
+pgoedel.tnorm <- function(...) {
+  elts <- list(...)
+  if (length(elts) <= 0L) {
+    return(NULL);
+  }
+  vals <- lapply(elts, as.numeric)
+  size <- max(sapply(vals, length))
+  res <- .Call('_lfl_pgoedel_tnorm', vals, size, PACKAGE='lfl')
+  mostattributes(res) <- attributes(elts[[1L]])
+  res
+}
 
 #' @rdname algebra
 #' @export
