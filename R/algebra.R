@@ -242,8 +242,7 @@ pgoedel.tnorm <- function(...) {
     return(NULL);
   }
   vals <- lapply(elts, as.numeric)
-  size <- max(sapply(vals, length))
-  res <- .Call('_lfl_pgoedel_tnorm', vals, size, PACKAGE='lfl')
+  res <- .Call('_lfl_pgoedel_tnorm', vals, PACKAGE='lfl')
   mostattributes(res) <- attributes(elts[[1L]])
   res
 }
@@ -256,8 +255,7 @@ plukas.tnorm <- function(...) {
     return(NULL);
   }
   vals <- lapply(elts, as.numeric)
-  size <- max(sapply(vals, length))
-  res <- .Call('_lfl_plukas_tnorm', vals, size, PACKAGE='lfl')
+  res <- .Call('_lfl_plukas_tnorm', vals, PACKAGE='lfl')
   mostattributes(res) <- attributes(elts[[1L]])
   res
 }
@@ -271,8 +269,7 @@ pgoguen.tnorm <- function(...) {
     return(NULL);
   }
   vals <- lapply(elts, as.numeric)
-  size <- max(sapply(vals, length))
-  res <- .Call('_lfl_pgoguen_tnorm', vals, size, PACKAGE='lfl')
+  res <- .Call('_lfl_pgoguen_tnorm', vals, PACKAGE='lfl')
   mostattributes(res) <- attributes(elts[[1L]])
   res
 }
@@ -310,8 +307,7 @@ pgoedel.tconorm <- function(...) {
     return(NULL);
   }
   vals <- lapply(elts, as.numeric)
-  size <- max(sapply(vals, length))
-  res <- .Call('_lfl_pgoedel_tconorm', vals, size, PACKAGE='lfl')
+  res <- .Call('_lfl_pgoedel_tconorm', vals, PACKAGE='lfl')
   mostattributes(res) <- attributes(elts[[1L]])
   res
 }
@@ -324,8 +320,7 @@ plukas.tconorm <- function(...) {
     return(NULL);
   }
   vals <- lapply(elts, as.numeric)
-  size <- max(sapply(vals, length))
-  res <- .Call('_lfl_plukas_tconorm', vals, size, PACKAGE='lfl')
+  res <- .Call('_lfl_plukas_tconorm', vals, PACKAGE='lfl')
   mostattributes(res) <- attributes(elts[[1L]])
   res
 }
@@ -339,8 +334,7 @@ pgoguen.tconorm <- function(...) {
     return(NULL);
   }
   vals <- lapply(elts, as.numeric)
-  size <- max(sapply(vals, length))
-  res <- .Call('_lfl_pgoguen_tconorm', vals, size, PACKAGE='lfl')
+  res <- .Call('_lfl_pgoguen_tconorm', vals, PACKAGE='lfl')
   mostattributes(res) <- attributes(elts[[1L]])
   res
 }

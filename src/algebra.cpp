@@ -23,11 +23,17 @@ using namespace Rcpp;
     if (list.size() <= 0) {                                    \
         return NumericVector(0);                               \
     }                                                          \
+    int size = 0;                                              \
+    for (int j = 0; j < list.size(); ++j) {                    \
+        NumericVector vec = list[j];                           \
+        if (vec.size() > size)                                 \
+            size = vec.size();                                 \
+    }                                                          \
     NumericVector result(size);                                \
     for (int j = 0; j < size; ++j) {                           \
         auto fun = [&list, &j](int i) { NumericVector vec = list[i]; return vec[j % vec.size()]; }; \
         result[j] = call(list.size(), fun);                    \
-    }                    \
+    }                                                          \
     return result;                                             \
 }
 
@@ -128,7 +134,7 @@ double goedel_tnorm(NumericVector vals)
 { TNORM_IMPL(internalGoedelTnorm); }
 
 // [[Rcpp::export(name=".pgoedel.tnorm")]]
-NumericVector pgoedel_tnorm(List list, int size)
+NumericVector pgoedel_tnorm(List list)
 { PTNORM_IMPL(internalGoedelTnorm); }
 
 // [[Rcpp::export(name=".lukas.tnorm")]]
@@ -136,7 +142,7 @@ double lukas_tnorm(NumericVector vals)
 { TNORM_IMPL(internalLukasTnorm); }
 
 // [[Rcpp::export(name=".plukas.tnorm")]]
-NumericVector plukas_tnorm(List list, int size)
+NumericVector plukas_tnorm(List list)
 { PTNORM_IMPL(internalLukasTnorm); }
 
 // [[Rcpp::export(name=".goguen.tnorm")]]
@@ -144,7 +150,7 @@ double goguen_tnorm(NumericVector vals)
 { TNORM_IMPL(internalGoguenTnorm); }
 
 // [[Rcpp::export(name=".pgoguen.tnorm")]]
-NumericVector pgoguen_tnorm(List list, int size)
+NumericVector pgoguen_tnorm(List list)
 { PTNORM_IMPL(internalGoguenTnorm); }
 
 // [[Rcpp::export(name=".goedel.tconorm")]]
@@ -152,7 +158,7 @@ double goedel_tconorm(NumericVector vals)
 { TNORM_IMPL(internalGoedelTconorm); }
 
 // [[Rcpp::export(name=".pgoedel.tconorm")]]
-NumericVector pgoedel_tconorm(List list, int size)
+NumericVector pgoedel_tconorm(List list)
 { PTNORM_IMPL(internalGoedelTconorm); }
 
 // [[Rcpp::export(name=".lukas.tconorm")]]
@@ -160,7 +166,7 @@ double lukas_tconorm(NumericVector vals)
 { TNORM_IMPL(internalLukasTconorm); }
 
 // [[Rcpp::export(name=".plukas.tconorm")]]
-NumericVector plukas_tconorm(List list, int size)
+NumericVector plukas_tconorm(List list)
 { PTNORM_IMPL(internalLukasTconorm); }
 
 // [[Rcpp::export(name=".goguen.tconorm")]]
@@ -168,7 +174,7 @@ double goguen_tconorm(NumericVector vals)
 { TNORM_IMPL(internalGoguenTconorm); }
 
 // [[Rcpp::export(name=".pgoguen.tconorm")]]
-NumericVector pgoguen_tconorm(List list, int size)
+NumericVector pgoguen_tconorm(List list)
 { PTNORM_IMPL(internalGoguenTconorm); }
 
 // [[Rcpp::export(name=".goedel.residuum")]]

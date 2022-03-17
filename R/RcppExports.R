@@ -5,48 +5,48 @@
     .Call(`_lfl_goedel_tnorm`, vals)
 }
 
-.pgoedel.tnorm <- function(list, size) {
-    .Call(`_lfl_pgoedel_tnorm`, list, size)
+.pgoedel.tnorm <- function(list) {
+    .Call(`_lfl_pgoedel_tnorm`, list)
 }
 
 .lukas.tnorm <- function(vals) {
     .Call(`_lfl_lukas_tnorm`, vals)
 }
 
-.plukas.tnorm <- function(list, size) {
-    .Call(`_lfl_plukas_tnorm`, list, size)
+.plukas.tnorm <- function(list) {
+    .Call(`_lfl_plukas_tnorm`, list)
 }
 
 .goguen.tnorm <- function(vals) {
     .Call(`_lfl_goguen_tnorm`, vals)
 }
 
-.pgoguen.tnorm <- function(list, size) {
-    .Call(`_lfl_pgoguen_tnorm`, list, size)
+.pgoguen.tnorm <- function(list) {
+    .Call(`_lfl_pgoguen_tnorm`, list)
 }
 
 .goedel.tconorm <- function(vals) {
     .Call(`_lfl_goedel_tconorm`, vals)
 }
 
-.pgoedel.tconorm <- function(list, size) {
-    .Call(`_lfl_pgoedel_tconorm`, list, size)
+.pgoedel.tconorm <- function(list) {
+    .Call(`_lfl_pgoedel_tconorm`, list)
 }
 
 .lukas.tconorm <- function(vals) {
     .Call(`_lfl_lukas_tconorm`, vals)
 }
 
-.plukas.tconorm <- function(list, size) {
-    .Call(`_lfl_plukas_tconorm`, list, size)
+.plukas.tconorm <- function(list) {
+    .Call(`_lfl_plukas_tconorm`, list)
 }
 
 .goguen.tconorm <- function(vals) {
     .Call(`_lfl_goguen_tconorm`, vals)
 }
 
-.pgoguen.tconorm <- function(list, size) {
-    .Call(`_lfl_pgoguen_tconorm`, list, size)
+.pgoguen.tconorm <- function(list) {
+    .Call(`_lfl_pgoguen_tconorm`, list)
 }
 
 .goedel.residuum <- function(x, y) {
