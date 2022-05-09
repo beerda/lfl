@@ -53,9 +53,10 @@ is a matrix or data frame, \code{name} should be NULL because the fuzzy
 attribute names are taken from column names of the argument \code{x}.}
 
 \item{breaks}{This argument determines the break-points of the positions of
-the fuzzy sets. It should be an ordered vector of numbers such that the
-\eqn{i}-th index specifies the beginning, \eqn{(i+1)}-th the center, and
-\eqn{(i+2)}-th the ending of the \eqn{i}-th fuzzy set.
+the fuzzy sets (see also \code{\link[=equidist]{equidist()}}. It should be an ordered vector of
+numbers such that the \eqn{i}-th index specifies the beginning,
+\eqn{(i+1)}-th the center, and \eqn{(i+2)}-th the ending of the \eqn{i}-th
+fuzzy set.
 
 I.e. the minimum number of breaks-points is 3; \eqn{n-2} elementary fuzzy
 sets would be created for \eqn{n} break-points.
@@ -203,7 +204,8 @@ fcut(x, breaks=c(0, 0.5, 1), name='age', type=f)
 
 }
 \seealso{
-\code{\link[=lcut]{lcut()}}, \code{\link[=farules]{farules()}}, \code{\link[=pbld]{pbld()}}, \code{\link[=vars]{vars()}}, \code{\link[=specs]{specs()}}, \code{\link[=cbind.fsets]{cbind.fsets()}}
+\code{\link[=lcut]{lcut()}}, \code{\link[=equidist]{equidist()}}, \code{\link[=farules]{farules()}}, \code{\link[=pbld]{pbld()}}, \code{\link[=vars]{vars()}}, \code{\link[=specs]{specs()}},
+\code{\link[=cbind.fsets]{cbind.fsets()}}
 }
 \author{
 Michal Burda

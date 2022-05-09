@@ -43,9 +43,10 @@
 #' @param x Data to be transformed: a vector, matrix, or data frame.
 #' Non-numeric data are allowed.
 #' @param breaks This argument determines the break-points of the positions of
-#' the fuzzy sets. It should be an ordered vector of numbers such that the
-#' \eqn{i}-th index specifies the beginning, \eqn{(i+1)}-th the center, and
-#' \eqn{(i+2)}-th the ending of the \eqn{i}-th fuzzy set.
+#' the fuzzy sets (see also [equidist()]. It should be an ordered vector of
+#' numbers such that the \eqn{i}-th index specifies the beginning,
+#' \eqn{(i+1)}-th the center, and \eqn{(i+2)}-th the ending of the \eqn{i}-th
+#' fuzzy set.
 #'
 #' I.e. the minimum number of breaks-points is 3; \eqn{n-2} elementary fuzzy
 #' sets would be created for \eqn{n} break-points.
@@ -114,7 +115,8 @@
 #' incidency matrix would be created to reflect the superset-hood of the merged
 #' fuzzy sets.
 #' @author Michal Burda
-#' @seealso [lcut()], [farules()], [pbld()], [vars()], [specs()], [cbind.fsets()]
+#' @seealso [lcut()], [equidist()], [farules()], [pbld()], [vars()], [specs()],
+#'   [cbind.fsets()]
 #' @keywords models robust multivariate
 #' @examples
 #'
