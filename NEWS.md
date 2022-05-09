@@ -1,3 +1,8 @@
+# lfl 2.1.3
+* added equidist(), equifreq()
+* parallel t-norms t-conorms rewritten in C++
+
+
 # lfl 2.1.2
 * added vignette
 
