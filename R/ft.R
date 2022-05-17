@@ -32,7 +32,7 @@
 #'
 #' # obtain function values
 #' x2 <- as.matrix(data.frame(a = 10:20, b = 20:10))
-#' xmemb2 <- fcut(x,
+#' xmemb2 <- fcut(x2,
 #'                breaks = list(a = equidist(x[, 'a'], 3),
 #'                              b = equidist(x[, 'b'], 3)))
 #' y2 <- predict(fit, x2, xmemb2)
@@ -127,10 +127,6 @@ predict.ft <- function(fit, x, xmemb, ...) {
     }
 
     res <- inputs %*% fit$consequents
-    res <- sapply(seq_len(nrow(res)), function(i) {
-        w <- weights[, i]
-        sum(res[i, ] * w) / sum(w)
-    })
 
-    res
+    sapply(seq_len(nrow(res)), function(i) weighted.mean(res[i, ], weights[, i]))
 }

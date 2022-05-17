@@ -22,3 +22,59 @@ test_that('ft', {
     yy <- predict(res, x, xmemb)
     expect_equal(yy, y)
 })
+
+
+test_that('ft extrapolation 1', {
+    y <- (1:30)
+    x <- data.frame(a = 1:30)
+    x <- as.matrix(x)
+    xbreaks <- equidist(x[, 'a'], 3, left='infinity', right='infinity')
+    xmemb <- fcut(x, breaks = list(a = xbreaks))
+
+    res <- ft(x, xmemb, y, order = 1)
+
+    x <- data.frame(a = 20:50)
+    x <- as.matrix(x)
+    xmemb <- fcut(x, breaks = list(a = xbreaks))
+
+    yy <- predict(res, x, xmemb)
+    expect_equal(yy, 20:50)
+})
+
+
+test_that('ft extrapolation 2', {
+    y <- c(1:10, 101:110, 201:210)
+    x <- data.frame(a = 1:30)
+    x <- as.matrix(x)
+    xbreaks <- equidist(x[, 'a'], 9, left='infinity', right='infinity')
+    xmemb <- fcut(x, breaks = list(a = xbreaks))
+
+    res <- ft(x, xmemb, y, order = 1)
+
+    x <- data.frame(a = 21:50)
+    x <- as.matrix(x)
+    xmemb <- fcut(x, breaks = list(a = xbreaks))
+
+    yy <- predict(res, x, xmemb)
+    expect_equal(yy[11:30], 211:230)
+})
+
+
+test_that('ft extrapolation to NaN', {
+    y <- (1:30)
+    x <- data.frame(a = 1:30)
+    x <- as.matrix(x)
+    xbreaks <- equidist(x[, 'a'], 3, left='same', right='same')
+    xmemb <- fcut(x, breaks = list(a = xbreaks))
+
+    res <- ft(x, xmemb, y, order = 1)
+
+    x <- data.frame(a = 20:50)
+    x <- as.matrix(x)
+    xmemb <- fcut(x, breaks = list(a = xbreaks))
+
+    yy <- predict(res, x, xmemb)
+    expect_equal(yy, c(20:30, rep(NaN, 20)))
+
+
+})
