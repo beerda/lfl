@@ -88,6 +88,10 @@ ft <- function(x,
 
     consequents <- sapply(seq_len(nrow(weights)), .fit_lm)
     consequents[is.na(consequents)] <- 0    # this occurs if an input is linear combination of other inputs
+    if (!is.matrix(consequents)) {
+        # order 0 ft
+        consequents <- matrix(consequents, nrow=1)
+    }
 
 
     structure(list(inputs = inputs,
@@ -121,7 +125,7 @@ predict.ft <- function(fit, x, xmemb, ...) {
 
 
     weights <- .ft.weights(xmemb, fit$antecedents)
-    inputs <- 1
+    inputs <- rep(1, nrow(x))
     for (o in seq_len(fit$order)) {
         inputs <- cbind(inputs, x^o)
     }

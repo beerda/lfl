@@ -3,7 +3,8 @@
 #' If both `left` and `right` equal to `"none"`, the function returns a vector of `n` values from `x`
 #' that divide the range of values in `x` into `n - 1` equidistant intervals. If the `left` (resp. `right`)
 #' argument equals to `"infinity"`, `-Inf` (resp. `Inf`) is prepended (resp. appended) to the result. If
-#' it equals to `"same"`, the first (resp. last) value is doubled.
+#' it equals to `"same"`, the first (resp. last) value is doubled. See [fcut()] for what such vectors
+#' mean.
 #'
 #' @return A vector of equifrequent breaks
 #' @seealso [equidist()], [fcut()]
