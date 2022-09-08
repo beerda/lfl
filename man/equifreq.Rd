@@ -11,6 +11,17 @@ equifreq(
   right = c("infinity", "same", "none")
 )
 }
+\arguments{
+\item{x}{A numeric vector of input values}
+
+\item{n}{The number of breaks of \code{x} to find (\code{n} must be at least 2)}
+
+\item{left}{The left border of the returned vector of breaks: \code{"infinity"}, \code{"same"} or \code{"none"}
+(see the description below)}
+
+\item{right}{The right border of the returned vector of breaks: \code{"infinity"}, \code{"same"} or \code{"none"}
+(see the description below)}
+}
 \value{
 A vector of equifrequent breaks
 }
@@ -21,9 +32,19 @@ argument equals to \code{"infinity"}, \code{-Inf} (resp. \code{Inf}) is prepende
 it equals to \code{"same"}, the first (resp. last) value is doubled. See \code{\link[=fcut]{fcut()}} for what such vectors
 mean.
 }
+\details{
+If the \code{left} (resp. \code{right}) argument equals to \code{"infinity"}, \code{-Inf} (resp. \code{Inf}) is prepended
+(resp. appended) to the result. If it equals to \code{"same"}, the first (resp. last) value is doubled.
+Such functionality is beneficial if using the result of this function with e.g. the \code{\link[=fcut]{fcut()}} function:
+\code{Inf} values at the beginning (resp. at the end) of the vector of breaks means that the fuzzy set
+partition starts with a fuzzy set with kernel going to negative (resp. positive) infinity; the doubled
+value at the beginning (resp. end) results in half-cut (trimmed) fuzzy set.
+}
 \seealso{
 \code{\link[=equidist]{equidist()}}, \code{\link[=fcut]{fcut()}}
 }
 \author{
 Michal Burda
 }
+\keyword{models}
+\keyword{robust}
