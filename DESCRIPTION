@@ -1,8 +1,8 @@
 Package: lfl
 Type: Package
 Title: Linguistic Fuzzy Logic
-Version: 2.1.3
-Date: 2021-08-23
+Version: 2.2.0
+Date: 2022-09-08
 Authors@R: 
     person(given = "Michal",
            family = "Burda",
@@ -12,7 +12,9 @@ Authors@R:
 Maintainer: Michal Burda <michal.burda@osu.cz>
 Description: Various algorithms related to linguistic fuzzy logic: mining for linguistic fuzzy association
     rules, composition of fuzzy relations, performing perception-based logical deduction (PbLD), 
-    and forecasting time-series using fuzzy rule-based ensemble (FRBE).
+    and forecasting time-series using fuzzy rule-based ensemble (FRBE). Package also contains basic
+    fuzzy-related algebraic functions capable of handling missing values in different styles (Bochvar,
+    Sobocinski, Kleene etc.), computation of Sugeno integrals and fuzzy transform.
 License: GPL-3
 Suggests: testthat, doMC, knitr, rmarkdown, R.rsp
 Depends: R (>= 3.6)
