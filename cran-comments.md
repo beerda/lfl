@@ -1,11 +1,10 @@
 ## Test environments
-* local R installation, R 4.1.1
-* ubuntu 16.04.6 (on travis-ci), R 3.6.3, R 4.0.2, R-devel
+* local R installation on ubuntu 22.04, R 4.2.1
 * win-builder (devel)
+* r-hub
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+0 errors | 0 warnings | 0 notes
 
 * This is a new release.
-* The DOI is correct (double checked)
