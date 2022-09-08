@@ -13,6 +13,8 @@
 
 #' Fuzzy transform
 #'
+#' Compute a fuzzy tranform of the given input matrix `x`.
+#'
 #' @param x the numeric matrix of input values
 #' @param xmemb the partitioning of input values, i.e., a `fsets` object with membership degrees
 #'     (see [fcut()])
@@ -20,6 +22,10 @@
 #' @param order the order of the fuzzy transform (0, 1, 2, ...)
 #' @return the instance of the S3 class `ft`
 #' @author Michal Burda
+#' @seealso [ftinv()], [is.ft()]
+#' @keywords models robust
+#' @references Perfilieva I. Fuzzy transforms: Theory and applications. FUZZY SET SYST,
+#'     volume 157, issue 8, p. 993-1023. 2006.
 #' @examples
 #'
 #' # create the fuzzy transform object
@@ -35,7 +41,7 @@
 #' xmemb2 <- fcut(x2,
 #'                breaks = list(a = equidist(x[, 'a'], 3),
 #'                              b = equidist(x[, 'b'], 3)))
-#' y2 <- predict(fit, x2, xmemb2)
+#' y2 <- ftinv(fit, x2, xmemb2)
 #' print(y2)
 #'
 #' # compare original values with those obtained by the fuzzy transform
@@ -103,34 +109,22 @@ ft <- function(x,
 }
 
 
+#' Test whether `x` is a valid object of the S3 `ft` class
+#'
+#' Test whether `x` has a valid format for objects of the S3 `ft` class that represents
+#' the Fuzzy Transform.
+#'
+#' This function tests whether `x` is an instance of the `ft` class and whether it is a list
+#' with the following elements: `inputs` character vector, `partitions` list, `order` number,
+#' `antecedents` matrix and `consequents` matrix.
+#'
+#' @param x An object to be tested
+#' @return `TRUE` if `x` is a valid `ft` object and `FALSE` otherwise.
+#' @author Michal Burda
+#' @seealso [ft()], [ftinv()]
+#' @keywords models robust
 #' @export
 is.ft <- function(x) {
     inherits(x, 'ft') &&
         is.list(x)
-}
-
-
-#' @export
-predict.ft <- function(fit, x, xmemb, ...) {
-    .mustBe(is.ft(fit), "'fit' must be an instance of the S3 'ft' class")
-
-    .mustBe(is.matrix(x))
-    .mustBe(ncol(x) >= 1, "'x' must have at least 1 column")
-    .mustBe(nrow(x) >= 1, "'x' must not be empty")
-
-    .mustBe(is.fsets(xmemb), "'xmemb' must be an instance of class 'fsets'")
-    .mustBe(nrow(x) == nrow(xmemb), "the number of rows in 'x' must equal to the number of rows in 'xmemb")
-    .mustBe(all(colnames(x) %in% vars(xmemb)), "colnames(x) must be equal to vars(xmemb)")
-    .mustBe(all(vars(xmemb) %in% colnames(x)), "colnames(x) must be equal to vars(xmemb)")
-
-
-    weights <- .ft.weights(xmemb, fit$antecedents)
-    inputs <- rep(1, nrow(x))
-    for (o in seq_len(fit$order)) {
-        inputs <- cbind(inputs, x^o)
-    }
-
-    res <- inputs %*% fit$consequents
-
-    sapply(seq_len(nrow(res)), function(i) weighted.mean(res[i, ], weights[, i]))
 }

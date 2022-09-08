@@ -20,7 +20,7 @@ ft(x, xmemb, y, order = 1)
 the instance of the S3 class \code{ft}
 }
 \description{
-Fuzzy transform
+Compute a fuzzy tranform of the given input matrix \code{x}.
 }
 \examples{
 
@@ -37,13 +37,22 @@ x2 <- as.matrix(data.frame(a = 10:20, b = 20:10))
 xmemb2 <- fcut(x2,
                breaks = list(a = equidist(x[, 'a'], 3),
                              b = equidist(x[, 'b'], 3)))
-y2 <- predict(fit, x2, xmemb2)
+y2 <- ftinv(fit, x2, xmemb2)
 print(y2)
 
 # compare original values with those obtained by the fuzzy transform
 y - y2
 
 }
+\references{
+Perfilieva I. Fuzzy transforms: Theory and applications. FUZZY SET SYST,
+volume 157, issue 8, p. 993-1023. 2006.
+}
+\seealso{
+\code{\link[=ftinv]{ftinv()}}, \code{\link[=is.ft]{is.ft()}}
+}
 \author{
 Michal Burda
 }
+\keyword{models}
+\keyword{robust}

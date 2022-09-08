@@ -1,6 +1,7 @@
 # lfl 2.1.3
 * added equidist(), equifreq()
 * parallel t-norms t-conorms rewritten in C++
+* added function to compute fuzzy-transform (ft()) and its inverse (ftinv())
 
 
 # lfl 2.1.2
