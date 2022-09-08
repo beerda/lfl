@@ -4,6 +4,6 @@ bibentry(bibtype = "article",
          journal = "Fuzzy Sets and Systems",
          year = 2021,
          issn = "0165-0114",
-         doi = "https://doi.org/10.1016/j.fss.2021.07.007",
+         doi = "10.1016/j.fss.2021.07.007",
          url = "https://www.sciencedirect.com/science/article/pii/S0165011421002475")
 
