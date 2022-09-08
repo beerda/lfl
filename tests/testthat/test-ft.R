@@ -19,7 +19,7 @@ test_that('ft', {
     expect_equal(nrow(res$consequents), 5)
     expect_equal(ncol(res$consequents), 9)
 
-    yy <- predict(res, x, xmemb)
+    yy <- ftinv(res, x, xmemb)
     expect_equal(yy, y)
 })
 
@@ -37,7 +37,7 @@ test_that('ft extrapolation 1', {
     x <- as.matrix(x)
     xmemb <- fcut(x, breaks = list(a = xbreaks))
 
-    yy <- predict(res, x, xmemb)
+    yy <- ftinv(res, x, xmemb)
     expect_equal(yy, 20:50)
 })
 
@@ -55,7 +55,7 @@ test_that('ft extrapolation 2', {
     x <- as.matrix(x)
     xmemb <- fcut(x, breaks = list(a = xbreaks))
 
-    yy <- predict(res, x, xmemb)
+    yy <- ftinv(res, x, xmemb)
     expect_equal(yy[11:30], 211:230)
 })
 
@@ -73,7 +73,7 @@ test_that('ft extrapolation to NaN', {
     x <- as.matrix(x)
     xmemb <- fcut(x, breaks = list(a = xbreaks))
 
-    yy <- predict(res, x, xmemb)
+    yy <- ftinv(res, x, xmemb)
     expect_equal(yy, c(20:30, rep(NaN, 20)))
 
 
@@ -101,7 +101,7 @@ test_that('ft order 0', {
     expect_equal(nrow(res$consequents), 1)
     expect_equal(ncol(res$consequents), 9)
 
-    yy <- predict(res, x, xmemb)
+    yy <- ftinv(res, x, xmemb)
     expect_equal(yy, y)
 })
 
