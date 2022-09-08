@@ -4,7 +4,7 @@
 \alias{ftinv}
 \title{Inverse of the fuzzy transform}
 \usage{
-ftinv(fit, x, xmemb, ...)
+ftinv(fit, x, xmemb)
 }
 \arguments{
 \item{fit}{The fuzzy transform object as the instance of the \code{ft} S3 class}

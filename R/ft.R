@@ -48,6 +48,7 @@
 #' y - y2
 #'
 #' @export
+#' @importFrom stats coef
 ft <- function(x,
                xmemb,
                y,
