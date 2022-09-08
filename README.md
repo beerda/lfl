@@ -1,16 +1,25 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![Travis Build Status](https://travis-ci.org/beerda/lfl.svg?branch=master)](https://travis-ci.org/beerda/lfl) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/beerda/lfl?branch=master&svg=true)](https://ci.appveyor.com/project/beerda/lfl) [![codecov](https://codecov.io/gh/beerda/lfl/branch/master/graph/badge.svg)](https://codecov.io/gh/beerda/lfl) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/lfl)](https://cran.r-project.org/package=lfl)
 
-lfl
-===
+[![AppVeyor Build
+Status](https://ci.appveyor.com/api/projects/status/github/beerda/lfl?branch=master&svg=true)](https://ci.appveyor.com/project/beerda/lfl)
+[![codecov](https://codecov.io/gh/beerda/lfl/branch/master/graph/badge.svg)](https://app.codecov.io/gh/beerda/lfl)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/lfl)](https://cran.r-project.org/package=lfl)
 
-The lfl package provides various algorithms related to linguistic fuzzy logic: mining for linguistic fuzzy association rules, composition of fuzzy relations, performing perception-based logical deduction (PbLD), and forecasting time-series using fuzzy rule-based ensemble (FRBE).
+# lfl
 
-Installation
-------------
+The lfl package provides various algorithms related to linguistic fuzzy
+logic: mining for linguistic fuzzy association rules, composition of
+fuzzy relations, performing perception-based logical deduction (PbLD),
+and forecasting time-series using fuzzy rule-based ensemble (FRBE). The
+package also contains basic fuzzy-related algebraic functions capable of
+handling missing values in different styles (Bochvar, Sobocinski, Kleene
+etc.), computation of Sugeno integrals and fuzzy transform.
 
-To install the stable version from CRAN, simply issue the following command within your R session:
+## Installation
+
+To install the stable version from CRAN, simply issue the following
+command within your R session:
 
 ``` r
 install.packages("lfl")
