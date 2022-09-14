@@ -45,7 +45,7 @@
 #' print(y2)
 #'
 #' # compare original values with those obtained by the fuzzy transform
-#' y - y2
+#' y[10:20] - y2
 #'
 #' @export
 #' @importFrom stats coef
