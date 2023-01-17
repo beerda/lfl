@@ -44,7 +44,7 @@ mult <- function(x, y, f, ...) {
         rownames(y) <- colnames(x)
     }
     if (!is.null(colnames(x))) {
-        .mustBe(all(colnames(x) == rownames(y)))
+        .mustBe(all(colnames(x) == rownames(y)), "Column names of 'x' must be equal to row names of 'y'")
     }
 
     ff <- f
