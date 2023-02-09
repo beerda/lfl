@@ -27,7 +27,8 @@
 #'   approaches accordingly to the shape of the `degrees` vector:
 #'   If `degrees` is non-increasing then `'lom'` type is used,
 #'   if it is non-decreasing then `'fom'` is applied, else `'mom'` is selected;
-#' * ''cog'': Center of Gravity - the result is a mean of `values` weighted by `degrees`.
+#' * `'cog'`: Center of Gravity - the result is a mean of `values` weighted by `degrees`;
+#' * `'cog2'`: Experimental Center of Gravity.
 #' @return A defuzzified value.
 #' @author Michal Burda
 #' @seealso [fire()], [aggregateConsequents()], [perceive()], [pbld()], [fcut()], [lcut()]
@@ -42,45 +43,57 @@
 #' @export defuzz
 defuzz <- function(degrees,
                    values,
-                   type=c('mom', 'fom', 'lom', 'dee', 'cog')) {
+                   type=c('mom', 'fom', 'lom', 'dee', 'cog', 'cog2')) {
     .mustBeNumericVector(degrees)
     .mustBeNumericVector(values)
     .mustBe(length(degrees) == length(values), "The length of 'degrees' and 'values' must be the same")
     .mustBe(length(degrees) >= 3, "The length of 'degrees' must be at least 3")
     .mustBe(min(degrees) >= 0 && max(degrees) <= 1, "Values of 'degrees' must be truth values in the interval [0,1]")
 
-    o <- order(values)
-    values <- values[o]
-    degrees <- degrees[o]
-
     type <- match.arg(type)
-    i <- which(degrees == max(degrees))
 
-    if (type == 'dee') {
-        l <- length(degrees)
-        diff <- degrees[-1] - degrees[-l]
-        if (all(diff >= 0)) {
-            type <- 'fom'
-        } else if (all(diff <= 0)) {
-            type <- 'lom'
-        } else {
-            type <- 'mom'
-        }
-    }
-
-    if (type == 'fom') {
-        return(values[min(i)])
-
-    } else if (type == 'lom') {
-        return(values[max(i)])
-
-    } else if (type == 'mom') {
-        return(mean(values[i]))
-
-    } else if (type == 'cog') {
+    if (type == 'cog') {
         return(weighted.mean(values, degrees))
 
+    } else if (type == 'cog2') {
+        alpha <- sort(unique(c(0, degrees)))
+        center <- sapply(alpha, function(a) mean(values[degrees >= a]))
+        p <- seq(1, length(alpha) - 1)
+        n <- seq(2, length(alpha))
+        alphadiff <- alpha[n] - alpha[p]
+        loint <- sum(alphadiff * pmin(center[p], center[n]))
+        hiint <- sum(alphadiff * pmax(center[p], center[n]))
+        return((loint + hiint) / (2 * sum(alphadiff)))
+
     } else {
-        stop("Unknown defuzzification type")
+        o <- order(values)
+        values <- values[o]
+        degrees <- degrees[o]
+        i <- which(degrees == max(degrees))
+
+        if (type == 'dee') {
+            l <- length(degrees)
+            diff <- degrees[-1] - degrees[-l]
+            if (all(diff >= 0)) {
+                type <- 'fom'
+            } else if (all(diff <= 0)) {
+                type <- 'lom'
+            } else {
+                type <- 'mom'
+            }
+        }
+
+        if (type == 'fom') {
+            return(values[min(i)])
+
+        } else if (type == 'lom') {
+            return(values[max(i)])
+
+        } else if (type == 'mom') {
+            return(mean(values[i]))
+
+        } else {
+            stop("Unknown defuzzification type")
+        }
     }
 }
