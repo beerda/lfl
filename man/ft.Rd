@@ -41,7 +41,7 @@ y2 <- ftinv(fit, x2, xmemb2)
 print(y2)
 
 # compare original values with those obtained by the fuzzy transform
-y - y2
+y[10:20] - y2
 
 }
 \references{
