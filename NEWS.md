@@ -1,5 +1,6 @@
 # lfl 2.2.1
 * released: ?
+* implemented the Center of Gravity (COG) defuzzification method (defuzz())
 
 # lfl 2.2.0
 * released: 2022-09-08

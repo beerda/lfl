@@ -55,3 +55,9 @@ test_that('defuzz dee', {
     expect_equal(defuzz(c(1, 0.9, 0.9, 0.9, 0.9, 0.7, 0.5, 0, 0, 0), 1:10, type='dee'),
                  1)
 })
+
+test_that('defuzz cog', {
+    degrees <- c(0, 0, 0, 0.1, 0.3, 0.9, 0.9, 0.9, 0.2, 0)
+    expect_equal(defuzz(degrees, 1:10, type='cog'),
+                 sum(degrees * 1:10) / sum(degrees))
+})

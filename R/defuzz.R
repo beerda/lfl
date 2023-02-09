@@ -1,7 +1,7 @@
 #' Convert fuzzy set into a crisp numeric value
 #'
-#' Take a fuzzy set in the form of a vector of membership degrees and a vector
-#' of numeric values that correspond to that degrees and perform a selected
+#' Take a discretized fuzzy set (i.e. a vector of membership degrees and a vector
+#' of numeric values that correspond to that degrees) and perform a selected
 #' type of defuzzification, i.e. conversion of the fuzzy set into a single
 #' crisp value.
 #'
@@ -26,7 +26,8 @@
 #'   by the [pbld()] inference mechanism that combines the former three
 #'   approaches accordingly to the shape of the `degrees` vector:
 #'   If `degrees` is non-increasing then `'lom'` type is used,
-#'   if it is non-decreasing then `'fom'` is applied, else `'mom'` is selected.
+#'   if it is non-decreasing then `'fom'` is applied, else `'mom'` is selected;
+#' * ''cog'': Center of Gravity - the result is a mean of `values` weighted by `degrees`.
 #' @return A defuzzified value.
 #' @author Michal Burda
 #' @seealso [fire()], [aggregateConsequents()], [perceive()], [pbld()], [fcut()], [lcut()]
@@ -41,7 +42,7 @@
 #' @export defuzz
 defuzz <- function(degrees,
                    values,
-                   type=c('mom', 'fom', 'lom', 'dee')) {
+                   type=c('mom', 'fom', 'lom', 'dee', 'cog')) {
     .mustBeNumericVector(degrees)
     .mustBeNumericVector(values)
     .mustBe(length(degrees) == length(values), "The length of 'degrees' and 'values' must be the same")
@@ -69,10 +70,17 @@ defuzz <- function(degrees,
 
     if (type == 'fom') {
         return(values[min(i)])
+
     } else if (type == 'lom') {
         return(values[max(i)])
-    } else { # if (type == 'mom') {
+
+    } else if (type == 'mom') {
         return(mean(values[i]))
+
+    } else if (type == 'cog') {
+        return(weighted.mean(values, degrees))
+
+    } else {
+        stop("Unknown defuzzification type")
     }
 }
-

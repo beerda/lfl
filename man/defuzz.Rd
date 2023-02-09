@@ -4,7 +4,7 @@
 \alias{defuzz}
 \title{Convert fuzzy set into a crisp numeric value}
 \usage{
-defuzz(degrees, values, type = c("mom", "fom", "lom", "dee"))
+defuzz(degrees, values, type = c("mom", "fom", "lom", "dee", "cog"))
 }
 \arguments{
 \item{degrees}{A fuzzy set in the form of a numeric vector of membership
@@ -24,15 +24,16 @@ is returned;
 by the \code{\link[=pbld]{pbld()}} inference mechanism that combines the former three
 approaches accordingly to the shape of the \code{degrees} vector:
 If \code{degrees} is non-increasing then \code{'lom'} type is used,
-if it is non-decreasing then \code{'fom'} is applied, else \code{'mom'} is selected.
+if it is non-decreasing then \code{'fom'} is applied, else \code{'mom'} is selected;
+\item ''cog'': Center of Gravity - the result is a mean of \code{values} weighted by \code{degrees}.
 }}
 }
 \value{
 A defuzzified value.
 }
 \description{
-Take a fuzzy set in the form of a vector of membership degrees and a vector
-of numeric values that correspond to that degrees and perform a selected
+Take a discretized fuzzy set (i.e. a vector of membership degrees and a vector
+of numeric values that correspond to that degrees) and perform a selected
 type of defuzzification, i.e. conversion of the fuzzy set into a single
 crisp value.
 }
