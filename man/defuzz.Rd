@@ -4,7 +4,7 @@
 \alias{defuzz}
 \title{Convert fuzzy set into a crisp numeric value}
 \usage{
-defuzz(degrees, values, type = c("mom", "fom", "lom", "dee", "cog", "cog2"))
+defuzz(degrees, values, type = c("mom", "fom", "lom", "dee", "cog", "exp1"))
 }
 \arguments{
 \item{degrees}{A fuzzy set in the form of a numeric vector of membership
@@ -26,7 +26,7 @@ approaches accordingly to the shape of the \code{degrees} vector:
 If \code{degrees} is non-increasing then \code{'lom'} type is used,
 if it is non-decreasing then \code{'fom'} is applied, else \code{'mom'} is selected;
 \item \code{'cog'}: Center of Gravity - the result is a mean of \code{values} weighted by \code{degrees};
-\item \code{'cog2'}: Experimental Center of Gravity.
+\item \code{'exp1'}: Experimental 1.
 }}
 }
 \value{

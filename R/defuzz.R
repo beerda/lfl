@@ -28,7 +28,7 @@
 #'   If `degrees` is non-increasing then `'lom'` type is used,
 #'   if it is non-decreasing then `'fom'` is applied, else `'mom'` is selected;
 #' * `'cog'`: Center of Gravity - the result is a mean of `values` weighted by `degrees`;
-#' * `'cog2'`: Experimental Center of Gravity.
+#' * `'exp1'`: Experimental 1.
 #' @return A defuzzified value.
 #' @author Michal Burda
 #' @seealso [fire()], [aggregateConsequents()], [perceive()], [pbld()], [fcut()], [lcut()]
@@ -43,7 +43,7 @@
 #' @export defuzz
 defuzz <- function(degrees,
                    values,
-                   type=c('mom', 'fom', 'lom', 'dee', 'cog', 'cog2')) {
+                   type=c('mom', 'fom', 'lom', 'dee', 'cog', 'exp1')) {
     .mustBeNumericVector(degrees)
     .mustBeNumericVector(values)
     .mustBe(length(degrees) == length(values), "The length of 'degrees' and 'values' must be the same")
@@ -55,15 +55,16 @@ defuzz <- function(degrees,
     if (type == 'cog') {
         return(weighted.mean(values, degrees))
 
-    } else if (type == 'cog2') {
+    } else if (type == 'exp1') {
         alpha <- sort(unique(c(0, degrees)))
         center <- sapply(alpha, function(a) mean(values[degrees >= a]))
         p <- seq(1, length(alpha) - 1)
         n <- seq(2, length(alpha))
         alphadiff <- alpha[n] - alpha[p]
-        loint <- sum(alphadiff * pmin(center[p], center[n]))
-        hiint <- sum(alphadiff * pmax(center[p], center[n]))
-        return((loint + hiint) / (2 * sum(alphadiff)))
+        mins <- pmin(center[p], center[n])
+        maxs <- pmax(center[p], center[n])
+
+        return(weighted.mean((mins + maxs) / 2, alphadiff))
 
     } else {
         o <- order(values)
