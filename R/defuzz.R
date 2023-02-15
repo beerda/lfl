@@ -56,7 +56,9 @@ defuzz <- function(degrees,
         return(weighted.mean(values, degrees))
 
     } else if (type == 'exp1') {
-        alpha <- sort(unique(c(0, degrees)))
+        alpha <- unique(degrees)
+        alpha <- setdiff(degrees, 0)
+        alpha <- sort(degrees)
         center <- sapply(alpha, function(a) mean(values[degrees >= a]))
         p <- seq(1, length(alpha) - 1)
         n <- seq(2, length(alpha))
