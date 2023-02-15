@@ -43,7 +43,7 @@
 #' @export defuzz
 defuzz <- function(degrees,
                    values,
-                   type=c('mom', 'fom', 'lom', 'dee', 'cog', 'exp1')) {
+                   type=c('mom', 'fom', 'lom', 'dee', 'cog', 'expun', 'expw1', 'expw2')) {
     .mustBeNumericVector(degrees)
     .mustBeNumericVector(values)
     .mustBe(length(degrees) == length(values), "The length of 'degrees' and 'values' must be the same")
@@ -55,10 +55,10 @@ defuzz <- function(degrees,
     if (type == 'cog') {
         return(weighted.mean(values, degrees))
 
-    } else if (type == 'exp1') {
+    } else if (type %in% c('expun', 'expw1', 'expw2')) {
         alpha <- unique(degrees)
-        alpha <- setdiff(degrees, 0)
-        alpha <- sort(degrees)
+        alpha <- setdiff(alpha, 0)
+        alpha <- sort(alpha)
         center <- sapply(alpha, function(a) mean(values[degrees >= a]))
         p <- seq(1, length(alpha) - 1)
         n <- seq(2, length(alpha))
@@ -66,7 +66,15 @@ defuzz <- function(degrees,
         mins <- pmin(center[p], center[n])
         maxs <- pmax(center[p], center[n])
 
-        return(weighted.mean((mins + maxs) / 2, alphadiff))
+        if (type == 'expw1') {
+            weight <- alphadiff * alpha[n]
+        } else  if (type == 'expw2') {
+            weight <- alphadiff * (alpha[n])^2
+        } else {
+            weight <- alphadiff
+        }
+
+        return(weighted.mean((mins + maxs) / 2, weight))
 
     } else {
         o <- order(values)
