@@ -4,7 +4,11 @@
 \alias{defuzz}
 \title{Convert fuzzy set into a crisp numeric value}
 \usage{
-defuzz(degrees, values, type = c("mom", "fom", "lom", "dee", "cog", "exp1"))
+defuzz(
+  degrees,
+  values,
+  type = c("mom", "fom", "lom", "dee", "cog", "expun", "expw1", "expw2")
+)
 }
 \arguments{
 \item{degrees}{A fuzzy set in the form of a numeric vector of membership
