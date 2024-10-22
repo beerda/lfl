@@ -154,6 +154,7 @@
 #' fcut(x, breaks=c(0, 0.5, 1), name='age', type=f)
 #'
 #' @export
+#' @importFrom tibble as_tibble
 fcut <- function(x, ...) {
     UseMethod('fcut')
 }
