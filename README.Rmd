@@ -27,6 +27,11 @@ capable of handling missing values in different styles (Bochvar, Sobocinski, Kle
 integrals and fuzzy transform.
 
 
+## Documentation
+
+The complete documentation of the package is [available in this vignette](https://github.com/beerda/lfl/blob/master/vignettes/main.pdf).
+
+
 ## Installation
 
 To install the stable version from CRAN, simply issue the following command within your R session:

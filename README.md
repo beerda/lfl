@@ -15,6 +15,11 @@ package also contains basic fuzzy-related algebraic functions capable of
 handling missing values in different styles (Bochvar, Sobocinski, Kleene
 etc.), computation of Sugeno integrals and fuzzy transform.
 
+## Documentation
+
+The complete documentation of the package is [available in this
+vignette](https://github.com/beerda/lfl/blob/master/vignettes/main.pdf).
+
 ## Installation
 
 To install the stable version from CRAN, simply issue the following
