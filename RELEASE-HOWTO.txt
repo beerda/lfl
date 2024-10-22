@@ -6,5 +6,6 @@
     devtools::check_win_oldrelease()
     devtools::check_win_devel()
     devtools::check_mac_release()
+    rhub::rhub_check()
 - Release:
     devtools::release()
