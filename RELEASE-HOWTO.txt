@@ -6,9 +6,5 @@
     devtools::check_win_oldrelease()
     devtools::check_win_devel()
     devtools::check_mac_release()
-rhub::check_for_cran(env_vars=c(`_R_CHECK_FORCE_SUGGESTS_`="false"))
-devtools::check_win_devel()
-
-and then:
-
-devtools::release()
+- Release:
+    devtools::release()
