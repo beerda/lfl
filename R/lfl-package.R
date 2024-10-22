@@ -8,8 +8,10 @@
 #' functions related to fuzzy logic are contained, which allow to handle missing values using different
 #' styles such as Kleene, Bochvar, Sobocinski and other.
 #'
-#' @name lfl
-#' @docType package
+
+#' @keywords internal
+"_PACKAGE"
+
 #' @useDynLib lfl, .registration = TRUE
 #' @importFrom Rcpp evalCpp
 #'
