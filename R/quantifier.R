@@ -68,7 +68,7 @@
 #'   q <- quantifier('some')
 #'   q(x=plukas.tnorm(a, b), w=a)
 #' @export
-quantifier <- function(quantity=c('all', 'almost.all', 'most', 'many', 'some', 'at.least'),
+quantifier <- function(quantity=c('all', 'almost.all', 'most', 'many', 'few', 'several', 'some', 'at.least'),
                        n=NULL,
                        alg=c('lukasiewicz', 'goedel', 'goguen')) {
     quantity <- match.arg(quantity)
@@ -92,14 +92,14 @@ quantifier <- function(quantity=c('all', 'almost.all', 'most', 'many', 'some', '
     } else if (quantity == 'many') {
         m <- lingexpr(context=ctx3(), atomic='sm', hedge='-', negated=TRUE)
         r <- TRUE
+    } else if (quantity == 'few') {
+        m <- lingexpr(context=ctx3(), atomic='sm', hedge='si', negated=TRUE)
+        r <- TRUE
+    } else if (quantity == 'several') {
+        m <- lingexpr(context=ctx3(), atomic='sm', hedge='ve', negated=TRUE)
+        r <- TRUE
 
-    # quantifiers with decreasing measure function are still unclear to me
-    #} else if (quantity == 'few') {
-        #m <- lingexpr(context=ctx3(), atomic='sm', hedge='si')
-        #r <- TRUE
-    #} else if (quantity == 'several') {
-        #m <- lingexpr(context=ctx3(), atomic='sm', hedge='ve')
-        #r <- TRUE
+    # decreasing measure function makes no sense here
     #} else if (quantity == 'at.most') {
         #m <- function(x) { (x <= n) + 0 }
         #r <- FALSE

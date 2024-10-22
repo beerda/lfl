@@ -7,7 +7,7 @@ the quantity. This function creates the <1>-type quantifier. (See the examples
 below on how to use it as a quantifier of the <1,1> type.)}
 \usage{
 quantifier(
-  quantity = c("all", "almost.all", "most", "many", "some", "at.least"),
+  quantity = c("all", "almost.all", "most", "many", "few", "several", "some", "at.least"),
   n = NULL,
   alg = c("lukasiewicz", "goedel", "goguen")
 )
