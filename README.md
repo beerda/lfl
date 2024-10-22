@@ -1,10 +1,9 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-[![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/beerda/lfl?branch=master&svg=true)](https://ci.appveyor.com/project/beerda/lfl)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/lfl)](https://CRAN.R-project.org/package=lfl)
 [![codecov](https://codecov.io/gh/beerda/lfl/branch/master/graph/badge.svg)](https://app.codecov.io/gh/beerda/lfl)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/lfl)](https://cran.r-project.org/package=lfl)
 
 # lfl
 
