@@ -183,6 +183,14 @@ as.matrix.fsets <- function(x, ...) {
 }
 
 
+#' @export
+#' @importFrom tibble as_tibble
+as_tibble.fsets <- function(x, ...) {
+    .mustBe(is.fsets(x), "'x' must be an instance of S3 class 'fsets'")
+    return(as_tibble(as.matrix(x), ...))
+}
+
+
 #' Combine several 'fsets' objects into a single one
 #'
 #' Take a sequence of objects of class 'fsets' and combine them by columns.
@@ -329,6 +337,30 @@ print.fsets <- function(x, ...) {
     v <- vars(x)
     s <- specs(x)
     print(as.matrix(x))
+}
+
+
+#' Compactly display the internal structure of an instance of the [fsets()] class
+#'
+#' This function is a method for the generic function [str()] for objects of the
+#' [fsets()] class. It is a compact way to display the internal structure of an
+#' instance of the [fsets()] class.
+#'
+#' @param x An instance of the [fsets()] class
+#' @param ...  Unused.
+#' @return Nothing
+#' @author Michal Burda
+#' @seealso [fsets()], [fcut()], [lcut()]
+#' @keywords models robust
+#' @export
+str.fsets <- function(x, ...) {
+    .mustBe(is.fsets(x), "'x' is not a valid 'fsets' object")
+    cat("fsets object:")
+    str(as.matrix(x), ...)
+    cat(" - vars(*) :")
+    str(vars(x), nest.level=1, ...)
+    cat(" - specs(*) :")
+    str(specs(x), nest.level=1, ...)
 }
 
 

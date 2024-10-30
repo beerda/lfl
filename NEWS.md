@@ -1,3 +1,7 @@
+# lfl ???
+* released: ???
+* implemented str.fsets(), as_tibble.fsets()
+
 # lfl 2.2.1
 * released: 2024-10-22
 * implemented the experimental Center of Gravity defuzzification method (defuzz())
