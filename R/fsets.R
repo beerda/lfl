@@ -346,21 +346,21 @@ print.fsets <- function(x, ...) {
 #' [fsets()] class. It is a compact way to display the internal structure of an
 #' instance of the [fsets()] class.
 #'
-#' @param x An instance of the [fsets()] class
+#' @param object An instance of the [fsets()] class
 #' @param ...  Unused.
 #' @return Nothing
 #' @author Michal Burda
 #' @seealso [fsets()], [fcut()], [lcut()]
 #' @keywords models robust
 #' @export
-str.fsets <- function(x, ...) {
-    .mustBe(is.fsets(x), "'x' is not a valid 'fsets' object")
+str.fsets <- function(object, ...) {
+    .mustBe(is.fsets(object), "'object' is not a valid 'fsets' object")
     cat("fsets object:")
-    str(as.matrix(x), ...)
+    str(as.matrix(object), ...)
     cat(" - vars(*) :")
-    str(vars(x), nest.level=1, ...)
+    str(vars(object), nest.level=1, ...)
     cat(" - specs(*) :")
-    str(specs(x), nest.level=1, ...)
+    str(specs(object), nest.level=1, ...)
 }
 
 

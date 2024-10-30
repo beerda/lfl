@@ -4,10 +4,10 @@
 \alias{str.fsets}
 \title{Compactly display the internal structure of an instance of the \code{\link[=fsets]{fsets()}} class}
 \usage{
-\method{str}{fsets}(x, ...)
+\method{str}{fsets}(object, ...)
 }
 \arguments{
-\item{x}{An instance of the \code{\link[=fsets]{fsets()}} class}
+\item{object}{An instance of the \code{\link[=fsets]{fsets()}} class}
 
 \item{...}{Unused.}
 }
