@@ -245,7 +245,7 @@ fcut.numeric <- function(x,
     }
 
     # split 'x' accordingly to 'breaks'
-    singles <- rollapply(breaks, 3, function(b) {
+    singles <- .rollapply(breaks, 3, function(b) {
         func(x, b[1], b[2], b[3])
     })
     singles <- t(as.matrix(singles))
@@ -258,13 +258,13 @@ fcut.numeric <- function(x,
         res <- singles
     } else {
         for (w in merge) {
-            add <- rollapply(seq_len(ncol(singles)), w, function(ii) {
+            add <- .rollapply(seq_len(ncol(singles)), w, function(ii) {
                 m <- singles[, ii, drop=FALSE]
                 l <- split(m, col(m))
                 do.call(plukas.tconorm, l)
             })
             add <- t(add)
-            colnames(add) <- rollapply(colnames(singles), w, paste, collapse='|')
+            colnames(add) <- .rollapply(colnames(singles), w, paste, collapse='|')
 
             if (is.null(res)) {
                 res <- add

@@ -18,7 +18,7 @@ Description: Various algorithms related to linguistic fuzzy logic: mining for li
 License: GPL-3
 Suggests: testthat, doMC, knitr, rmarkdown, R.rsp
 Depends: R (>= 3.6)
-Imports: Rcpp (>= 0.12.12), foreach, forecast (>= 5.5), plyr, tseries, e1071, zoo, tibble
+Imports: Rcpp (>= 0.12.12), foreach, forecast (>= 5.5), plyr, tseries, e1071, tibble
 LinkingTo: Rcpp
 NeedsCompilation: yes
 Encoding: UTF-8

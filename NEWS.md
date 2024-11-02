@@ -1,6 +1,7 @@
 # lfl ???
 * released: ???
 * implemented str.fsets(), as_tibble.fsets()
+* removed dependency on the zoo package
 
 # lfl 2.2.1
 * released: 2024-10-22
