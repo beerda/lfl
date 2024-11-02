@@ -234,7 +234,6 @@
 #' b$t(0.3, NA)  # 0.3
 #'
 #' @export
-#' @importFrom stats na.omit
 #' @rdname algebraNA
 #' @aliases algebraNA
 sobocinski <- function(algebra) {

@@ -44,7 +44,6 @@
 #'   evalfrbe(f, test)
 #'
 #' @export
-#' @importFrom plyr colwise
 evalfrbe <- function(fit,
                      real,
                      error=c('smape', 'mase', 'rmse')) {

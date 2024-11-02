@@ -39,7 +39,6 @@
 #' y - y2
 #'
 #' @export
-#' @importFrom stats weighted.mean
 ftinv <- function(fit, x, xmemb) {
     .mustBe(is.ft(fit), "'fit' must be an instance of the S3 'ft' class")
 

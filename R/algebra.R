@@ -181,7 +181,6 @@ algebra <- function(name, stdneg=FALSE, ...) {
 #' @seealso [algebra()]
 #' @keywords models robust
 #' @export
-#' @importFrom utils str
 print.algebra <- function(x, ...) {
   cat('Algebra:', paste0(x$algebratype, collapse='/'), '\n')
   x$algebratype <- NULL

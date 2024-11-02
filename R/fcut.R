@@ -154,7 +154,6 @@
 #' fcut(x, breaks=c(0, 0.5, 1), name='age', type=f)
 #'
 #' @export
-#' @importFrom tibble as_tibble
 fcut <- function(x, ...) {
     UseMethod('fcut')
 }
@@ -169,8 +168,6 @@ fcut.default <- function(x, ...) {
 
 #' @rdname fcut
 #' @export
-#' @importFrom stats model.matrix
-#' @importFrom plyr laply
 fcut.factor <- function(x,
                         name=deparse(substitute(x)),
                         ...) {
@@ -212,7 +209,6 @@ fcut.logical <- function(x,
 
 #' @rdname fcut
 #' @export
-#' @importFrom zoo rollapply
 fcut.numeric <- function(x,
                          breaks,
                          name=deparse(substitute(x)),
@@ -327,9 +323,6 @@ fcut.numeric <- function(x,
 
 #' @rdname fcut
 #' @export
-#' @importFrom foreach foreach
-#' @importFrom foreach %do%
-#' @importFrom foreach %dopar%
 fcut.data.frame <- function(x,
                             breaks=NULL,
                             name=NULL,

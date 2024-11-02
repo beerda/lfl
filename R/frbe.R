@@ -141,18 +141,6 @@
 #'   f$mean
 #'
 #' @export
-#' @importFrom forecast auto.arima
-#' @importFrom forecast ets
-#' @importFrom forecast rwf
-#' @importFrom forecast thetaf
-#' @importFrom forecast forecast
-#' @importFrom e1071 skewness
-#' @importFrom e1071 kurtosis
-#' @importFrom stats lm
-#' @importFrom stats sd
-#' @importFrom stats frequency
-#' @importFrom stats as.formula
-#' @importFrom tseries adf.test
 frbe <- function(d, h=10) {
     .mustBeTs(d);
     .mustBeNumericScalar(h)

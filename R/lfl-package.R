@@ -12,7 +12,32 @@
 #' @keywords internal
 "_PACKAGE"
 
-#' @useDynLib lfl, .registration = TRUE
+#' @importFrom e1071 skewness
+#' @importFrom e1071 kurtosis
+#' @importFrom foreach foreach
+#' @importFrom foreach %do%
+#' @importFrom foreach %dopar%
+#' @importFrom forecast auto.arima
+#' @importFrom forecast ets
+#' @importFrom forecast rwf
+#' @importFrom forecast thetaf
+#' @importFrom forecast forecast
+#' @importFrom plyr colwise
+#' @importFrom plyr laply
 #' @importFrom Rcpp evalCpp
+#' @importFrom stats as.formula
+#' @importFrom stats coef
+#' @importFrom stats frequency
+#' @importFrom stats lm
+#' @importFrom stats model.matrix
+#' @importFrom stats na.omit
+#' @importFrom stats sd
+#' @importFrom stats ts
+#' @importFrom stats ts.plot
+#' @importFrom stats weighted.mean
+#' @importFrom tibble as_tibble
+#' @importFrom tseries adf.test
+#' @importFrom utils str
+#' @useDynLib lfl, .registration = TRUE
 #'
 NULL

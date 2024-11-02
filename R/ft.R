@@ -48,7 +48,6 @@
 #' y[10:20] - y2
 #'
 #' @export
-#' @importFrom stats coef
 ft <- function(x,
                xmemb,
                y,

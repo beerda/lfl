@@ -184,7 +184,6 @@ as.matrix.fsets <- function(x, ...) {
 
 
 #' @export
-#' @importFrom tibble as_tibble
 as_tibble.fsets <- function(x, ...) {
     .mustBe(is.fsets(x), "'x' must be an instance of S3 class 'fsets'")
     return(as_tibble(as.matrix(x), ...))
@@ -392,8 +391,6 @@ str.fsets <- function(object, ...) {
 #'      xlab='values',
 #'      gpars=list(lwd=c(rep(1, 3), 5, rep(1, 5), 5, rep(1, 7), 5, rep(1,4))))
 #' @export
-#' @importFrom stats ts
-#' @importFrom stats ts.plot
 plot.fsets <- function(x, ...) {
     n <- nrow(x)
     args <- list(...)
