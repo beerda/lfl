@@ -49,7 +49,7 @@
 #'  * `vr`: very roughly.
 #'
 #' Accordingly to the theory developed by Novak (2008), not every hedge is
-#' suitable with each atomic #' expression (see the description of the `hedges`
+#' suitable with each atomic expression (see the description of the `hedges`
 #' argument).  The hedges to be used can be selected with the `hedges` argument.
 #' Function takes care of not to use hedge together with an unapplicable atomic
 #' expression by itself.

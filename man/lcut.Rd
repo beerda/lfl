@@ -138,7 +138,7 @@ see \link{allowed.lingexpr} for more details):
 }
 
 Accordingly to the theory developed by Novak (2008), not every hedge is
-suitable with each atomic #' expression (see the description of the \code{hedges}
+suitable with each atomic expression (see the description of the \code{hedges}
 argument).  The hedges to be used can be selected with the \code{hedges} argument.
 Function takes care of not to use hedge together with an unapplicable atomic
 expression by itself.
