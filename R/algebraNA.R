@@ -137,7 +137,8 @@
 #' This scheme of handling missing values is also known as Bochvar's. To change this default
 #' behavior, the following functions may be applied.
 #'
-#' The `sobocinski()`, `kleene()`, `nelson()`, `lowerEst()` and `dragonfly()` functions modify the algebra to
+#' The `sobocinski()`, `kleene()`, `nelson()`, `dragonfly()`, `lowerEst()` and `lowerBound()`
+#'  functions modify the algebra to
 #' handle the `NA` in a different way than is the default. Sobocinski's algebra simply ignores `NA` values
 #' whereas Kleene's algebra treats `NA` as "unknown value". Dragonfly approach is a combination
 #' of Sobocinski's and Bochvar's approach, which preserves the ordering `0 <= NA <= 1`
@@ -218,6 +219,31 @@
 #'      \tab b       \tab NA \tab 0    \tab 1\cr
 #'   a  \tab r(a, b) \tab NA \tab n(a) \tab 1\cr
 #'   NA \tab b       \tab 1  \tab NA   \tab 1\cr
+#'   0  \tab 1       \tab 1  \tab 1    \tab 1\cr
+#'   1  \tab b       \tab NA \tab 0    \tab 1
+#' }
+#'
+#' LowerEst and LowerBound algebras are equivalent to Dragonfly's algebra in
+#' `t`, `pt`, `i`, `pi`, `c`, `pc`, `s`, `ps` operations, but differ in the
+#' `r` and `n` operations. `n` is equal to the Sobocinski's negation for both
+#' LowerEst and LowerBound algebras.
+#'
+#' LowerEst's operation for `r` from the underlying algebra:
+#'
+#' \tabular{lllll}{
+#'      \tab b       \tab NA \tab 0    \tab 1\cr
+#'   a  \tab r(a, b) \tab NA \tab n(a) \tab 1\cr
+#'   NA \tab b       \tab NA \tab 0    \tab 1\cr
+#'   0  \tab 1       \tab 1  \tab 1    \tab 1\cr
+#'   1  \tab b       \tab NA \tab 0    \tab 1
+#' }
+#'
+#' LowerBound's operation for `r` from the underlying algebra:
+#'
+#' \tabular{lllll}{
+#'      \tab b       \tab NA \tab 0    \tab 1\cr
+#'   a  \tab r(a, b) \tab NA \tab n(a) \tab 1\cr
+#'   NA \tab 1       \tab 1  \tab 0    \tab 1\cr
 #'   0  \tab 1       \tab 1  \tab 1    \tab 1\cr
 #'   1  \tab b       \tab NA \tab 0    \tab 1
 #' }
@@ -355,5 +381,30 @@ lowerEst <- function(algebra) {
     }
 
     alg <- .algebraModification('lowerEst', algebra, .normKleene, .conormDragon, resid, .neg0, .negNA, .dragonflyOrder)
+    return(alg)
+}
+
+
+#' @export
+#' @rdname algebraNA
+lowerBound <- function(algebra) {
+    .mustBeAlgebra(algebra)
+
+    resid <-function(f) {
+        return(function(x, y) {
+            res <- f(x, y)
+            xNA <- is.na(x)
+            yNA <- is.na(y)
+            x0 <- !xNA & x == 0
+            y0 <- !yNA & y == 0
+            res[yNA] <- NA_real_
+            res[xNA] <- 1
+            res[xNA & y0] <- 0
+            res[x0 & yNA] <- 1
+            res
+        })
+    }
+
+    alg <- .algebraModification('lowerBound', algebra, .normKleene, .conormDragon, resid, .neg0, .negNA, .dragonflyOrder)
     return(alg)
 }

@@ -7,6 +7,7 @@
 \alias{dragonfly}
 \alias{nelson}
 \alias{lowerEst}
+\alias{lowerBound}
 \title{Modify algebra's way of computing with \code{NA} values.}
 \usage{
 sobocinski(algebra)
@@ -18,6 +19,8 @@ dragonfly(algebra)
 nelson(algebra)
 
 lowerEst(algebra)
+
+lowerBound(algebra)
 }
 \arguments{
 \item{algebra}{the underlying algebra object to be modified -- see the \code{\link[=algebra]{algebra()}} function}
@@ -33,7 +36,8 @@ This scheme of handling missing values is also known as Bochvar's. To change thi
 behavior, the following functions may be applied.
 }
 \details{
-The \code{sobocinski()}, \code{kleene()}, \code{nelson()}, \code{lowerEst()} and \code{dragonfly()} functions modify the algebra to
+The \code{sobocinski()}, \code{kleene()}, \code{nelson()}, \code{dragonfly()}, \code{lowerEst()} and \code{lowerBound()}
+functions modify the algebra to
 handle the \code{NA} in a different way than is the default. Sobocinski's algebra simply ignores \code{NA} values
 whereas Kleene's algebra treats \code{NA} as "unknown value". Dragonfly approach is a combination
 of Sobocinski's and Bochvar's approach, which preserves the ordering \verb{0 <= NA <= 1}
@@ -114,6 +118,31 @@ Dragonfly operation for \code{r} from the underlying algebra:
 \tab b       \tab NA \tab 0    \tab 1\cr
 a  \tab r(a, b) \tab NA \tab n(a) \tab 1\cr
 NA \tab b       \tab 1  \tab NA   \tab 1\cr
+0  \tab 1       \tab 1  \tab 1    \tab 1\cr
+1  \tab b       \tab NA \tab 0    \tab 1
+}
+
+LowerEst and LowerBound algebras are equivalent to Dragonfly's algebra in
+\code{t}, \code{pt}, \code{i}, \code{pi}, \code{c}, \code{pc}, \code{s}, \code{ps} operations, but differ in the
+\code{r} and \code{n} operations. \code{n} is equal to the Sobocinski's negation for both
+LowerEst and LowerBound algebras.
+
+LowerEst's operation for \code{r} from the underlying algebra:
+
+\tabular{lllll}{
+\tab b       \tab NA \tab 0    \tab 1\cr
+a  \tab r(a, b) \tab NA \tab n(a) \tab 1\cr
+NA \tab b       \tab NA \tab 0    \tab 1\cr
+0  \tab 1       \tab 1  \tab 1    \tab 1\cr
+1  \tab b       \tab NA \tab 0    \tab 1
+}
+
+LowerBound's operation for \code{r} from the underlying algebra:
+
+\tabular{lllll}{
+\tab b       \tab NA \tab 0    \tab 1\cr
+a  \tab r(a, b) \tab NA \tab n(a) \tab 1\cr
+NA \tab 1       \tab 1  \tab 0    \tab 1\cr
 0  \tab 1       \tab 1  \tab 1    \tab 1\cr
 1  \tab b       \tab NA \tab 0    \tab 1
 }
