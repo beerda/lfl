@@ -56,27 +56,27 @@ below on how to use it as a quantifier of the <1,1> type.)
 }
 \examples{
   # Dvorak <1> "almost all" quantifier
-  q <- quantifier('almost.all')
+  f <- quantifier('almost.all')
   a <- c(0.9, 1, 1, 0.2, 1)
-  q(x=a, w=1)
+  f(x=a, w=1)
 
   # Dvorak <1,1> "almost all" quantifier (w set to 1)
   a <- c(0.9, 1, 1, 0.2, 1)
   b <- c(0.2, 1, 0, 0.5, 0.8)
-  q <- quantifier('almost.all')
-  q(x=lukas.residuum(a, b), w=1)
+  f <- quantifier('almost.all')
+  f(x=lukas.residuum(a, b), w=1)
 
   # Murinová <1,1> "almost all" quantifier (note w set to a)
   a <- c(0.9, 1, 1, 0.2, 1)
   b <- c(0.2, 1, 0, 0.5, 0.8)
-  q <- quantifier('almost.all')
-  q(x=lukas.residuum(a, b), w=a)
+  f <- quantifier('almost.all')
+  f(x=lukas.residuum(a, b), w=a)
 
   # Murinová <1,1> "some" quantifier
   a <- c(0.9, 1, 1, 0.2, 1)
   b <- c(0.2, 1, 0, 0.5, 0.8)
-  q <- quantifier('some')
-  q(x=plukas.tnorm(a, b), w=a)
+  f <- quantifier('some')
+  f(x=plukas.tnorm(a, b), w=a)
 }
 \references{
 Dvořák, A., Holčapek, M. L-fuzzy quantifiers of type <1> determined by fuzzy measures.
