@@ -1,6 +1,6 @@
 ## Test environments
 
-- local R installation on ubuntu 22.04, R 4.4.1
+- local R installation on ubuntu 22.04, R 4.5.1
 - win-builder (release, oldrelease, devel)
 - mac-builder (release)
 - r-hub v2
@@ -8,14 +8,11 @@
 
 ## R CMD check results
 
-❯ checking installed package size ... NOTE
-    installed size is  6.1Mb
-    sub-directories of 1Mb or more:
-      libs   5.3Mb
+Duration: 1m 49.2s
 
 ❯ checking for future file timestamps ... NOTE
   unable to verify current time
 
-0 errors ✔ | 0 warnings ✔ | 2 notes ✖
+0 errors ✔ | 0 warnings ✔ | 1 note ✖
 
 R CMD check succeeded
