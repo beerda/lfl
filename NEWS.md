@@ -1,13 +1,15 @@
-# lfl ???
-* released: ???
+# lfl 2.3.0
+* released: 2025-06-27
 * implemented str.fsets(), as_tibble.fsets()
 * removed dependency on the zoo package
 * added lowerBound() algebra for missing values
+
 
 # lfl 2.2.1
 * released: 2024-10-22
 * implemented the experimental Center of Gravity defuzzification method (defuzz())
 * added "a few" and "several" fuzzy quantifiers to the quantifier() function
+
 
 # lfl 2.2.0
 * released: 2022-09-08
