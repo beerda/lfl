@@ -22,7 +22,9 @@ if test -n "${OPENMP_CXXFLAGS}"; then
   AC_MSG_CHECKING([whether OpenMP will work in a package])
   AC_LANG_CONFTEST(
   [AC_LANG_PROGRAM([[#include <omp.h>]], [[ return omp_get_num_threads (); ]])])
-  PKG_CXXFLAGS="${OPENMP_CXXFLAGS}" PKG_LIBS="${OPENMP_CXXFLAGS}" "$RBIN" CMD SHLIB conftest.c 1>&AS_MESSAGE_LOG_FD 2>&AS_MESSAGE_LOG_FD && "$RBIN" --vanilla -q -e "dyn.load(paste('conftest',.Platform\$dynlib.ext,sep=''))" 1>&AS_MESSAGE_LOG_FD 2>&AS_MESSAGE_LOG_FD && ac_pkg_openmp=yes
+  PKG_CXXFLAGS="${OPENMP_CXXFLAGS}"
+  PKG_LIBS="${OPENMP_CXXFLAGS}"
+  "$RBIN" CMD SHLIB conftest.c 1>&AS_MESSAGE_LOG_FD 2>&AS_MESSAGE_LOG_FD && "$RBIN" --vanilla -q -e "dyn.load(paste('conftest',.Platform\$dynlib.ext,sep=''))" 1>&AS_MESSAGE_LOG_FD 2>&AS_MESSAGE_LOG_FD && ac_pkg_openmp=yes
   AC_MSG_RESULT([${ac_pkg_openmp}])
 fi
 
