@@ -40,7 +40,7 @@
 #' row of membership degrees in `partition`.
 #'
 #' @param x Input to the inference. It should be an object of class
-#' [fsets()] (e.g. created by using the [fcut()] or [lcut()] functions).
+#' [fsets()] (e.g., created by using the [fcut()] or [lcut()] functions).
 #' It is basically a matrix with columns representing fuzzy sets.
 #'
 #' Each row represents a single case of inference. Columns should be named
@@ -59,7 +59,7 @@
 #' `"global"` (default).
 #' @param parallel Whether the processing should be run in parallel or not.
 #' Parallelization is implemented using the [foreach::foreach()]
-#' package. The parallel environment must be set properly in advance, e.g. with
+#' package. The parallel environment must be set properly in advance, e.g., with
 #' the [doMC::registerDoMC()] function.
 #' @return A vector of inferred defuzzified values. The number of resulting
 #' values corresponds to the number of rows of the `x` argument.

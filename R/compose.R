@@ -21,10 +21,10 @@
 #'
 #' Composition of Fuzzy Relations
 #'
-#' Function composes a fuzzy relation `x` (i.e. a numeric matrix of size
-#' \eqn{(u,v)}) with a fuzzy relation `y` (i.e. a numeric matrix of size
+#' Function composes a fuzzy relation `x` (i.e., a numeric matrix of size
+#' \eqn{(u,v)}) with a fuzzy relation `y` (i.e., a numeric matrix of size
 #' \eqn{(v,w)}) and possibly with the deprecated use of an exclusion fuzzy relation
-#' `e` (i.e. a numeric matrix of size \eqn{(v,w)}).
+#' `e` (i.e., a numeric matrix of size \eqn{(v,w)}).
 #'
 #' The style of composition is determined by the algebra `alg`, the
 #' composition type `type`, and possibly also by a deprecated `quantifier`.

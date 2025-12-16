@@ -24,7 +24,7 @@
 #'
 #' If the `left` (resp. `right`) argument equals to `"infinity"`, `-Inf` (resp. `Inf`) is prepended
 #' (resp. appended) to the result. If it equals to `"same"`, the first (resp. last) value is doubled.
-#' Such functionality is beneficial if using the result of this function with e.g. the [fcut()] function:
+#' Such functionality is beneficial if using the result of this function with e.g., the [fcut()] function:
 #' `Inf` values at the beginning (resp. at the end) of the vector of breaks means that the fuzzy set
 #' partition starts with a fuzzy set with kernel going to negative (resp. positive) infinity; the doubled
 #' value at the beginning (resp. end) results in half-cut (trimmed) fuzzy set.

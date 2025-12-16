@@ -19,7 +19,7 @@
 
 #' Creating linguistic context directly from values
 #'
-#' This function creates a context (i.e. an instance of S3 class
+#' This function creates a context (i.e., an instance of S3 class
 #' [ctx3()], [ctx3bilat()], [ctx5()], or [ctx5bilat()]) based on values
 #' of the numeric vector `x`. In default, the context is based on minimum
 #' and maximum value of `x` in the following way:

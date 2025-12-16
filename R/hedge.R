@@ -33,7 +33,7 @@ defaultHedgeParams <- list('ex'=c(0.77, 0.90, 0.99),
 
 #' Linguistic hedges
 #'
-#' Returns a function that realizes linguistic hedging - i.e. transformation of linguistic
+#' Returns a function that realizes linguistic hedging - i.e., transformation of linguistic
 #' horizon (see [horizon()]) into a linguistic expression.
 #'
 #' `hedge()` returns a function that realizes the selected linguistic hedge on its parameter:

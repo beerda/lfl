@@ -19,7 +19,7 @@
 
 #' Compute rule base coverage of data
 #'
-#' This function computes rule base coverage, i.e. a an average of maximum
+#' This function computes rule base coverage, i.e., a an average of maximum
 #' membership degree at which each row of data fires the rules in rule base.
 #'
 #' Let \eqn{f_{ij}} be a truth value of \eqn{i}-th rule on \eqn{j}-th row of

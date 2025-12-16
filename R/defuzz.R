@@ -19,9 +19,9 @@
 
 #' Convert fuzzy set into a crisp numeric value
 #'
-#' Take a discretized fuzzy set (i.e. a vector of membership degrees and a vector
+#' Take a discretized fuzzy set (i.e., a vector of membership degrees and a vector
 #' of numeric values that correspond to that degrees) and perform a selected
-#' type of defuzzification, i.e. conversion of the fuzzy set into a single
+#' type of defuzzification, i.e., conversion of the fuzzy set into a single
 #' crisp value.
 #'
 #' Function converts input fuzzy set into a crisp value. The definition of

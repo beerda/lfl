@@ -28,7 +28,7 @@
 #define __LFL__COMMON_H__
 
 
-// coment to switch off assertions:
+// comment to switch off assertions:
 //#undef NDEBUG
 
 #include <assert.h>
