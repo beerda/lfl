@@ -27,10 +27,7 @@ A vector of equifrequent breaks
 }
 \description{
 If both \code{left} and \code{right} equal to \code{"none"}, the function returns a vector of \code{n} values from \code{x}
-that divide the range of values in \code{x} into \code{n - 1} equidistant intervals. If the \code{left} (resp. \code{right})
-argument equals to \code{"infinity"}, \code{-Inf} (resp. \code{Inf}) is prepended (resp. appended) to the result. If
-it equals to \code{"same"}, the first (resp. last) value is doubled. See \code{\link[=fcut]{fcut()}} for what such vectors
-mean.
+that divide the range of values in \code{x} into \code{n - 1} equifrequent intervals.
 }
 \details{
 If the \code{left} (resp. \code{right}) argument equals to \code{"infinity"}, \code{-Inf} (resp. \code{Inf}) is prepended
