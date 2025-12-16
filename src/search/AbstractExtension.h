@@ -186,8 +186,8 @@ public:
     }
 
     /**
-     * This method allows to prune RHS after a rule has been created,
-     * i.e. after storeCandidate() has been called (FALSE to prune RHS).
+     * This method allows pruning RHS after a rule has been created,
+     * i.e., after storeCandidate() has been called (FALSE to prune RHS).
      */
     virtual bool isOkToDiveRhs(Task* task) {
         if (m_prevExtension) {
