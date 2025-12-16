@@ -1,4 +1,4 @@
-AC_INIT(lfl)
+AC_INIT([lfl])
 AC_CONFIG_SRCDIR([src])
 
 # find R home and set CC/CFLAGS
