@@ -16,6 +16,7 @@ Description: Various algorithms related to linguistic fuzzy logic: mining for li
     fuzzy-related algebraic functions capable of handling missing values in different styles (Bochvar,
     Sobocinski, Kleene etc.), computation of Sugeno integrals and fuzzy transform.
 License: GPL-3
+SystemRequirements: C++11
 Suggests: testthat, doMC, knitr, rmarkdown, R.rsp
 Depends: R (>= 3.6)
 Imports: Rcpp (>= 0.12.12), foreach, forecast (>= 5.5), plyr, tseries, e1071, tibble
