@@ -1,3 +1,22 @@
+#######################################################################
+# lfl: Linguistic Fuzzy Logic
+# Copyright (C) 2025 Michal Burda
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <https://www.gnu.org/licenses/>.
+#######################################################################
+
+
 .horizonAllowedTable <- list('ctx3'=list('sm'=1:3, 'me'=2:4, 'bi'=3:5),
                              'ctx5'=list('sm'=c(1,2,4), 'lm'=2:4, 'me'=c(2,4,6), 'um'=4:6, 'bi'=c(4,6,7)),
                              'ctx3bilat'=list('neg.bi'=1:3, 'neg.me'=2:4, 'neg.sm'=c(3,4,4),
