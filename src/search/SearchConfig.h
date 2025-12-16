@@ -75,10 +75,10 @@ private:
     /**
      * IDs of variables that particular fuzzy attributes belong to.
      * 
-     * For single numeric variable, there may exist multiple fuzzy attributes
-     * that differ e.g. in linguistic expression (eg. very small vs. roughly
+     * For a single numeric variable, there may exist multiple fuzzy attributes
+     * that differ, e.g., in linguistic expression (e.g., very small vs. roughly
      * medium etc.). For this vector, index is an attribute's ID and value is an
-     * ID of variable. I.e. if values on indices i and j are the same then
+     * ID of the variable. I.e., if values at indices i and j are the same then
      * attributes i and j are fuzzy attributes that belong
      * to the same numeric variable.
      */
@@ -115,7 +115,7 @@ private:
     size_t m_maxLength;
 
     /** 
-     * Maximum of availables for recusrsive search
+     * Maximum available for recursive search
      */
     size_t m_recursionThreshold;
 

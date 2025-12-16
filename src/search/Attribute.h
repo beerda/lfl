@@ -52,8 +52,8 @@ private:
     int m_variable;
 
     /**
-     * Support of the fuzzy attribute (i.e. mean of membership degrees that are
-     * stored in m_chain.
+     * Support of the fuzzy attribute (i.e., mean of membership degrees that are
+     * stored in m_chain).
      */
     double m_support;
 
