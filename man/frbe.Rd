@@ -7,10 +7,10 @@
 frbe(d, h = 10)
 }
 \arguments{
-\item{d}{A source time-series in the ts time-series format.  Note that the
-frequency of the time-series must to be set properly.}
+\item{d}{A source time-series in the ts time-series format. Note that the
+frequency of the time-series must be set properly.}
 
-\item{h}{A forecasting horizon, i.e. the number of values to forecast.}
+\item{h}{A forecasting horizon, i.e., the number of values to forecast.}
 }
 \value{
 Result is a list of class \code{frbe} with the following elements:
@@ -25,13 +25,13 @@ of forecasts).
 }
 \description{
 This function computes the fuzzy rule-based ensemble of time-series
-forecasts.  Several forecasting methods are used to predict future values of
-given time-series and a weighted sum is computed from them with weights
+forecasts. Several forecasting methods are used to predict future values of
+a given time-series and a weighted sum is computed from them with weights
 being determined from a fuzzy rule base.
 }
 \details{
 This function computes the fuzzy rule-based ensemble of time-series
-forecasts.  The evaluation comprises of the following steps:
+forecasts. The evaluation comprises the following steps:
 \enumerate{
 \item Several features are extracted from the given time-series \code{d}:
 \itemize{
@@ -51,10 +51,10 @@ obtain forecasts. Actually, the following methods are used:
 \item ARIMA - by calling \code{\link[forecast:auto.arima]{forecast::auto.arima()}};
 \item Exponential Smoothing - by calling \code{\link[forecast:ets]{forecast::ets()}};
 \item Random Walk with Drift - by calling \code{\link[forecast:naive]{forecast::rwf()}};
-\item Theta - by calling [forecast::thetaf().
+\item Theta - by calling \code{\link[forecast:thetaf]{forecast::thetaf()}}.
 }
 \item Computed features are input to the fuzzy rule-based inference mechanism
-which yields into weights of the forecasting methods. The fuzzy rule base is
+which yields weights of the forecasting methods. The fuzzy rule base is
 hardwired in this package and it was obtained by performing data mining with
 the use of the \code{\link[=farules]{farules()}} function.
 \item A weighted sum of forecasts is computed and returned as a result.

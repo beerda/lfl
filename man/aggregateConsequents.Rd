@@ -29,7 +29,7 @@ value (which is not important for this function), hence each cell
 corresponds to a membership degree in which the crisp value is a member of
 a fuzzy set modeling the consequent.  Each consequent in \code{conseq}
 must correspond to some column of this matrix. Such matrix may be created
-e.g. by using \code{\link[=fcut]{fcut()}} or \code{\link[=lcut]{lcut()}} functions.}
+e.g., by using \code{\link[=fcut]{fcut()}} or \code{\link[=lcut]{lcut()}} functions.}
 
 \item{firing}{A two-argument function used to compute the resulting truth value of the consequent.
 Function is evaluated for each consequent in \code{conseq}, with corresponding \code{degrees} value

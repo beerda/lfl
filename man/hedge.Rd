@@ -19,7 +19,7 @@ Returns a function with a single argument, which has to be a numeric
 vector.
 }
 \description{
-Returns a function that realizes linguistic hedging - i.e. transformation of linguistic
+Returns a function that realizes linguistic hedging - i.e., transformation of linguistic
 horizon (see \code{\link[=horizon]{horizon()}}) into a linguistic expression.
 }
 \details{

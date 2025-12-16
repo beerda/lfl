@@ -88,7 +88,7 @@ incomparable.
 \description{
 This function creates a set of linguistic fuzzy attributes from crisp data.
 Numeric vectors, matrix or data frame columns are transformed into a set of
-fuzzy attributes, i.e. columns with membership degrees. Factors and other
+fuzzy attributes, i.e., columns with membership degrees. Factors and other
 data types are transformed to fuzzy attributes by calling the \code{\link[=fcut]{fcut()}}
 function.
 }
@@ -99,7 +99,7 @@ interpretation. This is a unique variant of fuzzification that is suitable
 for the inference mechanism based on Perception-based Linguistic Description
 (PbLD) -- see \code{\link[=pbld]{pbld()}}.
 
-A numeric vector is transformed into a set of fuzzy attributes accordingly to
+A numeric vector is transformed into a set of fuzzy attributes according to
 the following scheme:
 
 \eqn{<hedge> <atomic expression>}

@@ -67,7 +67,7 @@ Each object stores two attributes: \code{vars} and \code{specs}. The functions \
 and \code{\link[=specs]{specs()}}). can be used to access these attributes.
 
 It is assumed that the fuzzy sets
-are derived from some raw variables, e.g. numeric vectors or factors. \code{vars}
+are derived from some raw variables, e.g., numeric vectors or factors. \code{vars}
 attribute is a character vector of names of raw variables with size equal
 to the number of fuzzy sets in \code{fsets} object. It is then assumed that
 two fuzzy sets with the same name in \code{\link[=vars]{vars()}} attribute are derived from

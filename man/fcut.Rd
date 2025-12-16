@@ -108,7 +108,7 @@ separator.}
 
 \item{parallel}{Whether the processing should be run in parallel or not.
 Parallelization is implemented using the \code{\link[foreach:foreach]{foreach::foreach()}} function.
-The parallel environment must be set properly in advance, e.g. with
+The parallel environment must be set properly in advance, e.g., with
 the \code{\link[doMC:registerDoMC]{doMC::registerDoMC()}} function.  Currently this argument is
 applied only if \code{x} is a matrix or data frame.}
 }
@@ -130,37 +130,37 @@ fuzzy sets.
 \description{
 This function creates a set of fuzzy attributes from crisp data. Factors,
 numeric vectors, matrix or data frame columns are transformed into a set of
-fuzzy attributes, i.e. columns with membership degrees. Unlike
-\code{\link[=lcut]{lcut()}}, for transformation is not used the linguistic linguistic
-approach, but partitioning using regular shapes of the fuzzy sets (such as
-triangle, raised cosine).
+fuzzy attributes, i.e., columns with membership degrees. Unlike
+\code{\link[=lcut]{lcut()}}, the linguistic approach is not used for transformation,
+but rather partitioning using regular shapes of the fuzzy sets (such as
+triangles or raised cosines).
 }
 \details{
 The aim of this function is to transform numeric data into a set of fuzzy
-attributes.  The result is in the form of the object of class "fsets", i.e.
+attributes. The result is in the form of an object of class "fsets", i.e.,
 a numeric matrix whose columns represent fuzzy sets (fuzzy attributes) with
 values being the membership degrees.
 
-The function behaves differently to the type of input \code{x}.
+The function behaves differently depending on the type of input \code{x}.
 
 If \code{x} is a factor or a logical vector (or other non-numeric data) then
 for each distinct value of an input, a fuzzy set is created, and data would
 be transformed into crisp membership degrees 0 or 1 only.
 
-If \code{x} is a numeric vector then fuzzy sets are created accordingly to
+If \code{x} is a numeric vector then fuzzy sets are created according to
 break-points specified in the \code{breaks} argument with 1st, 2nd and 3rd
 break-point specifying the first fuzzy set, 2nd, 3rd and 4th break-point
-specifying th second fuzzy set etc. The shape of the fuzzy set is determined
+specifying the second fuzzy set etc. The shape of the fuzzy set is determined
 by the \code{type} argument that may be equal either to a string
 \code{'triangle'} or \code{'raisedcos'} or it could be a function that
-computes the membership degrees for itself (see \code{\link[=triangular]{triangular()}} or
+computes the membership degrees itself (see \code{\link[=triangular]{triangular()}} or
 \code{\link[=raisedcosine]{raisedcosine()}} functions for details). Additionally, super-sets of
 these elementary sets may be created by specifying the \code{merge}
 argument. Values of this argument specify how many consecutive fuzzy sets
-should be combined (by using the Lukasiewic's t-conorm) to produce
+should be combined (by using Lukasiewicz's t-conorm) to produce
 super-sets - see the description of \code{merge} above.
 
-If a matrix (resp. data frame) is provided to this function instead of
+If a matrix (resp. data frame) is provided to this function instead of a
 single vector, all columns are processed separately as described above and
 the result is combined with the \code{\link[=cbind.fsets]{cbind.fsets()}} function.
 

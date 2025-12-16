@@ -36,7 +36,7 @@ is a vector of membership degrees to be measured, the second argument, \code{w},
 the vector of weights to which the element belongs to the universe.
 
 Let \eqn{U} be the set of input vector indices (1 to \code{length(x)}). Then the quantifier
-computes the truth values accordingly to the following formula:
+computes the truth values according to the following formula:
 \eqn{\vee_{z \subseteq U} \wedge_{u \in z} (x[u]) \wedge measure(m_z)},
 where
 \eqn{m_z = sum(w)} for \code{"some"} and \verb{"at.least} and \eqn{m_z = sum(w[z]) / sum(w)} otherwise.

@@ -16,7 +16,7 @@ pbld(
 }
 \arguments{
 \item{x}{Input to the inference. It should be an object of class
-\code{\link[=fsets]{fsets()}} (e.g. created by using the \code{\link[=fcut]{fcut()}} or \code{\link[=lcut]{lcut()}} functions).
+\code{\link[=fsets]{fsets()}} (e.g., created by using the \code{\link[=fcut]{fcut()}} or \code{\link[=lcut]{lcut()}} functions).
 It is basically a matrix with columns representing fuzzy sets.
 
 Each row represents a single case of inference. Columns should be named
@@ -40,7 +40,7 @@ the ascending order.}
 
 \item{parallel}{Whether the processing should be run in parallel or not.
 Parallelization is implemented using the \code{\link[foreach:foreach]{foreach::foreach()}}
-package. The parallel environment must be set properly in advance, e.g. with
+package. The parallel environment must be set properly in advance, e.g., with
 the \code{\link[doMC:registerDoMC]{doMC::registerDoMC()}} function.}
 }
 \value{

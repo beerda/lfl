@@ -25,23 +25,23 @@ where columns represent the fuzzy sets and values are the membership
 degrees. For creation of such object, use \code{\link[=fcut]{fcut()}} or \code{\link[=lcut]{lcut()}} function.}
 
 \item{lhs}{Indices of fuzzy attributes that may appear on the left-hand-side
-(LHS) of association rules, i.e. in the antecedent.}
+(LHS) of association rules, i.e., in the antecedent.}
 
 \item{rhs}{Indices of fuzzy attributes that may appear on the
-right-hand-side (RHS) of association rules, i.e. in the consequent.}
+right-hand-side (RHS) of association rules, i.e., in the consequent.}
 
 \item{tnorm}{A t-norm to be used for computation of conjunction of fuzzy
-attributes. (Allowed are even only starting letters of "lukasiewicz",
-"goedel" and "goguen").}
+attributes. (Only the starting letters of "lukasiewicz",
+"goedel" and "goguen" are allowed).}
 
 \item{n}{The non-negative number of rules to be found. If zero, the function
-returns all rules satisfying the given conditions. If positive, only
-\code{n} best rules are returned. The criterium of what is ``best'' is
+returns all rules satisfying the given conditions. If positive, only the
+\code{n} best rules are returned. The criterion of what is "best" is
 specified with the \code{best} argument.}
 
-\item{best}{Specifies measure accordingly to which the rules are ordered
+\item{best}{Specifies the measure according to which the rules are ordered
 from best to worst. This argument is used mainly in combination with the
-\code{n} argument. Currently, only single value ("confidence") can be used.}
+\code{n} argument. Currently, only a single value ("confidence") can be used.}
 
 \item{minSupport}{The minimum support degree of a rule. Rules with support
 below that number are filtered out. It must be a numeric value from interval
@@ -54,33 +54,33 @@ computed.}
 
 \item{maxConfidence}{Maximum confidence threshold. After finding a rule that
 has confidence degree above the \code{maxConfidence} threshold, no other
-rule is resulted based on adding some additional attribute to its antecedent
-part. I.e. if "Sm.age & Me.age => Sm.height" has confidence above
-\code{maxConfidence} threshold, no another rule containing "Sm.age & Me.age"
+rule is produced based on adding some additional attribute to its antecedent
+part. I.e., if "Sm.age & Me.age => Sm.height" has confidence above the
+\code{maxConfidence} threshold, no other rule containing "Sm.age & Me.age"
 will be produced regardless of its interest measures.
 
 If you want to disable this feature, set \code{maxConfidence} to 1.}
 
-\item{maxLength}{Maximum allowed length of the rule, i.e. maximum
+\item{maxLength}{Maximum allowed length of the rule, i.e., maximum
 number of predicates that are allowed on the left-hand + right-hand side of the rule. If
 negative, the maximum length of rules is unlimited.}
 
 \item{numThreads}{Number of threads used to perform the algorithm in
 parallel. If greater than 1, the OpenMP library (not to be confused with
-Open MPI) is used for parallelization.  Please note that there are known
-problems of using OpenMP together with another means of parallelization that
+Open MPI) is used for parallelization. Please note that there are known
+problems of using OpenMP together with other means of parallelization that
 may be used within R. Therefore, if you plan to use the \code{searchrules}
-function with some of the external parallelization mechanisms such as
-library \code{doMC}, make sure that \code{numThreads} equals 1.  This
-feature is available only on systems that have installed the OpenMP library.}
+function with some external parallelization mechanisms such as the
+\code{doMC} library, make sure that \code{numThreads} equals 1. This
+feature is available only on systems that have the OpenMP library installed.}
 
-\item{trie}{Whether or not to use internal mechanism of Tries. If FALSE,
-then in the output may appear such rule that is a descendant of a rule that
-has confidence above \code{maxConfidence} threshold.
+\item{trie}{Whether or not to use the internal mechanism of Tries. If FALSE,
+then a rule may appear in the output that is a descendant of a rule that
+has confidence above the \code{maxConfidence} threshold.
 
-Tries consume very much memory, so if you encounter problems with
+Tries consume a large amount of memory, so if you encounter problems with
 insufficient memory, set this argument to FALSE. On the other hand, the size
-of result (if \code{n} is set to 0) can be very high if trie is set to
+of the result (if \code{n} is set to 0) can be very high if trie is set to
 FALSE.}
 }
 \value{

@@ -11,9 +11,9 @@ rules, composition of fuzzy relations, performing perception-based logical deduc
 and forecasting time-series using fuzzy rule-based ensemble (FRBE).
 }
 \details{
-Other methods include fuzzy transform and computation of Sugeno integrals. Also basic algebraic
-functions related to fuzzy logic are contained, which allow to handle missing values using different
-styles such as Kleene, Bochvar, Sobocinski and other.
+Other methods include fuzzy transform and computation of Sugeno integrals. Also, basic algebraic
+functions related to fuzzy logic are included, which allow handling missing values using different
+styles such as Kleene, Bochvar, Sobocinski and others.
 }
 \author{
 \strong{Maintainer}: Michal Burda \email{michal.burda@osu.cz} (\href{https://orcid.org/0000-0002-4182-4407}{ORCID})

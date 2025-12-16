@@ -23,7 +23,7 @@ equidist(
 (see the description below)}
 }
 \value{
-A vector of equidistant breaks, which can be used e.g. in \code{\link[=fcut]{fcut()}}
+A vector of equidistant breaks, which can be used e.g., in \code{\link[=fcut]{fcut()}}
 }
 \description{
 If both \code{left} and \code{right} equal to \code{"none"}, the function returns a vector of \code{n} values from \code{x}
@@ -32,7 +32,7 @@ that divide the range of values in \code{x} into \code{n - 1} equidistant interv
 \details{
 If the \code{left} (resp. \code{right}) argument equals to \code{"infinity"}, \code{-Inf} (resp. \code{Inf}) is prepended
 (resp. appended) to the result. If it equals to \code{"same"}, the first (resp. last) value is doubled.
-Such functionality is beneficial if using the result of this function with e.g. the \code{\link[=fcut]{fcut()}} function:
+Such functionality is beneficial if using the result of this function with e.g., the \code{\link[=fcut]{fcut()}} function:
 \code{Inf} values at the beginning (resp. at the end) of the vector of breaks means that the fuzzy set
 partition starts with a fuzzy set with kernel going to negative (resp. positive) infinity; the doubled
 value at the beginning (resp. end) results in half-cut (trimmed) fuzzy set.

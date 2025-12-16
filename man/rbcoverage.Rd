@@ -39,7 +39,7 @@ with consequent).}
 A numeric value of the rule base coverage of given data.
 }
 \description{
-This function computes rule base coverage, i.e. a an average of maximum
+This function computes rule base coverage, i.e., a an average of maximum
 membership degree at which each row of data fires the rules in rule base.
 }
 \details{

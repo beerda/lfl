@@ -33,7 +33,7 @@ rule base coverage of the result must be the same as coverage of input
 \item{tnorm}{Which t-norm to use as a conjunction of antecedents. The
 default is \code{"goedel"}.}
 
-\item{tconorm}{Which t-norm to use as a disjunction, i.e. to combine
+\item{tconorm}{Which t-norm to use as a disjunction, i.e., to combine
 multiple antecedents to get coverage of the rule base. The default is
 \code{"goedel"}.}
 

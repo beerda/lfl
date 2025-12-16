@@ -10,7 +10,7 @@ evalfrbe(fit, real, error = c("smape", "mase", "rmse"))
 \item{fit}{A FRBE model of class \code{frbe} as returned by the \code{\link[=frbe]{frbe()}} function.}
 
 \item{real}{A numeric vector of real (known) values. The vector must
-correspond to the values being forecasted, i.e. the length must be the same
+correspond to the values being forecasted, i.e., the length must be the same
 as the horizon forecasted by \code{\link[=frbe]{frbe()}}.}
 
 \item{error}{Error measure to be computed. It can be either Symmetric Mean

@@ -54,10 +54,10 @@ number of rows of \code{x} and \eqn{w} is the number of columns of \code{y}.
 Composition of Fuzzy Relations
 }
 \details{
-Function composes a fuzzy relation \code{x} (i.e. a numeric matrix of size
-\eqn{(u,v)}) with a fuzzy relation \code{y} (i.e. a numeric matrix of size
+Function composes a fuzzy relation \code{x} (i.e., a numeric matrix of size
+\eqn{(u,v)}) with a fuzzy relation \code{y} (i.e., a numeric matrix of size
 \eqn{(v,w)}) and possibly with the deprecated use of an exclusion fuzzy relation
-\code{e} (i.e. a numeric matrix of size \eqn{(v,w)}).
+\code{e} (i.e., a numeric matrix of size \eqn{(v,w)}).
 
 The style of composition is determined by the algebra \code{alg}, the
 composition type \code{type}, and possibly also by a deprecated \code{quantifier}.

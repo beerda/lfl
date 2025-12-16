@@ -26,7 +26,7 @@ degree is returned;
 is returned;
 \item \code{'dee'}: Defuzzification of Evaluative Expressions - method used
 by the \code{\link[=pbld]{pbld()}} inference mechanism that combines the former three
-approaches accordingly to the shape of the \code{degrees} vector:
+approaches according to the shape of the \code{degrees} vector:
 If \code{degrees} is non-increasing then \code{'lom'} type is used,
 if it is non-decreasing then \code{'fom'} is applied, else \code{'mom'} is selected;
 \item \code{'cog'}: Center of Gravity - the result is a mean of \code{values} weighted by \code{degrees};
@@ -37,9 +37,9 @@ if it is non-decreasing then \code{'fom'} is applied, else \code{'mom'} is selec
 A defuzzified value.
 }
 \description{
-Take a discretized fuzzy set (i.e. a vector of membership degrees and a vector
+Take a discretized fuzzy set (i.e., a vector of membership degrees and a vector
 of numeric values that correspond to that degrees) and perform a selected
-type of defuzzification, i.e. conversion of the fuzzy set into a single
+type of defuzzification, i.e., conversion of the fuzzy set into a single
 crisp value.
 }
 \details{

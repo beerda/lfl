@@ -20,7 +20,7 @@ A function of single argument that must be a numeric vector
 }
 \description{
 Based on given \code{context} and \code{atomic} expression, this function returns a function that computes a linguistic
-horizon, i.e. a triangular function representing basic limits of what humans treat as "small", "medium", "big" etc.
+horizon, i.e., a triangular function representing basic limits of what humans treat as "small", "medium", "big" etc.
 within given \code{context}. Linguistic horizon stands as a base for creation of linguistic expressions. A linguistic
 expression is created by applying a \code{\link[=hedge]{hedge()}} on horizon. (Atomic linguistic expression is created from horizon by
 applying an empty (\code{-}) hedge).

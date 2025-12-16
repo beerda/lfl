@@ -73,9 +73,9 @@ strict.neg(x)
 \item{name}{The name of the algebra to be created. Must be one of: "goedel",
 "lukasiewicz", "goguen" (or an unambiguous abbreviation).}
 
-\item{stdneg}{(Deprecated.) \code{TRUE} if to force the use of a "standard" negation (i.e.
-involutive negation).  Otherwise, the appropriate negation is used in the
-algebra (e.g. strict negation in Goedel and Goguen algebra and involutive
+\item{stdneg}{(Deprecated.) \code{TRUE} to force the use of a "standard" negation (i.e.,
+involutive negation). Otherwise, the appropriate negation is used in the
+algebra (e.g., strict negation in Goedel and Goguen algebras and involutive
 negation in Lukasiewicz algebra).}
 
 \item{...}{For t-norms and t-conorms, these arguments are numeric vectors
@@ -85,7 +85,7 @@ of values to compute t-norms or t-conorms from.  Values outside the
 For the \code{algebra()} function, these arguments are passed to the factory
 functions that create the algebra. (Currently unused.)}
 
-\item{a}{An object to be checked if it is a valid algebra (i.e. a list
+\item{a}{An object to be checked if it is a valid algebra (i.e., a list
 returned by the \code{algebra} function).}
 
 \item{x}{Numeric vector of values to compute a residuum or bi-residuum from.
@@ -103,7 +103,7 @@ t-norm or t-conorm applied on all values of all arguments.
 
 Element-wise versions of t-norms and t-conorms (such as \code{pgoedel.tnorm})
 return a vector of results after applying the appropriate t-norm or t-conorm
-on argument in an element-wise (i.e. by indices) way. The
+on argument in an element-wise (i.e., by indices) way. The
 resulting vector is of length of the longest argument (shorter arguments are
 recycled).
 
@@ -151,7 +151,7 @@ triangular conorms (t-conorms).  \code{pgoedel.tconorm},
 \code{plukas.tconorm}, and \code{pgoguen.tconorm} are their element-wise alternatives.
 
 \code{goedel.residuum}, \code{lukas.residuum}, and \code{goguen.residuum}
-compute residua (i.e. implications) and \code{goedel.biresiduum},
+compute residua (i.e., implications) and \code{goedel.biresiduum},
 \code{lukas.biresiduum}, and \code{goguen.biresiduum} compute bi-residua. Residua and
 bi-residua are computed in an element-wise manner, for each corresponding
 pair of values in \code{x} and \code{y} arguments.
@@ -209,7 +209,7 @@ Moreover, \code{algebra} returns the supremum and infimum functions computed as 
 respectively.
 
 \code{is.algebra} tests whether the given \code{a} argument is a valid
-algebra, i.e. a list returned by the \code{algebra} function.
+algebra, i.e., a list returned by the \code{algebra} function.
 }
 \examples{
     # direct and element-wise version of functions

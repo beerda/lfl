@@ -147,7 +147,7 @@ Novak.}
 
 \item{negCenter}{A negative middle value.}
 
-\item{origin}{Origin, i.e. the initial point of the bilateral context. It is
+\item{origin}{Origin, i.e., the initial point of the bilateral context. It is
 typically a value of zero.}
 
 \item{max}{Highest value of a bilateral context.}
@@ -175,7 +175,7 @@ A context describes a range of allowed values for a data column.
 }
 \details{
 A context describes a range of allowed values for a data column. For that,
-only the borders of the interval, i.e. minimum and maximum, are usually
+only the borders of the interval, i.e., minimum and maximum, are usually
 needed, but we use contexts to hold more additional information that is
 crucial for the construction of linguistic expressions.
 
@@ -225,7 +225,7 @@ high   \tab high        \tab max       \tab max
 
 The \verb{as.ctx*} conversion is performed by replacing values by rows, as
 indicated in the table above.  When converting from a context with less
-points to a context with more points (e.g. from unilateral to bilateral, or
+points to a context with more points (e.g., from unilateral to bilateral, or
 from trichotomy to pentachotomy), missing points are computed as follows:
 \itemize{
 \item \code{center} is computed as a mean of \code{origin} (or \code{low}) and \code{max} (or \code{high}).

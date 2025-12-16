@@ -17,7 +17,7 @@ minmax(x, type = c("ctx3", "ctx5", "ctx3bilat", "ctx5bilat"), ...)
 These values overwrite the defaults computed by \code{minmax} -- see the examples.}
 }
 \description{
-This function creates a context (i.e. an instance of S3 class
+This function creates a context (i.e., an instance of S3 class
 \code{\link[=ctx3]{ctx3()}}, \code{\link[=ctx3bilat]{ctx3bilat()}}, \code{\link[=ctx5]{ctx5()}}, or \code{\link[=ctx5bilat]{ctx5bilat()}}) based on values
 of the numeric vector \code{x}. In default, the context is based on minimum
 and maximum value of \code{x} in the following way:
@@ -28,7 +28,7 @@ origin = mean of minimum and maximum.
 }
 }
 \details{
-Other values are computed accordingly to defaults as defined in the constructors
+Other values are computed according to the defaults as defined in the constructors
 \code{\link[=ctx3]{ctx3()}}, \code{\link[=ctx3bilat]{ctx3bilat()}}, \code{\link[=ctx5]{ctx5()}}, and \code{\link[=ctx5bilat]{ctx5bilat()}}).
 }
 \examples{
