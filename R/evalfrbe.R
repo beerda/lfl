@@ -35,7 +35,7 @@
 #'
 #' @param fit A FRBE model of class `frbe` as returned by the [frbe()] function.
 #' @param real A numeric vector of real (known) values. The vector must
-#' correspond to the values being forecasted, i.e. the length must be the same
+#' correspond to the values being forecasted, i.e., the length must be the same
 #' as the horizon forecasted by [frbe()].
 #' @param error Error measure to be computed. It can be either Symmetric Mean
 #' Absolute Percentage Error (`smape`), Mean Absolute Scaled Error (`mase`), or

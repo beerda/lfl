@@ -21,7 +21,7 @@
 #'
 #' This function creates a set of linguistic fuzzy attributes from crisp data.
 #' Numeric vectors, matrix or data frame columns are transformed into a set of
-#' fuzzy attributes, i.e. columns with membership degrees. Factors and other
+#' fuzzy attributes, i.e., columns with membership degrees. Factors and other
 #' data types are transformed to fuzzy attributes by calling the [fcut()]
 #' function.
 #'

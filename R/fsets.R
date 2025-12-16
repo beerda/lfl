@@ -32,7 +32,7 @@
 #' and [specs()]). can be used to access these attributes.
 #'
 #' It is assumed that the fuzzy sets
-#' are derived from some raw variables, e.g. numeric vectors or factors. `vars`
+#' are derived from some raw variables, e.g., numeric vectors or factors. `vars`
 #' attribute is a character vector of names of raw variables with size equal
 #' to the number of fuzzy sets in `fsets` object. It is then assumed that
 #' two fuzzy sets with the same name in [vars()] attribute are derived from

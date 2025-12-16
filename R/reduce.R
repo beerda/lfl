@@ -46,7 +46,7 @@
 #' \code{rules}. A sensible value is e.g. 0.9.
 #' @param tnorm Which t-norm to use as a conjunction of antecedents. The
 #' default is `"goedel"`.
-#' @param tconorm Which t-norm to use as a disjunction, i.e. to combine
+#' @param tconorm Which t-norm to use as a disjunction, i.e., to combine
 #' multiple antecedents to get coverage of the rule base. The default is
 #' `"goedel"`.
 #' @param numThreads How many threads to use for computation. Value higher than

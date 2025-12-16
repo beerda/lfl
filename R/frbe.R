@@ -128,7 +128,7 @@
 #'
 #' @param d A source time-series in the ts time-series format.  Note that the
 #' frequency of the time-series must to be set properly.
-#' @param h A forecasting horizon, i.e. the number of values to forecast.
+#' @param h A forecasting horizon, i.e., the number of values to forecast.
 #' @return Result is a list of class `frbe` with the following elements:
 #' * `features` - a data frame with computed features of the given time-series;
 #' * `forecasts` - a data frame with forecasts to be ensembled;

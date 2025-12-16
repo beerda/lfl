@@ -39,7 +39,7 @@
 #' `plukas.tconorm`, and `pgoguen.tconorm` are their element-wise alternatives.
 #'
 #' `goedel.residuum`, `lukas.residuum`, and `goguen.residuum`
-#' compute residua (i.e. implications) and `goedel.biresiduum`,
+#' compute residua (i.e., implications) and `goedel.biresiduum`,
 #' `lukas.biresiduum`, and `goguen.biresiduum` compute bi-residua. Residua and
 #' bi-residua are computed in an element-wise manner, for each corresponding
 #' pair of values in `x` and `y` arguments.
@@ -93,13 +93,13 @@
 #' respectively.
 #'
 #' `is.algebra` tests whether the given `a` argument is a valid
-#' algebra, i.e. a list returned by the `algebra` function.
+#' algebra, i.e., a list returned by the `algebra` function.
 #'
 #' @param name The name of the algebra to be created. Must be one of: "goedel",
 #' "lukasiewicz", "goguen" (or an unambiguous abbreviation).
-#' @param stdneg (Deprecated.) `TRUE` if to force the use of a "standard" negation (i.e.
-#' involutive negation).  Otherwise, the appropriate negation is used in the
-#' algebra (e.g. strict negation in Goedel and Goguen algebra and involutive
+#' @param stdneg (Deprecated.) `TRUE` to force the use of a "standard" negation (i.e.,
+#' involutive negation). Otherwise, the appropriate negation is used in the
+#' algebra (e.g., strict negation in Goedel and Goguen algebras and involutive
 #' negation in Lukasiewicz algebra).
 #' @param ...  For t-norms and t-conorms, these arguments are numeric vectors
 #' of values to compute t-norms or t-conorms from.  Values outside the
@@ -107,7 +107,7 @@
 #'
 #' For the `algebra()` function, these arguments are passed to the factory
 #' functions that create the algebra. (Currently unused.)
-#' @param a An object to be checked if it is a valid algebra (i.e. a list
+#' @param a An object to be checked if it is a valid algebra (i.e., a list
 #' returned by the `algebra` function).
 #' @param x Numeric vector of values to compute a residuum or bi-residuum from.
 #' Values outside the \eqn{[0,1]} interval cause an error. NA values are also
@@ -121,7 +121,7 @@
 #'
 #' Element-wise versions of t-norms and t-conorms (such as `pgoedel.tnorm`)
 #' return a vector of results after applying the appropriate t-norm or t-conorm
-#' on argument in an element-wise (i.e. by indices) way. The
+#' on argument in an element-wise (i.e., by indices) way. The
 #' resulting vector is of length of the longest argument (shorter arguments are
 #' recycled).
 #'

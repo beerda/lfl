@@ -22,36 +22,36 @@
 #'
 #' This function creates a set of fuzzy attributes from crisp data. Factors,
 #' numeric vectors, matrix or data frame columns are transformed into a set of
-#' fuzzy attributes, i.e. columns with membership degrees. Unlike
-#' [lcut()], for transformation is not used the linguistic linguistic
-#' approach, but partitioning using regular shapes of the fuzzy sets (such as
-#' triangle, raised cosine).
+#' fuzzy attributes, i.e., columns with membership degrees. Unlike
+#' [lcut()], the linguistic approach is not used for transformation,
+#' but rather partitioning using regular shapes of the fuzzy sets (such as
+#' triangles or raised cosines).
 #'
 #' The aim of this function is to transform numeric data into a set of fuzzy
-#' attributes.  The result is in the form of the object of class "fsets", i.e.
+#' attributes. The result is in the form of an object of class "fsets", i.e.,
 #' a numeric matrix whose columns represent fuzzy sets (fuzzy attributes) with
 #' values being the membership degrees.
 #'
-#' The function behaves differently to the type of input `x`.
+#' The function behaves differently depending on the type of input `x`.
 #'
 #' If `x` is a factor or a logical vector (or other non-numeric data) then
 #' for each distinct value of an input, a fuzzy set is created, and data would
 #' be transformed into crisp membership degrees 0 or 1 only.
 #'
-#' If `x` is a numeric vector then fuzzy sets are created accordingly to
+#' If `x` is a numeric vector then fuzzy sets are created according to
 #' break-points specified in the `breaks` argument with 1st, 2nd and 3rd
 #' break-point specifying the first fuzzy set, 2nd, 3rd and 4th break-point
-#' specifying th second fuzzy set etc. The shape of the fuzzy set is determined
+#' specifying the second fuzzy set etc. The shape of the fuzzy set is determined
 #' by the `type` argument that may be equal either to a string
 #' `'triangle'` or `'raisedcos'` or it could be a function that
-#' computes the membership degrees for itself (see [triangular()] or
+#' computes the membership degrees itself (see [triangular()] or
 #' [raisedcosine()] functions for details). Additionally, super-sets of
 #' these elementary sets may be created by specifying the `merge`
 #' argument. Values of this argument specify how many consecutive fuzzy sets
-#' should be combined (by using the Lukasiewic's t-conorm) to produce
+#' should be combined (by using Lukasiewicz's t-conorm) to produce
 #' super-sets - see the description of `merge` above.
 #'
-#' If a matrix (resp. data frame) is provided to this function instead of
+#' If a matrix (resp. data frame) is provided to this function instead of a
 #' single vector, all columns are processed separately as described above and
 #' the result is combined with the [cbind.fsets()] function.
 #'
@@ -116,7 +116,7 @@
 #' separator.
 #' @param parallel Whether the processing should be run in parallel or not.
 #' Parallelization is implemented using the [foreach::foreach()] function.
-#'  The parallel environment must be set properly in advance, e.g. with
+#'  The parallel environment must be set properly in advance, e.g., with
 #' the [doMC::registerDoMC()] function.  Currently this argument is
 #' applied only if `x` is a matrix or data frame.
 #' @param ...  Other parameters to some methods.

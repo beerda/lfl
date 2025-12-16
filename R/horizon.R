@@ -29,7 +29,7 @@
 #' Create a function that computes linguistic horizons
 #'
 #' Based on given `context` and `atomic` expression, this function returns a function that computes a linguistic
-#' horizon, i.e. a triangular function representing basic limits of what humans treat as "small", "medium", "big" etc.
+#' horizon, i.e., a triangular function representing basic limits of what humans treat as "small", "medium", "big" etc.
 #' within given `context`. Linguistic horizon stands as a base for creation of linguistic expressions. A linguistic
 #' expression is created by applying a [hedge()] on horizon. (Atomic linguistic expression is created from horizon by
 #' applying an empty (`-`) hedge).

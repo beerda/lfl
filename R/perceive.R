@@ -84,7 +84,7 @@
 #' From a set of rules, remove each rule for which another rule exists that is
 #' more specific.
 #'
-#' Examine rules in a list and remove all of them for whose other more specific
+#' Examine rules in a list and remove all of them for which other more specific
 #' rules are present in the list. The specificity is determined by calling the
 #' [is.specific()] function.  This operation is a part of the
 #' [pbld()] inference mechanism.
@@ -103,11 +103,11 @@
 #' @param fired If `type=="global"` then this argument can be NULL. If
 #' `type` is `"local"` then `fired` must be a numeric vector of
 #' values in the interval \eqn{[0,1]} indicating the truth values of all rules,
-#' i.e. the length of the vector must be equal to the number of rules in the
+#' i.e., the length of the vector must be equal to the number of rules in the
 #' `rules` argument.
 #' @param vars A deprecated parameter that must be `NULL`. Formerly, it was
 #' a named (typically character) vector that determined which
-#' predicates originate from the same variable, i.e. which of them semantically
+#' predicates originate from the same variable, i.e., which of them semantically
 #' deal with the same property.  For that purpose, each value from any vector
 #' stored in the `rules` list must be present in `names(vars)`.  See
 #' also [vars()] function of the [fsets()] class.
@@ -115,7 +115,7 @@
 #' a square numeric matrix containing values from \eqn{\{0, 1\}}.
 #' It is a specificity matrix for which each row and column corresponds to an
 #' `rules`'es predicate `specs[i][j] = 1` if and only if the
-#' \eqn{i}-th predicate is more specific (i.e. the corresponding fuzzy set is a
+#' \eqn{i}-th predicate is more specific (i.e., the corresponding fuzzy set is a
 #' subset of) than the \eqn{j}-th predicate (i.e. `x[, j]`).  See also
 #' [specs()] function of the [fsets()] class.
 #' @return A modified list of rules for which no other more specific rule
