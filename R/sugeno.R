@@ -32,13 +32,13 @@
 #'   is a vector of membership degrees to be measured, the second argument, `w`, is
 #'   the vector of weights.
 #'
-#'   Let \eqn{U} be the set of input vector indices (1 to `length(x)`). Then the sugeno integral
-#'   computes the truth values accordingly to the following formula:
+#'   Let \eqn{U} be the set of input vector indices (1 to `length(x)`). Then the Sugeno integral
+#'   computes the truth values according to the following formula:
 #'   \eqn{\vee_{z \subseteq U} \wedge_{u \in z} (x[u]) CONJ measure(m_z)},
 #'   where
 #'   \eqn{m_z = sum(w[z]) / sum(w)} if `relative==TRUE` or \eqn{m_z = sum(w)} if `relative==FALSE`
-#'   and where CONJ is a strong conjunction (i.e. `alg$pt`) or a weak conjunction
-#'   (i.e. `alg$pi`) accordingly to the `strong` parameter.
+#'   and where CONJ is a strong conjunction (i.e., `alg$pt`) or a weak conjunction
+#'   (i.e., `alg$pi`) according to the `strong` parameter.
 #' @author Michal Burda
 #' @keywords models robust
 #' @seealso [quantifier()], [lingexpr()]

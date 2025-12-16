@@ -263,7 +263,7 @@ fcut.numeric <- function(x,
         }
     }
 
-    # split 'x' accordingly to 'breaks'
+    # split 'x' according to 'breaks'
     singles <- .rollapply(breaks, 3, function(b) {
         func(x, b[1], b[2], b[3])
     })
