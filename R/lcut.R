@@ -31,7 +31,7 @@
 #' for the inference mechanism based on Perception-based Linguistic Description
 #' (PbLD) -- see [pbld()].
 #'
-#' A numeric vector is transformed into a set of fuzzy attributes accordingly to
+#' A numeric vector is transformed into a set of fuzzy attributes according to
 #' the following scheme:
 #'
 #' \eqn{<hedge> <atomic expression>}

@@ -27,7 +27,7 @@
 #' * `ctx3bilat`, `ctx5bilat`: negMax = minimum, max = maximum value of `x`,
 #'    origin = mean of minimum and maximum.
 #'
-#' Other values are computed accordingly to defaults as defined in the constructors
+#' Other values are computed according to the defaults as defined in the constructors
 #' [ctx3()], [ctx3bilat()], [ctx5()], and [ctx5bilat()]).
 #'
 #' @param x A numeric vector to compute the context from

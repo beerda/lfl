@@ -43,7 +43,7 @@
 #'    is returned;
 #' * `'dee'`: Defuzzification of Evaluative Expressions - method used
 #'   by the [pbld()] inference mechanism that combines the former three
-#'   approaches accordingly to the shape of the `degrees` vector:
+#'   approaches according to the shape of the `degrees` vector:
 #'   If `degrees` is non-increasing then `'lom'` type is used,
 #'   if it is non-decreasing then `'fom'` is applied, else `'mom'` is selected;
 #' * `'cog'`: Center of Gravity - the result is a mean of `values` weighted by `degrees`;
