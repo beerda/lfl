@@ -98,12 +98,12 @@
 #' Fuzzy Rule-Based Ensemble (FRBE) of time-series forecasts
 #'
 #' This function computes the fuzzy rule-based ensemble of time-series
-#' forecasts.  Several forecasting methods are used to predict future values of
-#' given time-series and a weighted sum is computed from them with weights
+#' forecasts. Several forecasting methods are used to predict future values of
+#' a given time-series and a weighted sum is computed from them with weights
 #' being determined from a fuzzy rule base.
 #'
 #' This function computes the fuzzy rule-based ensemble of time-series
-#' forecasts.  The evaluation comprises of the following steps:
+#' forecasts. The evaluation comprises the following steps:
 #' 1. Several features are extracted from the given time-series `d`:
 #'    * length of the time-series;
 #'    * strength of trend;
@@ -119,15 +119,15 @@
 #'    * ARIMA - by calling [forecast::auto.arima()];
 #'    * Exponential Smoothing - by calling [forecast::ets()];
 #'    * Random Walk with Drift - by calling [forecast::rwf()];
-#'    * Theta - by calling [forecast::thetaf().
+#'    * Theta - by calling [forecast::thetaf()].
 #' 1. Computed features are input to the fuzzy rule-based inference mechanism
-#'    which yields into weights of the forecasting methods. The fuzzy rule base is
+#'    which yields weights of the forecasting methods. The fuzzy rule base is
 #'    hardwired in this package and it was obtained by performing data mining with
 #'    the use of the [farules()] function.
 #' 1. A weighted sum of forecasts is computed and returned as a result.
 #'
-#' @param d A source time-series in the ts time-series format.  Note that the
-#' frequency of the time-series must to be set properly.
+#' @param d A source time-series in the ts time-series format. Note that the
+#' frequency of the time-series must be set properly.
 #' @param h A forecasting horizon, i.e., the number of values to forecast.
 #' @return Result is a list of class `frbe` with the following elements:
 #' * `features` - a data frame with computed features of the given time-series;
