@@ -1,3 +1,7 @@
+# lfl 2.3.1
+* released: 2025-12-16
+* removed C++11 requirement as R already supports higher C++ standards
+
 # lfl 2.3.0
 * released: 2025-06-27
 * implemented str.fsets(), as_tibble.fsets()
