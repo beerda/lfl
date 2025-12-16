@@ -1,6 +1,7 @@
 # lfl 2.3.1
 * released: 2025-12-16
 * removed C++11 requirement as R already supports higher C++ standards
+* polished documentation
 
 # lfl 2.3.0
 * released: 2025-06-27
