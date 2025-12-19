@@ -1,0 +1,353 @@
+---
+title: "Fuzzy Rule-Based Ensemble (FRBE)"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Fuzzy Rule-Based Ensemble (FRBE)}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(lfl)
+```
+
+# Fuzzy Rule-Based Ensemble (FRBE)
+
+The **Fuzzy Rule-Based Ensemble (FRBE)** is a method for time series forecasting that combines multiple forecasting methods using fuzzy rule-based weighting. FRBE adapts to different characteristics of the time series by using fuzzy if-then rules to determine the weight of each forecasting method.
+
+## Overview
+
+FRBE works by:
+
+1. **Decomposing** the time series into components (trend, seasonality, etc.)
+2. **Characterizing** each component with fuzzy features
+3. **Applying fuzzy rules** to determine weights for different forecasting methods
+4. **Combining forecasts** from multiple methods using the fuzzy weights
+5. **Producing** the final ensemble forecast
+
+## Basic Usage
+
+The simplest way to use FRBE is with the `frbe()` function:
+
+```{r}
+# Create a sample time series
+set.seed(123)
+myts <- ts(1:100 + rnorm(100, sd=5), frequency=12)  # monthly data
+
+# Fit FRBE model and forecast 10 steps ahead
+fit <- frbe(myts, h=10)
+
+# View the forecast
+fit$mean
+```
+
+The `fit` object contains:
+- `mean`: Point forecasts
+- `lower`: Lower prediction intervals (if computed)
+- `upper`: Upper prediction intervals (if computed)
+- Additional diagnostic information
+
+## Understanding Time Series Frequency
+
+The frequency parameter is crucial for FRBE:
+
+```{r}
+# Hourly data (24 observations per day)
+hourly_ts <- ts(1:168 + rnorm(168), frequency=24)
+
+# Daily data (7 observations per week)
+daily_ts <- ts(1:70 + rnorm(70), frequency=7)
+
+# Monthly data (12 observations per year)
+monthly_ts <- ts(1:60 + rnorm(60), frequency=12)
+
+# Quarterly data (4 observations per year)
+quarterly_ts <- ts(1:40 + rnorm(40), frequency=4)
+```
+
+FRBE automatically adapts to the frequency.
+
+## Forecasting Horizons
+
+Specify different forecasting horizons with the `h` parameter:
+
+```{r}
+# Short-term forecast (5 periods ahead)
+fit_short <- frbe(myts, h=5)
+fit_short$mean
+
+# Long-term forecast (20 periods ahead)
+fit_long <- frbe(myts, h=20)
+fit_long$mean
+```
+
+## Real-World Example: Trend and Seasonality
+
+Let's create a more realistic time series with trend and seasonality:
+
+```{r}
+# Create time series with trend and seasonal pattern
+t <- 1:120
+trend <- 0.5 * t
+seasonal <- 10 * sin(2 * pi * t / 12)
+noise <- rnorm(120, sd=2)
+realistic_ts <- ts(trend + seasonal + noise, frequency=12)
+
+# Plot the time series
+plot(realistic_ts, main="Time Series with Trend and Seasonality",
+     xlab="Time", ylab="Value")
+
+# Fit FRBE
+fit <- frbe(realistic_ts, h=12)
+
+# View forecasts
+fit$mean
+```
+
+## Visualizing Forecasts
+
+```{r}
+# Create forecast plot
+plot(realistic_ts, xlim=c(0, length(realistic_ts)/12 + 1.5),
+     main="FRBE Forecast", xlab="Time", ylab="Value")
+
+# Add forecast
+lines(fit$mean, col="blue", lwd=2)
+
+# Add legend
+legend("topleft", legend=c("Actual", "Forecast"),
+       col=c("black", "blue"), lty=1, lwd=c(1, 2))
+```
+
+## Ensemble Components
+
+FRBE combines multiple base forecasting methods. The package uses methods from the `forecast` package:
+
+- **ETS** (Exponential Smoothing State Space)
+- **ARIMA** (AutoRegressive Integrated Moving Average)
+- **Theta** method
+- **Random Walk with Drift**
+- **Naive** methods
+
+Each method's contribution is weighted based on fuzzy rules that evaluate:
+- Trend strength
+- Seasonality strength
+- Autocorrelation
+- Stability
+- Other time series characteristics
+
+## Evaluating Forecast Accuracy
+
+Use `evalfrbe()` to evaluate forecast accuracy:
+
+```{r}
+# Split data into training and test
+train_ts <- window(realistic_ts, end=c(9, 12))  # First 9 years
+test_ts <- window(realistic_ts, start=c(10, 1))  # Last year
+
+# Fit on training data
+fit <- frbe(train_ts, h=12)
+
+# Evaluate against test data
+evaluation <- evalfrbe(fit, test_ts)
+print(evaluation)
+```
+
+The evaluation includes:
+- **RMSE** (Root Mean Squared Error)
+- **MAE** (Mean Absolute Error)
+- **MAPE** (Mean Absolute Percentage Error)
+- **SMAPE** (Symmetric Mean Absolute Percentage Error)
+- **MASE** (Mean Absolute Scaled Error)
+
+## Error Metrics
+
+The package provides individual error metric functions:
+
+### RMSE (Root Mean Squared Error)
+
+```{r}
+forecast_values <- fit$mean
+actual_values <- test_ts
+
+# Calculate RMSE
+rmse(actual_values, forecast_values)
+```
+
+### SMAPE (Symmetric Mean Absolute Percentage Error)
+
+```{r}
+smape(actual_values, forecast_values)
+```
+
+### MASE (Mean Absolute Scaled Error)
+
+```{r}
+# MASE requires the training data for scaling
+mase(actual_values, forecast_values, scale=train_ts)
+```
+
+## Advanced Usage: Time Series with Complex Patterns
+
+### Multiple Seasonality
+
+```{r}
+# Create time series with multiple seasonal patterns
+t <- 1:168  # One week of hourly data
+daily_pattern <- 5 * sin(2 * pi * t / 24)  # Daily cycle
+weekly_pattern <- 3 * sin(2 * pi * t / 168)  # Weekly cycle
+trend <- 0.1 * t
+noise <- rnorm(168, sd=1)
+
+complex_ts <- ts(trend + daily_pattern + weekly_pattern + noise, frequency=24)
+
+# Forecast with FRBE
+fit_complex <- frbe(complex_ts, h=24)  # Forecast next day
+
+# Display first few forecasts
+head(fit_complex$mean)
+```
+
+### Intermittent Demand
+
+```{r}
+# Create intermittent demand pattern (common in inventory management)
+intermittent <- rpois(100, lambda=0.5) * abs(rnorm(100, mean=10, sd=3))
+intermittent_ts <- ts(intermittent, frequency=12)
+
+# Forecast
+fit_intermittent <- frbe(intermittent_ts, h=6)
+fit_intermittent$mean
+```
+
+## Rolling Window Forecasting
+
+For backtesting, use rolling window approach:
+
+```{r}
+# Prepare data
+data <- realistic_ts
+n_test <- 12  # Test on last 12 observations
+n_train <- length(data) - n_test
+
+# Initialize storage
+forecasts <- numeric(n_test)
+actuals <- numeric(n_test)
+
+# Rolling window forecast
+for (i in 1:n_test) {
+  # Training data up to current point
+  train <- window(data, end=c(1, n_train + i - 1))
+  
+  # Fit and forecast 1 step ahead
+  fit <- frbe(train, h=1)
+  forecasts[i] <- fit$mean[1]
+  actuals[i] <- data[n_train + i]
+}
+
+# Calculate accuracy
+rmse(actuals, forecasts)
+```
+
+## Handling Missing Values
+
+```{r eval=FALSE}
+# FRBE can handle time series with missing values
+# through the underlying forecast methods
+
+ts_with_na <- realistic_ts
+ts_with_na[c(10, 20, 30)] <- NA
+
+# Some methods will interpolate or skip NAs
+fit_na <- frbe(ts_with_na, h=6)
+```
+
+## When to Use FRBE
+
+FRBE is particularly useful for:
+
+1. **Complex time series**: When no single method consistently performs best
+2. **Changing patterns**: When time series characteristics evolve
+3. **Uncertain conditions**: When forecast uncertainty is high
+4. **Ensemble benefits**: When combining multiple forecasters improves robustness
+
+## Comparison with Single Methods
+
+```{r}
+# Compare FRBE with individual methods
+train <- window(realistic_ts, end=c(9, 12))
+test <- window(realistic_ts, start=c(10, 1))
+
+# FRBE
+frbe_fit <- frbe(train, h=12)
+frbe_rmse <- rmse(test, frbe_fit$mean)
+
+# Individual methods (simplified comparison)
+cat("FRBE RMSE:", frbe_rmse, "\n")
+```
+
+## Checking Model Fit
+
+```{r}
+# Check if the model is an FRBE object
+fit <- frbe(realistic_ts, h=6)
+is.frbe(fit)
+```
+
+## Time Series Utilities
+
+### Rolling Apply
+
+The `rollapply()` function applies a function over a rolling window:
+
+```{r}
+# Calculate rolling mean
+data <- 1:20
+rollapply(data, width=5, FUN=mean)
+```
+
+### Horizon Function
+
+The `horizon()` function (discussed in linguistic expressions vignette) can be used with time series features.
+
+## Practical Tips
+
+1. **Choose appropriate frequency**: Ensure the `frequency` parameter matches your data
+2. **Sufficient history**: Provide enough historical data (at least 2-3 seasonal cycles)
+3. **Validate forecasts**: Use hold-out sets or cross-validation
+4. **Monitor performance**: Regularly evaluate and update models
+5. **Consider domain knowledge**: FRBE works best when combined with expert knowledge
+
+## Limitations
+
+- **Computational cost**: FRBE fits multiple models, which can be slow for large datasets
+- **Parameter tuning**: Default fuzzy rules may not be optimal for all series
+- **Interpretation**: Ensemble weights are not always transparent
+
+## Summary
+
+FRBE provides robust time series forecasting through:
+
+- **Ensemble approach**: Combines multiple forecasting methods
+- **Fuzzy logic**: Uses fuzzy rules to weight methods adaptively
+- **Flexibility**: Handles various time series patterns
+- **Accuracy**: Often outperforms single-method approaches
+
+Key functions:
+- `frbe()`: Fit FRBE and generate forecasts
+- `is.frbe()`: Check if object is FRBE
+- `evalfrbe()`: Evaluate forecast accuracy
+- `rmse()`, `smape()`, `mase()`: Individual error metrics
+- `rollapply()`: Rolling window operations
+
+## References
+
+- Štěpnička, M., & Burda, M. (2017). On the aggregation of forecasts using fuzzy rules. In *Proceedings of IFSA-SCIS*.
+- Makridakis, S., Spiliotis, E., & Assimakopoulos, V. (2018). The M4 Competition: Results, findings, conclusion and way forward. *International Journal of Forecasting*, 34(4), 802-808.

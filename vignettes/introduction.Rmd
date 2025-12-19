@@ -1,0 +1,201 @@
+---
+title: "Introduction to lfl"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to lfl}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 6,
+  fig.height = 4
+)
+```
+
+# Introduction
+
+The `lfl` package for R provides various algorithms related to **linguistic fuzzy logic**. This package implements tools for using fuzzy relational calculus, linguistic fuzzy logic in data processing, and various fuzzy-based methods for classification and prediction.
+
+## Installation
+
+To install the stable version from CRAN:
+
+```{r eval=FALSE}
+install.packages("lfl")
+```
+
+Or install the development version from GitHub:
+
+```{r eval=FALSE}
+install.packages("devtools")
+devtools::install_github("beerda/lfl")
+```
+
+Load the package:
+
+```{r}
+library(lfl)
+```
+
+## Key Features
+
+The `lfl` package covers several important areas:
+
+### 1. Fuzzy Algebras
+
+The package provides support for various t-norms (Gödel, Goguen, Łukasiewicz) and their corresponding operations:
+
+```{r}
+# Create a Gödel algebra
+a <- algebra("goedel")
+
+# Negation
+a$n(c(0.5, 0.8, 0, 1))
+
+# T-norm (conjunction)
+a$t(c(0.8, 0.3), c(0.2, 1), c(1, 0))
+
+# T-conorm (disjunction)
+a$s(c(0.8, 0.3), c(0.2, 1))
+
+# Residuum (implication)
+a$r(c(0.8, 0.3), c(0.2, 1))
+```
+
+Different algebras can be created:
+
+```{r}
+# Goguen algebra (product)
+a_goguen <- algebra("goguen")
+
+# Łukasiewicz algebra
+a_lukas <- algebra("lukasiewicz")
+```
+
+### 2. Handling Missing Values
+
+The package provides several approaches for handling missing values (NA) in fuzzy operations:
+
+```{r}
+a <- algebra("goedel")
+a2 <- sobocinski(a)
+
+# Standard algebra returns NA
+a$t(NA, 0.3)
+
+# Sobocinski extension handles NA
+a2$t(NA, 0.3)
+```
+
+### 3. Composition of Fuzzy Relations
+
+Fuzzy relations can be composed using various algebras and composition types:
+
+```{r}
+# Define symptom-disease relation
+S <- matrix(c(1, 0.9, 0, 1,
+              1, 0.2, 1, 0,
+              0.1, 0.9, 0, 0.7,
+              0.9, 0, 1, 0.1,
+              0, 1, 1, 0.9), nrow=4)
+colnames(S) <- c("pulm.hyp", "sleep.sick", "malaria", "hangover", "influenza")
+rownames(S) <- c("tired", "cough", "fever", "blur.vis")
+
+# Define patient-symptom relation
+R <- matrix(c(0.9, 0, 0, 0,
+              1, 0.9, 0.8, 0,
+              0.8, 0.8, 0.9, 1,
+              0, 0.1, 0, 0.9), nrow=4)
+colnames(R) <- rownames(S)
+rownames(R) <- paste0("patient", 1:4)
+
+# Compose relations to get patient-disease relation
+a <- algebra("lukasiewicz")
+compose(R, S, alg=a, type="basic")
+```
+
+### 4. Evaluative Linguistic Expressions
+
+The package supports creation and manipulation of evaluative linguistic expressions like "very small", "roughly medium", or "extremely big":
+
+```{r}
+# Create context for linguistic expressions
+ctx <- ctx3(low=0, center=50, high=100)
+
+# Create atomic expressions
+sm_horiz <- horizon(ctx, atomic="sm")
+me_horiz <- horizon(ctx, atomic="me")
+bi_horiz <- horizon(ctx, atomic="bi")
+
+# Evaluate at specific points
+sm_horiz(c(0, 25, 50, 75, 100))
+me_horiz(c(0, 25, 50, 75, 100))
+bi_horiz(c(0, 25, 50, 75, 100))
+```
+
+Linguistic hedges can be applied to modify atomic expressions:
+
+```{r}
+# Create "very small" expression
+ve_hedge <- hedge("ve")
+ve_sm <- lingexpr(ctx, atomic="sm", hedge="ve")
+ve_sm(c(0, 10, 20, 30, 40))
+
+# Create "roughly medium" expression
+ro_me <- lingexpr(ctx, atomic="me", hedge="ro")
+ro_me(c(30, 40, 50, 60, 70))
+```
+
+### 5. Data Transformation
+
+The package provides functions to transform data into fuzzy sets:
+
+```{r}
+# Transform logical data
+logvec <- c(TRUE, FALSE, TRUE, TRUE)
+lcut(logvec)
+
+# Transform factor data
+position <- factor(c("worker", "manager", "worker", "accountant"))
+lcut(position)
+
+# Transform numeric data with linguistic expressions
+age <- c(25, 45, 32, 58)
+lcut(age, context=ctx3(low=0, high=100))
+```
+
+For data frames, multiple variables can be transformed at once:
+
+```{r}
+data <- data.frame(
+  position = position,
+  age = age,
+  employed = logvec
+)
+
+employees <- lcut(data,
+                  context = ctx3(low=0, high=100),
+                  atomic = c("sm", "me", "bi"),
+                  hedges = c("ve", "-", "ro"))
+
+colnames(employees)
+```
+
+## Next Steps
+
+This introduction covers the basic features of the `lfl` package. For more detailed information, see the following vignettes:
+
+- **Fuzzy Algebras and Missing Values**: Detailed guide on fuzzy algebras
+- **Composition of Fuzzy Relations**: Working with fuzzy relation compositions
+- **Linguistic Expressions**: Creating and working with evaluative linguistic expressions
+- **Perception-based Logical Deduction**: Using PbLD for fuzzy inference
+- **Fuzzy Rule-Based Ensemble**: Time series forecasting with FRBE
+
+## References
+
+- Novák, V. (2008). A comprehensive theory of trichotomous evaluative linguistic expressions. *Fuzzy Sets and Systems*, 159(22), 2939-2969.
+- Burda, M., & Štěpnička, M. (2017). lfl: An R Package for Linguistic Fuzzy Logic. *Manuscript*.

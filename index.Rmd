@@ -1,0 +1,130 @@
+---
+output: github_document
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# lfl - Linguistic Fuzzy Logic
+
+<!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/lfl)](https://CRAN.R-project.org/package=lfl)
+[![codecov](https://codecov.io/gh/beerda/lfl/branch/master/graph/badge.svg)](https://app.codecov.io/gh/beerda/lfl)
+[![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/lfl)](https://cran.r-project.org/package=lfl)
+<!-- badges: end -->
+
+The `lfl` package for [R statistical computing environment](https://www.r-project.org/) provides various algorithms related to **linguistic fuzzy logic**: mining for linguistic fuzzy association rules, composition of fuzzy relations, performing perception-based logical deduction (PbLD), and forecasting time-series using fuzzy rule-based ensemble (FRBE). The package also contains basic fuzzy-related algebraic functions capable of handling missing values in different styles (Bochvar, Sobocinski, Kleene etc.), computation of Sugeno integrals and fuzzy transform.
+
+## Key Features
+
+- **Fuzzy Algebras**: Support for various t-norms (Gödel, Goguen, Łukasiewicz) and corresponding t-conorms, residua, bi-residua, and negations
+- **Missing Value Handling**: Extensions for handling NAs using Kleene, Bochvar, Sobocinski, Dragonfly, and other approaches
+- **Linguistic Expressions**: Tools for working with evaluative linguistic expressions (e.g., "very small", "roughly medium", "extremely big")
+- **Fuzzy Relations**: Composition of fuzzy relations with various extensions
+- **Association Rules**: Mining for linguistic fuzzy association rules from data
+- **Perception-based Logical Deduction (PbLD)**: Inference method specifically designed for linguistic fuzzy logic
+- **Fuzzy Rule-Based Ensemble (FRBE)**: Time series forecasting using ensemble of forecasting methods
+- **Fuzzy Transform**: Computing fuzzy transform and its inverse
+- **Sugeno Integral**: Computation of Sugeno integrals
+
+## Installation
+
+To install the stable version from CRAN, type the following command within your R session:
+
+```r
+install.packages("lfl")
+```
+
+You can also install the development version of `lfl` from [GitHub](https://github.com/) with:
+
+```r
+install.packages("devtools")
+devtools::install_github("beerda/lfl")
+```
+
+To start using the package, load it to the R session with:
+
+```{r}
+library(lfl)
+```
+
+## Quick Examples
+
+### Creating Fuzzy Algebras
+
+```{r}
+# Create a Gödel algebra
+a <- algebra("goedel")
+
+# Compute fuzzy operations
+a$n(c(0.5, 0.8, 0, 1))  # negation
+a$t(c(0.8, 0.3), c(0.2, 1), c(1, 0))  # t-norm (conjunction)
+a$s(c(0.8, 0.3), c(0.2, 1))  # t-conorm (disjunction)
+a$r(c(0.8, 0.3), c(0.2, 1))  # residuum (implication)
+```
+
+### Composition of Fuzzy Relations
+
+```{r}
+# Define fuzzy relations
+R <- matrix(c(0.9, 0, 0, 0,
+              1, 0.9, 0.8, 0,
+              0.8, 0.8, 0.9, 1,
+              0, 0.1, 0, 0.9), nrow=4)
+
+S <- matrix(c(1, 0.9, 0, 1,
+              1, 0.2, 1, 0,
+              0.1, 0.9, 0, 0.7,
+              0.9, 0, 1, 0.1,
+              0, 1, 1, 0.9), nrow=4)
+
+# Compute composition
+compose(R, S, alg=algebra("lukasiewicz"), type="basic")
+```
+
+### Evaluative Linguistic Expressions
+
+```{r}
+# Create context for linguistic expressions
+context <- ctx3(low=0, center=50, high=100)
+
+# Create linguistic expressions
+small <- lcut(1:100, context, atomic="sm")
+medium <- lcut(1:100, context, atomic="me")
+big <- lcut(1:100, context, atomic="bi")
+```
+
+## Documentation
+
+For complete documentation, please visit the [package website](https://beerda.github.io/lfl/) or read the vignettes:
+
+- **Introduction to lfl**: Overview of the package features
+- **Fuzzy Algebras**: Detailed guide on fuzzy algebras and handling missing values
+- **Composition of Fuzzy Relations**: Working with fuzzy relation compositions
+- **Perception-based Logical Deduction**: Using PbLD for fuzzy inference
+- **Fuzzy Rule-Based Ensemble**: Time series forecasting with FRBE
+
+You can also access the original academic article describing the package:
+[Burda & Štěpnička (2017). lfl: An R Package for Linguistic Fuzzy Logic](https://github.com/beerda/lfl/blob/master/vignettes/main.pdf).
+
+## Contributing
+
+Contributions, suggestions, and bug reports are welcome. Please submit [issues](https://github.com/beerda/lfl/issues/) on [GitHub](https://github.com/).
+
+## Citation
+
+If you use this package in your research, please cite:
+
+```
+Burda, M., & Štěpnička, M. (2017). lfl: An R Package for Linguistic Fuzzy Logic.
+```
+
+## License
+
+This package is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

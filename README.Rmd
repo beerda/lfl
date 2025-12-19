@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 [![CRAN status](https://www.r-pkg.org/badges/version/lfl)](https://CRAN.R-project.org/package=lfl)
 [![codecov](https://codecov.io/gh/beerda/lfl/branch/master/graph/badge.svg)](https://app.codecov.io/gh/beerda/lfl)
-
+[![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/lfl)](https://cran.r-project.org/package=lfl)
 
 # lfl
 
@@ -29,7 +29,9 @@ integrals and fuzzy transform.
 
 ## Documentation
 
-The complete documentation of the package is [available in this vignette](https://github.com/beerda/lfl/blob/master/vignettes/main.pdf).
+For complete documentation, please visit the [package website](https://beerda.github.io/lfl/).
+
+The original academic article describing the package is also [available as a vignette](https://github.com/beerda/lfl/blob/master/vignettes/main.pdf).
 
 
 ## Installation
