@@ -1,0 +1,337 @@
+---
+title: "Perception-based Logical Deduction (PbLD)"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Perception-based Logical Deduction (PbLD)}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(lfl)
+```
+
+# Perception-based Logical Deduction (PbLD)
+
+**Perception-based Logical Deduction (PbLD)** is an inference method specifically designed for linguistic fuzzy logic. Unlike traditional fuzzy inference methods (like Mamdani-Assilian), PbLD considers rule specificity and fires only the most specific rules that match the input.
+
+## Key Concepts
+
+### Rule Specificity
+
+In PbLD, a rule with antecedent "age is **very small**" is more specific than a rule with "age is **small**" because the "very small" fuzzy set is contained within the "small" fuzzy set.
+
+When multiple rules fire, PbLD:
+1. Selects the most specific rules
+2. Aggregates only those selected rules' consequents
+3. Defuzzifies the result
+
+This allows for discontinuous control surfaces and more nuanced decision-making.
+
+## Mining Association Rules
+
+Before performing inference, we typically mine fuzzy association rules from data using `searchrules()`.
+
+### Example: CO2 Dataset
+
+Let's use the built-in CO2 dataset to demonstrate PbLD:
+
+```{r}
+# View the data
+head(CO2, n=4)
+```
+
+### Transform Data to Fuzzy Sets
+
+```{r}
+# Create context for uptake variable
+uptakeContext <- ctx3(7, 28.3, 46)
+
+# Transform data to linguistic expressions
+d <- lcut(CO2, context=list(uptake=uptakeContext))
+
+# View column names
+head(colnames(d), n=10)
+```
+
+### Split Data for Training and Testing
+
+```{r}
+set.seed(123)
+testingIndices <- sort(sample(seq_len(nrow(d)), 10))
+print(testingIndices)
+
+training <- d[-testingIndices, ]
+testing <- d[testingIndices, ]
+```
+
+### Mine Association Rules
+
+```{r}
+# Search for rules predicting uptake
+rb <- searchrules(training,
+                  lhs = which(vars(d) != "uptake"),
+                  rhs = which(vars(d) == "uptake"),
+                  minConfidence = 0.5)
+
+# View some rules
+print(rb)
+```
+
+### View Rule Details
+
+```{r}
+# Convert to data frame for inspection
+rule_df <- as.data.frame(rb)
+head(rule_df[, c("support", "confidence")], n=5)
+```
+
+### Extract Antecedents and Consequents
+
+```{r}
+# View first few antecedents
+antecedents(rb)[1:3]
+
+# View first few consequents
+consequents(rb)[1:3]
+```
+
+## Performing PbLD Inference
+
+### Prepare Output Space
+
+```{r}
+# Create a discrete universe for output (uptake values)
+v <- seq(uptakeContext[1], uptakeContext[3], length.out=1000)
+
+# Transform to fuzzy sets
+p <- lcut(v, name="uptake", context=uptakeContext)
+```
+
+### Global Defuzzification
+
+Use all rules for each prediction:
+
+```{r}
+# Perform PbLD with global defuzzification
+predictions_global <- pbld(testing, rb, p, v, type="global")
+predictions_global
+```
+
+### Local Defuzzification (Default)
+
+Consider only the most specific rules for each instance:
+
+```{r}
+# Perform PbLD with local defuzzification (default)
+predictions_local <- pbld(testing, rb, p, v)
+predictions_local
+```
+
+## Custom Rule Bases
+
+You can also manually define rules for inference:
+
+```{r}
+# Define custom rules
+rules <- list(
+  c("me.uptake", "Plant=Mc1", "sm.conc"),
+  c("sm.uptake", "Type=Mississippi"),
+  c("bi.uptake", "Treatment=nonchilled", "ro.me.conc")
+)
+
+# Perform inference with custom rules
+pbld(testing, rules, p, v)
+```
+
+## The Fire Function
+
+The `fire()` function determines which rules fire and to what degree:
+
+```{r}
+# Example input data
+x <- 1:10 / 10
+names(x) <- letters[1:10]
+print(x)
+
+# Define rules
+rules <- list(
+  c("a", "c", "e"),
+  c("b"),
+  c("d", "a"),
+  c("c", "a", "b")
+)
+
+# Fire rules (show both firing degree and antecedent degree)
+fire(x, rules, tnorm="goguen", onlyAnte=FALSE)
+```
+
+The output shows:
+- `$rules`: Which rules fire
+- `$degrees`: Firing degree of each rule
+- `$ante`: Antecedent satisfaction degree
+
+## Perception Function
+
+The `perceive()` function selects the most specific rules:
+
+```{r}
+# Fire all rules first
+fired <- fire(x, rules, tnorm="goedel")
+
+# Perceive (select most specific)
+perceived <- perceive(x, rules, fired$degrees)
+perceived
+```
+
+## Reducing Rule Bases
+
+The `reduce()` function removes redundant rules:
+
+```{r}
+# Example with employees data
+position <- factor(c("worker", "manager", "worker", "accountant"))
+age <- c(25, 45, 32, 58)
+logvec <- c(TRUE, FALSE, TRUE, TRUE)
+
+data <- data.frame(
+  position = position,
+  age = age,
+  employed = logvec
+)
+
+employees <- lcut(data,
+                  context = ctx3(low=0, high=100),
+                  atomic = c("sm", "me", "bi"),
+                  hedges = c("ve", "-", "ro"))
+
+# Search for rules
+rb <- searchrules(employees,
+                  lhs = seq_len(ncol(employees)),
+                  rhs = seq_len(ncol(employees)),
+                  minSupport = 0.5,
+                  minConfidence = 0.8,
+                  maxLength = 3)
+
+# Reduce rule base (keep rules covering at least 90% of data)
+reduced_rb <- reduce(employees, rb, 0.9)
+print(reduced_rb)
+```
+
+## Complete Example: Iris Classification
+
+Let's use PbLD for classifying iris species:
+
+```{r}
+# View data
+summary(iris)
+```
+
+### Transform Data
+
+```{r}
+# Transform to linguistic expressions
+ldata <- lcut(iris,
+              context = function(x) minmax(x, type="ctx5"),
+              hedges = "-")
+
+# View some column names
+head(colnames(ldata), n=10)
+```
+
+### Mine Rules
+
+```{r}
+# Search for rules predicting species
+lrules <- searchrules(ldata,
+                      lhs = grep("^Species=", colnames(ldata), invert=TRUE),
+                      rhs = grep("^Species=", colnames(ldata)),
+                      minSupport = 0.05,
+                      minConfidence = 0.8,
+                      n = 0,  # search for all rules
+                      maxLength = 5)
+
+# View top rules by confidence
+ldf <- as.data.frame(lrules)
+ldf <- ldf[order(ldf$confidence, decreasing=TRUE), ]
+head(ldf[, c('support', 'confidence')], n=8)
+```
+
+### Reduce Rule Base
+
+```{r}
+# Keep only non-redundant rules
+r <- reduce(ldata, rules=lrules, ratio=1)
+
+# View kept rules
+rownames(as.data.frame(r))
+```
+
+## Comparison with Traditional Methods
+
+### PbLD vs. Mamdani-Assilian
+
+| Aspect | PbLD | Mamdani-Assilian |
+|--------|------|------------------|
+| Rule aggregation | Selects most specific rules | Aggregates all firing rules |
+| Implication | Residuated implication | Min or product implication |
+| Output | Can be discontinuous | Usually smooth |
+| Rule base | List of rules | Conjunction of rules |
+| Specificity | Explicitly considered | Not considered |
+
+### Advantages of PbLD
+
+1. **Natural rule interpretation**: Rules with more specific antecedents take precedence
+2. **Discontinuous outputs**: Allows for abrupt changes when appropriate
+3. **Efficient**: Only most relevant rules are evaluated
+4. **Linguistic**: Designed specifically for evaluative linguistic expressions
+
+## Aggregation Methods
+
+The `aggregateConsequents()` function combines consequents from fired rules:
+
+```{r}
+# Example consequents from multiple rules
+conseq <- matrix(c(
+  0.8, 0.2, 0.1,
+  0.1, 0.9, 0.3,
+  0.2, 0.3, 0.9
+), nrow=3, byrow=TRUE)
+
+# Firing degrees
+degrees <- c(0.7, 0.5, 0.6)
+
+# Aggregate using different methods
+aggregateConsequents(conseq, degrees, algo="lukasiewicz")
+```
+
+## Summary
+
+PbLD provides a sophisticated inference method for linguistic fuzzy logic:
+
+- **Specificity-aware**: Prefers more specific rules
+- **Flexible**: Supports both global and local defuzzification
+- **Integrated**: Works seamlessly with `searchrules()` for data-driven rule extraction
+- **Efficient**: Selective rule firing reduces computational cost
+- **Linguistic**: Designed for evaluative linguistic expressions
+
+Key functions:
+- `searchrules()`: Mine association rules
+- `pbld()`: Perform PbLD inference
+- `fire()`: Determine which rules fire
+- `perceive()`: Select most specific rules
+- `aggregateConsequents()`: Combine consequent fuzzy sets
+- `reduce()`: Remove redundant rules
+
+## References
+
+- Novák, V., & Lehmke, S. (2006). Logical structure of fuzzy IF-THEN rules. *Fuzzy Sets and Systems*, 157(15), 2003-2029.
+- Dvořák, A., & Novák, V. (2011). Formal theories and linguistic descriptions. *Fuzzy Sets and Systems*, 143(1), 169-188.
+- Štěpnička, M., & Dvořák, A. (2013). Fuzzy relational compositions based on generalized quantifiers. In *Proceedings of EUSFLAT*.

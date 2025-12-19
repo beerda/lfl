@@ -1,0 +1,157 @@
+url: https://beerda.github.io/lfl/
+
+template:
+  bootstrap: 5
+  light-switch: true
+  math-rendering: mathjax
+
+news:
+  cran_dates: false
+
+reference:
+  - title: "Fuzzy Algebras"
+    desc: >
+      Functions for creating and working with fuzzy algebras (t-norms, t-conorms, 
+      residua, bi-residua, and negations).
+    contents:
+      - algebra
+      - is.algebra
+      - goedel.tnorm
+      - goguen.tnorm
+      - lukas.tnorm
+      - goedel.residuum
+      - goguen.residuum
+      - lukas.residuum
+      - mult
+      - minmax
+
+  - title: "Handling Missing Values in Fuzzy Logic"
+    desc: >
+      Extensions of fuzzy algebras for handling missing values (NA) using various
+      approaches such as Kleene, Bochvar, Sobocinski, etc.
+    contents:
+      - sobocinski
+      - kleene
+      - dragonfly
+      - nelson
+      - lowerEst
+      - upperEst
+
+  - title: "Fuzzy Sets and Linguistic Expressions"
+    desc: >
+      Functions for working with fuzzy sets, membership functions, and evaluative
+      linguistic expressions.
+    contents:
+      - fsets
+      - vars
+      - specs
+      - fcut
+      - lcut
+      - triangular
+      - raisedcosine
+      - ctx3
+      - ctx3bilat
+      - ctx5
+      - ctx5bilat
+      - as.ctx3
+      - as.ctx5
+      - lingexpr
+      - hedge
+      - defaultHedgeParams
+
+  - title: "Fuzzy Partitioning"
+    desc: >
+      Functions for partitioning numeric data into fuzzy sets.
+    contents:
+      - equidist
+      - equifreq
+
+  - title: "Composition of Fuzzy Relations"
+    desc: >
+      Functions for composing fuzzy relations with various composition types.
+    contents:
+      - compose
+      - quantifier
+
+  - title: "Fuzzy Association Rules"
+    desc: >
+      Functions for mining and working with linguistic fuzzy association rules.
+    contents:
+      - searchrules
+      - farules
+      - is.farules
+      - as.data.frame.farules
+      - antecedents
+      - consequents
+      - rbcoverage
+      - reduce
+
+  - title: "Perception-based Logical Deduction (PbLD)"
+    desc: >
+      Functions for performing inference using the Perception-based Logical Deduction
+      method on fuzzy rule bases.
+    contents:
+      - pbld
+      - fire
+      - perceive
+      - is.specific
+      - aggregateConsequents
+
+  - title: "Fuzzy Rule-Based Ensemble (FRBE)"
+    desc: >
+      Functions for time series forecasting using fuzzy rule-based ensemble.
+    contents:
+      - frbe
+      - is.frbe
+      - evalfrbe
+
+  - title: "Fuzzy Transform"
+    desc: >
+      Functions for fuzzy transform and its inverse.
+    contents:
+      - ft
+      - is.ft
+      - ftinv
+
+  - title: "Sugeno Integral"
+    desc: >
+      Functions for computing Sugeno integrals.
+    contents:
+      - sugeno
+
+  - title: "Defuzzification"
+    desc: >
+      Functions for defuzzification of fuzzy sets.
+    contents:
+      - defuzz
+
+  - title: "Time Series Operations"
+    desc: >
+      Functions for time series analysis and forecasting.
+    contents:
+      - rollapply
+      - horizon
+
+  - title: "Error Metrics"
+    desc: >
+      Functions for computing forecast error metrics.
+    contents:
+      - rmse
+      - smape
+      - mase
+
+  - title: "Print and Display Methods"
+    desc: >
+      S3 methods for printing and displaying objects.
+    contents:
+      - starts_with("print.")
+      - starts_with("as.data.frame.")
+
+  - title: "Deprecated Functions"
+    desc: >
+      Deprecated functions kept for backward compatibility.
+    contents:
+      - triangle
+      - raisedcos
+      - triangularShape
+      - raisedcosShape

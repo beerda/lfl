@@ -1,0 +1,292 @@
+---
+title: "Fuzzy Algebras and Missing Values"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Fuzzy Algebras and Missing Values}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(lfl)
+```
+
+# Fuzzy Algebras
+
+Fuzzy algebras form the foundation of fuzzy logic operations. The `lfl` package provides support for three main types of algebras based on different t-norms.
+
+## T-norms and Their Algebras
+
+A **t-norm** (triangular norm) is a binary operation that generalizes the logical conjunction (AND) to fuzzy logic. The `lfl` package supports three standard t-norms:
+
+### Gödel T-norm (Minimum)
+
+The Gödel t-norm computes the minimum of its arguments:
+
+```{r}
+a <- algebra("goedel")
+
+# T-norm (conjunction/AND)
+a$t(0.7, 0.5)
+a$t(c(0.8, 0.3), c(0.2, 1), c(1, 0))
+
+# T-conorm (disjunction/OR)
+a$s(0.7, 0.5)
+
+# Negation
+a$n(c(0.5, 0.8, 0, 1))
+
+# Residuum (implication)
+a$r(0.7, 0.5)
+a$r(0.5, 0.7)
+
+# Bi-residuum (equivalence)
+a$b(0.7, 0.5)
+```
+
+### Goguen T-norm (Product)
+
+The Goguen t-norm uses multiplication:
+
+```{r}
+a <- algebra("goguen")
+
+# T-norm (product)
+a$t(0.7, 0.5)
+
+# T-conorm (probabilistic sum)
+a$s(0.7, 0.5)
+
+# Residuum (quotient)
+a$r(0.7, 0.5)
+a$r(0.5, 0.7)
+```
+
+### Łukasiewicz T-norm
+
+The Łukasiewicz t-norm uses the formula: max(0, a + b - 1)
+
+```{r}
+a <- algebra("lukasiewicz")
+
+# T-norm
+a$t(0.7, 0.5)
+
+# T-conorm
+a$s(0.7, 0.5)
+
+# Residuum
+a$r(0.7, 0.5)
+a$r(0.5, 0.7)
+```
+
+## Operations on Fuzzy Algebras
+
+Each algebra provides the following operations:
+
+- **`n(x)`**: Negation (NOT)
+- **`ni(x)`**: Involutive negation (double negation equals identity)
+- **`t(...)`**: T-norm (conjunction/AND)
+- **`pt(...)`**: Product t-norm version
+- **`s(...)`**: T-conorm (disjunction/OR)
+- **`r(x, y)`**: Residuum (implication)
+- **`b(x, y)`**: Bi-residuum (equivalence)
+
+Example using multiple operations:
+
+```{r}
+a <- algebra("goedel")
+
+# Modus Ponens: if A implies B, and A is true (to degree p), then B
+p <- 0.8  # truth degree of A
+imp <- a$r(p, 0.6)  # A implies B (with B having degree 0.6)
+a$t(p, imp)  # conclusion about B
+```
+
+## Standard Negation
+
+By default, algebras use standard negation. You can explicitly request standard negation:
+
+```{r}
+a <- algebra("goedel", stdneg=TRUE)
+a$n(0.7)
+```
+
+## Handling Missing Values
+
+Standard fuzzy algebras return `NA` when any operand is missing:
+
+```{r}
+a <- algebra("goedel")
+a$t(0.8, NA)
+a$s(0.8, NA)
+a$r(0.8, NA)
+```
+
+However, the `lfl` package provides several extensions to handle missing values in different ways.
+
+### Sobociński Extension
+
+The Sobociński approach treats `NA` as maximally uncertain:
+
+```{r}
+a <- algebra("goedel")
+a2 <- sobocinski(a)
+
+# Standard algebra
+a$t(NA, 0.3)
+
+# Sobociński extension
+a2$t(NA, 0.3)
+a2$s(NA, 0.7)
+a2$n(NA)
+```
+
+### Kleene Extension
+
+The Kleene extension is another approach to handling missing values:
+
+```{r}
+a <- algebra("goedel")
+a_kleene <- kleene(a)
+
+a_kleene$t(NA, 0.3)
+a_kleene$s(NA, 0.7)
+```
+
+### Dragonfly Extension
+
+The Dragonfly extension provides yet another interpretation:
+
+```{r}
+a <- algebra("lukasiewicz")
+a_dragon <- dragonfly(a)
+
+a_dragon$t(NA, 0.3)
+a_dragon$s(NA, 0.7)
+```
+
+### Nelson Extension
+
+The Nelson extension:
+
+```{r}
+a <- algebra("goedel")
+a_nelson <- nelson(a)
+
+a_nelson$t(NA, 0.3)
+a_nelson$s(NA, 0.7)
+```
+
+### Lower and Upper Estimates
+
+The package also provides lower and upper estimate extensions:
+
+```{r}
+a <- algebra("goedel")
+a_lower <- lowerEst(a)
+a_upper <- upperEst(a)
+
+# Lower estimate (pessimistic)
+a_lower$t(NA, 0.7)
+
+# Upper estimate (optimistic)
+a_upper$t(NA, 0.7)
+```
+
+## Practical Applications
+
+### Example: Medical Diagnosis
+
+Suppose we have degrees of belief about symptoms and want to combine them:
+
+```{r}
+a <- algebra("lukasiewicz")
+
+# Degrees of belief in symptoms
+fever <- 0.8
+cough <- 0.6
+fatigue <- 0.9
+
+# Rule: IF fever AND cough AND fatigue THEN flu
+# Compute degree of flu
+flu_degree <- a$t(fever, cough, fatigue)
+flu_degree
+
+# If we're uncertain about one symptom
+fatigue_uncertain <- NA
+a2 <- sobocinski(a)
+flu_degree_uncertain <- a2$t(fever, cough, fatigue_uncertain)
+flu_degree_uncertain
+```
+
+### Example: Control Systems
+
+Combining fuzzy control rules:
+
+```{r}
+a <- algebra("goedel")
+
+# Temperature is high
+temp_high <- 0.7
+
+# Pressure is medium
+pressure_med <- 0.5
+
+# Rule: IF temp is high OR pressure is medium THEN reduce power
+reduce_power <- a$s(temp_high, pressure_med)
+reduce_power
+```
+
+## Direct T-norm Functions
+
+For convenience, the package also provides direct t-norm functions:
+
+```{r}
+# Gödel t-norm (minimum)
+goedel.tnorm(0.7, 0.5, 0.8)
+
+# Goguen t-norm (product)
+goguen.tnorm(0.7, 0.5, 0.8)
+
+# Łukasiewicz t-norm
+lukas.tnorm(0.7, 0.5, 0.8)
+```
+
+And corresponding residuum functions:
+
+```{r}
+# Gödel residuum
+goedel.residuum(0.7, 0.5)
+
+# Goguen residuum
+goguen.residuum(0.7, 0.5)
+
+# Łukasiewicz residuum
+lukas.residuum(0.7, 0.5)
+```
+
+## Checking Algebra Objects
+
+You can check if an object is a fuzzy algebra:
+
+```{r}
+a <- algebra("goedel")
+is.algebra(a)
+```
+
+## Summary
+
+Fuzzy algebras provide the mathematical foundation for fuzzy logic operations in the `lfl` package. The three main t-norms (Gödel, Goguen, and Łukasiewicz) offer different characteristics suitable for various applications. Extensions for handling missing values provide flexibility when dealing with uncertain or incomplete data.
+
+## References
+
+- Běhounek, L., & Novák, V. (2015). Towards fuzzy partial logic. In *Proceedings of the 2015 IEEE International Conference on Fuzzy Systems*.
+- Běhounek, L., & Daňková, M. (2016). Relational compositions in Fuzzy Class Theory. *Fuzzy Sets and Systems*, 329, 70-89.
