@@ -149,14 +149,15 @@ Use `evalfrbe()` to evaluate forecast accuracy:
 
 ```{r}
 # Split data into training and test
-train_ts <- window(realistic_ts, end=c(9, 12))  # First 9 years
-test_ts <- window(realistic_ts, start=c(10, 1))  # Last year
+n_train <- 108  # First 9 years (9 * 12 months)
+train_ts <- ts(realistic_ts[1:n_train], frequency=12)
+test_vec <- realistic_ts[(n_train+1):length(realistic_ts)]
 
 # Fit on training data
 fit <- frbe(train_ts, h=12)
 
 # Evaluate against test data
-evaluation <- evalfrbe(fit, test_ts)
+evaluation <- evalfrbe(fit, test_vec)
 print(evaluation)
 ```
 
@@ -175,7 +176,7 @@ The package provides individual error metric functions:
 
 ```{r}
 forecast_values <- fit$mean
-actual_values <- test_ts
+actual_values <- test_vec
 
 # Calculate RMSE
 rmse(actual_values, forecast_values)
@@ -244,7 +245,7 @@ actuals <- numeric(n_test)
 # Rolling window forecast
 for (i in 1:n_test) {
   # Training data up to current point
-  train <- window(data, end=c(1, n_train + i - 1))
+  train <- ts(data[1:(n_train + i - 1)], frequency=12)
   
   # Fit and forecast 1 step ahead
   fit <- frbe(train, h=1)
@@ -282,8 +283,9 @@ FRBE is particularly useful for:
 
 ```{r}
 # Compare FRBE with individual methods
-train <- window(realistic_ts, end=c(9, 12))
-test <- window(realistic_ts, start=c(10, 1))
+n_train <- 108  # First 9 years
+train <- ts(realistic_ts[1:n_train], frequency=12)
+test <- realistic_ts[(n_train+1):length(realistic_ts)]
 
 # FRBE
 frbe_fit <- frbe(train, h=12)
