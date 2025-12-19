@@ -17,6 +17,7 @@ knitr::opts_chunk$set(
 [![CRAN status](https://www.r-pkg.org/badges/version/lfl)](https://CRAN.R-project.org/package=lfl)
 [![codecov](https://codecov.io/gh/beerda/lfl/branch/master/graph/badge.svg)](https://app.codecov.io/gh/beerda/lfl)
 [![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/lfl)](https://cran.r-project.org/package=lfl)
+[![R-CMD-check](https://github.com/beerda/lfl/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/beerda/lfl/actions/workflows/R-CMD-check.yaml)
 
 # lfl
 
