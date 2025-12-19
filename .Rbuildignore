@@ -12,3 +12,7 @@
 ^CRAN-SUBMISSION$
 ^.github$
 ^temp$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^index\.Rmd$
