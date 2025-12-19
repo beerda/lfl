@@ -1,0 +1,14 @@
+\begin{Schunk}
+% --begin: "casestudy-assoc-searchrules"
+\begin{Sinput}
+lrules <- searchrules(ldata,
+                      lhs=grep("^Species=", colnames(ldata), invert=TRUE),
+                      rhs=grep("^Species=", colnames(ldata)),
+                      minSupport=0.05,
+                      minConfidence=0.8,
+                      n=0,                         # search for all rules
+                      maxLength=5)
+\end{Sinput}
+%
+% --end: "casestudy-assoc-searchrules"
+\end{Schunk}

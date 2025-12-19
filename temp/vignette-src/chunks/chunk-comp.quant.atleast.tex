@@ -1,0 +1,22 @@
+\begin{Schunk}
+% --begin: "comp.quant.atleast"
+\begin{Sinput}
+qatleast <- sugeno(measure=function(x) as.numeric(x >= 2),
+                   relative=FALSE,
+                   strong=TRUE,
+                   alg="goedel")
+qRS <- mult(R, S, function(r, s) {
+  qatleast(a$pt(r, s))
+})
+print(qRS)
+\end{Sinput}
+\begin{Soutput}
+##          pulm.hyp sleep.sick malaria hangover influenza
+## patient1      0.9        0.8       0      0.8       0.8
+## patient2      0.1        0.1       0      0.0       0.8
+## patient3      0.0        0.0       0      0.0       0.8
+## patient4      0.0        0.0       0      0.0       0.8
+\end{Soutput}
+%
+% --end: "comp.quant.atleast"
+\end{Schunk}

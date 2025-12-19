@@ -1,0 +1,22 @@
+\begin{Schunk}
+% --begin: "searchrules"
+\begin{Sinput}
+rb <- searchrules(employees,
+                  lhs=seq_len(ncol(employees)),
+                  rhs=seq_len(ncol(employees)),
+                  minSupport=0.5,
+                  minConfidence=0.8,
+                  maxLength=3)
+print(rb)
+\end{Sinput}
+\begin{Soutput}
+##                               support lhsSupport rhsSupport confidence
+## position=worker => employed 0.5000000  0.5000000  0.7500000  1.0000000
+##  => ro.me.age               1.0000000  1.0000000  1.0000000  1.0000000
+## employed => me.age          0.7464963  0.7500000  0.8443495  0.9953284
+## me.age => employed          0.7464963  0.8443495  0.7500000  0.8841082
+##  => me.age                  0.8443495  1.0000000  0.8443495  0.8443495
+\end{Soutput}
+%
+% --end: "searchrules"
+\end{Schunk}

@@ -1,0 +1,21 @@
+\begin{Schunk}
+% --begin: "minmax"
+\begin{Sinput}
+data <- runif(n=100, min=20, max=5000)
+summary(data)
+\end{Sinput}
+\begin{Soutput}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   118.6  1306.3  2539.8  2580.3  3794.6  4997.8
+\end{Soutput}
+\begin{Sinput}
+minmax(data, type="ctx3")
+\end{Sinput}
+\begin{Soutput}
+## Linguistic context: unilateral trichotomy (ctx3)
+##      low   center     high 
+##  118.573 2558.195 4997.816
+\end{Soutput}
+%
+% --end: "minmax"
+\end{Schunk}

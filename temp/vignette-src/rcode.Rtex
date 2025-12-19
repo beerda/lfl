@@ -1,0 +1,631 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\begin{document}
+<<setup, include=FALSE>>=
+  library(knitr)
+  library(ggplot2)
+
+  render_sweave()
+
+  options(width=75)
+  knitr::opts_chunk$set(tidy=TRUE,
+                        tidy.opts = list(width.cutoff = 70),
+                        comment="##",
+                        prompt=FALSE,
+                        highlight=FALSE)
+
+  knit_hooks$set(export = function(before, options, envir) {
+    if (before) {
+      return(paste0('% --begin: "', options$export, '"\n'))
+    } else {
+      return(paste0('%\n% --end: "', options$export, '"\n'))
+    }
+  })
+
+  set.seed(3243)
+@
+
+
+<<export='cran.lfl', eval=FALSE>>=
+install.packages("lfl")
+@
+
+<<export='git.lfl', eval=FALSE>>=
+install.packages("devtools")
+devtools::install_github("beerda/lfl")
+@
+
+<<export='load.lfl', message=FALSE>>=
+library("lfl")
+@
+
+<<export='goedel.algebra'>>=
+a <- algebra("goedel")
+@
+
+<<export='goedel.algebra.examples'>>=
+a$n(c(0.5, 0.8, 0, 1))
+a$ni(c(0.5, 0.8, 0, 1))
+a$t(c(0.8, 0.3), c(0.2, 1), c(1, 0))
+a$pt(c(0.8, 0.3), c(0.2, 1), c(1, 0))
+a$r(c(0.8, 0.3), c(0.2, 1))
+@
+
+<<export='goguen.algebra'>>=
+a <- algebra("goguen")
+@
+
+<<export='lukasiewicz.algebra'>>=
+a <- algebra("lukasiewicz")
+@
+
+<<export='na.algebra'>>=
+a <- algebra("goedel")
+a2 <- sobocinski(a)
+a$t(NA, 0.3)
+a2$t(NA, 0.3)
+@
+
+<<>>=
+S <- matrix(c(1, 0.9, 0, 1,
+              1, 0.2, 1, 0,
+              0.1, 0.9, 0, 0.7,
+              0.9, 0, 1, 0.1,
+              0, 1, 1, 0.9), nrow=4)
+colnames(S) <- c("pulm.hyp", "sleep.sick", "malaria", "hangover", "influenza")
+rownames(S) <- c("tired", "cough", "fever", "blur.vis")
+
+R <- matrix(c(0.9, 0, 0, 0,
+              1, 0.9, 0.8, 0,
+              0.8, 0.8, 0.9, 1,
+              0, 0.1, 0, 0.9), nrow=4)
+colnames(R) <- rownames(S)
+rownames(R) <- paste0("patient", 1:4)
+@
+
+<<export='comp.data'>>=
+print(R)
+print(S)
+@
+
+<<export='comp.basic'>>=
+a <- algebra("lukasiewicz")
+compose(R, S, alg=a, type="basic")
+@
+
+<<export='comp.mult'>>=
+mult(R, S, function(r, s) {
+  a$s(a$pt(r, s))
+})
+@
+
+<<export='comp.subsupsquare'>>=
+compose(R, S, alg="lukasiewicz", type="sub")
+compose(R, S, alg="lukasiewicz", type="super")
+compose(R, S, alg="lukasiewicz", type="square")
+@
+
+<<>>=
+E <- matrix(c(0, 0, 1, 0,
+              0, 0, 0, 0,
+              0, 0, 0, 0,
+              0, 1, 0, 0,
+              0, 0, 0, 0), nrow=4)
+colnames(E) <- colnames(S)
+rownames(E) <- rownames(S)
+
+U <- matrix(c(0, 0, 0, 1,
+              0, 0, 0, 0,
+              0, 0, 0, 0,
+              0, 0, 0, 0,
+              0, 1, 0, 0), nrow=4)
+colnames(U) <- colnames(S)
+rownames(U) <- rownames(S)
+@
+
+<<export='comp.e'>>=
+print(E)
+@
+
+<<export='comp.u'>>=
+print(U)
+@
+
+<<export='comp.circ.excl'>>=
+a <- algebra("lukasiewicz")
+RS <- compose(R, S, alg=a, type="basic")
+RE <- compose(R, E, alg=a, type="basic")
+a$pt(RS, a$n(RE))
+@
+
+<<export='comp.circ.unavoid'>>=
+RU <- compose(R, U, alg=a, type="super")
+a$pt(RS, RU)
+@
+
+<<export='comp.circ.excl.unavoid'>>=
+a$pt(RS, a$n(RE), RU)
+@
+
+<<export='comp.quant.atleast', tidy=FALSE>>=
+qatleast <- sugeno(measure=function(x) as.numeric(x >= 2),
+                   relative=FALSE,
+                   strong=TRUE,
+                   alg="goedel")
+qRS <- mult(R, S, function(r, s) {
+  qatleast(a$pt(r, s))
+})
+print(qRS)
+@
+
+<<export='comp.quant.combined'>>=
+a$pt(qRS, a$n(RE), RU)
+@
+
+<<export='ctx'>>=
+ctx3(5, 100, 1000)
+ctx3()
+ctx3(high=100)
+@
+
+<<export='minmax'>>=
+data <- runif(n=100, min=20, max=5000)
+summary(data)
+minmax(data, type="ctx3")
+@
+
+<<export='minmax2'>>=
+minmax(data, type="ctx3", center=1000)
+@
+
+<<export='horizon'>>=
+ctx <- ctx3()
+smHoriz <- horizon(ctx, atomic="sm")
+smHoriz(seq(from=0, to=1, by=0.2))
+@
+
+<<horizon, fig.width=6, fig.height=2, fig.show="hide">>=
+meHoriz <- horizon(ctx, atomic="me")
+biHoriz <- horizon(ctx, atomic="bi")
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  stat_function(aes(color="sm"), fun = smHoriz) +
+  stat_function(aes(color="me"), fun = meHoriz) +
+  stat_function(aes(color="bi"), fun = biHoriz) +
+  xlim(-0.5, 1.5) +
+  labs(x="", y="", colour="atomic\nexpression")
+@
+
+<<export='hedge'>>=
+veHedge <- hedge("ve")
+ve.sm <- function(x) veHedge(smHoriz(x))
+ve.sm(seq(from=0, to=0.5, by=0.1))
+@
+
+
+<<export='lingexpr'>>=
+ve.sm2 <- lingexpr(ctx, atomic="sm", hedge="ve")
+ve.sm2(seq(from=0, to=0.5, by=0.1))
+@
+
+<<export='emptyhedge1'>>=
+emptyHedge <- hedge("-")
+sm <- function(x) emptyHedge(smHoriz(x))
+sm(seq(from=0, to=0.5, by=0.1))
+@
+
+<<export='emptyhedge2'>>=
+sm2 <- lingexpr(ctx, atomic="sm", hedge="-")
+sm2(seq(from=0, to=0.5, by=0.1))
+@
+
+<<lingexpr1, fig.width=6, fig.height=3, fig.show="hide">>=
+createListOfExpressions <- function(context, atomic, hedges) {
+  res <- lapply(hedges, function(h) {
+    lingexpr(context, atomic=atomic, hedge=h)
+  })
+  names(res) <- paste(hedges, atomic, sep=".")
+  res
+}
+
+createPlot <- function(l, xlims=c(0, 1), legendName="expression", legendBottom=FALSE) {
+  g <- ggplot(data = data.frame(x = 0), mapping = aes(x = x))
+  for (n in names(l)) {
+    f <- l[[n]]
+    g <- g + stat_function(aes_(color=n), fun = f)
+  }
+  g <- g +
+    xlim(xlims[1], xlims[2]) +
+    labs(x="", y="", colour=legendName)
+  if (legendBottom) {
+    g <- g + theme(legend.position="bottom", legend.direction="vertical")
+  }
+  g
+}
+
+ctx <- ctx3()
+smList <- createListOfExpressions(ctx,  "sm",
+                                  c("ex", "si", "ve", "-", "ml", "ro", "qr", "vr"))
+meList <- createListOfExpressions(ctx,  "me",
+                                  c("ty", "-", "ml", "ro", "qr", "vr"))
+biList <- createListOfExpressions(ctx,  "bi",
+                                  c("ex", "si", "ve", "-", "ml", "ro", "qr", "vr"))
+
+createPlot(smList)
+@
+
+<<lingexpr2, fig.width=6, fig.height=3, fig.show="hide">>=
+createPlot(meList)
+@
+
+<<lingexpr3, fig.width=6, fig.height=3, fig.show="hide">>=
+createPlot(biList)
+@
+
+<<export='triangular'>>=
+tri <- triangular(0, 0.5, 1)
+tri(seq(from = 0, to = 1, by = 0.2))
+rcos <- raisedcosine(0, 0.5, 1)
+rcos(seq(from = 0, to = 1, by = 0.2))
+@
+
+<<triangular1, fig.width=3, fig.height=2, fig.show="hide">>=
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  stat_function(aes(color="sm"), fun = triangular(0, 0.5, 1)) +
+  xlim(-0.2, 1.2) +
+  labs(x="", y="") +
+  theme(legend.position = "none")
+@
+
+<<triangular2, fig.width=3, fig.height=2, fig.show="hide">>=
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  stat_function(aes(color="sm"), fun = triangular(-Inf, 0.5, 1)) +
+  xlim(-0.2, 1.2) +
+  labs(x="", y="") +
+  theme(legend.position = "none")
+@
+
+<<raisedcos1, fig.width=3, fig.height=2, fig.show="hide">>=
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  stat_function(aes(color="sm"), fun = raisedcosine(0, 0.5, 1)) +
+  xlim(-0.2, 1.2) +
+  labs(x="", y="") +
+  theme(legend.position = "none")
+@
+
+<<raisedcos2, fig.width=3, fig.height=2, fig.show="hide">>=
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  stat_function(aes(color="sm"), fun = raisedcosine(0, 0.5, Inf)) +
+  xlim(-0.2, 1.2) +
+  labs(x="", y="") +
+  theme(legend.position = "none")
+@
+
+<<export='lcut.logical'>>=
+logvec <- c(TRUE, FALSE, TRUE, TRUE)
+lcut(logvec)
+lcut(logvec, name="employed")
+@
+
+<<export='lcut.factor'>>=
+position <- factor(c("worker", "manager", "worker", "accountant"))
+lcut(position)
+@
+
+<<export='lcut.numeric'>>=
+age <- round(runif(n=4, min=18, max=65))
+print(age)
+lcut(age,
+     context=ctx3(low=0, high=100))
+@
+
+<<export='lcut.data.frame', tidy=FALSE>>=
+data <- data.frame(position=position,
+                   age=age,
+                   employed=logvec)
+print(data)
+employees <- lcut(data,
+     context=ctx3(low=0, high=100),
+     atomic=c("sm", "me", "bi"),
+     hedges=c("ve", "-", "ro"))
+print(colnames(employees))
+@
+
+<<export='lcut.data.frame2', tidy=FALSE>>=
+data$salary <- round(runif(n=4, min=1000, max=20000))
+print(data)
+employees <- lcut(data,
+                  context=list(age=ctx3(low=0, high=100),
+                               salary=ctx3(low=500, high=50000)),
+                  atomic=list(salary=c("sm", "bi")),
+                  hedges=list(age=c("ve", "-", "ro"),
+                              salary=c("ex", "ve", "-", "ro")))
+print(colnames(employees))
+@
+
+<<export='lcut.vars'>>=
+vars(employees)
+@
+
+<<export='lcut.specs'>>=
+specs(employees)[1:5, 1:5]
+@
+
+<<export='fcut.logfact'>>=
+logvec <- c(TRUE, FALSE, TRUE, TRUE)
+position <- factor(c("worker", "manager", "worker", "accountant"))
+fcut(data.frame(employed=logvec, position=position))
+@
+
+<<export='fcut.numeric1', tidy=TRUE>>=
+numvec <- 1:9
+fcut(numvec,
+     breaks=c(1, 5, 9),
+     type="triangle")
+@
+
+<<export='fcut.triangular'>>=
+triangular(1, 5, 9)(numvec)
+@
+
+<<export='fcut.numeric2', tidy=TRUE>>=
+fcut(numvec,
+     breaks=c(1, 3, 5, 7, 9),
+     type="triangle")
+@
+
+<<export='fcut.merge', tidy=TRUE>>=
+fcut(numvec,
+     breaks=c(1, 3, 5, 7, 9),
+     merge=2,
+     type="triangle")
+fcut(numvec,
+     breaks=c(1, 3, 5, 7, 9),
+     merge=3,
+     type="triangle")
+@
+
+<<export='fcut.merge2', tidy=TRUE>>=
+fd <- fcut(numvec,
+           breaks=c(1, 3, 5, 7, 9),
+           merge=c(1, 2, 3),
+           type="triangle")
+print(colnames(fd))
+@
+
+<<export='fcut.varsspecs', tidy=TRUE>>=
+vars(fd)
+specs(fd)
+@
+
+
+<<fcut_plot1, fig.width=3, fig.height=3.25, fig.show='hide'>>=
+l <- list(
+  `numvec=1`=triangular(1, 3, 5),
+  `numvec=2`=triangular(3, 5, 7),
+  `numvec=3`=triangular(5, 7, 9)
+)
+createPlot(l, xlims=c(0, 10), legendName="", legendBottom=TRUE)
+@
+
+<<fcut_plot2, fig.width=3, fig.height=3, fig.show='hide'>>=
+mrg <- function(f1, f2) {
+  function(x) {
+    plukas.tconorm(f1(x), f2(x))
+  }
+}
+l <- list(
+  `numvec=1|numvec=2`=mrg(triangular(1, 3, 5), triangular(3, 5, 7)),
+  `numvec=2|numvec=3`=mrg(triangular(3, 5, 7), triangular(5, 7, 9))
+)
+createPlot(l, xlims=c(0, 10), legendName="", legendBottom=TRUE)
+@
+
+<<fcut_plot3, fig.width=3, fig.height=2, fig.show='hide'>>=
+mrg2 <- function(f1, f2, f3) {
+  function(x) {
+    plukas.tconorm(f1(x), f2(x), f3(x))
+  }
+}
+l <- list(
+  `numvec=1|numvec=2|numvec=3`=mrg2(triangular(1, 3, 5), triangular(3, 5, 7), triangular(5, 7, 9))
+)
+createPlot(l, xlims=c(0, 10), legendName="", legendBottom=TRUE)
+@
+
+<<export='quant1', tidy=FALSE>>=
+atLeast5 <- sugeno(measure=function(x) as.numeric(x >= 5),
+                   relative=FALSE,
+                   alg="lukasiewicz")
+args(atLeast5)
+@
+
+<<export='quant2'>>=
+A <- c(1, 0.8, 1, 1, 1, 0)
+atLeast5(A)
+@
+
+<<export='quant3'>>=
+B <- c(0.5, 1, 1, 1, 0.9, 1)
+atLeast5(lukas.residuum(B, A))
+@
+
+<<export='quant4'>>=
+atLeast5(lukas.residuum(B, A), w=B)
+@
+
+<<export='quant5'>>=
+almost <- quantifier("almost.all")
+most <- quantifier("most")
+many <- quantifier("many")
+almost(A)
+most(A)
+many(A)
+@
+
+<<export='quant6'>>=
+allq <- quantifier("all")
+some <- quantifier("some")
+allq(A)
+some(A)
+@
+
+<<export='quant7'>>=
+atLeast4 <- quantifier("at.least", n=4)
+atLeast4(A)
+@
+
+<<export='searchrules', tidy=FALSE>>=
+rb <- searchrules(employees,
+                  lhs=seq_len(ncol(employees)),
+                  rhs=seq_len(ncol(employees)),
+                  minSupport=0.5,
+                  minConfidence=0.8,
+                  maxLength=3)
+print(rb)
+@
+
+<<export='searchrules2'>>=
+str(rb)
+@
+
+<<export='searchrules3'>>=
+as.data.frame(rb)
+@
+
+<<export='searchrules4'>>=
+antecedents(rb)[1:3]
+consequents(rb)[1:3]
+@
+
+<<export='reduce'>>=
+reduce(employees, rb, 0.9)
+@
+
+<<export='pbld1'>>=
+head(CO2, n=4)
+@
+
+<<export='pbld2'>>=
+uptakeContext <- ctx3(7, 28.3, 46)
+d <- lcut(CO2, context=list(uptake=uptakeContext))
+@
+
+<<export='pbld3'>>=
+testingIndices <- sort(sample(seq_len(nrow(d)), 10))
+print(testingIndices)
+training <- d[-testingIndices, ]
+testing <- d[testingIndices, ]
+@
+
+<<export='pbld4', tidy=FALSE>>=
+rb <- searchrules(training,
+                  lhs=which(vars(d) != "uptake"),
+                  rhs=which(vars(d) == "uptake"),
+                  minConfidence=0.5)
+@
+
+<<export='pbld5'>>=
+v <- seq(uptakeContext[1], uptakeContext[3], length.out=1000)
+p <- lcut(v, name="uptake", context=uptakeContext)
+@
+
+<<export='pbld6'>>=
+pbld(testing, rb, p, v, type="global")
+@
+
+<<export='pbld_custom', tidy=FALSE>>=
+rules <- list(c("me.uptake", "Plant=Mc1", "sm.conc"),
+              c("sm.uptake", "Type=Mississippi"),
+              c("bi.uptake", "Treatment=nonchilled", "ro.me.conc"))
+pbld(testing, rules, p, v)
+@
+
+<<export='fire', tidy=FALSE>>=
+x <- 1:10 / 10
+names(x) <- letters[1:10]
+print(x)
+rules <- list(c("a", "c", "e"),
+              c("b"),
+              c("d", "a"),
+              c("c", "a", "b"))
+fire(x, rules, tnorm="goguen", onlyAnte=FALSE)
+@
+
+<<export='frbe', tidy=FALSE>>=
+myts <- ts(1:100 + rnorm(100), frequency=24)   # hourly frequency
+fit <- frbe(myts, h=10)
+fit$mean
+@
+
+<<export='casestudy-assoc-iris', tidy=FALSE>>=
+summary(iris)
+@
+
+<<export='casestudy-assoc-lcut', tidy=FALSE>>=
+ldata <- lcut(iris,
+              context=function(x) minmax(x, type="ctx5"),
+              hedges="-")
+@
+
+<<export='casestudy-assoc-searchrules', tidy=FALSE, results=FALSE>>=
+lrules <- searchrules(ldata,
+                      lhs=grep("^Species=", colnames(ldata), invert=TRUE),
+                      rhs=grep("^Species=", colnames(ldata)),
+                      minSupport=0.05,
+                      minConfidence=0.8,
+                      n=0,                         # search for all rules
+                      maxLength=5)
+@
+
+<<>>=
+#ldf <- as.data.frame(lrules)
+#ggplot(ldf) +
+  #geom_point(aes(x=support, y=confidence))
+#head(ldf[order(ldf$support, decreasing=TRUE), ], n=10)
+@
+
+<<export='casestudy-assoc-viewrules', tidy=FALSE, results='hide'>>=
+ldf <- as.data.frame(lrules)
+ldf <- ldf[order(ldf$confidence, decreasing=TRUE), ]
+head(ldf[, c('support', 'confidence')], n=8)
+@
+
+<<export='casestudy-assoc-reduce', tidy=FALSE>>=
+r <- reduce(ldata, rules=lrules, ratio=1)
+rownames(as.data.frame(r))
+@
+
+<<export='casestudy-assoc-arules', tidy=FALSE, message=FALSE>>=
+library(arules)
+
+adata <- data.frame(
+  Sepal.Length=cut(iris$Sepal.Length, 5),
+  Sepal.Width=cut(iris$Sepal.Width, 5),
+  Petal.Length=cut(iris$Petal.Length, 5),
+  Petal.Width=cut(iris$Petal.Width, 5),
+  Species=iris$Species
+)
+@
+
+<<export='casestudy-assoc-arules-search', tidy=FALSE, message=FALSE, results=FALSE>>=
+tdata <- transactions(adata)
+arules <- apriori(tdata, 
+                  parameter=list(support=0.05, confidence=0.8, target='rules'),
+                  appearance=list(lhs=grep('Species=', itemLabels(tdata),
+                                           invert=TRUE, value=TRUE),
+                                  rhs=grep('Species=', itemLabels(tdata),
+                                           value=TRUE)))
+@
+
+<<export='casestudy-assoc-arules-view', tidy=FALSE, message=FALSE, results='hide'>>=
+adf <- as(arules, 'data.frame')
+adf <- adf[order(adf$confidence, decreasing=TRUE), ]
+head(adf[, c('rules', 'support', 'confidence')], n=8)
+@
+
+<<>>=
+sessionInfo()
+@
+
+\end{document}

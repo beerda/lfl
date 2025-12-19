@@ -1,0 +1,176 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+
+\newcommand{\todo}[1]{{\color{red} TODO: #1}}
+\newcommand{\michal}[1]{{\color{blue} Michal: #1}}
+\newcommand{\martin}[1]{{\color{green} Martin: #1}}
+
+\newcommand{\separator}{\rule{\textwidth}{0.4pt}}
+
+\setlength\parindent{0pt}
+\setlength\parskip{6pt}
+
+\begin{document}
+
+
+
+\section*{FSS-D-21-00085 (R1) - COVER LETTER}
+
+
+Dear editors, dear reviewers, 
+
+we are grateful for your remarks and comments including the critical part of the assessment of our work FSS-D-21-00085 that helped us to improve the article. In the subsequent text, we address your concerns point by point.
+
+\section{Replies to reviewers' comments}
+
+\subsection{Reviewer 1}
+
+{\it The authors present lfl, a new R package to use linguistic fuzzy logic in data processing applications. This topic is very interesting but the novelty of the paper is low with respect to the authors' publication:
+M. Burda, ``Linguistic fuzzy logic in R,'' 2015 IEEE International Conference on Fuzzy Systems (FUZZ-IEEE), Istanbul, Turkey, 2015, pp. 1-7, doi: 10.1109/FUZZ-IEEE.2015.7337826
+I cannot identify what the new features and/or extensions to your package are in this publication.
+
+ For instance, the introduction begins with this sentence: "The aim of this paper is to present a new package for the R statistical environment [1] that enables the use of the linguistic fuzzy logic in data processing applications" but lfl is a package that has been available on CRAN since 2015/2016. This package is not new. This sentence should be rewritten by simply indicating that they present a free software to\ldots }
+
+{RE: Thank you. Indeed, the preliminary version published in FUZZ-IEEE 2015 could not contain all. Not only that the page extent of the current submission is maybe three times bigger, but mainly the package itself evolved significantly. The original version did not contain all algebras, it had no algebras for partial fuzzy logics, it had no compositions of fuzzy relations. Consequently, the extensions (excluding features, unavoidability, generalized quantifiers) were not there either -- neither in the package, nor in the paper from 2015. Naturally, these parts were not even existing from the theoretical point of view in 2015 so, the novelty is indeed present. Note that just these extension are bigger than what is the usual ``size'' of many other (fuzzy related) R-packages. Moreover, the original conference paper from 2015 indeed did not have an extent to sufficiently describe even those functions that were already existing so, we are convinced that this article is at least 80\% different and cannot be identified with the original one.  
+
+But we comprehend and we have to agree with the reviewer, that the differences should be mentioned in the paper. It is our duty, not the duty of the reviewer nor of the reader. We accept this remark, we apologize, and we modify the text accordingly. It is reflected mainly in the last part of Introduction, right before Section 1.1 starts.}
+\separator
+
+{\it In addition, the paper looks like a user manual instead of a research paper presenting a software package. The paper should be rewritten. }
+
+{RE: Thank you. Even here we have to admit we were ourselves constructing several variants on how the paper should look like and we had a feeling that a similar opinion may occur. On the other hand, the Reviewer 2 stated ``A well-written paper introducing the lfl (linguistic fuzzy logic) package for R, which is amongst the most popular environments for scientific computing $\ldots$ The manuscript is of appropriate length — it describes the package features very comprehensively, provides commands to be run by a practitioner, gives details on the mathematics behind the algorithms. R commands and their outputs are an integral part of the paper and demonstrate the typical package use cases. They can be considered as something more than numbered examples/illustrations in more mathematical works, as they can be read as text paragraphs too. They also explain the API design.
+Also they illustrate the usefulness of the package in statistical analysis activities. {\bf This is definitely a research paper.}'' And this was our second feeling we had. These two feelings were fighting in our heads so, we comprehend opinions of both reviewers. 
+
+Therefore, and in order to find the best form of the paper, we have contacted the Editors-in-Chief, with a question regarding the form of such a paper fitting the scope of the journal. We all agreed that pure SW manual is not the desirable form. We have been advised to get motivated by the article {\it M. B. Ferraro, P. Giordani, A toolbox for fuzzy clustering using the R programming language, Fuzzy Sets and Systems 279 (2015) 1–16} that carries the desirable form. We are convinced we kept a very similar style in order to submit a paper consistent with the journal's scope. Your comments below convinces us we can do more, so, we have mirrored it in the revised version. Thanks a lot.}
+
+\separator
+
+{\it A comparative analysis with other available software tools is necessary. They should define a number of characteristics and analyze their proposal with other proposals such as fugeR, frbs, etc, in order to highlight what their proposal provides with respect to the others. They should not only compare with R packages, but also with packages developed in other programming languages. They should also consider packages that are not for fuzzy logic. For instance, they should include the arules package to show if, in addition to all that their proposal already includes, it provides the same (or more) benefits than this package. }
+
+{RE: Thanks a lot, as stated above, we respect this proposal. The comparison is mirrored in the text constituting Section 7.1.}
+
+\separator
+
+{\it It is necessary to add at least one case study in which the authors show the potential of the developed software tool. }
+
+{RE: Thanks a lot, as stated above, we respect this proposal. Following your suggestion, we have added Sections 7.2 and 7.3 containing the proposed case studies. One refers to already published expert classification of amphibians so, the readers may find many details in the referred source, the other one presents a demonstration of fuzzy association rules on the Iris data and compares them to classical association rules provided by {\bf arules} package. }
+
+
+
+\subsection{Reviewer 2}
+
+{ \it A well-written paper introducing the lfl (linguistic fuzzy logic) package for R, which is amongst the most popular environments for scientific computing (see the 2020 IEEE Spectrum ranking https://spectrum.ieee.org/static/interactive-the-top-programming-languages-2020). The package API is very clean and well designed and can serve as a role model for other fuzzy-oriented software.
+
+The manuscript is of appropriate length — it describes the package features very comprehensively, provides commands to be run by a practitioner, gives details on the mathematics behind the algorithms.
+
+R commands and their outputs are an integral part of the paper and demonstrate the typical package use cases. They can be considered as something more than numbered examples/illustrations in more mathematical works, as they can be read as text paragraphs too. They also explain the API design.
+Also they illustrate the usefulness of the package in statistical analysis activities.
+
+This is definitely a research paper. You can look at it in many different ways: applications of fuzzy theory, development/extension/enrichment of methodology of data analysis, research on some existing R software, proposal of new tools, survey of recent advances, original and notrivial case studies etc.
+
+More and more research journals are open towards such contributions — in particular Journal of Statistical Software, SoftwareX, etc. But I would particularly wish to point out the two following relevant works, one in this very journal:
+
+\begin{itemize}
+    \item  M. B. Ferraro, P. Giordani, A toolbox for fuzzy clustering using the R programming language, Fuzzy Sets and Systems 279 (2015) 1-16. doi: https://doi.org/10.1016/j.fss.2015.05.001.
+    \item J. Alcalaa-Fdez, J. M. Alonso, A survey of fuzzy systems software: Taxonomy, current research trends, and prospects, IEEE Transactions on Fuzzy Systems 24 (1) (2016) 40-56.
+\end{itemize}
+
+Side note: In my opinion, the authors (in general) of papers submitted to FSS should be encouraged to develop accompanying software (open/free software) to ensure better quality of their submissions (reproducibility, practical usefulness. Some standards could be developed with regards to the quality of such software and become an official journal policy on this matter. For instance, Journal of Machine Learning Research has: https://jmlr.csail.mit.edu/mloss/mloss-info.html. Also EUSFLAT or other bodies could work towards developing some common standards.
+
+I recommended the paper be accepted once the following minor remarks/suggestions be addressed/incorporated/considered.}
+
+{RE: Thank you very much for your judgement and your suggestion. Some of them are probably much more general, beyond the goals of this article, but we take them into account.}
+
+\separator
+
+{\it Consider mentioning the following other R packages on CRAN (but not all of them, some may be of low quality, or irrelevant, or too trivial)
+\begin{itemize}
+    \item agop Aggregation Operators and Preordered Sets -- particularly of interest as also includes some fuzzy logic connectives
+    \item Calculator.LR.FNs Calculator for LR Fuzzy Numbers
+    \item coppeCosenzaR COPPE-Cosenza Fuzzy Hierarchy Model
+    \item deaR Conventional and Fuzzy Data Envelopment Analysis
+    \item FisPro Fuzzy Inference System Design and Optimization
+    \item FLR Fuzzy Logic Rule Classifier
+    \item FPV Testing Hypotheses via Fuzzy P-Value in Fuzzy Environment
+    \item FSMUMI Imputation of Time Series Based on Fuzzy Logic
+    \item fso Fuzzy Set Ordination
+    \item Fuzzy.p.value Computing Fuzzy p-Value
+    \item FuzzyAHP (Fuzzy) AHP Calculation
+    \item fuzzyFDR Exact calculation of fuzzy decision rules for multiple testing
+    \item fuzzyforest Fuzzy Forests
+    \item FuzzyLP Fuzzy Linear Programming
+    \item FuzzyMCDM Multi-Criteria Decision Making Methods for Fuzzy Data
+    \item FuzzyNumbers.Ext.2 Apply Two Fuzzy Numbers on a Monotone Function
+    \item FuzzyQ Fuzzy Quantification of Common and Rare Species
+    \item FuzzyR Fuzzy Logic Toolkit for R
+    \item fuzzyRankTests Fuzzy Rank Tests and Confidence Intervals
+    \item fuzzyreg Fuzzy Linear Regression
+    \item fuzzySim Fuzzy Similarity in Species Distributions
+    \item FuzzyStatProb Fuzzy Stationary Probabilities from a Sequence of Observations of an Unknown Markov Chain
+    \item FuzzyStatTra Statistical Methods for Trapezoidal Fuzzy Numbers
+    \item FuzzySTs Fuzzy Statistical Tools
+    \item FuzzyToolkitUoN Type 1 Fuzzy Logic Toolkit
+    \item RoughSets Data Analysis Using Rough Set and Fuzzy Rough Set Theories
+    \item SDEFSR Subgroup Discovery with Evolutionary Fuzzy Systems
+    \item Sim.PLFN Simulation of Piecewise Linear Fuzzy Numbers
+    \item wowa Weighted Ordered Weighted Average
+\end{itemize} }
+
+{RE: Thank you very much. Some of the above-mentioned packages appeared in the newly added comparison so, comments and suggestions of Reviewer 1 as well as Reviewer 2 were employed in a compact form.}
+
+\separator
+
+{ \it Mention https://cran.r-project.org/doc/manuals/r-release/R-intro.html as the introduction to the R language. }
+
+RE: Thank you, we have added reference to the suggested web page into the paper.
+
+\separator
+
+{ \it Language:
+\begin{itemize}
+    \item p.1: Up to the best knowledge -- To the best of the authors' knowledge; there is NO other
+    \item p.2: was initially developed IN [2]
+    \item p.3: PbLd -- pBLD
+    \item p.5: forms A residuated lattice
+    \item p.10: Jan ŁUKASIEWICZ
+    \item p.11: simNply
+    \item p.18: let cough EXCLUDEG
+    \item p.22: "crucial thing" is too informal
+    \item p.34: breaks-points -- break-points
+    \item p.45: in such A case; the perception ALSO fires THE rules
+\end{itemize} }
+
+RE: Thank you for pointing out that typos, we have corrected them. 
+
+\separator
+
+{ \it On p. 5, call library("lfl"), not library(lfl) /avoid metaprogramming when cleaner syntax exists/ }
+
+RE: Thank you for pointing this out -- we have fixed the code as suggested. 
+
+\separator
+
+{ \it Instead of:
+\begin{verbatim}
+R> command
+output
+\end{verbatim}
+rewrite the examples as:
+\begin{verbatim}
+command
+## output
+\end{verbatim}
+this way, a reader will be able to copy-paste the commands to the R console and execute them more easily.
+}
+
+RE: Thank you for pointing this out -- we have fixed the code as suggested. 
+
+\separator
+
+{ \it Mention which license is lfl distributed under. }
+
+The lfl package is distributed under the terms of the GNU GPL license. We have added to the paper a note about it.
+
+
+\end{document}

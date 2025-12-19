@@ -1,0 +1,38 @@
+\begin{Schunk}
+% --begin: "lcut.numeric"
+\begin{Sinput}
+age <- round(runif(n=4, min=18, max=65))
+print(age)
+\end{Sinput}
+\begin{Soutput}
+## [1] 55 32 41 52
+\end{Soutput}
+\begin{Sinput}
+lcut(age,
+     context=ctx3(low=0, high=100))
+\end{Sinput}
+\begin{Soutput}
+##      ex.sm.age si.sm.age ve.sm.age sm.age ml.sm.age ro.sm.age qr.sm.age
+## [1,]         0         0         0      0         0         0 0.0000000
+## [2,]         0         0         0      0         0         0 0.1315789
+## [3,]         0         0         0      0         0         0 0.0000000
+## [4,]         0         0         0      0         0         0 0.0000000
+##      vr.sm.age  ty.me.age    me.age ml.me.age ro.me.age qr.me.age
+## [1,] 0.0000000 0.04761905 1.0000000 1.0000000         1         1
+## [2,] 0.9475480 0.00000000 0.3914128 0.7993319         1         1
+## [3,] 0.1993769 0.00000000 0.9859853 1.0000000         1         1
+## [4,] 0.0000000 0.73333333 1.0000000 1.0000000         1         1
+##      vr.me.age ex.bi.age si.bi.age ve.bi.age bi.age ml.bi.age ro.bi.age
+## [1,]         1         0         0         0      0         0         0
+## [2,]         1         0         0         0      0         0         0
+## [3,]         1         0         0         0      0         0         0
+## [4,]         1         0         0         0      0         0         0
+##      qr.bi.age vr.bi.age
+## [1,]         0         0
+## [2,]         0         0
+## [3,]         0         0
+## [4,]         0         0
+\end{Soutput}
+%
+% --end: "lcut.numeric"
+\end{Schunk}

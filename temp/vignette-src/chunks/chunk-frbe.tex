@@ -1,0 +1,14 @@
+\begin{Schunk}
+% --begin: "frbe"
+\begin{Sinput}
+myts <- ts(1:100 + rnorm(100), frequency=24)   # hourly frequency
+fit <- frbe(myts, h=10)
+fit$mean
+\end{Sinput}
+\begin{Soutput}
+##  [1] 100.5002 101.4108 102.3139 103.2133 104.0460 104.9274 105.7708
+##  [8] 106.6504 107.5235 108.3899
+\end{Soutput}
+%
+% --end: "frbe"
+\end{Schunk}

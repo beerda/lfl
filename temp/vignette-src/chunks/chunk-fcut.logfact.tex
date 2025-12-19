@@ -1,0 +1,22 @@
+\begin{Schunk}
+% --begin: "fcut.logfact"
+\begin{Sinput}
+logvec <- c(TRUE, FALSE, TRUE, TRUE)
+position <- factor(c("worker", "manager", "worker", "accountant"))
+fcut(data.frame(employed=logvec, position=position))
+\end{Sinput}
+\begin{Soutput}
+##      employed not.employed position=accountant position=manager
+## [1,]        1            0                   0                0
+## [2,]        0            1                   0                1
+## [3,]        1            0                   0                0
+## [4,]        1            0                   1                0
+##      position=worker
+## [1,]               1
+## [2,]               0
+## [3,]               1
+## [4,]               0
+\end{Soutput}
+%
+% --end: "fcut.logfact"
+\end{Schunk}

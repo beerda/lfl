@@ -1,0 +1,18 @@
+\begin{Schunk}
+% --begin: "comp.circ.excl"
+\begin{Sinput}
+a <- algebra("lukasiewicz")
+RS <- compose(R, S, alg=a, type="basic")
+RE <- compose(R, E, alg=a, type="basic")
+a$pt(RS, a$n(RE))
+\end{Sinput}
+\begin{Soutput}
+##          pulm.hyp sleep.sick malaria hangover influenza
+## patient1      0.1        0.9     0.9      0.0       1.0
+## patient2      0.0        0.8     0.8      0.0       0.9
+## patient3      0.0        0.9     0.7      0.1       0.9
+## patient4      0.0        1.0     0.6      1.0       1.0
+\end{Soutput}
+%
+% --end: "comp.circ.excl"
+\end{Schunk}

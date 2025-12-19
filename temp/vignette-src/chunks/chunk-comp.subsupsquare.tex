@@ -1,0 +1,35 @@
+\begin{Schunk}
+% --begin: "comp.subsupsquare"
+\begin{Sinput}
+compose(R, S, alg="lukasiewicz", type="sub")
+\end{Sinput}
+\begin{Soutput}
+##          pulm.hyp sleep.sick malaria hangover influenza
+## patient1      0.2        0.2     0.2      0.0       0.1
+## patient2      0.2        0.3     0.2      0.1       1.0
+## patient3      0.1        0.4     0.1      0.2       1.0
+## patient4      0.0        0.1     0.0      0.2       1.0
+\end{Soutput}
+\begin{Sinput}
+compose(R, S, alg="lukasiewicz", type="super")
+\end{Sinput}
+\begin{Soutput}
+##          pulm.hyp sleep.sick malaria hangover influenza
+## patient1        0        0.8     0.3      0.8       0.1
+## patient2        0        0.0     0.4      0.1       0.2
+## patient3        0        0.0     0.3      0.1       0.1
+## patient4        0        0.0     0.1      0.1       0.0
+\end{Soutput}
+\begin{Sinput}
+compose(R, S, alg="lukasiewicz", type="square")
+\end{Sinput}
+\begin{Soutput}
+##          pulm.hyp sleep.sick malaria hangover influenza
+## patient1        0        0.2     0.2      0.0       0.1
+## patient2        0        0.0     0.2      0.1       0.2
+## patient3        0        0.0     0.1      0.1       0.1
+## patient4        0        0.0     0.0      0.1       0.0
+\end{Soutput}
+%
+% --end: "comp.subsupsquare"
+\end{Schunk}

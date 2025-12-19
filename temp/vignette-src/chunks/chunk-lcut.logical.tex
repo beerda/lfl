@@ -1,0 +1,26 @@
+\begin{Schunk}
+% --begin: "lcut.logical"
+\begin{Sinput}
+logvec <- c(TRUE, FALSE, TRUE, TRUE)
+lcut(logvec)
+\end{Sinput}
+\begin{Soutput}
+##      logvec not.logvec
+## [1,]      1          0
+## [2,]      0          1
+## [3,]      1          0
+## [4,]      1          0
+\end{Soutput}
+\begin{Sinput}
+lcut(logvec, name="employed")
+\end{Sinput}
+\begin{Soutput}
+##      employed not.employed
+## [1,]        1            0
+## [2,]        0            1
+## [3,]        1            0
+## [4,]        1            0
+\end{Soutput}
+%
+% --end: "lcut.logical"
+\end{Schunk}

@@ -1,0 +1,16 @@
+\begin{Schunk}
+% --begin: "casestudy-assoc-arules"
+\begin{Sinput}
+library(arules)
+
+adata <- data.frame(
+  Sepal.Length=cut(iris$Sepal.Length, 5),
+  Sepal.Width=cut(iris$Sepal.Width, 5),
+  Petal.Length=cut(iris$Petal.Length, 5),
+  Petal.Width=cut(iris$Petal.Width, 5),
+  Species=iris$Species
+)
+\end{Sinput}
+%
+% --end: "casestudy-assoc-arules"
+\end{Schunk}

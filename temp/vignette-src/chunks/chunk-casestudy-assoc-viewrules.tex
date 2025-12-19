@@ -1,0 +1,10 @@
+\begin{Schunk}
+% --begin: "casestudy-assoc-viewrules"
+\begin{Sinput}
+ldf <- as.data.frame(lrules)
+ldf <- ldf[order(ldf$confidence, decreasing=TRUE), ]
+head(ldf[, c('support', 'confidence')], n=8)
+\end{Sinput}
+%
+% --end: "casestudy-assoc-viewrules"
+\end{Schunk}

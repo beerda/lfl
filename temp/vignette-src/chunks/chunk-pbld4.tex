@@ -1,0 +1,11 @@
+\begin{Schunk}
+% --begin: "pbld4"
+\begin{Sinput}
+rb <- searchrules(training,
+                  lhs=which(vars(d) != "uptake"),
+                  rhs=which(vars(d) == "uptake"),
+                  minConfidence=0.5)
+\end{Sinput}
+%
+% --end: "pbld4"
+\end{Schunk}

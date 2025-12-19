@@ -1,0 +1,23 @@
+\begin{Schunk}
+% --begin: "casestudy-assoc-reduce"
+\begin{Sinput}
+r <- reduce(ldata, rules=lrules, ratio=1)
+rownames(as.data.frame(r))
+\end{Sinput}
+\begin{Soutput}
+##  [1] "sm.Petal.Length => Species=setosa"                 
+##  [2] "um.Sepal.Width => Species=setosa"                  
+##  [3] "lm.Sepal.Length & me.Sepal.Width => Species=setosa"
+##  [4] "sm.Sepal.Length => Species=setosa"                 
+##  [5] "sm.Petal.Width => Species=setosa"                  
+##  [6] "me.Petal.Width => Species=versicolor"              
+##  [7] "me.Petal.Length => Species=versicolor"             
+##  [8] "um.Petal.Length => Species=virginica"              
+##  [9] "um.Petal.Width => Species=virginica"               
+## [10] "bi.Petal.Width => Species=virginica"               
+## [11] "bi.Sepal.Length => Species=virginica"              
+## [12] "bi.Petal.Length => Species=virginica"
+\end{Soutput}
+%
+% --end: "casestudy-assoc-reduce"
+\end{Schunk}

@@ -1,0 +1,17 @@
+\begin{Schunk}
+% --begin: "fcut.merge2"
+\begin{Sinput}
+fd <- fcut(numvec,
+           breaks=c(1, 3, 5, 7, 9),
+           merge=c(1, 2, 3),
+           type="triangle")
+print(colnames(fd))
+\end{Sinput}
+\begin{Soutput}
+## [1] "numvec=1"                   "numvec=2"                  
+## [3] "numvec=3"                   "numvec=1|numvec=2"         
+## [5] "numvec=2|numvec=3"          "numvec=1|numvec=2|numvec=3"
+\end{Soutput}
+%
+% --end: "fcut.merge2"
+\end{Schunk}

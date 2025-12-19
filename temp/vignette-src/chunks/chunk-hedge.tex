@@ -1,0 +1,13 @@
+\begin{Schunk}
+% --begin: "hedge"
+\begin{Sinput}
+veHedge <- hedge("ve")
+ve.sm <- function(x) veHedge(smHoriz(x))
+ve.sm(seq(from=0, to=0.5, by=0.1))
+\end{Sinput}
+\begin{Soutput}
+## [1] 1.000000 0.585098 0.000000 0.000000 0.000000 0.000000
+\end{Soutput}
+%
+% --end: "hedge"
+\end{Schunk}

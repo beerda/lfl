@@ -1,0 +1,10 @@
+\begin{Schunk}
+% --begin: "casestudy-assoc-arules-view"
+\begin{Sinput}
+adf <- as(arules, 'data.frame')
+adf <- adf[order(adf$confidence, decreasing=TRUE), ]
+head(adf[, c('rules', 'support', 'confidence')], n=8)
+\end{Sinput}
+%
+% --end: "casestudy-assoc-arules-view"
+\end{Schunk}

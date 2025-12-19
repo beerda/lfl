@@ -1,0 +1,34 @@
+\begin{Schunk}
+% --begin: "fire"
+\begin{Sinput}
+x <- 1:10 / 10
+names(x) <- letters[1:10]
+print(x)
+\end{Sinput}
+\begin{Soutput}
+##   a   b   c   d   e   f   g   h   i   j 
+## 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0
+\end{Soutput}
+\begin{Sinput}
+rules <- list(c("a", "c", "e"),
+              c("b"),
+              c("d", "a"),
+              c("c", "a", "b"))
+fire(x, rules, tnorm="goguen", onlyAnte=FALSE)
+\end{Sinput}
+\begin{Soutput}
+## [[1]]
+## [1] 0.015
+## 
+## [[2]]
+## [1] 0.2
+## 
+## [[3]]
+## [1] 0.04
+## 
+## [[4]]
+## [1] 0.006
+\end{Soutput}
+%
+% --end: "fire"
+\end{Schunk}

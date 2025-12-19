@@ -1,0 +1,16 @@
+\begin{Schunk}
+% --begin: "pbld3"
+\begin{Sinput}
+testingIndices <- sort(sample(seq_len(nrow(d)), 10))
+print(testingIndices)
+\end{Sinput}
+\begin{Soutput}
+##  [1]  8 44 46 51 61 67 73 78 80 83
+\end{Soutput}
+\begin{Sinput}
+training <- d[-testingIndices, ]
+testing <- d[testingIndices, ]
+\end{Sinput}
+%
+% --end: "pbld3"
+\end{Schunk}

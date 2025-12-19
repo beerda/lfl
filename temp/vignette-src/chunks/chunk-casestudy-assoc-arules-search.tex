@@ -1,0 +1,14 @@
+\begin{Schunk}
+% --begin: "casestudy-assoc-arules-search"
+\begin{Sinput}
+tdata <- transactions(adata)
+arules <- apriori(tdata, 
+                  parameter=list(support=0.05, confidence=0.8, target='rules'),
+                  appearance=list(lhs=grep('Species=', itemLabels(tdata),
+                                           invert=TRUE, value=TRUE),
+                                  rhs=grep('Species=', itemLabels(tdata),
+                                           value=TRUE)))
+\end{Sinput}
+%
+% --end: "casestudy-assoc-arules-search"
+\end{Schunk}
