@@ -8,6 +8,7 @@
 \alias{nelson}
 \alias{lowerEst}
 \alias{lowerBound}
+\alias{upperBound}
 \title{Modify algebra's way of computing with \code{NA} values.}
 \usage{
 sobocinski(algebra)
@@ -21,6 +22,8 @@ nelson(algebra)
 lowerEst(algebra)
 
 lowerBound(algebra)
+
+upperBound(algebra)
 }
 \arguments{
 \item{algebra}{the underlying algebra object to be modified -- see the \code{\link[=algebra]{algebra()}} function}

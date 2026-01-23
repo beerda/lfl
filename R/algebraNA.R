@@ -127,6 +127,19 @@
 }
 
 
+.normUpper <- function(f) {
+    return(function(...) {
+        dots <- c(...)
+        nonadots <- na.omit(dots)
+        res <- f(nonadots)
+        if (length(dots) != length(nonadots) && !is.na(res) && res == 1) {
+            return(NA_real_)
+        }
+        res
+    })
+}
+
+
 .undefinedOrder <- function(x, decreasing=FALSE) {
     stop('Cannot complete the computation, "order" is unimplemented for the algebra.')
 }
@@ -140,6 +153,22 @@
     res <- c(ordered[seq(from=1, length.out=large)],
              ordered[seq(from=large + zeros + 1, length.out=nas)],
              ordered[seq(from=large + 1, length.out=zeros)])
+    if (decreasing) {
+        return(res)
+    } else {
+        return(rev(res))
+    }
+}
+
+
+.upperBoundOrder <- function(x, decreasing=FALSE) {
+    small <- sum(!is.na(x) & x < 1)
+    ones <- sum(!is.na(x) & x == 1)
+    nas <- sum(is.na(x))
+    ordered <- order(x, decreasing=TRUE, na.last=TRUE)
+    res <- c(ordered[seq(from=1, length.out=ones)],
+             ordered[seq(from=ones + small + 1, length.out=nas)],
+             ordered[seq(from=ones + 1, length.out=small)])
     if (decreasing) {
         return(res)
     } else {
@@ -425,5 +454,29 @@ lowerBound <- function(algebra) {
     }
 
     alg <- .algebraModification('lowerBound', algebra, .normKleene, .conormDragon, resid, .neg0, .negNA, .dragonflyOrder)
+    return(alg)
+}
+
+
+#' @export
+#' @rdname algebraNA
+upperBound <- function(algebra) {
+    .mustBeAlgebra(algebra)
+
+    resid <-function(f) {
+        return(function(x, y) {
+            res <- f(x, y)
+            xNA <- is.na(x)
+            yNA <- is.na(y)
+            x1 <- !xNA & x == 1
+            y1 <- !yNA & y == 1
+            res[xNA] <- y[xNA]
+            res[yNA] <- 1
+            res[x1 & yNA] <- NA_real_
+            res
+        })
+    }
+
+    alg <- .algebraModification('upperBound', algebra, .normUpper, .conormKleene, resid, .neg0, .negNA, .upperBoundOrder)
     return(alg)
 }

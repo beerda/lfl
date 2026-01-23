@@ -1,3 +1,8 @@
+# lfl 2.3.2
+* released: ???
+* added upperBound() algebra for missing values
+
+
 # lfl 2.3.1
 * released: 2025-12-16
 * removed C++11 requirement as R already supports higher C++ standards
