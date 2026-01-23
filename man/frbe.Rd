@@ -50,8 +50,8 @@ obtain forecasts. Actually, the following methods are used:
 \itemize{
 \item ARIMA - by calling \code{\link[forecast:auto.arima]{forecast::auto.arima()}};
 \item Exponential Smoothing - by calling \code{\link[forecast:ets]{forecast::ets()}};
-\item Random Walk with Drift - by calling \code{\link[forecast:naive]{forecast::rwf()}};
-\item Theta - by calling \code{\link[forecast:thetaf]{forecast::thetaf()}}.
+\item Random Walk with Drift - by calling \code{\link[forecast:forecast.rw_model]{forecast::rwf()}};
+\item Theta - by calling \code{\link[forecast:forecast.theta_model]{forecast::thetaf()}}.
 }
 \item Computed features are input to the fuzzy rule-based inference mechanism
 which yields weights of the forecasting methods. The fuzzy rule base is
