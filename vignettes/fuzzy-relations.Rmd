@@ -1,0 +1,314 @@
+---
+title: "Composition of Fuzzy Relations"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Composition of Fuzzy Relations}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(lfl)
+```
+
+# Composition of Fuzzy Relations
+
+The composition of fuzzy relations is a fundamental operation in fuzzy relational calculus. The `lfl` package provides flexible tools for composing fuzzy relations using various algebras and composition types.
+
+## Basic Example: Medical Diagnosis
+
+Consider a medical diagnosis scenario where we want to infer patient-disease relationships from patient-symptom and symptom-disease relationships.
+
+### Define Relations
+
+```{r}
+# Patient-Symptom relation (R)
+# Rows: patients, Columns: symptoms
+# Values: degree to which patient exhibits symptom
+R <- matrix(c(0.9, 0, 0, 0,
+              1, 0.9, 0.8, 0,
+              0.8, 0.8, 0.9, 1,
+              0, 0.1, 0, 0.9), nrow=4)
+rownames(R) <- paste0("patient", 1:4)
+colnames(R) <- c("tired", "cough", "fever", "blur.vis")
+
+print(R)
+```
+
+```{r}
+# Symptom-Disease relation (S)
+# Rows: symptoms, Columns: diseases
+# Values: degree to which symptom indicates disease
+S <- matrix(c(1, 0.9, 0, 1,
+              1, 0.2, 1, 0,
+              0.1, 0.9, 0, 0.7,
+              0.9, 0, 1, 0.1,
+              0, 1, 1, 0.9), nrow=4)
+rownames(S) <- c("tired", "cough", "fever", "blur.vis")
+colnames(S) <- c("pulm.hyp", "sleep.sick", "malaria", "hangover", "influenza")
+
+print(S)
+```
+
+### Basic Composition
+
+The basic composition combines the two relations to infer patient-disease relationships:
+
+```{r}
+a <- algebra("lukasiewicz")
+compose(R, S, alg=a, type="basic")
+```
+
+Interpretation: The result shows the degree to which each patient may have each disease based on their symptoms.
+
+## Different Algebras
+
+The choice of algebra affects the composition result:
+
+### Gödel (Minimum) Algebra
+
+```{r}
+a_goedel <- algebra("goedel")
+compose(R, S, alg=a_goedel, type="basic")
+```
+
+### Goguen (Product) Algebra
+
+```{r}
+a_goguen <- algebra("goguen")
+compose(R, S, alg=a_goguen, type="basic")
+```
+
+### Łukasiewicz Algebra
+
+```{r}
+a_lukas <- algebra("lukasiewicz")
+compose(R, S, alg=a_lukas, type="basic")
+```
+
+## Composition Types
+
+The `lfl` package supports various composition types:
+
+### Basic Composition
+
+The standard sup-t composition:
+
+```{r}
+compose(R, S, alg=a_lukas, type="basic")
+```
+
+### Sub-composition
+
+Uses residuum instead of t-norm:
+
+```{r}
+compose(R, S, alg=a_lukas, type="sub")
+```
+
+### Super-composition
+
+Uses bi-residuum:
+
+```{r}
+compose(R, S, alg=a_lukas, type="super")
+```
+
+### Square Composition
+
+Combines sub and super compositions:
+
+```{r}
+compose(R, S, alg=a_lukas, type="square")
+```
+
+## Matrix Multiplication Variant
+
+The `mult()` function provides a generalized matrix multiplication with custom operation:
+
+```{r}
+# Custom operation: sum of product-t-norm
+a <- algebra("lukasiewicz")
+result <- mult(R, S, function(r, s) {
+  a$s(a$pt(r, s))
+})
+print(result)
+```
+
+## Excluding and Unavoidable Features
+
+The package supports compositions with excluding and unavoidable features, useful for modeling constraints.
+
+### Excluding Features
+
+Define features that should be excluded:
+
+```{r}
+# Features to exclude (E matrix)
+E <- matrix(c(0, 0, 1, 0,
+              0, 0, 0, 0,
+              0, 0, 0, 0,
+              0, 1, 0, 0,
+              0, 0, 0, 0), nrow=4)
+colnames(E) <- colnames(S)
+rownames(E) <- rownames(S)
+
+print(E)
+```
+
+Compose with exclusions:
+
+```{r}
+a <- algebra("lukasiewicz")
+RS <- compose(R, S, alg=a, type="basic")
+RE <- compose(R, E, alg=a, type="basic")
+
+# Exclude using product-t-norm with negation
+a$pt(RS, a$n(RE))
+```
+
+### Unavoidable Features
+
+Define features that must be present:
+
+```{r}
+# Unavoidable features (U matrix)
+U <- matrix(c(0, 0, 0, 1,
+              0, 0, 0, 0,
+              0, 0, 0, 0,
+              0, 0, 0, 0,
+              0, 1, 0, 0), nrow=4)
+colnames(U) <- colnames(S)
+rownames(U) <- rownames(S)
+
+print(U)
+```
+
+Compose with unavoidable features:
+
+```{r}
+RU <- compose(R, U, alg=a, type="super")
+
+# Combine basic composition with unavoidable features
+a$pt(RS, RU)
+```
+
+### Combined Exclusions and Unavoidable Features
+
+```{r}
+# Combine all three: basic, exclude, and unavoidable
+a$pt(RS, a$n(RE), RU)
+```
+
+## Generalized Quantifiers
+
+The package supports compositions with generalized quantifiers using Sugeno integrals:
+
+```{r}
+# Define "at least 2" quantifier
+qatleast <- sugeno(
+  measure = function(x) as.numeric(x >= 2),
+  relative = FALSE,
+  strong = TRUE,
+  alg = "goedel"
+)
+
+# Apply quantifier in composition
+qRS <- mult(R, S, function(r, s) {
+  qatleast(a$pt(r, s))
+})
+
+print(qRS)
+```
+
+Combine with exclusions and unavoidable features:
+
+```{r}
+a$pt(qRS, a$n(RE), RU)
+```
+
+## Practical Application Example
+
+### Recommendation System
+
+Suppose we have user-preference and preference-item relations:
+
+```{r}
+# Users and their feature preferences
+user_pref <- matrix(c(
+  0.9, 0.2, 0.1,  # User 1: likes action, dislikes romance, neutral on comedy
+  0.1, 0.9, 0.7,  # User 2: dislikes action, likes romance and comedy
+  0.5, 0.5, 0.5   # User 3: neutral on all
+), nrow=3, byrow=TRUE)
+rownames(user_pref) <- paste0("user", 1:3)
+colnames(user_pref) <- c("action", "romance", "comedy")
+
+# Movies and their genre features
+movie_genre <- matrix(c(
+  0.9, 0.1, 0.2,  # Movie 1: mainly action
+  0.2, 0.9, 0.3,  # Movie 2: mainly romance
+  0.1, 0.2, 0.9,  # Movie 3: mainly comedy
+  0.7, 0.5, 0.4   # Movie 4: mixed
+), nrow=3)
+rownames(movie_genre) <- c("action", "romance", "comedy")
+colnames(movie_genre) <- paste0("movie", 1:4)
+
+# Recommend movies to users
+a <- algebra("goguen")  # Product algebra for recommendation
+recommendations <- compose(user_pref, movie_genre, alg=a, type="basic")
+print(recommendations)
+```
+
+Interpretation: Higher values indicate better recommendations.
+
+## Min-Max Composition
+
+For simple cases, you can use `minmax()` operations:
+
+```{r}
+# Example using minmax for simpler composition
+small_R <- matrix(c(0.8, 0.3, 0.5, 0.9), nrow=2)
+small_S <- matrix(c(0.7, 0.6, 0.4, 0.8), nrow=2)
+
+# Manual min-max composition (for illustration)
+result <- matrix(0, nrow=nrow(small_R), ncol=ncol(small_S))
+for(i in 1:nrow(small_R)) {
+  for(j in 1:ncol(small_S)) {
+    result[i,j] <- max(pmin(small_R[i,], small_S[,j]))
+  }
+}
+print(result)
+
+# Compare with Gödel composition (should be same)
+compose(small_R, small_S, alg=algebra("goedel"), type="basic")
+```
+
+## Summary
+
+The composition of fuzzy relations is a powerful tool for:
+
+- **Inference**: Deriving new relationships from existing ones
+- **Recommendation systems**: Combining user preferences with item features
+- **Medical diagnosis**: Inferring diseases from symptoms
+- **Control systems**: Relating inputs to outputs through intermediate variables
+
+Key features in `lfl`:
+
+- Multiple algebras (Gödel, Goguen, Łukasiewicz)
+- Various composition types (basic, sub, super, square)
+- Support for excluding and unavoidable features
+- Generalized quantifiers via Sugeno integrals
+- Flexible matrix operations with `mult()`
+
+## References
+
+- Bandler, W., & Kohout, L. J. (1980). Fuzzy power sets and fuzzy implication operators. *Fuzzy Sets and Systems*, 4(1), 13-30.
+- Bělohlávek, R. (2002). *Fuzzy Relational Systems: Foundations and Principles*. Springer.
+- Cao, N., Štěpnička, M., Burda, M., & Dolný, A. (2017). Excluding features in fuzzy relational compositions. *Expert Systems with Applications*, 81, 1-11.

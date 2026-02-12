@@ -1,0 +1,373 @@
+---
+title: "Linguistic Expressions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Linguistic Expressions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 6,
+  fig.height = 4
+)
+```
+
+```{r setup}
+library(lfl)
+library(ggplot2)
+```
+
+# Evaluative Linguistic Expressions
+
+**Evaluative linguistic expressions** are a central concept in linguistic fuzzy logic. These are expressions of the form:
+
+> ⟨linguistic hedge⟩ ⟨atomic expression⟩
+
+Examples include: *"very small"*, *"roughly medium"*, *"extremely big"*.
+
+## Context Definition
+
+Before creating linguistic expressions, we need to define a **context** that specifies the universe of discourse:
+
+### Three-Point Context (ctx3)
+
+The most basic context uses three points: low, center, and high:
+
+```{r}
+# Default context: [0, 0.5, 1]
+ctx <- ctx3()
+print(ctx)
+
+# Custom context
+ctx_age <- ctx3(low=0, center=50, high=100)
+print(ctx_age)
+
+# Context for prices
+ctx_price <- ctx3(low=5, center=100, high=1000)
+print(ctx_price)
+```
+
+### Five-Point Context (ctx5)
+
+For more granularity, use a five-point context:
+
+```{r}
+ctx <- ctx5(low=0, center=50, high=100)
+print(ctx)
+
+# With custom positions
+ctx <- ctx5(low=0, lowerCenter=25, center=50, upperCenter=75, high=100)
+print(ctx)
+```
+
+### Bilateral Contexts
+
+For domains with negative and positive values:
+
+```{r}
+# Bilateral three-point context
+ctx <- ctx3bilat(negMax=-100, origin=0, posMax=100)
+print(ctx)
+
+# Bilateral five-point context
+ctx <- ctx5bilat(negMax=-100, origin=0, posMax=100)
+print(ctx)
+```
+
+## Automatic Context Creation
+
+The `minmax()` function creates a context automatically from data:
+
+```{r}
+# Generate random data
+data <- runif(n=100, min=20, max=5000)
+summary(data)
+
+# Create context from data
+ctx <- minmax(data, type="ctx3")
+print(ctx)
+
+# With custom center
+ctx <- minmax(data, type="ctx3", center=1000)
+print(ctx)
+```
+
+## Atomic Expressions
+
+Atomic expressions are the basic building blocks. There are three standard atomic expressions:
+
+- **"sm"** (small)
+- **"me"** (medium)
+- **"bi"** (big)
+
+Create atomic expressions using `horizon()`:
+
+```{r}
+ctx <- ctx3(low=0, center=50, high=100)
+
+# Create small horizon
+sm_horiz <- horizon(ctx, atomic="sm")
+sm_horiz(c(0, 25, 50, 75, 100))
+
+# Create medium horizon
+me_horiz <- horizon(ctx, atomic="me")
+me_horiz(c(0, 25, 50, 75, 100))
+
+# Create big horizon
+bi_horiz <- horizon(ctx, atomic="bi")
+bi_horiz(c(0, 25, 50, 75, 100))
+```
+
+### Visualizing Atomic Expressions
+
+```{r}
+ctx <- ctx3()
+
+sm_horiz <- horizon(ctx, atomic="sm")
+me_horiz <- horizon(ctx, atomic="me")
+bi_horiz <- horizon(ctx, atomic="bi")
+
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  stat_function(aes(color="small"), fun = sm_horiz) +
+  stat_function(aes(color="medium"), fun = me_horiz) +
+  stat_function(aes(color="big"), fun = bi_horiz) +
+  xlim(-0.5, 1.5) +
+  labs(x="Value", y="Membership Degree", colour="Atomic\nExpression") +
+  theme_minimal()
+```
+
+## Linguistic Hedges
+
+Linguistic hedges modify atomic expressions to create nuanced meanings. Standard hedges include:
+
+- **"ex"** (extremely)
+- **"si"** (significantly)
+- **"ve"** (very)
+- **"-"** (no hedge, just the atomic)
+- **"ml"** (more or less)
+- **"ro"** (roughly)
+- **"qr"** (quite roughly)
+- **"vr"** (very roughly)
+
+### Creating Hedged Expressions
+
+```{r}
+ctx <- ctx3(low=0, center=50, high=100)
+
+# Create "very small"
+ve_hedge <- hedge("ve")
+sm_horiz <- horizon(ctx, atomic="sm")
+ve_sm <- function(x) ve_hedge(sm_horiz(x))
+ve_sm(c(0, 10, 20, 30, 40))
+```
+
+### Using lingexpr() Function
+
+A more convenient way to create linguistic expressions:
+
+```{r}
+# "very small"
+ve_sm <- lingexpr(ctx, atomic="sm", hedge="ve")
+ve_sm(c(0, 10, 20, 30, 40))
+
+# "roughly medium"
+ro_me <- lingexpr(ctx, atomic="me", hedge="ro")
+ro_me(c(30, 40, 50, 60, 70))
+
+# Just "small" (no hedge)
+sm <- lingexpr(ctx, atomic="sm", hedge="-")
+sm(c(0, 10, 20, 30, 40))
+```
+
+### Visualizing Hedged Expressions for "Small"
+
+```{r}
+ctx <- ctx3()
+
+hedges <- c("ex", "si", "ve", "-", "ml", "ro", "qr", "vr")
+colors <- c("ex.sm"="red", "si.sm"="orange", "ve.sm"="yellow", 
+            "-.sm"="green", "ml.sm"="cyan", "ro.sm"="blue", 
+            "qr.sm"="purple", "vr.sm"="magenta")
+
+plot_data <- data.frame(x = seq(0, 0.7, by=0.01))
+for (h in hedges) {
+  expr <- lingexpr(ctx, atomic="sm", hedge=h)
+  col_name <- paste(h, "sm", sep=".")
+  plot_data[[col_name]] <- expr(plot_data$x)
+}
+
+library(tidyr)
+plot_long <- pivot_longer(plot_data, -x, names_to="expression", values_to="degree")
+
+ggplot(plot_long, aes(x=x, y=degree, color=expression)) +
+  geom_line(linewidth=1) +
+  labs(x="Value", y="Membership Degree", title="Hedged 'Small' Expressions") +
+  theme_minimal() +
+  theme(legend.position="right")
+```
+
+### Visualizing Hedged Expressions for "Big"
+
+```{r}
+plot_data <- data.frame(x = seq(0.3, 1, by=0.01))
+for (h in hedges) {
+  expr <- lingexpr(ctx, atomic="bi", hedge=h)
+  col_name <- paste(h, "bi", sep=".")
+  plot_data[[col_name]] <- expr(plot_data$x)
+}
+
+plot_long <- pivot_longer(plot_data, -x, names_to="expression", values_to="degree")
+
+ggplot(plot_long, aes(x=x, y=degree, color=expression)) +
+  geom_line(linewidth=1) +
+  labs(x="Value", y="Membership Degree", title="Hedged 'Big' Expressions") +
+  theme_minimal() +
+  theme(legend.position="right")
+```
+
+## Custom Membership Functions
+
+Besides linguistic expressions, you can define custom membership functions using `triangular()` and `raisedcosine()`:
+
+### Triangular Membership Functions
+
+```{r}
+# Standard triangular function
+tri <- triangular(0, 0.5, 1)
+tri(seq(from = 0, to = 1, by = 0.2))
+
+# Left-unbounded triangular function
+tri_left <- triangular(-Inf, 0.5, 1)
+tri_left(c(0, 0.25, 0.5, 0.75, 1))
+
+# Right-unbounded triangular function
+tri_right <- triangular(0, 0.5, Inf)
+tri_right(c(0, 0.25, 0.5, 0.75, 1))
+```
+
+Visualizing triangular functions:
+
+```{r}
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  stat_function(aes(color="bounded"), fun = triangular(0, 0.5, 1)) +
+  stat_function(aes(color="left-unbounded"), fun = triangular(-Inf, 0.5, 1), 
+                linetype="dashed") +
+  stat_function(aes(color="right-unbounded"), fun = triangular(0, 0.5, Inf), 
+                linetype="dotted") +
+  xlim(-0.2, 1.2) +
+  labs(x="Value", y="Membership Degree", colour="Type") +
+  theme_minimal()
+```
+
+### Raised Cosine Membership Functions
+
+```{r}
+# Standard raised cosine function
+rcos <- raisedcosine(0, 0.5, 1)
+rcos(seq(from = 0, to = 1, by = 0.2))
+
+# Left-unbounded
+rcos_left <- raisedcosine(-Inf, 0.5, 1)
+
+# Right-unbounded
+rcos_right <- raisedcosine(0, 0.5, Inf)
+```
+
+Visualizing raised cosine functions:
+
+```{r}
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  stat_function(aes(color="bounded"), fun = raisedcosine(0, 0.5, 1)) +
+  stat_function(aes(color="left-unbounded"), fun = raisedcosine(-Inf, 0.5, 1), 
+                linetype="dashed") +
+  stat_function(aes(color="right-unbounded"), fun = raisedcosine(0, 0.5, Inf), 
+                linetype="dotted") +
+  xlim(-0.2, 1.2) +
+  labs(x="Value", y="Membership Degree", colour="Type") +
+  theme_minimal()
+```
+
+## Transforming Data with Linguistic Expressions
+
+The `lcut()` function transforms data into fuzzy sets using linguistic expressions:
+
+### Logical Data
+
+```{r}
+logvec <- c(TRUE, FALSE, TRUE, TRUE)
+lcut(logvec)
+lcut(logvec, name="employed")
+```
+
+### Factor Data
+
+```{r}
+position <- factor(c("worker", "manager", "worker", "accountant"))
+lcut(position)
+```
+
+### Numeric Data
+
+```{r}
+age <- c(25, 45, 32, 58)
+lcut(age, context=ctx3(low=0, high=100))
+```
+
+### Data Frames
+
+Transform entire data frames:
+
+```{r}
+data <- data.frame(
+  position = position,
+  age = age,
+  employed = logvec
+)
+
+employees <- lcut(data,
+                  context = ctx3(low=0, high=100),
+                  atomic = c("sm", "me", "bi"),
+                  hedges = c("ve", "-", "ro"))
+
+# View variable names
+vars(employees)
+
+# View specifications
+head(specs(employees))
+```
+
+Custom contexts for different variables:
+
+```{r}
+data$salary <- c(25000, 65000, 42000, 89000)
+
+employees <- lcut(data,
+                  context = list(age=ctx3(low=0, high=100),
+                                salary=ctx3(low=10000, high=100000)),
+                  atomic = list(salary=c("sm", "bi")),
+                  hedges = list(age=c("ve", "-", "ro"),
+                               salary=c("ex", "ve", "-", "ro")))
+
+colnames(employees)
+```
+
+## Summary
+
+Evaluative linguistic expressions provide a powerful and intuitive way to work with vague concepts in fuzzy logic. The `lfl` package offers:
+
+- Flexible context definitions (ctx3, ctx5, bilateral)
+- Standard atomic expressions (small, medium, big)
+- Rich set of linguistic hedges (extremely, very, roughly, etc.)
+- Custom membership functions (triangular, raised cosine)
+- Easy data transformation with `lcut()`
+
+These tools enable natural expression of imprecise concepts in data analysis and fuzzy reasoning.
+
+## References
+
+- Novák, V. (2008). A comprehensive theory of trichotomous evaluative linguistic expressions. *Fuzzy Sets and Systems*, 159(22), 2939-2969.
+- Novák, V., Perfilieva, I., & Dvořák, A. (2016). Insight into Fuzzy Modeling. *Wiley*.
