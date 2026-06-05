@@ -92,7 +92,7 @@ to \code{\link[=pgoedel.tconorm]{pgoedel.tconorm()}}.
 
 }
 \seealso{
-\code{\link[=fire]{fire()}}, \code{\link[=perceive]{perceive()}}, \code{\link[=defuzz]{defuzz()}}, \code{\link[=fcut]{fcut()}}, \code{\link[=lcut]{lcut()}}
+\code{\link[=fire]{fire()}}, \code{\link[=perceive]{perceive()}}, \code{\link[=pbld]{pbld()}}, \code{\link[=infer]{infer()}}, \code{\link[=defuzz]{defuzz()}}, \code{\link[=fcut]{fcut()}}, \code{\link[=lcut]{lcut()}}
 }
 \author{
 Michal Burda

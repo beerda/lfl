@@ -59,7 +59,7 @@ defuzz(c(0, 0, 0, 0.1, 0.3, 0.9, 0.9, 0.9, 0.2, 0),
 
 }
 \seealso{
-\code{\link[=fire]{fire()}}, \code{\link[=aggregateConsequents]{aggregateConsequents()}}, \code{\link[=perceive]{perceive()}}, \code{\link[=pbld]{pbld()}}, \code{\link[=fcut]{fcut()}}, \code{\link[=lcut]{lcut()}}
+\code{\link[=fire]{fire()}}, \code{\link[=aggregateConsequents]{aggregateConsequents()}}, \code{\link[=perceive]{perceive()}}, \code{\link[=pbld]{pbld()}}, \code{\link[=infer]{infer()}}, \code{\link[=fcut]{fcut()}}, \code{\link[=lcut]{lcut()}}
 }
 \author{
 Michal Burda

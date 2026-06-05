@@ -1,36 +1,63 @@
+#######################################################################
+# lfl: Linguistic Fuzzy Logic
+# Copyright (C) 2026 Michal Burda
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <https://www.gnu.org/licenses/>.
+#######################################################################
+
+
 #' Perform Mamdani or implicative fuzzy inference with given rule-base on given
 #' dataset
 #'
 #' Take a set of rules (a rule-base) and perform Mamdani or implicative
-#' inference on each row of a given matrix of truth values.
+#' inference on each row of a given matrix (or the [fsets()] object) of truth
+#'  values.
 #'
 #' Perform Mamdani or implicative fuzzy inference with given rule-base `rules`
 #' on each row of input `x`. Columns of `x` are truth values of predicates that
-#' appear in the antecedent part of `rules`. The `partition` matrix together
-#' with its rows determines the shape of predicates in consequents: each row
-#' represents a point in the output fuzzy set for which membership degrees
-#' are computed.
+#' appear in the antecedent part of `rules`. The `partition` matrix determines
+#' the shape of predicates in consequents: each row represents a point in the
+#' output fuzzy set for which membership degrees are computed.
+#'
+#' For both inference types, the predicates in the antecedent part of rules are
+#' combined using a t-norm (`alg$pt`) of the given algebra `alg` (see also the
+#' `fire()` function).
 #'
 #' For the Mamdani inference (`type = "mamdani"`), the antecedent firing
-#' degrees are combined with the consequent partition using a t-norm and the
-#' resulting fuzzy sets are aggregated with a t-conorm.
+#' degrees are combined with the consequent partition using a t-norm (`alg$pt`)
+#' of the selected algebra `alg`, and the resulting fuzzy sets are aggregated
+#' with a t-conorm (`alg$ps`).
 #'
 #' For the implicative inference (`type = "implicative"`), the antecedent
 #' firing degrees are combined with the consequent partition using a residuum
-#' and the resulting fuzzy sets are aggregated with a t-norm (intersection).
+#' (`alg$r`) of the selected algebra `alg`, and the resulting fuzzy sets are
+#' aggregated with a t-norm (`alg$pi`).
 #'
 #' @param x Input to the inference. It must be a numeric matrix with columns
 #' representing fuzzy sets (truth values of predicates). Each row represents a
 #' single case of inference. Columns should be named after predicates in rules'
-#' antecedents.
+#' antecedents. The values must be in the interval \eqn{[0, 1]}. `x` can also be
+#' an object of class [fsets()] (e.g., created by using the [fcut()] or [lcut()]
+#' functions).
 #' @param rules A rule-base (a.k.a. linguistic description) either in the form
 #' of the [farules()] object or as a list of character vectors where
 #' each element is a fuzzy set name (a predicate) and thus each such vector
 #' forms a rule. The first element of each rule is the consequent predicate,
 #' and the remaining elements are antecedent predicates.
-#' @param partition A numeric matrix with columns that are consequents in
-#' `rules`. The column names of `partition` must correspond to consequent
-#' predicate names used in `rules`. Each row represents a point in the
+#' @param partition A numeric matrix (or a [fsets()] object) with columns that
+#' are consequents in `rules`. The column names of `partition` must correspond
+#' to consequent predicate names used in `rules`. Each row represents a point in the
 #' output domain.
 #' @param alg The algebra to use for the inference. It can be either a character
 #' string (`"goedel"`, `"goguen"`, or `"lukasiewicz"`) or an instance of the
@@ -41,14 +68,13 @@
 #' Parallelization is implemented using the [foreach::foreach()]
 #' package. The parallel environment must be set properly in advance, e.g., with
 #' the [doMC::registerDoMC()] function.
-#' @return A numeric matrix of inferred membership degrees. The number of rows
-#' corresponds to the number of rows of the `x` argument, the number of
-#' columns corresponds to the number of rows of the `partition` argument.
+#' @return A numeric matrix of inferred membership degrees. The rows of the
+#' result correspond to rows of the `x` argument, the columns of the result
+#' correspond to rows of the `partition` argument.
 #' @author Michal Burda
 #' @seealso [pbld()], [fire()], [aggregateConsequents()], [defuzz()], [algebra()], [farules()], [lcut()]
 #' @keywords models robust
 #' @examples
-#'
 #' # Create rules: first element is the consequent, the rest are antecedents
 #' rules <- list(
 #'     c("High",   "temp_high",   "pressure_high"),
@@ -57,6 +83,7 @@
 #' )
 #'
 #' # Create input data (fuzzy set membership degrees)
+#' # (Alternatively, fcut() or lcut() functions can be used)
 #' x <- matrix(
 #'     c(0.9, 0.8, 0.2, 0.3, 0.1,
 #'       0.1, 0.2, 0.4, 0.5, 0.8),
@@ -67,6 +94,7 @@
 #'                   "temp_medium", "pressure_medium", "temp_low")
 #'
 #' # Create output partition
+#' # (Alternatively, fcut() or lcut() functions can be used)
 #' partition <- matrix(
 #'     c(1.0, 0.2, 0.0,
 #'       0.8, 0.5, 0.1,

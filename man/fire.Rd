@@ -99,7 +99,7 @@ fire(x, antecedents(rules), tnorm='goedel', onlyAnte=FALSE)
 
 }
 \seealso{
-\code{\link[=aggregateConsequents]{aggregateConsequents()}}, \code{\link[=defuzz]{defuzz()}}, \code{\link[=perceive]{perceive()}}, \code{\link[=pbld]{pbld()}}, \code{\link[=fcut]{fcut()}}, \code{\link[=lcut]{lcut()}}, \code{\link[=farules]{farules()}}
+\code{\link[=aggregateConsequents]{aggregateConsequents()}}, \code{\link[=defuzz]{defuzz()}}, \code{\link[=perceive]{perceive()}}, \code{\link[=pbld]{pbld()}}, \code{\link[=infer]{infer()}}, \code{\link[=fcut]{fcut()}}, \code{\link[=lcut]{lcut()}}, \code{\link[=farules]{farules()}}
 }
 \author{
 Michal Burda

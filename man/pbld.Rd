@@ -94,7 +94,7 @@ Logic and Technology (IFSA-EUSFLAT 2015), Advances in Intelligent Systems
 Research, Atlantic Press, Gijon, 2015.
 }
 \seealso{
-\code{\link[=lcut]{lcut()}}, \code{\link[=searchrules]{searchrules()}}, \code{\link[=fire]{fire()}}, \code{\link[=aggregateConsequents]{aggregateConsequents()}}, \code{\link[=defuzz]{defuzz()}}
+\code{\link[=infer]{infer()}}, \code{\link[=lcut]{lcut()}}, \code{\link[=searchrules]{searchrules()}}, \code{\link[=fire]{fire()}}, \code{\link[=aggregateConsequents]{aggregateConsequents()}}, \code{\link[=defuzz]{defuzz()}}
 }
 \author{
 Michal Burda
