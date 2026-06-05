@@ -50,7 +50,7 @@
 #' * `'exp1'`: Experimental 1.
 #' @return A defuzzified value.
 #' @author Michal Burda
-#' @seealso [fire()], [aggregateConsequents()], [perceive()], [pbld()], [fcut()], [lcut()]
+#' @seealso [fire()], [aggregateConsequents()], [perceive()], [pbld()], [infer()], [fcut()], [lcut()]
 #' @keywords models robust
 #' @examples
 #'

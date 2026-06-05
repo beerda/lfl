@@ -72,7 +72,7 @@
 #'
 #' `x` as a vector is treated as a single-row matrix.
 #' @author Michal Burda
-#' @seealso [aggregateConsequents()], [defuzz()], [perceive()], [pbld()], [fcut()], [lcut()], [farules()]
+#' @seealso [aggregateConsequents()], [defuzz()], [perceive()], [pbld()], [infer()], [fcut()], [lcut()], [farules()]
 #' @keywords models robust multivariate
 #' @examples
 #'

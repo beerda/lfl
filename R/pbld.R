@@ -64,7 +64,7 @@
 #' @return A vector of inferred defuzzified values. The number of resulting
 #' values corresponds to the number of rows of the `x` argument.
 #' @author Michal Burda
-#' @seealso [lcut()], [searchrules()], [fire()], [aggregateConsequents()], [defuzz()]
+#' @seealso [infer()], [lcut()], [searchrules()], [fire()], [aggregateConsequents()], [defuzz()]
 #' @references A. Dvořák, M. Štěpnička, On perception-based logical deduction
 #' and its variants, in: Proc. 16th World Congress of the International Fuzzy
 #' Systems Association and 9th Conference of the European Society for Fuzzy

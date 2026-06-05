@@ -76,7 +76,7 @@
 #'   equals to the number of rows of the `partition` matrix.
 #'
 #' @author Michal Burda
-#' @seealso [fire()], [perceive()], [defuzz()], [fcut()], [lcut()]
+#' @seealso [fire()], [perceive()], [pbld()], [infer()], [defuzz()], [fcut()], [lcut()]
 #' @keywords models robust
 #' @examples
 #'     # create a partition matrix
