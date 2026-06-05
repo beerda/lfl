@@ -1,6 +1,89 @@
+#' Perform Mamdani or implicative fuzzy inference with given rule-base on given
+#' dataset
 #'
-#' @return
+#' Take a set of rules (a rule-base) and perform Mamdani or implicative
+#' inference on each row of a given matrix of truth values.
+#'
+#' Perform Mamdani or implicative fuzzy inference with given rule-base `rules`
+#' on each row of input `x`. Columns of `x` are truth values of predicates that
+#' appear in the antecedent part of `rules`. The `partition` matrix together
+#' with its rows determines the shape of predicates in consequents: each row
+#' represents a point in the output fuzzy set for which membership degrees
+#' are computed.
+#'
+#' For the Mamdani inference (`type = "mamdani"`), the antecedent firing
+#' degrees are combined with the consequent partition using a t-norm and the
+#' resulting fuzzy sets are aggregated with a t-conorm.
+#'
+#' For the implicative inference (`type = "implicative"`), the antecedent
+#' firing degrees are combined with the consequent partition using a residuum
+#' and the resulting fuzzy sets are aggregated with a t-norm (intersection).
+#'
+#' @param x Input to the inference. It must be a numeric matrix with columns
+#' representing fuzzy sets (truth values of predicates). Each row represents a
+#' single case of inference. Columns should be named after predicates in rules'
+#' antecedents.
+#' @param rules A rule-base (a.k.a. linguistic description) either in the form
+#' of the [farules()] object or as a list of character vectors where
+#' each element is a fuzzy set name (a predicate) and thus each such vector
+#' forms a rule. The first element of each rule is the consequent predicate,
+#' and the remaining elements are antecedent predicates.
+#' @param partition A numeric matrix with columns that are consequents in
+#' `rules`. The column names of `partition` must correspond to consequent
+#' predicate names used in `rules`. Each row represents a point in the
+#' output domain.
+#' @param alg The algebra to use for the inference. It can be either a character
+#' string (`"goedel"`, `"goguen"`, or `"lukasiewicz"`) or an instance of the
+#' [algebra()] class.
+#' @param type The type of inference to use. It can be either `"mamdani"` or
+#' `"implicative"`.
+#' @param parallel Whether the processing should be run in parallel or not.
+#' Parallelization is implemented using the [foreach::foreach()]
+#' package. The parallel environment must be set properly in advance, e.g., with
+#' the [doMC::registerDoMC()] function.
+#' @return A numeric matrix of inferred membership degrees. The number of rows
+#' corresponds to the number of rows of the `x` argument, the number of
+#' columns corresponds to the number of rows of the `partition` argument.
 #' @author Michal Burda
+#' @seealso [pbld()], [fire()], [aggregateConsequents()], [defuzz()], [algebra()], [farules()], [lcut()]
+#' @keywords models robust
+#' @examples
+#'
+#' # Create rules: first element is the consequent, the rest are antecedents
+#' rules <- list(
+#'     c("High",   "temp_high",   "pressure_high"),
+#'     c("Medium", "temp_medium", "pressure_medium"),
+#'     c("Low",    "temp_low")
+#' )
+#'
+#' # Create input data (fuzzy set membership degrees)
+#' x <- matrix(
+#'     c(0.9, 0.8, 0.2, 0.3, 0.1,
+#'       0.1, 0.2, 0.4, 0.5, 0.8),
+#'     nrow = 2,
+#'     byrow = TRUE
+#' )
+#' colnames(x) <- c("temp_high", "pressure_high",
+#'                   "temp_medium", "pressure_medium", "temp_low")
+#'
+#' # Create output partition
+#' partition <- matrix(
+#'     c(1.0, 0.2, 0.0,
+#'       0.8, 0.5, 0.1,
+#'       0.4, 1.0, 0.4,
+#'       0.1, 0.5, 0.8,
+#'       0.0, 0.1, 1.0),
+#'     nrow = 5,
+#'     byrow = TRUE
+#' )
+#' colnames(partition) <- c("Low", "Medium", "High")
+#'
+#' # Mamdani inference with Goedel algebra
+#' infer(x, rules, partition, alg = "goedel", type = "mamdani")
+#'
+#' # Implicative inference with Lukasiewicz algebra
+#' infer(x, rules, partition, alg = "lukasiewicz", type = "implicative")
+#'
 #' @export
 infer <- function(x,
                   rules,
