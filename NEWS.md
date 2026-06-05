@@ -1,6 +1,7 @@
 # lfl 2.3.2
 * released: ???
 * added upperBound() algebra for missing values
+* added infer() function for Mamdani and implicative inference
 
 
 # lfl 2.3.1
