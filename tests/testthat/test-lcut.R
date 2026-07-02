@@ -404,3 +404,16 @@ test_that('lcut empty data.frame', {
     expect_equal(specs(res), s)
     expect_true(is.fsets(res))
 })
+
+
+test_that('lcut bug - atomic="me" and hedges does not have "-"', {
+    d <- data.frame(age = c(25, 28, 38, 47, 48),
+                    resources = c(2, 18, 10, 3, 18))
+
+    res <- lcut(d,
+                atomic = c("sm", "me", "bi"),
+                hedges = c("ve", "ex"))
+
+    expect_true(is.matrix(res))
+    expect_true(inherits(res, 'fsets'))
+})

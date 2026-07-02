@@ -238,19 +238,21 @@ lcut.numeric <- function(x,
     for (a in atomic) {
         allowedHedges <- names(which(allowed.lingexpr[, a]))
         allowedHedges <- intersect(allowedHedges, hedges)
-        m <- lapply(allowedHedges, function(h) {
-            lingexpr(context, atomic=a, hedge=h, hedgeParams=hedgeParams)(x)
-        })
-        m <- matrix(unlist(m, use.names=FALSE), ncol=length(m), byrow=FALSE)
+        if (length(allowedHedges) > 0) {
+            m <- lapply(allowedHedges, function(h) {
+                lingexpr(context, atomic=a, hedge=h, hedgeParams=hedgeParams)(x)
+            })
+            m <- matrix(unlist(m, use.names=FALSE), ncol=length(m), byrow=FALSE)
 
-        n <- paste(allowedHedges, a, name, sep='.')
-        n <- sub('-.', '', n, fixed=TRUE)
-        colnames(m) <- n
+            n <- paste(allowedHedges, a, name, sep='.')
+            n <- sub('-.', '', n, fixed=TRUE)
+            colnames(m) <- n
 
-        v <- rep(name, ncol(m))
-        s <- .sharpness[allowedHedges, allowedHedges, drop=FALSE]
-        f <- fsets(m, v, s)
-        res <- cbind.fsets(res, f, warn=FALSE)
+            v <- rep(name, ncol(m))
+            s <- .sharpness[allowedHedges, allowedHedges, drop=FALSE]
+            f <- fsets(m, v, s)
+            res <- cbind.fsets(res, f, warn=FALSE)
+        }
     }
     return(res)
 }
