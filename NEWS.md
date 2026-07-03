@@ -1,7 +1,8 @@
-# lfl 2.3.2
-* released: ???
+# lfl 2.4.0
+* released: 2026-07-03
 * added upperBound() algebra for missing values
 * added infer() function for Mamdani and implicative inference
+* fixed bugs
 
 
 # lfl 2.3.1
